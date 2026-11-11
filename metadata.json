@@ -1,0 +1,6 @@
+{
+  "name": "Junior de Barranquilla - Enciclopedia Histórica Oficial",
+  "description": "Gran enciclopedia histórica oficial de Junior de Barranquilla con archivo de clásicos del FPC, campañas internacionales, las 10 estrellas de Liga, 14 títulos oficiales Dimayor, museo de camisetas y máximos goleadores.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
