@@ -198,8 +198,8 @@ export const LegendsSection: React.FC = () => {
                   <span>Dirección Técnica & Proceso</span>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  <strong className="text-white">Arturo Reyes:</strong> Campeón de la 10ª estrella (Dic 2023) y líder invicto de fase en Libertadores 2024 (1-3 a Botafogo en Río) hasta sept. 2024.<br />
-                  <strong className="text-white">César Farías:</strong> Asumió en septiembre 2024 para la recta final de liga y torneos 2025, integrando el nuevo ciclo técnico con ídolos de la casa.
+                  <strong className="text-white">Alfredo Arias (Bicampeón ★11 y ★12):</strong> Asumió el 23 de junio de 2025 y condujo a Junior a un histórico bicampeonato de Liga: la 11ª estrella (2025-II, 4-0 global ante Tolima) y la 12ª estrella (2026-I, 3-1 global ante Atlético Nacional).<br />
+                  <strong className="text-white">Arturo Reyes &amp; César Farías:</strong> Reyes coronó la 10ª estrella (Dic 2023); Farías dirigió entre sept. 2024 y junio 2025 cerrando 3.º regular en 2025-I.
                 </p>
               </div>
 
@@ -209,8 +209,8 @@ export const LegendsSection: React.FC = () => {
                   <span>Mercado de Fichajes Reciente (2024 - 2026)</span>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  <strong className="text-white">Transferencias:</strong> Gabriel Fuentes traspasado a Fluminense (agosto 2024); Walmer Pacheco al Pereira. Edwin Herrera y Yeferson Moreno asumieron las bandas laterales.<br />
-                  <strong className="text-white">Refuerzos:</strong> Regreso de Vladimir Hernández, llegada de Andrés Colorado y Nicolás Zalazar; Steven &quot;Titi&quot; Rodríguez consolidado como goleador y Carlos Bacca superando los 125 goles.
+                  <strong className="text-white">Bombazo 2026-I:</strong> Llegada de <strong className="text-amber-300">Luis Muriel (#10)</strong>, Botín de Oro del Apertura 2026 (13 goles) y figura de la final vs Nacional.<br />
+                  <strong className="text-white">Base &amp; Cantera:</strong> Regreso de Vladimir Hernández, consolidación de Bryan Castrillón y Steven Rodríguez junto al capitán Carlos Bacca (125+ goles).
                 </p>
               </div>
             </div>
@@ -222,7 +222,7 @@ export const LegendsSection: React.FC = () => {
                   Nómina Oficial Registrada ante Dimayor
                 </span>
                 <span className="text-xs font-mono text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800/80 px-2.5 py-0.5 rounded-full w-fit">
-                  22 Jugadores Inscritos · Capitán: Carlos Bacca (#70)
+                  {CURRENT_ROSTER.length} Jugadores Inscritos · Capitán: Carlos Bacca (#70)
                 </span>
               </div>
 

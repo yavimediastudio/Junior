@@ -11,7 +11,7 @@ import { KITS_DATA } from '../data/juniorData';
 import { CustomJerseyConfig, KitJersey } from '../types/football';
 
 export const JerseysSection: React.FC = () => {
-  const [selectedKit, setSelectedKit] = useState<KitJersey>(KITS_DATA[5]); // Default to 2023 La Décima
+  const [selectedKit, setSelectedKit] = useState<KitJersey>(KITS_DATA[KITS_DATA.length - 1]); // Default to 2026 12ª Estrella
   const [copied, setCopied] = useState(false);
 
   // Customizer state
@@ -37,7 +37,7 @@ export const JerseysSection: React.FC = () => {
 
   const handleCopyCard = () => {
     navigator.clipboard?.writeText(
-      `Mi Camiseta Oficial de Junior de Barranquilla: ${config.name} #${config.number} - 10 Estrellas Doradas ⭐`
+      `Mi Camiseta Oficial de Junior de Barranquilla: ${config.name} #${config.number} - 12 Estrellas Doradas ⭐`
     );
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -59,7 +59,7 @@ export const JerseysSection: React.FC = () => {
             </h2>
           </div>
           <p className="text-xs text-slate-400 max-w-md">
-            Desde el viejo Romelio Martínez en 1977 hasta la Doceava Estrella de 2026.
+            Desde el viejo Romelio Martínez en 1977 hasta la Duodécima Estrella de 2026.
             Personaliza tu dorsal rojiblanco con tu nombre y número.
           </p>
         </div>
@@ -293,7 +293,7 @@ export const JerseysSection: React.FC = () => {
                           {config.number || '10'}
                         </text>
 
-                        {/* 10 Golden Stars over collar */}
+                        {/* 12 Golden Stars over collar */}
                         <text
                           x="150"
                           y="78"
@@ -346,6 +346,12 @@ export const JerseysSection: React.FC = () => {
                   Atajos de Leyendas:
                 </span>
                 <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => applyPreset('MURIEL', '10', 'classic')}
+                    className="px-2.5 py-1 text-xs font-medium rounded bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800"
+                  >
+                    Muriel #10 (La Duodécima)
+                  </button>
                   <button
                     onClick={() => applyPreset('BACCA', '70', 'classic')}
                     className="px-2.5 py-1 text-xs font-medium rounded bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800"

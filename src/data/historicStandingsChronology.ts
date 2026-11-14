@@ -1,7 +1,7 @@
 import { TournamentStandingsTable } from '../types/football';
 
 /**
- * Colección Cronológica Oficial de Tablas de Posiciones Dimayor (1948 - 2024)
+ * Colección Cronológica Oficial de Tablas de Posiciones Dimayor (1948 - 2026)
  * Estructurada en estricto orden cronológico:
  * 1. Tabla de Todos contra Todos (Fase Regular)
  * 2. Fase de Play-offs / Final (Triangular, Cuadrangular, Hexagonal, Octogonal o Llaves K.O.)
@@ -5212,6 +5212,129 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       { stage: 'Gran Final Vuelta (29 jun)', homeTeam: 'Independiente Medellín', awayTeam: 'Independiente Santa Fe', homeScore: 1, awayScore: 2, note: 'Fydriszewski (18\') adelantó al DIM; Harold Santiago Mosquera (31\') y Hugo Rodallega (79\') coronaron a Santa Fe (10ª estrella)' },
     ],
   },
+
+  // ---------------------------------------------------------------------------------------
+  // 2025-II: TODOS CONTRA TODOS + CUADRANGULAR A + GRAN FINAL VS TOLIMA (11ª ESTRELLA ★)
+  // ---------------------------------------------------------------------------------------
+  {
+    id: '2025-II-cuadrangular',
+    year: '2025-II',
+    chronologicalOrder: 202502,
+    tournamentName: 'Torneo Finalización 2025 (Liga BetPlay Dimayor II — 101ª Edición)',
+    phaseTitle: 'Liga BetPlay 2025-II — 5º Regular (35 pts), Cuadrangular A & Gran Final vs Tolima (11ª ESTRELLA ★)',
+    phaseType: 'cuadrangular',
+    description: '¡La Undécima Estrella! Bajo la conducción del técnico uruguayo Alfredo Arias (llegado el 23 de junio de 2025), Junior fue 5.º del Todos contra Todos con 35 puntos (10 PG, 5 PE, 5 PP; 35-25, +10 DG), ganó con autoridad el durísimo Cuadrangular A sobre América, Atlético Nacional e Independiente Medellín (11 puntos; 8-6) y barrió 4-0 en el global al Deportes Tolima en la Gran Final (3-0 en el Metropolitano ante 46.692 hinchas con doblete de José Enamorado y tanto de Bryan Castrillón, más 0-1 en Ibagué con otro gol de Enamorado al 17\'). Sumó 52 puntos en 28 PJ asegurando Colombia 2 a Copa Libertadores 2026.',
+    juniorFinish: '1º CAMPEÓN DE COLOMBIA ★ (11ª Estrella • 52 pts totales)',
+    championTeam: 'Junior de Barranquilla (11ª Estrella)',
+    isJuniorChampion: true,
+    hasRegularPhase: true,
+    regularPhaseTitle: '1ª FASE: Tabla Oficial Todos contra Todos — Finalización 2025 (20 Fechas)',
+    regularPhaseDescription: 'Clasificación general del Finalización 2025 (11 de julio – noviembre). Independiente Medellín lideró con 40 pts; Junior clasificó 5.º con 35 unidades (+10 DG). Unión Magdalena y Envigado descendieron a Primera B.',
+    regularRows: [
+      { pos: 1, team: 'Independiente Medellín', pj: 20, pg: 12, pe: 4, pp: 4, gf: 46, gc: 28, dg: 18, pts: 40, statusBadge: '1º Punto Invisible • Grupo A' },
+      { pos: 2, team: 'Deportes Tolima', pj: 20, pg: 12, pe: 2, pp: 6, gf: 29, gc: 17, dg: 12, pts: 38, statusBadge: '2º Subcampeón 🥈 (Grupo B)' },
+      { pos: 3, team: 'Atlético Nacional', pj: 20, pg: 10, pe: 7, pp: 3, gf: 38, gc: 24, dg: 14, pts: 37, statusBadge: '3º Grupo A' },
+      { pos: 4, team: 'Atlético Bucaramanga', pj: 20, pg: 11, pe: 4, pp: 5, gf: 31, gc: 20, dg: 11, pts: 37, statusBadge: '4º Grupo B' },
+      { pos: 5, team: 'Junior de Barranquilla', pj: 20, pg: 10, pe: 5, pp: 5, gf: 35, gc: 25, dg: 10, pts: 35, statusBadge: '5º Clasificado • CAMPEÓN ★ (11ª)', isJunior: true },
+      { pos: 6, team: 'Fortaleza CEIF', pj: 20, pg: 9, pe: 8, pp: 3, gf: 25, gc: 19, dg: 6, pts: 35, statusBadge: '6º Grupo B' },
+      { pos: 7, team: 'Independiente Santa Fe', pj: 20, pg: 8, pe: 7, pp: 5, gf: 21, gc: 17, dg: 4, pts: 31, statusBadge: '7º Grupo B' },
+      { pos: 8, team: 'América de Cali', pj: 20, pg: 8, pe: 5, pp: 7, gf: 23, gc: 19, dg: 4, pts: 29, statusBadge: '8º Grupo A' },
+      { pos: 9, team: 'Alianza Valledupar', pj: 20, pg: 8, pe: 5, pp: 7, gf: 24, gc: 22, dg: 2, pts: 29, statusBadge: '9º Eliminado' },
+      { pos: 10, team: 'Águilas Doradas', pj: 20, pg: 7, pe: 6, pp: 7, gf: 29, gc: 27, dg: 2, pts: 27, statusBadge: '10º Eliminado' },
+      { pos: 11, team: 'Once Caldas', pj: 20, pg: 7, pe: 6, pp: 7, gf: 21, gc: 24, dg: -3, pts: 27, statusBadge: '11º Eliminado' },
+      { pos: 12, team: 'Millonarios', pj: 20, pg: 7, pe: 5, pp: 8, gf: 23, gc: 26, dg: -3, pts: 26, statusBadge: '12º Eliminado' },
+      { pos: 13, team: 'Llaneros', pj: 20, pg: 7, pe: 4, pp: 9, gf: 17, gc: 25, dg: -8, pts: 25, statusBadge: '13º Eliminado' },
+      { pos: 14, team: 'Deportivo Cali', pj: 20, pg: 5, pe: 6, pp: 9, gf: 22, gc: 28, dg: -6, pts: 21, statusBadge: '14º Eliminado' },
+      { pos: 15, team: 'Unión Magdalena', pj: 20, pg: 6, pe: 3, pp: 11, gf: 22, gc: 32, dg: -10, pts: 21, statusBadge: '15º Descendido a Primera B' },
+      { pos: 16, team: 'Envigado F. C.', pj: 20, pg: 4, pe: 8, pp: 8, gf: 18, gc: 22, dg: -4, pts: 20, statusBadge: '16º Descendido a Primera B' },
+      { pos: 17, team: 'Deportivo Pasto', pj: 20, pg: 4, pe: 7, pp: 9, gf: 26, gc: 28, dg: -2, pts: 19, statusBadge: '17º Eliminado' },
+      { pos: 18, team: 'Deportivo Pereira', pj: 20, pg: 4, pe: 6, pp: 10, gf: 19, gc: 36, dg: -17, pts: 18, statusBadge: '18º Eliminado' },
+      { pos: 19, team: 'Boyacá Chicó', pj: 20, pg: 3, pe: 7, pp: 10, gf: 14, gc: 29, dg: -15, pts: 16, statusBadge: '19º Eliminado' },
+      { pos: 20, team: 'La Equidad', pj: 20, pg: 3, pe: 5, pp: 12, gf: 14, gc: 29, dg: -15, pts: 14, statusBadge: '20º Eliminado' },
+    ],
+    hasFinalPhase: true,
+    finalPhaseTitle: '2ª FASE: Cuadrangular Semifinal Grupo A & Gran Final — Finalización 2025',
+    finalPhaseDescription: 'Invicto en sus primeras cinco jornadas (1-0 al DIM, empates 1-1 ante América y Nacional como visitante, y victorias 2-1 sobre Nacional y América en casa), Junior lideró el Grupo A con 11 pts y arrolló 4-0 en la Gran Final a Deportes Tolima. José Enamorado sumó 8 goles (3 en la final), Guillermo Paiva y Yimmi Chará lideraron con 6 asistencias cada uno, y el club cerró con 52 puntos totales en 28 PJ.',
+    rows: [
+      { pos: 1, team: 'Junior de Barranquilla', pj: 6, pg: 3, pe: 2, pp: 1, gf: 8, gc: 6, dg: 2, pts: 11, statusBadge: 'CLASIFICADO • CAMPEÓN ★ (11ª · 52 pts tot.)', isJunior: true },
+      { pos: 2, team: 'América de Cali', pj: 6, pg: 2, pe: 2, pp: 2, gf: 8, gc: 8, dg: 0, pts: 8, statusBadge: '2º Eliminado' },
+      { pos: 3, team: 'Atlético Nacional', pj: 6, pg: 2, pe: 2, pp: 2, gf: 7, gc: 7, dg: 0, pts: 8, statusBadge: '3º Eliminado' },
+      { pos: 4, team: 'Independiente Medellín', pj: 6, pg: 1, pe: 2, pp: 3, gf: 5, gc: 7, dg: -2, pts: 5, statusBadge: '4º Eliminado' },
+    ],
+    playoffMatches: [
+      { stage: 'Cuadrangular A - Fecha 1 (19 nov)', homeTeam: 'Junior de Barranquilla', awayTeam: 'Independiente Medellín', homeScore: 1, awayScore: 0, note: 'Estreno ganador en el Metropolitano frente al líder del Todos contra Todos' },
+      { stage: 'Cuadrangular A - Fecha 2 (23 nov)', homeTeam: 'América de Cali', awayTeam: 'Junior de Barranquilla', homeScore: 1, awayScore: 1, note: 'Empate de jerarquía como visitante en el Estadio Pascual Guerrero' },
+      { stage: 'Cuadrangular A - Fecha 3 (26 nov)', homeTeam: 'Atlético Nacional', awayTeam: 'Junior de Barranquilla', homeScore: 1, awayScore: 1, note: 'Valioso punto sumado en el Estadio Metropolitano Ciudad de Itagüí' },
+      { stage: 'Cuadrangular A - Fecha 4 (30 nov)', homeTeam: 'Junior de Barranquilla', awayTeam: 'Atlético Nacional', homeScore: 2, awayScore: 1, note: 'Remontada vibrante en el Metropolitano Roberto Meléndez para tomar la cima' },
+      { stage: 'Cuadrangular A - Fecha 5 (4 dic)', homeTeam: 'Junior de Barranquilla', awayTeam: 'América de Cali', homeScore: 2, awayScore: 1, note: 'Triunfo clave en Barranquilla que dejó a Junior a un paso de la final' },
+      { stage: 'Cuadrangular A - Fecha 6 (8 dic)', homeTeam: 'Independiente Medellín', awayTeam: 'Junior de Barranquilla', homeScore: 2, awayScore: 1, note: 'Con 11 pts y la derrota de Nacional ante América (3-2), Junior selló el cupo a la Gran Final' },
+      { stage: 'Gran Final Ida (12 dic)', homeTeam: 'Junior de Barranquilla', awayTeam: 'Deportes Tolima', homeScore: 3, awayScore: 0, note: 'Arrollador 3-0 en el primer tiempo ante 46.692 espectadores: doblete de José Enamorado (5\', 39\') y gol de Bryan Castrillón (33\')' },
+      { stage: 'Gran Final Vuelta (16 dic)', homeTeam: 'Deportes Tolima', awayTeam: 'Junior de Barranquilla', homeScore: 0, awayScore: 1, note: 'José Enamorado (17\') sentenció el 4-0 global en el Manuel Murillo Toro de Ibagué para coronar la 11ª Estrella ★ (DT Alfredo Arias)' },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------------------
+  // 2026-I: TODOS CONTRA TODOS (19 FECHAS) + PLAY-OFFS + GRAN FINAL VS NACIONAL (12ª ESTRELLA ★ BICAMPEÓN)
+  // ---------------------------------------------------------------------------------------
+  {
+    id: '2026-I-playoffs',
+    year: '2026-I',
+    chronologicalOrder: 202601,
+    tournamentName: 'Torneo Apertura 2026 (Liga BetPlay Dimayor I — 102ª Edición)',
+    phaseTitle: 'Liga BetPlay 2026-I — 2º Regular (35 pts) & Play-offs Gran Final vs Nacional (12ª ESTRELLA ★ BICAMPEÓN)',
+    phaseType: 'playoff',
+    description: '¡La Duodécima Estrella y el Segundo Bicampeonato de Liga! Conducido por el técnico uruguayo Alfredo Arias y en formato especial de 19 fechas + play-offs directos por el Mundial 2026, Junior terminó 2.º en el Todos contra Todos con 35 puntos (11 PG, 2 PE, 6 PP; 31-24, +7 DG). En fase final eliminó a Once Caldas (3-2 global), a Independiente Santa Fe en semifinales (1-1 global y 5-4 en penales en el Estadio Romelio Martínez) y derrotó con autoridad 3-1 global a Atlético Nacional en la Gran Final (3-0 en el Romelio Martínez con tantos de Bryan Castrillón y doblete de Luis Muriel; 0-1 en el Atanasio Girardot). Totalizó 44 puntos en 25 PJ, Luis Muriel ganó el Botín de Oro (13 goles) y Junior clasificó a fase de grupos de Copa Libertadores 2027 y Superliga 2027.',
+    juniorFinish: '1º CAMPEÓN DE COLOMBIA ★ (12ª Estrella • Bicampeón • 44 pts totales)',
+    championTeam: 'Junior de Barranquilla (12ª Estrella)',
+    isJuniorChampion: true,
+    hasRegularPhase: true,
+    regularPhaseTitle: '1ª FASE: Tabla Oficial Todos contra Todos — Apertura 2026 (19 Fechas)',
+    regularPhaseDescription: 'Clasificación general del Apertura 2026 (16 de enero – 3 de mayo, sin fecha de clásicos por el calendario del Mundial 2026). Atlético Nacional lideró con 40 pts y Junior fue 2.º cabeza de serie con 35 pts (+7 DG).',
+    regularRows: [
+      { pos: 1, team: 'Atlético Nacional', pj: 19, pg: 13, pe: 1, pp: 5, gf: 35, gc: 15, dg: 20, pts: 40, statusBadge: '1º Líder • Subcampeón 🥈' },
+      { pos: 2, team: 'Junior de Barranquilla', pj: 19, pg: 11, pe: 2, pp: 6, gf: 31, gc: 24, dg: 7, pts: 35, statusBadge: '2º Clasificado • CAMPEÓN ★ (12ª)', isJunior: true },
+      { pos: 3, team: 'Deportivo Pasto', pj: 19, pg: 10, pe: 4, pp: 5, gf: 29, gc: 25, dg: 4, pts: 34, statusBadge: '3º Cuartos de Final' },
+      { pos: 4, team: 'América de Cali', pj: 19, pg: 10, pe: 3, pp: 6, gf: 25, gc: 15, dg: 10, pts: 33, statusBadge: '4º Cuartos de Final' },
+      { pos: 5, team: 'Once Caldas', pj: 19, pg: 8, pe: 9, pp: 2, gf: 31, gc: 22, dg: 9, pts: 33, statusBadge: '5º Cuartos de Final' },
+      { pos: 6, team: 'Deportes Tolima', pj: 19, pg: 8, pe: 7, pp: 4, gf: 27, gc: 17, dg: 10, pts: 31, statusBadge: '6º Semifinalista' },
+      { pos: 7, team: 'Independiente Santa Fe', pj: 19, pg: 7, pe: 8, pp: 4, gf: 29, gc: 22, dg: 7, pts: 29, statusBadge: '7º Semifinalista' },
+      { pos: 8, team: 'Internacional de Bogotá', pj: 19, pg: 7, pe: 7, pp: 5, gf: 26, gc: 26, dg: 0, pts: 28, statusBadge: '8º Cuartos de Final' },
+      { pos: 9, team: 'Deportivo Cali', pj: 19, pg: 7, pe: 6, pp: 6, gf: 20, gc: 16, dg: 4, pts: 27, statusBadge: '9º Eliminado' },
+      { pos: 10, team: 'Millonarios', pj: 19, pg: 7, pe: 5, pp: 7, gf: 31, gc: 23, dg: 8, pts: 26, statusBadge: '10º Eliminado' },
+      { pos: 11, team: 'Independiente Medellín', pj: 19, pg: 7, pe: 5, pp: 7, gf: 26, gc: 24, dg: 2, pts: 26, statusBadge: '11º Eliminado' },
+      { pos: 12, team: 'Águilas Doradas', pj: 19, pg: 7, pe: 5, pp: 7, gf: 20, gc: 25, dg: -5, pts: 26, statusBadge: '12º Eliminado' },
+      { pos: 13, team: 'Atlético Bucaramanga', pj: 19, pg: 5, pe: 8, pp: 6, gf: 26, gc: 20, dg: 6, pts: 23, statusBadge: '13º Eliminado' },
+      { pos: 14, team: 'Llaneros', pj: 19, pg: 4, pe: 10, pp: 5, gf: 17, gc: 20, dg: -3, pts: 22, statusBadge: '14º Eliminado' },
+      { pos: 15, team: 'Fortaleza CEIF', pj: 19, pg: 5, pe: 7, pp: 7, gf: 22, gc: 27, dg: -5, pts: 22, statusBadge: '15º Eliminado' },
+      { pos: 16, team: 'Jaguares', pj: 19, pg: 5, pe: 3, pp: 11, gf: 20, gc: 33, dg: -13, pts: 18, statusBadge: '16º Eliminado' },
+      { pos: 17, team: 'Alianza Valledupar', pj: 19, pg: 3, pe: 8, pp: 8, gf: 13, gc: 27, dg: -14, pts: 17, statusBadge: '17º Eliminado' },
+      { pos: 18, team: 'Boyacá Chicó', pj: 19, pg: 5, pe: 2, pp: 12, gf: 15, gc: 32, dg: -17, pts: 17, statusBadge: '18º Eliminado' },
+      { pos: 19, team: 'Cúcuta Deportivo', pj: 19, pg: 3, pe: 7, pp: 9, gf: 22, gc: 35, dg: -13, pts: 16, statusBadge: '19º Eliminado' },
+      { pos: 20, team: 'Deportivo Pereira', pj: 19, pg: 1, pe: 7, pp: 11, gf: 15, gc: 32, dg: -17, pts: 10, statusBadge: '20º Eliminado' },
+    ],
+    hasFinalPhase: true,
+    finalPhaseTitle: '2ª FASE: Play-offs Cuartos, Semifinales & Gran Final — Apertura 2026',
+    finalPhaseDescription: 'Balance acumulado de los 8 clasificados en las llaves de eliminación directa (9 de mayo – 8 de junio). Junior disputó sus partidos de vuelta y la final de ida en el Estadio Romelio Martínez de Barranquilla, ganando la Gran Final 3-1 global ante Atlético Nacional (44 puntos totales en 25 PJ). Luis Muriel fue Botín de Oro del certamen con 13 goles (empate con Andrey Estupiñán).',
+    rows: [
+      { pos: 1, team: 'Junior de Barranquilla', pj: 6, pg: 2, pe: 3, pp: 1, gf: 7, gc: 4, dg: 3, pts: 9, statusBadge: 'CAMPEÓN ★ (12ª · Bicampeón · 44 pts tot.)', isJunior: true },
+      { pos: 2, team: 'Atlético Nacional', pj: 6, pg: 5, pe: 0, pp: 1, gf: 14, gc: 6, dg: 8, pts: 15, statusBadge: 'Subcampeón 🥈 (Global 1-3)' },
+      { pos: 3, team: 'Independiente Santa Fe', pj: 4, pg: 1, pe: 3, pp: 0, gf: 6, gc: 2, dg: 4, pts: 6, statusBadge: 'Semifinalista (4-5 p. vs Junior)' },
+      { pos: 4, team: 'Deportes Tolima', pj: 4, pg: 2, pe: 0, pp: 2, gf: 4, gc: 4, dg: 0, pts: 6, statusBadge: 'Semifinalista (1-4 vs Nacional)' },
+      { pos: 5, team: 'Once Caldas', pj: 2, pg: 0, pe: 1, pp: 1, gf: 2, gc: 3, dg: -1, pts: 1, statusBadge: 'Cuartos de Final (2-3 vs Junior)' },
+      { pos: 6, team: 'América de Cali', pj: 2, pg: 0, pe: 1, pp: 1, gf: 1, gc: 5, dg: -4, pts: 1, statusBadge: 'Cuartos de Final (1-5 vs Santa Fe)' },
+      { pos: 7, team: 'Deportivo Pasto', pj: 2, pg: 0, pe: 0, pp: 2, gf: 0, gc: 3, dg: -3, pts: 0, statusBadge: 'Cuartos de Final (0-3 vs Tolima)' },
+      { pos: 8, team: 'Internacional de Bogotá', pj: 2, pg: 0, pe: 0, pp: 2, gf: 2, gc: 9, dg: -7, pts: 0, statusBadge: 'Cuartos de Final (2-9 vs Nacional)' },
+    ],
+    playoffMatches: [
+      { stage: 'Cuartos de Final Ida (10 may)', homeTeam: 'Once Caldas', awayTeam: 'Junior de Barranquilla', homeScore: 0, awayScore: 1, note: 'Triunfo a domicilio en Palogrande (Manizales) con gol de penal de Guillermo Paiva (43\')' },
+      { stage: 'Cuartos de Final Vuelta (13 may)', homeTeam: 'Junior de Barranquilla', awayTeam: 'Once Caldas', homeScore: 2, awayScore: 2, note: 'Goles de Monzón (41\') y Barrios (66\') en el Estadio Romelio Martínez; global 3-2 Junior a semifinales' },
+      { stage: 'Semifinal Ida (16 may)', homeTeam: 'Independiente Santa Fe', awayTeam: 'Junior de Barranquilla', homeScore: 1, awayScore: 1, note: 'Autogol de Scarpeta (37\') adelantó a Junior en El Campín; empató Rodallega de penal (85\')' },
+      { stage: 'Semifinal Vuelta (23 may)', homeTeam: 'Junior de Barranquilla', awayTeam: 'Independiente Santa Fe', homeScore: 0, awayScore: 0, note: 'Global 1-1 en el Romelio Martínez; Junior ganó 5-4 en penales (Muriel, Peña, Herrera, Ángel, Gutiérrez)' },
+      { stage: 'Gran Final Ida (2 jun)', homeTeam: 'Junior de Barranquilla', awayTeam: 'Atlético Nacional', homeScore: 3, awayScore: 0, note: 'Noche mágica en el Romelio Martínez: gol de Bryan Castrillón (7\') y doblete de Luis Muriel (36\', 53\' pen.)' },
+      { stage: 'Gran Final Vuelta (8 jun)', homeTeam: 'Atlético Nacional', awayTeam: 'Junior de Barranquilla', homeScore: 1, awayScore: 0, note: 'Edwin Cardona descontó (56\') en el Atanasio Girardot; global 3-1 y ¡Junior BICAMPEÓN 12ª Estrella ★ (DT Alfredo Arias)!' },
+    ],
+  },
 ];
+
 
 

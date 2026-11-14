@@ -74,7 +74,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   onClick={() => onNavigate('titulos')}
                   className="hover:text-white transition-colors"
                 >
-                  Módulo 5: Títulos (10★ & 14 Títulos Oficiales)
+                  Módulo 5: Títulos (12★ & 16 Títulos Oficiales)
                 </button>
               </li>
               <li>
@@ -97,7 +97,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               &quot;Junior no es solo un equipo; es el latido, la música y la alegría del Carnaval de Barranquilla y de toda la Costa Norte colombiana.&quot;
             </p>
             <div className="flex items-center gap-1 text-amber-400 text-sm">
-              {'★ '.repeat(10)}
+              {'★ '.repeat(12)}
             </div>
           </div>
         </div>

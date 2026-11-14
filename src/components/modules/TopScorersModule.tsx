@@ -59,7 +59,7 @@ export const TopScorersModule: React.FC = () => {
               }`}
             >
               <Award className="w-3.5 h-3.5" />
-              <span>8 Botines de Oro</span>
+              <span>9 Botines de Oro</span>
             </button>
             <button
               onClick={() => setActiveTab('detalle')}
@@ -196,10 +196,10 @@ export const TopScorersModule: React.FC = () => {
             <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
               <div>
                 <h3 className="font-display text-base font-bold text-white uppercase">
-                  Los 8 Botines de Oro Dimayor con la Camiseta de Junior
+                  Los 9 Botines de Oro Dimayor con la Camiseta de Junior
                 </h3>
                 <p className="text-xs text-slate-300">
-                  Delanteros que se consagraron como los máximos artilleros del fútbol profesional colombiano vistiendo la franja rojiblanca.
+                  Delanteros que se consagraron como los máximos artilleros del fútbol profesional colombiano vistiendo la franja rojiblanca, hasta Luis Muriel en el Apertura 2026.
                 </p>
               </div>
             </div>

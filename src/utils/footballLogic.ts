@@ -113,8 +113,8 @@ export function calculateQuizRank(score: number, total: number): {
     return {
       tier: 'oro',
       title: 'Capitán Tiburón de Oro',
-      badge: '🦈 ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️',
-      description: '¡Conocimiento enciclopédico de las 10 estrellas de Liga! Eres un currambero de pura cepa digno del banco técnico de Julio Comesaña y el Flaco Meléndez.',
+      badge: '🦈 ⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️⭐️',
+      description: '¡Conocimiento enciclopédico de las 12 estrellas de Liga! Eres un currambero de pura cepa digno del banco técnico de Julio Comesaña y el Flaco Meléndez.',
     };
   }
   if (percentage >= 62.5) {
@@ -137,7 +137,7 @@ export function calculateQuizRank(score: number, total: number): {
     tier: 'novato',
     title: 'Pichón de Tiburón',
     badge: '🌊 Mar Caribe',
-    description: 'Estás empezando a conocer la historia de Junior Tu Papá. ¡Explora las 10 estrellas y el museo de camisetas!',
+    description: 'Estás empezando a conocer la historia de Junior Tu Papá. ¡Explora las 12 estrellas y el museo de camisetas!',
   };
 }
 

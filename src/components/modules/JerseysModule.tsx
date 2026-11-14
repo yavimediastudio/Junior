@@ -11,7 +11,7 @@ import { KITS_DATA } from '../../data/juniorData';
 import { CustomJerseyConfig, KitJersey } from '../../types/football';
 
 export const JerseysModule: React.FC = () => {
-  const [selectedKit, setSelectedKit] = useState<KitJersey>(KITS_DATA[5]); // Default to 2023 La Décima
+  const [selectedKit, setSelectedKit] = useState<KitJersey>(KITS_DATA[KITS_DATA.length - 1]); // Default to 2026 12ª Estrella
   const [copied, setCopied] = useState(false);
 
   // Customizer state
@@ -37,7 +37,7 @@ export const JerseysModule: React.FC = () => {
 
   const handleCopyCard = () => {
     navigator.clipboard?.writeText(
-      `Mi Camiseta Oficial de Junior de Barranquilla: ${config.name} #${config.number} - 10 Estrellas Doradas ⭐`
+      `Mi Camiseta Oficial de Junior de Barranquilla: ${config.name} #${config.number} - 12 Estrellas Doradas ⭐`
     );
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -67,7 +67,7 @@ export const JerseysModule: React.FC = () => {
             </div>
           </div>
           <p className="text-xs text-slate-400 max-w-md">
-            Desde el viejo Romelio Martínez en 1977 hasta la Doceava Estrella de 2026.
+            Desde el viejo Romelio Martínez en 1977 hasta la Duodécima Estrella de 2026.
             Personaliza tu dorsal rojiblanco con tu nombre y número.
           </p>
         </div>
@@ -348,6 +348,12 @@ export const JerseysModule: React.FC = () => {
                 Dorsales Legendarios de Junior:
               </span>
               <div className="flex flex-wrap gap-2">
+                <button
+                  onClick={() => applyPreset('MURIEL', '10', 'classic')}
+                  className="px-2.5 py-1 text-xs rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-red-500 transition-colors"
+                >
+                  Muriel #10 (2026 ★12)
+                </button>
                 <button
                   onClick={() => applyPreset('BACCA', '70', 'classic')}
                   className="px-2.5 py-1 text-xs rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-red-500 transition-colors"

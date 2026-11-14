@@ -160,13 +160,13 @@ export const HistoricTablesModule: React.FC = () => {
               <Table className="w-4 h-4 text-red-500" />
               <span>Módulo 1 · Tablas de Posiciones Oficiales Dimayor</span>
               <span aria-hidden="true">·</span>
-              <span>1948 - 2024</span>
+              <span>1948 - 2026</span>
             </div>
             <h2 className="font-display text-3xl sm:text-4xl font-extrabold uppercase text-white tracking-tight">
               Tablas de Posiciones: Cuadrangulares, Hexagonales & Año a Año
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-2xl">
-              Consulta las tablas de posiciones completas con todos los equipos, puntos y goles en los Cuadrangulares Finales, Hexagonales, Octogonales, Play-offs y el historial completo año por año (1948 - 2024).
+              Consulta las tablas de posiciones completas con todos los equipos, puntos y goles en los Cuadrangulares Finales, Hexagonales, Octogonales, Play-offs y el historial completo año por año (1948 - 2026).
             </p>
           </div>
 
@@ -251,7 +251,7 @@ export const HistoricTablesModule: React.FC = () => {
               <div>
                 <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
                   <ListOrdered className="w-4 h-4 text-amber-400" />
-                  <span>Tablas Oficiales en Orden Cronológico (1948 - 2024)</span>
+                  <span>Tablas Oficiales en Orden Cronológico (1948 - 2026)</span>
                   <span className="text-slate-500">·</span>
                   <span className="text-slate-300">1º Todos contra Todos + 2º Play-offs</span>
                 </div>
@@ -270,11 +270,11 @@ export const HistoricTablesModule: React.FC = () => {
                   <ArrowDownUp className="w-3.5 h-3.5 text-amber-400" />
                   <span>Orden: </span>
                   <span className="text-white">
-                    {sortOrder === 'asc' ? '1948 ➔ 2024 (Antiguo a Reciente)' : '2024 ➔ 1948 (Reciente a Antiguo)'}
+                    {sortOrder === 'asc' ? '1948 ➔ 2026 (Antiguo a Reciente)' : '2026 ➔ 1948 (Reciente a Antiguo)'}
                   </span>
                 </button>
                 <span className="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono text-xs font-bold">
-                  ★ 10 Estrellas
+                  ★ 12 Estrellas
                 </span>
                 <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 font-mono text-xs font-bold">
                   🥈 10 Subcampeonatos Oficiales
@@ -370,7 +370,7 @@ export const HistoricTablesModule: React.FC = () => {
                   type="text"
                   value={tournamentSearchQuery}
                   onChange={(e) => setTournamentSearchQuery(e.target.value)}
-                  placeholder="Buscar campeonato cronológico (ej. 1948, 1952, 1977, 1980, 1993, 2004, 2023, Santa Fe, Nacional)..."
+                  placeholder="Buscar campeonato cronológico (ej. 1948, 1977, 1993, 2004, 2023, 2026, Nacional)..."
                   className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-red-500"
                 />
               </div>
@@ -381,7 +381,7 @@ export const HistoricTablesModule: React.FC = () => {
                   onChange={(e) => setSelectedTableId(e.target.value)}
                   className="text-xs bg-slate-950 border border-slate-800 rounded-lg py-1.5 px-2.5 text-slate-200 focus:outline-none focus:border-red-500 max-w-xs truncate"
                 >
-                  <optgroup label="⭐ Años Campeón (10 Estrellas Oficiales)">
+                  <optgroup label="⭐ Años Campeón (12 Estrellas Oficiales)">
                     {HISTORIC_TOURNAMENT_STANDINGS_TABLES.filter(isJuniorChampionTournament).map((t) => (
                       <option key={t.id} value={t.id}>{t.year} - {t.tournamentName} (★ CAMPEÓN)</option>
                     ))}
@@ -994,10 +994,10 @@ export const HistoricTablesModule: React.FC = () => {
               <div className="p-3.5 rounded-xl bg-gradient-to-b from-amber-950/40 to-slate-900 border border-amber-500/40">
                 <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-400 uppercase">
                   <Trophy className="w-3.5 h-3.5" />
-                  <span>10 Estrellas</span>
+                  <span>12 Estrellas</span>
                 </div>
                 <div className="text-2xl font-black text-white font-display mt-1">1º Campeón</div>
-                <div className="text-[10px] text-slate-400">10 vueltas olímpicas</div>
+                <div className="text-[10px] text-slate-400">12 vueltas olímpicas</div>
               </div>
 
               <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
@@ -1067,7 +1067,7 @@ export const HistoricTablesModule: React.FC = () => {
                       achievementFilter === 'campeon' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-950 text-slate-300 hover:bg-slate-800'
                     }`}
                   >
-                    ★ Campeón (12)
+                    ★ Campeón ({JUNIOR_YEARLY_STANDINGS.filter((r) => r.isChampion).length})
                   </button>
                   <button
                     onClick={() => setAchievementFilter('subcampeon')}
@@ -1075,7 +1075,7 @@ export const HistoricTablesModule: React.FC = () => {
                       achievementFilter === 'subcampeon' ? 'bg-slate-200 text-slate-950 font-bold' : 'bg-slate-950 text-slate-300 hover:bg-slate-800'
                     }`}
                   >
-                    🥈 Subcampeón (11)
+                    🥈 Subcampeón ({JUNIOR_YEARLY_STANDINGS.filter((r) => r.isRunnerUp).length})
                   </button>
                   <button
                     onClick={() => setAchievementFilter('fases_finales')}
@@ -1325,16 +1325,16 @@ export const HistoricTablesModule: React.FC = () => {
                     Junior en el Olimpo del FPC
                   </h3>
                   <p className="text-xs text-slate-300">
-                    6º puesto histórico absoluto de la Primera División Dimayor con más de <strong>3.400 partidos</strong>, <strong>4.120 puntos</strong> y <strong>10 Estrellas de Liga</strong>.
+                    6º puesto histórico absoluto de la Primera División Dimayor con más de <strong>3.470 partidos</strong>, <strong>4.210 puntos</strong> y <strong>12 Estrellas de Liga</strong>.
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-2 self-start sm:self-auto shrink-0 text-xs">
                 <span className="px-2.5 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 font-bold">
-                  ★ 10 Estrellas
+                  ★ 12 Estrellas
                 </span>
                 <span className="px-2.5 py-1 rounded bg-red-950/60 text-red-300 border border-red-800 font-bold">
-                  +750 Dif. Gol
+                  +776 Dif. Gol
                 </span>
               </div>
             </div>
@@ -1482,8 +1482,8 @@ export const HistoricTablesModule: React.FC = () => {
                 </div>
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
                   <div className="text-[11px] text-slate-400 uppercase">Finales de Liga Disputadas</div>
-                  <div className="text-xl font-black text-amber-400 font-display mt-0.5">15 Finales</div>
-                  <div className="text-[10px] text-slate-400">Efectividad de más del 53%</div>
+                  <div className="text-xl font-black text-amber-400 font-display mt-0.5">14 Finales</div>
+                  <div className="text-[10px] text-slate-400">8 ganadas (57% de efectividad)</div>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
                   <div className="text-[11px] text-slate-400 uppercase">Goleador de Época</div>
@@ -1493,7 +1493,7 @@ export const HistoricTablesModule: React.FC = () => {
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
                   <div className="text-[11px] text-slate-400 uppercase">Bicampeonatos</div>
                   <div className="text-base font-bold text-white mt-0.5">2 Logrados</div>
-                  <div className="text-[10px] text-emerald-400">2018-II/2019-I y 2025-II/2026-I</div>
+                  <div className="text-[10px] text-emerald-400">2018-II/19-I (★8-9) y 2025-II/26-I (★11-12)</div>
                 </div>
               </div>
             </div>

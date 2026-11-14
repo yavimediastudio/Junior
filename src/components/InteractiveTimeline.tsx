@@ -35,7 +35,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
   onSelectModule,
   className = '',
 }) => {
-  const [selectedMilestoneId, setSelectedMilestoneId] = useState<string>('2023-estrella-10');
+  const [selectedMilestoneId, setSelectedMilestoneId] = useState<string>('2026-estrella-12');
   const [categoryFilter, setCategoryFilter] = useState<'todos' | TimelineCategory>('todos');
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [viewMode, setViewMode] = useState<'interactive' | 'list'>('interactive');
@@ -148,7 +148,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
         <div className="text-center max-w-3xl mx-auto mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/70 border border-red-800/80 text-red-300 text-xs font-semibold uppercase tracking-wider mb-3">
             <img src="/assets/aistudio/image_82370351.png" alt="Escudo Junior" className="w-4 h-4 object-contain shrink-0" />
-            <span>Línea de Tiempo del Centenario (1924 - 2024)</span>
+            <span>Línea de Tiempo Histórica (1924 - 2026)</span>
           </div>
 
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tight">
@@ -156,7 +156,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
           </h2>
 
           <p className="mt-3 text-sm sm:text-base text-slate-400">
-            100 años de gloria, estrellas y hazañas. Haz clic en cualquier año o hito para ver el <strong className="text-slate-200">resumen rápido oficial</strong>, sus protagonistas y acceder a la enciclopedia.
+            Más de un siglo de gloria, 12 estrellas y hazañas. Haz clic en cualquier año o hito para ver el <strong className="text-slate-200">resumen rápido oficial</strong>, sus protagonistas y acceder a la enciclopedia.
           </p>
         </div>
 
@@ -186,7 +186,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
               }`}
             >
               <Star className="w-3 h-3 fill-current" />
-              <span>10 Estrellas</span>
+              <span>12 Estrellas</span>
             </button>
 
             <button
@@ -399,7 +399,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                     )}
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-slate-400 font-medium">Hito #{currentIndex + 1} de {filteredMilestones.length}</span>
-                      <span className="text-slate-400 font-mono">1924 - 2024</span>
+                      <span className="text-slate-400 font-mono">1924 - 2026</span>
                     </div>
                   </div>
 

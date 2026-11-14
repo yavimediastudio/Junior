@@ -28,7 +28,7 @@ export const CurrentSeasonModule: React.FC = () => {
               Actualidad Rojiblanca & Plantilla Oficial
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-xl">
-              Nómina oficial de Los Tiburones, cuerpo técnico, tabla de posiciones y fixture oficial de la Liga BetPlay Dimayor.
+              Nómina oficial de Los Tiburones bicampeones (★11 y ★12), cuerpo técnico de Alfredo Arias, tabla del Apertura 2026 y calendario oficial Dimayor.
             </p>
           </div>
 
@@ -158,10 +158,10 @@ export const CurrentSeasonModule: React.FC = () => {
             <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
               <div>
                 <h3 className="font-display text-base font-bold text-white uppercase">
-                  Tabla de Posiciones Liga BetPlay 2026
+                  Tabla de Posiciones · Todos contra Todos Apertura 2026
                 </h3>
                 <p className="text-xs text-slate-400">
-                  Los 8 primeros clasifican a los Cuadrangulares Semifinales del Fútbol Colombiano.
+                  Los 8 primeros clasificaron a los Play-offs del Apertura 2026; Junior terminó 4º y luego ganó la Final ante Atlético Nacional (3-1 global).
                 </p>
               </div>
             </div>
@@ -211,7 +211,7 @@ export const CurrentSeasonModule: React.FC = () => {
                             </span>
                             {team.isJunior && (
                               <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-bold border border-red-500/30">
-                                Bicampeón
+                                Bicampeón ★12
                               </span>
                             )}
                           </div>
@@ -333,30 +333,30 @@ export const CurrentSeasonModule: React.FC = () => {
                   <Shield className="w-6 h-6 text-red-400" />
                 </div>
                 <div>
-                  <span className="text-xs font-mono font-bold text-red-400 uppercase">Dirección Técnica</span>
+                  <span className="text-xs font-mono font-bold text-red-400 uppercase">Dirección Técnica Bicampeona ★11 ★12</span>
                   <h3 className="font-display text-2xl font-black text-white uppercase tracking-tight">
-                    César Farías
+                    Alfredo Arias
                   </h3>
-                  <span className="text-xs text-slate-400">Estratega internacional con amplia experiencia en selecciones y clubes de Sudamérica</span>
+                  <span className="text-xs text-slate-400">Director Técnico uruguayo · Asumió el 23 de junio de 2025 · Bicampeón de Liga 2025-II y 2026-I</span>
                 </div>
               </div>
 
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                El timonel venezolano asumió la dirección técnica del conjunto tiburón para consolidar el orden táctico, la presión tras pérdida y la contundencia ofensiva liderada por Carlos Bacca, José Enamorado y Yimmi Chará.
+                El estratega uruguayo asumió el banquillo tiburón en junio de 2025 y condujo a Junior a un histórico <strong>Bicampeonato de Liga</strong>: ganó la <strong>11ª Estrella (2025-II)</strong> ante Deportes Tolima (4-0 global) y revalidó la corona con la <strong>12ª Estrella (2026-I)</strong> frente a Atlético Nacional (3-1 global).
               </p>
 
               <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2 text-xs">
                 <div className="flex justify-between text-slate-300">
-                  <span className="text-slate-500">Asistente Técnico:</span>
-                  <span className="font-semibold text-slate-200">Pedro De Pablos</span>
+                  <span className="text-slate-500">Última Consagración:</span>
+                  <span className="font-semibold text-amber-300">Liga BetPlay 2026-I (12ª Estrella · Bicampeonato)</span>
                 </div>
                 <div className="flex justify-between text-slate-300">
-                  <span className="text-slate-500">Preparador Físico:</span>
-                  <span className="font-semibold text-slate-200">Isaac Ramos</span>
+                  <span className="text-slate-500">Gran Final vs. Nacional:</span>
+                  <span className="font-semibold text-slate-200">3-0 (Romelio Martínez) y 0-1 (Medellín)</span>
                 </div>
                 <div className="flex justify-between text-slate-300">
-                  <span className="text-slate-500">Entrenador de Arqueros:</span>
-                  <span className="font-semibold text-slate-200">José María Pazo</span>
+                  <span className="text-slate-500">Cupos Conmebol Obtenidos:</span>
+                  <span className="font-semibold text-emerald-300">Libertadores 2027 (Grupos) & Superliga 2027</span>
                 </div>
               </div>
             </div>

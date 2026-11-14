@@ -5,7 +5,7 @@ import { ChampionshipStar, OfficialTitleItem } from '../../types/football';
 
 export const TitlesModule: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'estrellas' | 'palmares_completo' | 'explicacion'>('estrellas');
-  const [selectedStar, setSelectedStar] = useState<ChampionshipStar>(STARS_DATA[9]); // Default to 10th star (2023-II)
+  const [selectedStar, setSelectedStar] = useState<ChampionshipStar>(STARS_DATA[STARS_DATA.length - 1]); // Default to 12th star (2026-I)
   const [selectedTitleCategory, setSelectedTitleCategory] = useState<'todos' | 'liga' | 'copa' | 'superliga'>('todos');
 
   const filteredTitles = ALL_16_OFFICIAL_TITLES.filter((t) => {
@@ -25,7 +25,7 @@ export const TitlesModule: React.FC = () => {
               <Trophy className="w-4 h-4 text-amber-400" />
               <span>Módulo 5 · Palmarés Oficial DIMAYOR</span>
               <span aria-hidden="true">·</span>
-              <span>14 Títulos en el Profesionalismo</span>
+              <span>16 Títulos en el Profesionalismo</span>
             </div>
             <div className="flex items-center gap-3">
               <img
@@ -34,7 +34,7 @@ export const TitlesModule: React.FC = () => {
                 className="w-10 h-10 object-contain shrink-0 drop-shadow-md"
               />
               <h2 className="font-display text-3xl sm:text-4xl font-extrabold uppercase text-white tracking-tight">
-                Títulos Oficiales: Las 10 Estrellas & 4 Copas
+                Títulos Oficiales: Las 12 Estrellas & 4 Copas
               </h2>
             </div>
           </div>
@@ -50,7 +50,7 @@ export const TitlesModule: React.FC = () => {
               }`}
             >
               <Star className="w-3.5 h-3.5 fill-current" />
-              <span>10 Estrellas de Liga</span>
+              <span>12 Estrellas de Liga</span>
             </button>
 
             <button
@@ -62,7 +62,7 @@ export const TitlesModule: React.FC = () => {
               }`}
             >
               <Trophy className="w-3.5 h-3.5" />
-              <span>14 Títulos Oficiales</span>
+              <span>16 Títulos Oficiales</span>
             </button>
 
             <button
@@ -88,17 +88,17 @@ export const TitlesModule: React.FC = () => {
               </div>
               <div>
                 <h3 className="font-display text-base sm:text-lg font-bold text-white uppercase tracking-tight">
-                  Palmarés Completo: 10 Estrellas de Liga y 14 Campeonatos Dimayor
+                  Palmarés Completo: 12 Estrellas de Liga y 16 Campeonatos Dimayor
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
-                  Junior ostenta <strong>10 Estrellas bordadas en el pecho</strong> correspondientes a sus títulos de Primera División de Liga colombiana (1977, 1980, 1993, 1995, 2004-II, 2010-I, 2011-II, 2018-II, 2019-I y 2023-II). Sumando las <strong>2 Copas Colombia</strong> (2015, 2017) y las <strong>2 Superligas</strong> (2019, 2020), el Tiburón acumula <strong>14 títulos oficiales Dimayor</strong> en su historia profesional.
+                  Junior ostenta <strong>12 Estrellas bordadas en el pecho</strong> correspondientes a sus títulos de Primera División de Liga colombiana (1977, 1980, 1993, 1995, 2004-II, 2010-I, 2011-II, 2018-II, 2019-I, 2023-II, 2025-II y 2026-I). Sumando las <strong>2 Copas Colombia</strong> (2015, 2017) y las <strong>2 Superligas</strong> (2019, 2020), el Tiburón acumula <strong>16 títulos oficiales Dimayor</strong> en su historia profesional.
                 </p>
               </div>
             </div>
 
             <div className="md:col-span-4 grid grid-cols-3 gap-2 text-center border-t md:border-t-0 md:border-l border-slate-800 pt-3 md:pt-0 md:pl-4">
               <div className="p-2 rounded-lg bg-slate-950/80 border border-slate-800">
-                <div className="text-xl font-black text-amber-400 font-display">10</div>
+                <div className="text-xl font-black text-amber-400 font-display">12</div>
                 <div className="text-[10px] text-slate-400 uppercase font-semibold">Ligas (Estrellas)</div>
               </div>
               <div className="p-2 rounded-lg bg-slate-950/80 border border-slate-800">
@@ -106,18 +106,18 @@ export const TitlesModule: React.FC = () => {
                 <div className="text-[10px] text-slate-400 uppercase font-semibold">Copas/Superligas</div>
               </div>
               <div className="p-2 rounded-lg bg-slate-950/80 border border-amber-500/40 ring-1 ring-amber-500/30">
-                <div className="text-xl font-black text-white font-display">14</div>
+                <div className="text-xl font-black text-white font-display">16</div>
                 <div className="text-[10px] text-amber-400 uppercase font-semibold">Total Dimayor</div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* TAB 1: LAS 10 ESTRELLAS DE LIGA */}
+        {/* TAB 1: LAS 12 ESTRELLAS DE LIGA */}
         {activeTab === 'estrellas' && (
           <div>
-            {/* 10 Stars Ribbon */}
-            <div className="grid grid-cols-5 sm:grid-cols-5 lg:grid-cols-10 gap-2 mb-8">
+            {/* 12 Stars Ribbon */}
+            <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-12 gap-2 mb-8">
               {STARS_DATA.map((star) => (
                 <button
                   key={star.starNumber}
@@ -228,7 +228,7 @@ export const TitlesModule: React.FC = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
                   <div className="absolute bottom-3 left-4 right-4 text-xs text-white font-medium">
-                    La gloria rojiblanca: 10 vueltas olímpicas de Primera División y 14 títulos oficiales.
+                    La gloria rojiblanca: 12 vueltas olímpicas de Primera División y 16 títulos oficiales.
                   </div>
                 </div>
 
@@ -295,7 +295,7 @@ export const TitlesModule: React.FC = () => {
                   selectedTitleCategory === 'todos' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
                 }`}
               >
-                Todos los 14 Títulos (100%)
+                Todos los 16 Títulos (100%)
               </button>
               <button
                 onClick={() => setSelectedTitleCategory('liga')}
@@ -389,7 +389,7 @@ export const TitlesModule: React.FC = () => {
               <Sparkles className="w-6 h-6 text-amber-400 shrink-0" />
               <div>
                 <h3 className="font-display text-2xl font-black text-white uppercase tracking-tight">
-                  Guía Oficial Dimayor: Las 10 Estrellas y los 14 Títulos Oficiales
+                  Guía Oficial Dimayor: Las 12 Estrellas y los 16 Títulos Oficiales
                 </h3>
                 <span className="text-xs text-slate-400">Normativa, tradición y conteo avalado por la División Mayor del Fútbol Colombiano</span>
               </div>
@@ -398,10 +398,10 @@ export const TitlesModule: React.FC = () => {
             <div className="space-y-4 text-sm text-slate-300 leading-relaxed">
               <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
                 <h4 className="font-display text-base font-bold text-amber-400 uppercase">
-                  1. Las 10 Estrellas del Escudo (Liga de Primera División)
+                  1. Las 12 Estrellas del Escudo (Liga de Primera División)
                 </h4>
                 <p>
-                  En Colombia, según la tradición del FPC y las directrices institucionales de los clubes, <strong>solamente los torneos de Liga de Primera División dan derecho a bordar una estrella física en el escudo de la camiseta</strong>. Junior de Barranquilla ha sido 10 veces campeón de Liga (1977, 1980, 1993, 1995, 2004-II, 2010-I, 2011-II, 2018-II, 2019-I y 2023-II). Por esta razón, el hincha y la prensa deportiva celebran con orgullo las <strong>10 Estrellas</strong> del escudo rojiblanco.
+                  En Colombia, según la tradición del FPC y las directrices institucionales de los clubes, <strong>solamente los torneos de Liga de Primera División dan derecho a bordar una estrella física en el escudo de la camiseta</strong>. Junior de Barranquilla ha sido 12 veces campeón de Liga (1977, 1980, 1993, 1995, 2004-II, 2010-I, 2011-II, 2018-II, 2019-I, 2023-II, 2025-II y 2026-I). Por esta razón, el hincha y la prensa deportiva celebran con orgullo las <strong>12 Estrellas</strong> del escudo rojiblanco.
                 </p>
               </div>
 
@@ -420,16 +420,16 @@ export const TitlesModule: React.FC = () => {
 
               <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
                 <h4 className="font-display text-base font-bold text-sky-400 uppercase">
-                  3. El Conteo Total Oficial: 14 Campeonatos en el Profesionalismo
+                  3. El Conteo Total Oficial: 16 Campeonatos en el Profesionalismo
                 </h4>
                 <p>
                   Cuando se evalúa el <strong>palmarés histórico total del club en la época profesional</strong> (a partir de 1948), la suma matemática oficial Dimayor es:
                 </p>
                 <div className="text-center py-3 font-mono font-bold text-base text-amber-300 bg-slate-900 rounded-lg border border-slate-800">
-                  10 Ligas + 2 Copas Colombia + 2 Superligas = 14 Títulos Oficiales Dimayor
+                  12 Ligas + 2 Copas Colombia + 2 Superligas = 16 Títulos Oficiales Dimayor
                 </div>
                 <p className="text-xs text-slate-400 mt-2">
-                  Junior ostenta <strong>10 Estrellas de Liga</strong> y un total de <strong>14 Títulos Oficiales Dimayor</strong> en sus vitrinas.
+                  Junior ostenta <strong>12 Estrellas de Liga</strong> y un total de <strong>16 Títulos Oficiales Dimayor</strong> en sus vitrinas.
                 </p>
               </div>
             </div>

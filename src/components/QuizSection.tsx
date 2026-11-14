@@ -67,7 +67,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ audioEnabled }) => {
             Trivia & Desafío Tiburón
           </h2>
           <p className="text-xs text-slate-400 mt-2">
-            Demuestra cuánto sabes de los 100 años del club, las 10 estrellas, los goles del Bombardero y las gestas en El Metro.
+            Demuestra cuánto sabes de los 100 años del club, las 12 estrellas, los goles del Bombardero y las gestas en El Metro.
           </p>
         </div>
 

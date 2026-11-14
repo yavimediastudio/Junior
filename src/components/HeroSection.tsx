@@ -60,7 +60,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               className="px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-white bg-[#D62027] hover:bg-red-700 rounded-lg shadow-lg shadow-red-900/40 transition-all flex items-center gap-2"
             >
               <Trophy className="w-4 h-4 text-amber-300" />
-              <span>Ventana 05: Títulos (10★)</span>
+              <span>Ventana 05: Títulos (12★)</span>
               <ChevronRight className="w-4 h-4" />
             </button>
 
@@ -95,9 +95,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               <span>Palmarés Oficial Dimayor</span>
             </div>
             <div className="font-display text-3xl sm:text-4xl font-black text-white tabular-nums">
-              14 Títulos
+              16 Títulos
             </div>
-            <p className="text-xs text-slate-400 mt-1">10 Estrellas de Liga + 4 Copas/Superligas</p>
+            <p className="text-xs text-slate-400 mt-1">12 Estrellas de Liga + 4 Copas/Superligas</p>
           </div>
 
           <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">

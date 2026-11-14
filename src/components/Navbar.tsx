@@ -111,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm transition-colors whitespace-nowrap flex items-center gap-1.5"
                 >
                   <LayoutGrid className="w-3.5 h-3.5" />
-                  <span>10★ Títulos</span>
+                  <span>12★ Títulos</span>
                 </button>
               </div>
             )}

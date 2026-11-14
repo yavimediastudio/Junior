@@ -108,7 +108,7 @@ export const HomeWindowsGrid: React.FC<HomeWindowsGridProps> = ({ onOpenWindow }
             <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>Al abrir cualquier ventana podrás navegar con total profundidad y regresar al portal en un clic.</span>
           </div>
-          <span className="font-mono text-amber-400 font-bold shrink-0 hidden sm:inline">★ 10 Estrellas · 14 Títulos</span>
+          <span className="font-mono text-amber-400 font-bold shrink-0 hidden sm:inline">★ 12 Estrellas · 16 Títulos</span>
         </div>
       </div>
     </section>
