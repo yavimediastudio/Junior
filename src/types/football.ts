@@ -258,6 +258,7 @@ export interface TournamentStandingsTable {
   description: string;
   juniorFinish: string;
   championTeam: string;
+  runnerUpTeam?: string;
   isJuniorChampion?: boolean;
   isJuniorRunnerUp?: boolean;
   // Fase 1: Tabla de Todos contra Todos (Fase Regular)
@@ -265,17 +266,31 @@ export interface TournamentStandingsTable {
   regularPhaseTitle?: string;
   regularPhaseDescription?: string;
   regularRows?: StandingRow[];
+  secondaryRegularTable?: {
+    title: string;
+    description?: string;
+    rows: StandingRow[];
+  };
   // Fase 2: Play-offs / Fase Final (Cuadrangular, Hexagonal, Octogonal, Triangular, Llaves K.O.)
   hasFinalPhase?: boolean;
   finalPhaseTitle?: string;
   finalPhaseDescription?: string;
   rows: StandingRow[];
+  finalGroups?: {
+    id: string;
+    groupName: string;
+    description?: string;
+    rows: StandingRow[];
+  }[];
   playoffMatches?: {
     stage: string;
+    date?: string;
+    venue?: string;
     homeTeam: string;
     awayTeam: string;
     homeScore: number;
     awayScore: number;
+    scorers?: string;
     note?: string;
   }[];
   matchArchive?: {
