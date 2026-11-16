@@ -23,7 +23,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed max-w-sm">
-              Club Deportivo Popular Junior F.C. S.A. Fundado el 7 de agosto de 1924 por Doña Micaela Lavalle de Meza en el histórico barrio San Roque de Barranquilla.
+              Club Deportivo Popular Junior F.C. S.A. Fundado el 7 de agosto de 1924 por Doña Micaela Lavalle de Mejía en el histórico barrio San Roque de Barranquilla.
             </p>
             <div className="flex items-center gap-2 text-slate-400 text-xs pt-1">
               <MapPin className="w-3.5 h-3.5 text-red-500 shrink-0" />

@@ -59,7 +59,7 @@ export const TopScorersModule: React.FC = () => {
               }`}
             >
               <Award className="w-3.5 h-3.5" />
-              <span>9 Botines de Oro</span>
+              <span>15 Botines de Oro</span>
             </button>
             <button
               onClick={() => setActiveTab('detalle')}
@@ -104,7 +104,7 @@ export const TopScorersModule: React.FC = () => {
                   </div>
                   <div className="text-right">
                     <span className="text-[10px] text-slate-400 uppercase">Partidos</span>
-                    <div className="text-lg font-bold text-slate-300 font-mono">265 PJ</div>
+                    <div className="text-lg font-bold text-slate-300 font-mono">212 PJ</div>
                   </div>
                 </div>
 
@@ -121,13 +121,13 @@ export const TopScorersModule: React.FC = () => {
               <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-mono font-bold uppercase text-red-400">#2 Histórico</span>
-                  <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">Goleador Activo</span>
+                  <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">#2 Histórico · 2009-2026</span>
                 </div>
                 <h4 className="font-display text-lg font-extrabold text-white uppercase">
                   Carlos Bacca
                 </h4>
                 <div className="flex items-center justify-between text-xs text-slate-300">
-                  <span>125+ goles oficiales</span>
+                  <span>134 goles oficiales (290 PJ)</span>
                   <span className="font-mono text-amber-400 font-bold">4 Estrellas ganadas</span>
                 </div>
               </div>
@@ -196,7 +196,7 @@ export const TopScorersModule: React.FC = () => {
             <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
               <div>
                 <h3 className="font-display text-base font-bold text-white uppercase">
-                  Los 9 Botines de Oro Dimayor con la Camiseta de Junior
+                  Los 15 Botines de Oro Dimayor con la Camiseta de Junior
                 </h3>
                 <p className="text-xs text-slate-300">
                   Delanteros que se consagraron como los máximos artilleros del fútbol profesional colombiano vistiendo la franja rojiblanca, hasta Luis Muriel en el Apertura 2026.

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Calendar, Users, Table, Trophy, Shield, MapPin, Clock, CheckCircle2, ChevronRight, Activity } from 'lucide-react';
-import { CURRENT_ROSTER, STANDINGS_DATA, FIXTURES_DATA } from '../../data/juniorData';
+import { CURRENT_ROSTER, STANDINGS_DATA, STANDINGS_2026_II_DATA, FIXTURES_DATA } from '../../data/juniorData';
 import { CurrentPlayer, LeagueStanding, MatchFixture } from '../../types/football';
 
 export const CurrentSeasonModule: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'plantilla' | 'tabla' | 'fixture' | 'cuerpo_tecnico'>('plantilla');
   const [positionFilter, setPositionFilter] = useState<'todos' | 'Arquero' | 'Defensa' | 'Volante' | 'Delantero'>('todos');
+  const [standingsSemester, setStandingsSemester] = useState<'2026-II' | '2026-I'>('2026-II');
 
   const filteredPlayers = CURRENT_ROSTER.filter((p) => {
     if (positionFilter === 'todos') return true;
@@ -28,7 +29,7 @@ export const CurrentSeasonModule: React.FC = () => {
               Actualidad Rojiblanca & Plantilla Oficial
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-xl">
-              Nómina oficial de Los Tiburones bicampeones (★11 y ★12), cuerpo técnico de Alfredo Arias, tabla del Apertura 2026 y calendario oficial Dimayor.
+              Nómina oficial 2026-II dirigida por Sebastián Viera con capitanía de Teófilo Gutiérrez (#29), legado bicampeón de Alfredo Arias (★11 y ★12) y tablas del Apertura ★12 y Finalización 2026-II.
             </p>
           </div>
 
@@ -155,14 +156,41 @@ export const CurrentSeasonModule: React.FC = () => {
         {/* TAB 2: TABLA DE LIGA BETPLAY */}
         {activeTab === 'tabla' && (
           <div className="space-y-4">
-            <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+            <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <h3 className="font-display text-base font-bold text-white uppercase">
-                  Tabla de Posiciones · Todos contra Todos Apertura 2026
+                  {standingsSemester === '2026-II'
+                    ? 'Tabla de Posiciones · Todos contra Todos Finalización 2026-II'
+                    : 'Tabla de Posiciones · Todos contra Todos Apertura 2026-I (★12)'}
                 </h3>
-                <p className="text-xs text-slate-400">
-                  Los 8 primeros clasificaron a los Play-offs del Apertura 2026; Junior terminó 4º y luego ganó la Final ante Atlético Nacional (3-1 global).
+                <p className="text-xs text-slate-400 mt-0.5">
+                  {standingsSemester === '2026-II'
+                    ? 'Tabla completa de 20 clubes tras las 19 fechas regulares del Finalización 2026-II; Junior finalizó 14.º con 22 puntos (5G-7E-7P).'
+                    : 'Los 8 primeros clasificaron a los Play-offs del Apertura 2026; Junior terminó 2.º en el Todos contra Todos (35 pts) y ganó la Gran Final ante Atlético Nacional (3-1 global).'}
                 </p>
+              </div>
+
+              <div className="flex items-center p-1 bg-slate-900 border border-slate-800 rounded-lg shrink-0">
+                <button
+                  onClick={() => setStandingsSemester('2026-II')}
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors whitespace-nowrap ${
+                    standingsSemester === '2026-II'
+                      ? 'bg-red-600 text-white font-bold shadow-sm'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Finalización 2026-II
+                </button>
+                <button
+                  onClick={() => setStandingsSemester('2026-I')}
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-colors whitespace-nowrap ${
+                    standingsSemester === '2026-I'
+                      ? 'bg-red-600 text-white font-bold shadow-sm'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Apertura 2026-I ★12
+                </button>
               </div>
             </div>
 
@@ -185,7 +213,7 @@ export const CurrentSeasonModule: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-800/80">
-                    {STANDINGS_DATA.map((team: LeagueStanding) => (
+                    {(standingsSemester === '2026-II' ? STANDINGS_2026_II_DATA : STANDINGS_DATA).map((team: LeagueStanding) => (
                       <tr
                         key={team.team}
                         className={`transition-colors ${
@@ -211,7 +239,7 @@ export const CurrentSeasonModule: React.FC = () => {
                             </span>
                             {team.isJunior && (
                               <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-bold border border-red-500/30">
-                                Bicampeón ★12
+                                {standingsSemester === '2026-II' ? '14.º · 22 Pts' : 'Bicampeón ★12'}
                               </span>
                             )}
                           </div>
@@ -333,30 +361,30 @@ export const CurrentSeasonModule: React.FC = () => {
                   <Shield className="w-6 h-6 text-red-400" />
                 </div>
                 <div>
-                  <span className="text-xs font-mono font-bold text-red-400 uppercase">Dirección Técnica Bicampeona ★11 ★12</span>
+                  <span className="text-xs font-mono font-bold text-red-400 uppercase">Dirección Técnica Actual · 2026-II</span>
                   <h3 className="font-display text-2xl font-black text-white uppercase tracking-tight">
-                    Alfredo Arias
+                    Sebastián Viera
                   </h3>
-                  <span className="text-xs text-slate-400">Director Técnico uruguayo · Asumió el 23 de junio de 2025 · Bicampeón de Liga 2025-II y 2026-I</span>
+                  <span className="text-xs text-slate-400">Director Técnico desde septiembre de 2026 · Sucesor de Alfredo Arias (★11 y ★12)</span>
                 </div>
               </div>
 
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                El estratega uruguayo asumió el banquillo tiburón en junio de 2025 y condujo a Junior a un histórico <strong>Bicampeonato de Liga</strong>: ganó la <strong>11ª Estrella (2025-II)</strong> ante Deportes Tolima (4-0 global) y revalidó la corona con la <strong>12ª Estrella (2026-I)</strong> frente a Atlético Nacional (3-1 global).
+                El máximo referente de presencias del club (638 PJ y 13 goles como arquero) asumió la dirección técnica en <strong>septiembre de 2026</strong> para el tramo final del Torneo Finalización 2026-II, tomando el relevo del ciclo histórico de <strong>Alfredo Arias</strong> (junio 2025 – agosto 2026), arquitecto del bicampeonato de las estrellas <strong>★11 (2025-II)</strong> y <strong>★12 (2026-I)</strong>.
               </p>
 
               <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2 text-xs">
-                <div className="flex justify-between text-slate-300">
+                <div className="flex justify-between text-slate-300 gap-2">
                   <span className="text-slate-500">Última Consagración:</span>
-                  <span className="font-semibold text-amber-300">Liga BetPlay 2026-I (12ª Estrella · Bicampeonato)</span>
+                  <span className="font-semibold text-amber-300 text-right">Liga BetPlay 2026-I (12ª Estrella · Alfredo Arias)</span>
                 </div>
-                <div className="flex justify-between text-slate-300">
+                <div className="flex justify-between text-slate-300 gap-2">
                   <span className="text-slate-500">Gran Final vs. Nacional:</span>
-                  <span className="font-semibold text-slate-200">3-0 (Romelio Martínez) y 0-1 (Medellín)</span>
+                  <span className="font-semibold text-slate-200 text-right">3-0 (Romelio Martínez) y 0-1 (Medellín)</span>
                 </div>
-                <div className="flex justify-between text-slate-300">
+                <div className="flex justify-between text-slate-300 gap-2">
                   <span className="text-slate-500">Cupos Conmebol Obtenidos:</span>
-                  <span className="font-semibold text-emerald-300">Libertadores 2027 (Grupos) & Superliga 2027</span>
+                  <span className="font-semibold text-emerald-300 text-right">Libertadores 2027 (Grupos) &amp; Superliga 2027</span>
                 </div>
               </div>
             </div>
@@ -380,9 +408,9 @@ export const CurrentSeasonModule: React.FC = () => {
               </p>
 
               <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-xs space-y-1.5">
-                <div className="text-amber-400 font-bold uppercase text-[11px]">Casa de Competencia:</div>
+                <div className="text-amber-400 font-bold uppercase text-[11px]">Casas de Competencia 2026:</div>
                 <div className="text-slate-200">
-                  <strong>Estadio Metropolitano Roberto Meléndez</strong> (Capacidad: 46.692 espectadores).
+                  <strong>Estadio Metropolitano Roberto Meléndez</strong> (46.692 esp.) y <strong>Estadio Municipal Romelio Martínez</strong> (localía 2026 durante remodelación del Metro).
                 </div>
               </div>
             </div>

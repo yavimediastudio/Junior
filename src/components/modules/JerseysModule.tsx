@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { KITS_DATA } from '../../data/juniorData';
 import { CustomJerseyConfig, KitJersey } from '../../types/football';
+import { HistoricalCrestGallery } from '../HistoricalCrestGallery';
 
 export const JerseysModule: React.FC = () => {
   const [selectedKit, setSelectedKit] = useState<KitJersey>(KITS_DATA[KITS_DATA.length - 1]); // Default to 2026 12ª Estrella
@@ -44,8 +45,10 @@ export const JerseysModule: React.FC = () => {
   };
 
   return (
-    <section id="uniformes" className="py-16 bg-slate-900/60 border-b border-slate-800 scroll-mt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="uniformes" className="scroll-mt-16">
+      <HistoricalCrestGallery />
+      <section className="py-16 bg-slate-900/60 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
           <div>
@@ -376,7 +379,7 @@ export const JerseysModule: React.FC = () => {
                   onClick={() => applyPreset('TEO', '29', 'bold')}
                   className="px-2.5 py-1 text-xs rounded-md bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-red-500 transition-colors"
                 >
-                  Teo #29 (2018)
+                  Teo #29 (Capitán 2026)
                 </button>
                 <button
                   onClick={() => applyPreset('VIERA', '1', 'away_navy')}
@@ -611,5 +614,6 @@ export const JerseysModule: React.FC = () => {
         </div>
       </div>
     </section>
+    </div>
   );
 };

@@ -20,46 +20,51 @@ interface PitchPlayer {
 
 const AVAILABLE_PLAYERS: PitchPlayer[] = [
   // Arqueros
-  { id: 'mele', name: 'Santiago Mele', shortName: 'S. Mele', role: 'Arquero', era: 'Actual / Uruguay', isLegend: false },
-  { id: 'martinez', name: 'Jefersson Martínez', shortName: 'J. Martínez', role: 'Arquero', era: 'Actual', isLegend: false },
-  { id: 'viera', name: 'Sebastián Viera', shortName: 'S. Viera', role: 'Arquero', era: '2011-2023', isLegend: true },
+  { id: 'silveira', name: 'Mauro Silveira (#1)', shortName: 'M. Silveira', role: 'Arquero', era: '2026-II · Titular', isLegend: false },
+  { id: 'martinez', name: 'Jefersson Martínez (#30)', shortName: 'J. Martínez', role: 'Arquero', era: '2026-II', isLegend: false },
+  { id: 'viera', name: 'Sebastián Viera', shortName: 'S. Viera', role: 'Arquero', era: '2011-2023 (638 PJ) / DT 2026-II', isLegend: true },
+  { id: 'mele', name: 'Santiago Mele', shortName: 'S. Mele', role: 'Arquero', era: '2023-2025 · ★10', isLegend: true },
   { id: 'carrabs', name: 'Lorenzo Carrabs', shortName: 'L. Carrabs', role: 'Arquero', era: '1978-1980', isLegend: true },
 
   // Defensas
-  { id: 'herrera', name: 'Edwin Herrera', shortName: 'E. Herrera', role: 'Defensa', era: 'Actual / Titular', isLegend: false },
-  { id: 'moreno_yef', name: 'Yeferson Moreno', shortName: 'Y. Moreno', role: 'Defensa', era: 'Actual / Titular', isLegend: false },
-  { id: 'olivera', name: 'Emanuel Olivera "Turro"', shortName: 'E. Olivera', role: 'Defensa', era: 'Actual', isLegend: false },
-  { id: 'pena', name: 'Jermein Peña', shortName: 'J. Peña', role: 'Defensa', era: 'Actual', isLegend: false },
-  { id: 'perez_rafa', name: 'Rafael Pérez', shortName: 'R. Pérez', role: 'Defensa', era: 'Actual / Leyenda', isLegend: false },
-  { id: 'zalazar', name: 'Nicolás Zalazar', shortName: 'N. Zalazar', role: 'Defensa', era: 'Actual', isLegend: false },
-  { id: 'fuentes', name: 'Gabriel Fuentes', shortName: 'G. Fuentes', role: 'Defensa', era: '2018-2024 · Fluminense', isLegend: true },
+  { id: 'herrera', name: 'Edwin Herrera (#3)', shortName: 'E. Herrera', role: 'Defensa', era: '2026-II · Titular', isLegend: false },
+  { id: 'rivera_dan', name: 'Daniel Rivera (#5)', shortName: 'D. Rivera', role: 'Defensa', era: '2026-II · Titular', isLegend: false },
+  { id: 'pena', name: 'Jermein Peña (#98)', shortName: 'J. Peña', role: 'Defensa', era: '2026-II · Titular', isLegend: false },
+  { id: 'suarez_y', name: 'Yeison Suárez (#26)', shortName: 'Y. Suárez', role: 'Defensa', era: '2026-II · Titular', isLegend: false },
+  { id: 'pestana', name: 'Jean Pestaña (#24)', shortName: 'J. Pestaña', role: 'Defensa', era: '2026-II', isLegend: false },
+  { id: 'olivera', name: 'Emanuel Olivera "Turro"', shortName: 'E. Olivera', role: 'Defensa', era: '2023-2024 · ★10', isLegend: false },
+  { id: 'fuentes', name: 'Gabriel Fuentes', shortName: 'G. Fuentes', role: 'Defensa', era: '2018-2024 · ★8 ★9 ★10', isLegend: true },
   { id: 'ribonetto', name: 'Walter Ribonetto', shortName: 'W. Ribonetto', role: 'Defensa', era: '2004', isLegend: true },
   { id: 'brian', name: 'Alexis Mendoza', shortName: 'A. Mendoza', role: 'Defensa', era: '1990-1996', isLegend: true },
   { id: 'dulio', name: 'Dulio Miranda', shortName: 'D. Miranda', role: 'Defensa', era: '1977-1985', isLegend: true },
   { id: 'piedrahita', name: 'Marlon Piedrahita', shortName: 'M. Piedrahita', role: 'Defensa', era: '2017-2021', isLegend: true },
 
   // Volantes
-  { id: 'moreno_didier', name: 'Didier Moreno', shortName: 'D. Moreno', role: 'Volante', era: 'Actual / Capitán', isLegend: false },
-  { id: 'cantillo', name: 'Víctor Cantillo', shortName: 'V. Cantillo', role: 'Volante', era: 'Actual / Bicampeón', isLegend: false },
-  { id: 'colorado', name: 'Andrés Colorado', shortName: 'A. Colorado', role: 'Volante', era: 'Actual', isLegend: false },
-  { id: 'chara', name: 'Yimmi Chará', shortName: 'Y. Chará', role: 'Volante', era: 'Actual / ChaTeo', isLegend: false },
-  { id: 'hinojoza', name: 'Roberto Hinojoza', shortName: 'R. Hinojoza', role: 'Volante', era: 'Actual', isLegend: false },
+  { id: 'celis', name: 'Guillermo Celis (#28)', shortName: 'G. Celis', role: 'Volante', era: '2026-II · Titular', isLegend: false },
+  { id: 'rios_jd', name: 'Juan David Ríos (#14)', shortName: 'J. D. Ríos', role: 'Volante', era: '2026-II · Titular', isLegend: false },
+  { id: 'rivas_j', name: 'Jesús Rivas (#22)', shortName: 'J. Rivas', role: 'Volante', era: '2026-II', isLegend: false },
+  { id: 'chara', name: 'Yimmi Chará (#8)', shortName: 'Y. Chará', role: 'Volante', era: '2026-II · ChaTeo', isLegend: false },
+  { id: 'moreno_didier', name: 'Didier Moreno', shortName: 'D. Moreno', role: 'Volante', era: '2020-2026 · Multicampeón', isLegend: false },
+  { id: 'cantillo', name: 'Víctor Cantillo', shortName: 'V. Cantillo', role: 'Volante', era: '2017-2024 · Bicampeón', isLegend: false },
   { id: 'valderrama', name: 'Carlos Valderrama (El Pibe)', shortName: 'El Pibe', role: 'Volante', era: '1993-1995', isLegend: true },
-  { id: 'pacheco', name: 'Víctor Pacheco', shortName: 'V. Pacheco', role: 'Volante', era: '1990-1999', isLegend: true },
+  { id: 'pacheco', name: 'Víctor Pacheco', shortName: 'V. Pacheco', role: 'Volante', era: '1990-2009 · 80 Goles', isLegend: true },
   { id: 'giovanni', name: 'Giovanni Hernández', shortName: 'G. Hernández', role: 'Volante', era: '2008-2012', isLegend: true },
   { id: 'mackenzie', name: 'Oswaldo Mackenzie', shortName: 'O. Mackenzie', role: 'Volante', era: '1993-2001', isLegend: true },
   { id: 'comesana_p', name: 'Julio Comesaña (Jugador)', shortName: 'J. Comesaña', role: 'Volante', era: '1977', isLegend: true },
 
   // Delanteros
-  { id: 'bacca', name: 'Carlos Bacca', shortName: 'C. Bacca', role: 'Delantero', era: 'Actual / 125+ Goles', isLegend: true },
-  { id: 'titi', name: 'Steven "El Titi" Rodríguez', shortName: 'Titi Rdgz.', role: 'Delantero', era: 'Actual / Goleador', isLegend: false },
-  { id: 'enamorado', name: 'José Enamorado', shortName: 'J. Enamorado', role: 'Delantero', era: 'Actual / Desequilibrio', isLegend: false },
-  { id: 'caicedo', name: 'Déiber Caicedo', shortName: 'D. Caicedo', role: 'Delantero', era: 'Actual', isLegend: false },
-  { id: 'vladimir', name: 'Vladimir Hernández', shortName: 'V. Hernández', role: 'Delantero', era: 'Actual / 2023', isLegend: true },
-  { id: 'marco_perez', name: 'Marco Pérez', shortName: 'M. Pérez', role: 'Delantero', era: 'Actual', isLegend: false },
-  { id: 'teofilo', name: 'Teófilo Gutiérrez', shortName: 'Teo Gutiérrez', role: 'Delantero', era: '2007-2021', isLegend: true },
+  { id: 'muriel', name: 'Luis Muriel (#10)', shortName: 'L. Muriel', role: 'Delantero', era: '2026-II · Botín ★12', isLegend: false },
+  { id: 'paiva', name: 'Guillermo Paiva (#9)', shortName: 'G. Paiva', role: 'Delantero', era: '2026-II · ★11 ★12', isLegend: false },
+  { id: 'barrios_c', name: 'Cristian Barrios (#77)', shortName: 'C. Barrios', role: 'Delantero', era: '2026-II · Titular', isLegend: false },
+  { id: 'castrillon', name: 'Bryan Castrillón (#88)', shortName: 'B. Castrillón', role: 'Delantero', era: '2026-II · ★11 ★12', isLegend: false },
+  { id: 'teofilo', name: 'Teófilo Gutiérrez (#29)', shortName: 'Teo Gutiérrez', role: 'Delantero', era: '2007-2026 · 107 Goles (Cap.)', isLegend: true },
+  { id: 'fydriszewski', name: 'Francisco Fydriszewski (#19)', shortName: 'F. Fydriszewski', role: 'Delantero', era: '2026-II', isLegend: false },
+  { id: 'caicedo', name: 'Déiber Caicedo (#25)', shortName: 'D. Caicedo', role: 'Delantero', era: '2026-II', isLegend: false },
+  { id: 'enamorado', name: 'José Enamorado', shortName: 'J. Enamorado', role: 'Delantero', era: '2023-2025 · ★10 ★11', isLegend: false },
+  { id: 'vladimir', name: 'Vladimir Hernández', shortName: 'V. Hernández', role: 'Delantero', era: '2008-2024 · ★10', isLegend: true },
+  { id: 'bacca', name: 'Carlos Bacca', shortName: 'C. Bacca', role: 'Delantero', era: '2009-2026 · 134 Goles', isLegend: true },
   { id: 'luis_diaz', name: 'Luis Díaz', shortName: 'L. Díaz', role: 'Delantero', era: '2017-2019', isLegend: true },
-  { id: 'valenciano', name: 'Iván René Valenciano', shortName: 'Valenciano', role: 'Delantero', era: '1988-1999', isLegend: true },
+  { id: 'valenciano', name: 'Iván René Valenciano', shortName: 'Valenciano', role: 'Delantero', era: '1988-2006 · 166 Goles', isLegend: true },
   { id: 'veron', name: 'Juan Ramón Verón', shortName: 'J. R. Verón', role: 'Delantero', era: '1977', isLegend: true },
 ];
 
@@ -100,19 +105,19 @@ export const LineupBuilder: React.FC = () => {
   const loadPreset = (presetName: 'actual' | '1993' | '2023' | 'bicampeon') => {
     if (presetName === 'actual') {
       setFormation('4-3-3');
-      setTeamName('Nómina Titular Actual 2025/2026');
+      setTeamName('Nómina Titular 2026-II (DT Sebastián Viera)');
       setLineup([
-        getPlayer('mele'),
+        getPlayer('silveira'),
         getPlayer('herrera'),
-        getPlayer('olivera'),
+        getPlayer('rivera_dan'),
         getPlayer('pena'),
-        getPlayer('moreno_yef'),
-        getPlayer('moreno_didier'),
-        getPlayer('cantillo'),
+        getPlayer('suarez_y'),
+        getPlayer('celis'),
+        getPlayer('rios_jd'),
         getPlayer('chara'),
-        getPlayer('caicedo'),
-        getPlayer('bacca'),
-        getPlayer('enamorado'),
+        getPlayer('barrios_c'),
+        getPlayer('paiva'),
+        getPlayer('muriel'),
       ]);
     } else if (presetName === '1993') {
       setFormation('4-3-3');
@@ -195,7 +200,7 @@ export const LineupBuilder: React.FC = () => {
               onClick={() => loadPreset('actual')}
               className="px-3 py-1.5 rounded-lg bg-red-950/60 border border-red-700/80 text-xs font-semibold text-red-300 hover:text-white hover:bg-red-600 transition-colors"
             >
-              Titular 2025/26
+              Titular 2026-II
             </button>
             <button
               onClick={() => loadPreset('2023')}

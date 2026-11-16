@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { KITS_DATA } from '../data/juniorData';
 import { CustomJerseyConfig, KitJersey } from '../types/football';
+import { HistoricalCrestGallery } from './HistoricalCrestGallery';
 
 export const JerseysSection: React.FC = () => {
   const [selectedKit, setSelectedKit] = useState<KitJersey>(KITS_DATA[KITS_DATA.length - 1]); // Default to 2026 12ª Estrella
@@ -44,8 +45,10 @@ export const JerseysSection: React.FC = () => {
   };
 
   return (
-    <section id="camisetas" className="py-16 bg-slate-900/60 border-b border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <HistoricalCrestGallery />
+      <section id="camisetas" className="py-16 bg-slate-900/60 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
           <div>
@@ -563,5 +566,6 @@ export const JerseysSection: React.FC = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };

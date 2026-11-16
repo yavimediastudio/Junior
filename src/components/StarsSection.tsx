@@ -241,7 +241,7 @@ export const StarsSection: React.FC = () => {
                     <div className="p-2.5 rounded-lg bg-slate-950 border border-slate-800/80 text-xs flex items-center justify-between">
                       <div>
                         <div className="font-semibold text-slate-200">Copa Colombia 2015</div>
-                        <div className="text-[11px] text-slate-400">vs Santa Fe (2-0 global)</div>
+                        <div className="text-[11px] text-slate-400">vs Santa Fe (2-1 global)</div>
                       </div>
                       <span className="text-[11px] text-slate-400 font-mono">DT: Alexis Mendoza</span>
                     </div>

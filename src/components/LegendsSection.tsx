@@ -82,7 +82,7 @@ export const LegendsSection: React.FC = () => {
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              Plantilla Actual 2025/2026
+              Plantilla Actual 2026-II
             </button>
           </div>
         </div>
@@ -187,7 +187,7 @@ export const LegendsSection: React.FC = () => {
           </div>
         )}
 
-        {/* VIEW 2: PLANTILLA ACTUAL 2025/2026 */}
+        {/* VIEW 2: PLANTILLA ACTUAL 2026-II */}
         {viewMode === 'plantilla' && (
           <div className="space-y-6">
             {/* Context & Transfers Callout Grid */}
@@ -198,19 +198,19 @@ export const LegendsSection: React.FC = () => {
                   <span>Dirección Técnica & Proceso</span>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  <strong className="text-white">Alfredo Arias (Bicampeón ★11 y ★12):</strong> Asumió el 23 de junio de 2025 y condujo a Junior a un histórico bicampeonato de Liga: la 11ª estrella (2025-II, 4-0 global ante Tolima) y la 12ª estrella (2026-I, 3-1 global ante Atlético Nacional).<br />
-                  <strong className="text-white">Arturo Reyes &amp; César Farías:</strong> Reyes coronó la 10ª estrella (Dic 2023); Farías dirigió entre sept. 2024 y junio 2025 cerrando 3.º regular en 2025-I.
+                  <strong className="text-white">Sebastián Viera (DT Actual 2026-II):</strong> El legendario exarquero y capitán (638 PJ) asumió la dirección técnica en septiembre de 2026 para el cierre del Torneo Finalización.<br />
+                  <strong className="text-white">Alfredo Arias (Bicampeón ★11 y ★12):</strong> Dirigió entre junio de 2025 y agosto de 2026 guiando a Junior al bicampeonato de Liga (2025-II ante Tolima 4-0 y 2026-I ante Nacional 3-1).
                 </p>
               </div>
 
               <div className="p-4 rounded-xl bg-slate-950 border border-slate-800">
                 <div className="flex items-center gap-2 text-xs font-bold text-red-400 uppercase tracking-wider mb-2">
                   <ArrowRightLeft className="w-4 h-4 text-red-400" />
-                  <span>Mercado de Fichajes Reciente (2024 - 2026)</span>
+                  <span>Mercado & Referentes (2025 - 2026-II)</span>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  <strong className="text-white">Bombazo 2026-I:</strong> Llegada de <strong className="text-amber-300">Luis Muriel (#10)</strong>, Botín de Oro del Apertura 2026 (13 goles) y figura de la final vs Nacional.<br />
-                  <strong className="text-white">Base &amp; Cantera:</strong> Regreso de Vladimir Hernández, consolidación de Bryan Castrillón y Steven Rodríguez junto al capitán Carlos Bacca (125+ goles).
+                  <strong className="text-white">Bombazo 2026:</strong> Llegada de <strong className="text-amber-300">Luis Muriel (#10)</strong>, Botín de Oro del Apertura 2026 (13 goles) y figura en la final ante Nacional.<br />
+                  <strong className="text-white">Liderazgo &amp; Goles:</strong> Capitanía de <strong className="text-amber-300">Teófilo Gutiérrez (#29, 107 goles)</strong>, el legado goleador de Carlos Bacca (134 goles oficiales) y el aporte de Guillermo Paiva, Yimmi Chará, Cristian Barrios y Bryan Castrillón.
                 </p>
               </div>
             </div>
@@ -219,10 +219,10 @@ export const LegendsSection: React.FC = () => {
               <div className="p-4 bg-slate-900/60 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
                   <Award className="w-4 h-4 text-red-500" />
-                  Nómina Oficial Registrada ante Dimayor
+                  Nómina Oficial 2026-II Registrada ante Dimayor
                 </span>
                 <span className="text-xs font-mono text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800/80 px-2.5 py-0.5 rounded-full w-fit">
-                  {CURRENT_ROSTER.length} Jugadores Inscritos · Capitán: Carlos Bacca (#70)
+                  {CURRENT_ROSTER.length} Jugadores Inscritos · Capitán: Teófilo Gutiérrez (#29) · DT: Sebastián Viera
                 </span>
               </div>
 
