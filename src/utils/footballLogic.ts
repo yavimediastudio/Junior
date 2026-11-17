@@ -257,7 +257,7 @@ export function isJuniorRunnerUpTournament(t: {
   if (t.isJuniorRunnerUp === true) return true;
   if (t.isJuniorRunnerUp === false) return false;
   const finish = (t.juniorFinish || '').toUpperCase();
-  return finish.includes('SUBCAMPEÓN') || finish.includes('SUBCAMPEON') || finish.startsWith('2º');
+  return finish.includes('SUBCAMPEÓN') || finish.includes('SUBCAMPEON');
 }
 
 /**
@@ -277,3 +277,142 @@ export function isRunnerUpStatusBadge(statusBadge?: string): boolean {
   return upper.includes('SUBCAMPEÓN') || upper.includes('SUBCAMPEON');
 }
 
+/**
+ * Returns whether a tournament only had a single regular phase (no final phase / play-offs).
+ */
+export function isSinglePhaseTournament(t: { hasFinalPhase?: boolean }): boolean {
+  return t.hasFinalPhase === false;
+}
+
+/**
+ * Returns the Junior crest image asset path to display for a given tournament table.
+ * Uses the 1948 historical crest exclusively for the 1948 inaugural championship.
+ */
+export function getTournamentJuniorCrest(t: { id?: string; year?: string }): {
+  src: string;
+  alt: string;
+} {
+  const is1948 = t.id === '1948-inaugural' || t.year === '1948';
+  if (is1948) {
+    return {
+      src: '/assets/aistudio/ESCUDO_JUNIOR_1948_106008e2.png',
+      alt: 'Escudo Histórico Junior 1948',
+    };
+  }
+  return {
+    src: '/assets/aistudio/image_82370351.png',
+    alt: 'Escudo Oficial Junior',
+  };
+}
+
+/**
+ * Returns the team crest asset to display inside a specific tournament table/match card.
+ * - Junior: uses 1948 crest in 1948, and official Junior crest across all tournaments.
+ * - Santa Fe: uses 1948-1950 CISF historical crest strictly for 1948-1950 tables.
+ * - Deportes Caldas: uses 1947-1950 historical crest strictly for 1947-1950 tables.
+ * - Millonarios: uses 1947-1955 historical crest for 1947-1955 tables (including 1953 table in receso).
+ * - Atlético Municipal: uses 1947-1950 historical crest strictly for 1947-1950 tables.
+ * - América de Cali: uses 1940-1961 historical crest strictly for 1940-1961 tables.
+ * - Independiente Medellín: uses 1913-1951 FBC historical crest strictly for 1913-1951 tables.
+ */
+export function getTournamentTeamCrest(
+  t: { id?: string; year?: string },
+  teamName: string,
+  isJuniorRow?: boolean
+): { src: string; alt: string } | null {
+  const lower = (teamName || '').toLowerCase();
+  const isJunior =
+    isJuniorRow === true || (lower.includes('junior') && !lower.includes('boca juniors'));
+  if (isJunior) {
+    return getTournamentJuniorCrest(t);
+  }
+
+  if (!lower || lower.includes(',')) {
+    return null;
+  }
+
+  const isSantaFe = lower.includes('santa fe');
+  const year = (t.year || '').trim();
+  if (isSantaFe && (year === '1948' || year === '1949' || year === '1950')) {
+    return {
+      src: '/assets/aistudio/SANTA_FE_1948-1950_6d4be8eb.png',
+      alt: 'Escudo Histórico Santa Fe 1948-1950',
+    };
+  }
+
+  const isDeportesCaldas = lower.includes('deportes caldas');
+  if (
+    isDeportesCaldas &&
+    (year === '1947' || year === '1948' || year === '1949' || year === '1950')
+  ) {
+    return {
+      src: '/assets/aistudio/Escudo_Deportes_Caldas_1947-1950.svg_8c1299a8.webp',
+      alt: 'Escudo Histórico Deportes Caldas 1947-1950',
+    };
+  }
+
+  const isMillonarios = lower.includes('millonarios');
+  const numericYear = /^\d{4}$/.test(year) ? Number(year) : null;
+  if (
+    isMillonarios &&
+    ((numericYear !== null && numericYear >= 1947 && numericYear <= 1955) ||
+      t.id === '1953-1966-receso')
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_1947-1955_a27e65ae.png',
+      alt: 'Escudo Histórico Millonarios 1947-1955',
+    };
+  }
+
+  const isAtleticoMunicipal =
+    lower.includes('atlético municipal') || lower.includes('atletico municipal');
+  if (
+    isAtleticoMunicipal &&
+    (year === '1947' || year === '1948' || year === '1949' || year === '1950')
+  ) {
+    return {
+      src: '/assets/aistudio/Escudo_de_Atl_tico_Municipal__luego__Atl_tico_Nacional___1947-1950_64e37cfb.png',
+      alt: 'Escudo Histórico Atlético Municipal 1947-1950',
+    };
+  }
+
+  const isAmericaDeCali =
+    (lower.includes('américa') || lower.includes('america')) &&
+    !lower.includes('copa');
+  if (
+    isAmericaDeCali &&
+    numericYear !== null &&
+    numericYear >= 1940 &&
+    numericYear <= 1961
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_1940-1961_e9be8b73.png',
+      alt: 'Escudo Histórico América de Cali 1940-1961',
+    };
+  }
+
+  const isIndependienteMedellin =
+    (lower.includes('independiente medellín') ||
+      lower.includes('independiente medellin') ||
+      lower.includes('ind. medellín') ||
+      lower.includes('ind. medellin') ||
+      lower.includes('indep. medellín') ||
+      lower.includes('indep. medellin') ||
+      lower.trim() === 'medellín' ||
+      lower.trim() === 'medellin') &&
+    !lower.includes('huracán') &&
+    !lower.includes('huracan');
+  if (
+    isIndependienteMedellin &&
+    numericYear !== null &&
+    numericYear >= 1913 &&
+    numericYear <= 1951
+  ) {
+    return {
+      src: '/assets/aistudio/MEDELLIN_1913-1951_1abd4262.png',
+      alt: 'Escudo Histórico Independiente Medellín 1913-1951',
+    };
+  }
+
+  return null;
+}

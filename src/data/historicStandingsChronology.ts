@@ -433,7 +433,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     "tournamentName": "Campeonato Colombiano 1950",
     "phaseTitle": "Campeonato 1950 (Época de El Dorado - 9º Puesto)",
     "phaseType": "anual",
-    "description": "En plena era de El Dorado con la magia de Heleno de Freitas en Junior (15 goles) y Tim (Elba de Pádua Lima), Deportes Caldas se coronó campeón con 45 puntos y Millonarios fue subcampeón con 43. Junior ocupó la 9ª casilla oficial con 31 puntos en 30 partidos (12 PG, 7 PE, 11 PP, 52 GF, 57 GC, -5 DG). Casimiro Ávalos (Pereira) fue el máximo goleador con 27 tantos.",
+    "description": "En el retorno de Junior a la Dimayor tras la sanción de 1949 y con la magia del astro brasileño Heleno de Freitas (15 goles), Deportes Caldas se coronó campeón con 45 puntos y Millonarios fue subcampeón con 43. Junior ocupó la 9ª casilla oficial con 31 puntos en 30 partidos (12 PG, 7 PE, 11 PP, 52 GF, 57 GC, -5 DG; reseñado 8.º en algunas crónicas históricas antes de desempate). Casimiro Ávalos (Pereira) fue el máximo goleador con 27 tantos.",
     "juniorFinish": "9º Puesto Oficial en El Dorado (31 Pts)",
     "championTeam": "Deportes Caldas",
     "hasRegularPhase": true,
@@ -498,8 +498,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "gf": 79,
         "gc": 60,
         "dg": 19,
-        "pts": 33,
-        "isJunior": true
+        "pts": 33
       },
       {
         "pos": 6,
@@ -696,8 +695,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "gf": 79,
         "gc": 60,
         "dg": 19,
-        "pts": 33,
-        "isJunior": true
+        "pts": 33
       },
       {
         "pos": 6,
@@ -1121,8 +1119,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "gf": 110,
         "gc": 55,
         "dg": 55,
-        "pts": 49,
-        "isJunior": true
+        "pts": 49
       },
       {
         "pos": 3,
@@ -1343,8 +1340,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "gf": 110,
         "gc": 55,
         "dg": 55,
-        "pts": 49,
-        "isJunior": true
+        "pts": 49
       },
       {
         "pos": 3,
@@ -1861,8 +1857,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "gf": 67,
         "gc": 36,
         "dg": 31,
-        "pts": 40,
-        "isJunior": true
+        "pts": 40
       },
       {
         "pos": 3,
@@ -2047,8 +2042,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "gf": 67,
         "gc": 36,
         "dg": 31,
-        "pts": 40,
-        "isJunior": true
+        "pts": 40
       },
       {
         "pos": 3,
@@ -2507,8 +2501,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "gf": 44,
         "gc": 30,
         "dg": 14,
-        "pts": 31,
-        "isJunior": true
+        "pts": 31
       },
       {
         "pos": 4,
@@ -2657,8 +2650,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "gf": 44,
         "gc": 30,
         "dg": 14,
-        "pts": 31,
-        "isJunior": true
+        "pts": 31
       },
       {
         "pos": 4,
@@ -2969,14 +2961,14 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     "tournamentName": "Período de Receso Profesional (1953 - 1966)",
     "phaseTitle": "Período 1953 - 1966: Fin de El Dorado y 12 Años de Receso Profesional",
     "phaseType": "anual",
-    "description": "En 1953 termina 10.º en el campeonato, con 15 puntos.[27] Igualmente es el fin del histórico periodo el Dorado en el fútbol colombiano y el club afronta una grave crisis económica que lo obliga a retirarse de la Dimayor, pasando a participar durante 12 años del torneo aficionado de la liga departamental, desapareciendo del profesionalismo colombiano.",
-    "juniorFinish": "10.º en 1953 (15 Pts) [27] · 12 Años en Liga Departamental",
+    "description": "En 1953 Junior sumó 15 puntos (8.º puesto oficial por diferencia de gol -15 en triple empate con Unión Magdalena y Sporting; reseñado como 10.º en algunas crónicas por victorias). Con el fin de El Dorado, el club afrontó una grave crisis económica que lo obligó a retirarse de la Dimayor, participando durante 12 años en el torneo aficionado de la Liga Departamental del Atlántico hasta su retorno en 1966.",
+    "juniorFinish": "15 Pts en 1953 (8.º DG / 10.º por PG) · 12 Años en Liga Departamental",
     "championTeam": "Fútbol Aficionado (Liga Departamental del Atlántico)",
     "isJuniorChampion": false,
     "isJuniorRunnerUp": false,
     "hasRegularPhase": true,
-    "regularPhaseTitle": "Tabla Final del Campeonato 1953 (Posición 10.º de Junior según fuentes históricas [27])",
-    "regularPhaseDescription": "En 1953 termina 10.º en el campeonato, con 15 puntos.[27] Igualmente es el fin del histórico periodo el Dorado en el fútbol colombiano y el club afronta una grave crisis económica que lo obliga a retirarse de la Dimayor, pasando a participar durante 12 años del torneo aficionado de la liga departamental, desapareciendo del profesionalismo colombiano.",
+    "regularPhaseTitle": "Tabla Final del Campeonato 1953 (Triple Empate en 15 Puntos)",
+    "regularPhaseDescription": "En 1953 Junior igualó con 15 puntos junto a Unión Magdalena y Sporting (8.º por diferencia de gol: -15; 10.º según crónicas por número de triunfos). Tras el fin de El Dorado, se retiró de la Dimayor por 12 años para disputar la liga aficionada departamental.",
     "regularRows": [
       {
         "pos": 1,
@@ -3071,6 +3063,20 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "pos": 8,
+        "team": "Junior de Barranquilla",
+        "pj": 22,
+        "pg": 4,
+        "pe": 7,
+        "pp": 11,
+        "gf": 38,
+        "gc": 53,
+        "dg": -15,
+        "pts": 15,
+        "statusBadge": "8.º (Dif. Gol -15)",
+        "isJunior": true
+      },
+      {
+        "pos": 9,
         "team": "Unión Magdalena",
         "pj": 22,
         "pg": 6,
@@ -3080,10 +3086,10 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "gc": 58,
         "dg": -23,
         "pts": 15,
-        "statusBadge": "8º/9º Puesto"
+        "statusBadge": "9º Puesto"
       },
       {
-        "pos": 9,
+        "pos": 10,
         "team": "Sporting de Barranquilla",
         "pj": 22,
         "pg": 6,
@@ -3093,21 +3099,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "gc": 68,
         "dg": -30,
         "pts": 15,
-        "statusBadge": "9º/10º Puesto"
-      },
-      {
-        "pos": 10,
-        "team": "Junior de Barranquilla (10.º puesto [27])",
-        "pj": 22,
-        "pg": 4,
-        "pe": 7,
-        "pp": 11,
-        "gf": 38,
-        "gc": 53,
-        "dg": -15,
-        "pts": 15,
-        "statusBadge": "10.º Puesto [27]",
-        "isJunior": true
+        "statusBadge": "10º Puesto"
       },
       {
         "pos": 11,
@@ -3162,7 +3154,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "awayTeam": "Dimayor",
         "homeScore": 10,
         "awayScore": 15,
-        "note": "En 1953 termina 10.º en el campeonato, con 15 puntos.[27] Igualmente es el fin del histórico periodo el Dorado en el fútbol colombiano"
+        "note": "En 1953 cerró con 15 puntos (8.º por DG -15; 10.º en crónicas por PG). Fin del histórico período de El Dorado"
       },
       {
         "round": "1954",
@@ -33271,7 +33263,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     "tournamentName": "Campeonato Colombiano 1983",
     "phaseTitle": "Campeonato 1983 (Copa de la Paz • Torneo Nacional • Octogonal Final 🥈)",
     "phaseType": "octogonal",
-    "description": "En una de las campañas más brillantes de la década de 1980, Junior disputó el título mano a mano frente a América de Cali y Atlético Nacional. Comenzó ganando el Grupo B del Torneo Apertura (Copa de la Paz) con 20 puntos y coronándose campeón del certamen al superar a Once Caldas en la serie extra (2-2 en Manizales y 2-1 en Barranquilla). En el Torneo Nacional (Clausura) finalizó 4.º con 34 puntos y fue el equipo más goleador de Colombia con 48 goles a favor. En el Octogonal Final de 14 fechas, bajo la dirección técnica del estratega argentino Jorge \"El Indio\" Solari, el conjunto tiburón obtuvo 19.00 puntos (7 PG, 4 PE, 3 PP, 24 GF, 14 GC, +10 DG y 1.00 pt de bonificación acumulada), consagrándose SUBCAMPEÓN OFICIAL DE COLOMBIA (Estrella de Plata 🥈) y sellando el cupo a la Copa Libertadores 1984 tras aventajar en la diferencia de gol a Atlético Nacional (+10 vs +6) en un electrizante 1-1 en la última fecha en el Romelio Martínez. Sobresalieron el artillero William Knight (14 goles en el Torneo Nacional, 20 en la temporada), el zaguero central goleador Edgardo \"El Patón\" Bauza (10 tantos) y figuras como Fernando Fiorillo, Carlos Molinares y Lorenzo Carrabs.",
+    "description": "En una de las campañas más brillantes de la década de 1980, Junior disputó el título mano a mano frente a América de Cali y Atlético Nacional. Comenzó ganando el Grupo B del Torneo Apertura (Copa de la Paz) con 20 puntos y disputando la Serie Extra ante Once Caldas (2-2 en Manizales y 0-2 en Barranquilla) para recibir 0.75 puntos de bonificación. En el Torneo Nacional (Clausura) finalizó 4.º con 34 puntos (+0.25 bonif., totalizando 1.00 acumulado) y fue el equipo más goleador de Colombia con 48 goles a favor. En el Octogonal Final de 14 fechas, bajo la dirección técnica del estratega argentino Jorge \"El Indio\" Solari, el conjunto tiburón obtuvo 19.00 puntos (7 PG, 4 PE, 3 PP, 24 GF, 14 GC, +10 DG y 1.00 pt de bonificación acumulada), consagrándose SUBCAMPEÓN OFICIAL DE COLOMBIA (Estrella de Plata 🥈) y sellando el cupo a la Copa Libertadores 1984 tras aventajar en la diferencia de gol a Atlético Nacional (+10 vs +6) en un electrizante 1-1 en la última fecha en el Romelio Martínez. Sobresalieron el artillero William Knight (14 goles en el Torneo Nacional, 20 en la temporada), el zaguero central goleador Edgardo \"El Patón\" Bauza (10 tantos) y figuras como Fernando Fiorillo, Carlos Molinares y Lorenzo Carrabs.",
     "juniorFinish": "2º SUBCAMPEÓN DE COLOMBIA 🥈 (19.00 Pts • Copa Libertadores 1984)",
     "championTeam": "América de Cali",
     "isJuniorRunnerUp": true,

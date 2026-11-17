@@ -186,7 +186,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
               }`}
             >
               <Star className="w-3 h-3 fill-current" />
-              <span>12 Estrellas</span>
+              <span>Estrellas & Títulos ({JUNIOR_TIMELINE_MILESTONES.filter((m) => m.category === 'estrella').length})</span>
             </button>
 
             <button
@@ -198,7 +198,7 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
               }`}
             >
               <Trophy className="w-3 h-3" />
-              <span>Copas (4)</span>
+              <span>Copas ({JUNIOR_TIMELINE_MILESTONES.filter((m) => m.category === 'copa').length})</span>
             </button>
 
             <button

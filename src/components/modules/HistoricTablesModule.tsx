@@ -40,6 +40,9 @@ import {
   isJuniorRunnerUpTournament,
   isChampionStatusBadge,
   isRunnerUpStatusBadge,
+  isSinglePhaseTournament,
+  getTournamentJuniorCrest,
+  getTournamentTeamCrest,
 } from '../../utils/footballLogic';
 
 export const HistoricTablesModule: React.FC = () => {
@@ -61,6 +64,7 @@ export const HistoricTablesModule: React.FC = () => {
 
   // Reset sub-filters when switching tournament
   useEffect(() => {
+    setPhaseViewMode('ambas');
     setSelectedFinalGroupIdx('all');
     setSelectedMatchStage('all');
     setShowAllMatches(false);
@@ -132,6 +136,9 @@ export const HistoricTablesModule: React.FC = () => {
   const activeTournamentTable: TournamentStandingsTable =
     HISTORIC_TOURNAMENT_STANDINGS_TABLES.find((t) => t.id === selectedTableId) ||
     HISTORIC_TOURNAMENT_STANDINGS_TABLES[0];
+  const singlePhaseTournament = isSinglePhaseTournament(activeTournamentTable);
+  const juniorCrest = getTournamentJuniorCrest(activeTournamentTable);
+  const championCrest = getTournamentTeamCrest(activeTournamentTable, activeTournamentTable.championTeam);
 
   // Filtered yearly summary (Tab 2)
   const filteredYearlyStandings = JUNIOR_YEARLY_STANDINGS.filter((item) => {
@@ -519,13 +526,20 @@ export const HistoricTablesModule: React.FC = () => {
                       <div className="text-[10px] text-slate-400 uppercase font-bold">
                         {isJuniorChampionTournament(activeTournamentTable) ? 'Campeón de Liga' : 'Campeón del Campeonato'}
                       </div>
-                      <div className="text-sm font-black text-amber-400 font-display mt-0.5">
-                        {activeTournamentTable.championTeam}
+                      <div className="text-sm font-black text-amber-400 font-display mt-0.5 flex items-center justify-end gap-1.5">
+                        {championCrest && !isJuniorChampionTournament(activeTournamentTable) && (
+                          <img
+                            src={championCrest.src}
+                            alt={championCrest.alt}
+                            className="w-4 h-4 object-contain shrink-0 drop-shadow"
+                          />
+                        )}
+                        <span>{activeTournamentTable.championTeam}</span>
                       </div>
                       <div className="text-[11px] text-slate-300 mt-1 flex items-center justify-end gap-1.5">
                         <img
-                          src="/assets/aistudio/image_82370351.png"
-                          alt="Escudo Junior"
+                          src={juniorCrest.src}
+                          alt={juniorCrest.alt}
                           className="w-4 h-4 object-contain shrink-0 drop-shadow"
                         />
                         <span>Junior: <strong className="text-white">{activeTournamentTable.juniorFinish}</strong></span>
@@ -542,32 +556,39 @@ export const HistoricTablesModule: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Phase View Switcher Pills */}
+                {/* Phase View Switcher Pills (solo para torneos con más de una fase) */}
                 <div className="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-bold uppercase text-slate-400">Ver Fases:</span>
-                    <div className="flex items-center p-0.5 bg-slate-950 border border-slate-800 rounded-lg text-xs">
-                      <button
-                        onClick={() => setPhaseViewMode('ambas')}
-                        className={`px-3 py-1 rounded-md font-semibold transition-colors ${
-                          phaseViewMode === 'ambas'
-                            ? 'bg-red-600 text-white font-bold shadow-sm'
-                            : 'text-slate-400 hover:text-white'
-                        }`}
-                      >
-                        Ambas Fases (1º Todos vs Todos + 2º Play-offs)
-                      </button>
-                      <button
-                        onClick={() => setPhaseViewMode('regular')}
-                        className={`px-3 py-1 rounded-md font-semibold transition-colors ${
-                          phaseViewMode === 'regular'
-                            ? 'bg-red-600 text-white font-bold shadow-sm'
-                            : 'text-slate-400 hover:text-white'
-                        }`}
-                      >
-                        Solo 1ª Fase (Todos contra Todos)
-                      </button>
-                      {activeTournamentTable.hasFinalPhase !== false && (
+                  {singlePhaseTournament ? (
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-bold uppercase text-slate-400">Modalidad:</span>
+                      <span className="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-xs font-semibold text-amber-300">
+                        Fase Única · Todos contra Todos (Sin Play-offs)
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-bold uppercase text-slate-400">Ver Fases:</span>
+                      <div className="flex items-center p-0.5 bg-slate-950 border border-slate-800 rounded-lg text-xs">
+                        <button
+                          onClick={() => setPhaseViewMode('ambas')}
+                          className={`px-3 py-1 rounded-md font-semibold transition-colors ${
+                            phaseViewMode === 'ambas'
+                              ? 'bg-red-600 text-white font-bold shadow-sm'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Ambas Fases (1º Todos vs Todos + 2º Play-offs)
+                        </button>
+                        <button
+                          onClick={() => setPhaseViewMode('regular')}
+                          className={`px-3 py-1 rounded-md font-semibold transition-colors ${
+                            phaseViewMode === 'regular'
+                              ? 'bg-red-600 text-white font-bold shadow-sm'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Solo 1ª Fase (Todos contra Todos)
+                        </button>
                         <button
                           onClick={() => setPhaseViewMode('playoff')}
                           className={`px-3 py-1 rounded-md font-semibold transition-colors ${
@@ -578,9 +599,9 @@ export const HistoricTablesModule: React.FC = () => {
                         >
                           Solo 2ª Fase ({activeTournamentTable.phaseType === 'cuadrangular' ? 'Cuadrangulares' : activeTournamentTable.phaseType === 'hexagonal' ? 'Hexagonal' : activeTournamentTable.phaseType === 'octogonal' ? 'Octogonal' : activeTournamentTable.phaseType === 'triangular' ? 'Triangular' : 'Play-offs'})
                         </button>
-                      )}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <div className="text-[11px] text-slate-400">
                     Mostrando orden cronológico: <span className="font-mono text-amber-300 font-bold">{activeTournamentTable.year}</span>
@@ -591,15 +612,15 @@ export const HistoricTablesModule: React.FC = () => {
               {/* DUAL TABLES CONTAINER */}
               <div className="p-5 space-y-8 bg-slate-950/40">
                 {/* ========================================================================= */}
-                {/* 1ª FASE: TABLA DE TODOS CONTRA TODOS (FASE REGULAR)                       */}
+                {/* 1ª FASE / FASE ÚNICA: TABLA DE TODOS CONTRA TODOS                        */}
                 {/* ========================================================================= */}
-                {(phaseViewMode === 'ambas' || phaseViewMode === 'regular') && (
+                {(singlePhaseTournament || phaseViewMode === 'ambas' || phaseViewMode === 'regular') && (
                   <div className="space-y-3">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 rounded-xl bg-slate-900 border border-slate-800">
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 font-mono text-[10px] font-bold uppercase">
-                            1ª Fase Oficial
+                            {singlePhaseTournament ? 'Fase Única Oficial' : '1ª Fase Oficial'}
                           </span>
                           <h4 className="text-sm font-bold uppercase text-white tracking-wide">
                             {activeTournamentTable.regularPhaseTitle || `Tabla de Todos contra Todos - Fase Regular ${activeTournamentTable.year}`}
@@ -665,13 +686,16 @@ export const HistoricTablesModule: React.FC = () => {
 
                                 <td className="py-2.5 px-4 whitespace-nowrap">
                                   <div className="flex items-center gap-2">
-                                    {row.isJunior ? (
-                                      <img
-                                        src="/assets/aistudio/image_82370351.png"
-                                        alt="Escudo Oficial Junior"
-                                        className="w-5 h-5 object-contain shrink-0 drop-shadow"
-                                      />
-                                    ) : null}
+                                    {(() => {
+                                      const crest = getTournamentTeamCrest(activeTournamentTable, row.team, row.isJunior);
+                                      return crest ? (
+                                        <img
+                                          src={crest.src}
+                                          alt={crest.alt}
+                                          className="w-5 h-5 object-contain shrink-0 drop-shadow"
+                                        />
+                                      ) : null;
+                                    })()}
                                     <span className={row.isJunior ? 'text-white font-extrabold text-sm' : 'text-slate-200'}>
                                       {row.team}
                                     </span>
@@ -788,14 +812,17 @@ export const HistoricTablesModule: React.FC = () => {
                                     </td>
                                     <td className="py-2.5 px-4 whitespace-nowrap">
                                       <div className="flex items-center gap-2">
-                                        {row.isJunior ? (
-                                          <img
-                                            src="/assets/aistudio/image_82370351.png"
-                                            alt="Escudo Oficial Junior"
-                                            className="w-5 h-5 object-contain shrink-0 drop-shadow"
-                                            referrerPolicy="no-referrer"
-                                          />
-                                        ) : null}
+                                        {(() => {
+                                          const crest = getTournamentTeamCrest(activeTournamentTable, row.team, row.isJunior);
+                                          return crest ? (
+                                            <img
+                                              src={crest.src}
+                                              alt={crest.alt}
+                                              className="w-5 h-5 object-contain shrink-0 drop-shadow"
+                                              referrerPolicy="no-referrer"
+                                            />
+                                          ) : null;
+                                        })()}
                                         <span className={row.isJunior ? 'text-white font-extrabold text-sm' : 'text-slate-200'}>
                                           {row.team}
                                         </span>
@@ -971,14 +998,17 @@ export const HistoricTablesModule: React.FC = () => {
                                               </td>
                                               <td className="py-2.5 px-4 whitespace-nowrap">
                                                 <div className="flex items-center gap-2">
-                                                  {row.isJunior ? (
-                                                    <img
-                                                      src="/assets/aistudio/image_82370351.png"
-                                                      alt="Escudo Oficial Junior"
-                                                      className="w-5 h-5 object-contain shrink-0 drop-shadow"
-                                                      referrerPolicy="no-referrer"
-                                                    />
-                                                  ) : null}
+                                                  {(() => {
+                                                    const crest = getTournamentTeamCrest(activeTournamentTable, row.team, row.isJunior);
+                                                    return crest ? (
+                                                      <img
+                                                        src={crest.src}
+                                                        alt={crest.alt}
+                                                        className="w-5 h-5 object-contain shrink-0 drop-shadow"
+                                                        referrerPolicy="no-referrer"
+                                                      />
+                                                    ) : null;
+                                                  })()}
                                                   <span className={row.isJunior ? 'text-white font-extrabold text-sm' : 'text-slate-200'}>
                                                     {row.team}
                                                   </span>
@@ -1075,14 +1105,17 @@ export const HistoricTablesModule: React.FC = () => {
 
                                       <td className="py-2.5 px-4 whitespace-nowrap">
                                         <div className="flex items-center gap-2">
-                                          {row.isJunior ? (
-                                            <img
-                                              src="/assets/aistudio/image_82370351.png"
-                                              alt="Escudo Oficial Junior"
-                                              className="w-5 h-5 object-contain shrink-0 drop-shadow"
-                                              referrerPolicy="no-referrer"
-                                            />
-                                          ) : null}
+                                          {(() => {
+                                            const crest = getTournamentTeamCrest(activeTournamentTable, row.team, row.isJunior);
+                                            return crest ? (
+                                              <img
+                                                src={crest.src}
+                                                alt={crest.alt}
+                                                className="w-5 h-5 object-contain shrink-0 drop-shadow"
+                                                referrerPolicy="no-referrer"
+                                              />
+                                            ) : null;
+                                          })()}
                                           <span className={row.isJunior ? 'text-white font-extrabold text-sm' : 'text-slate-200'}>
                                             {row.team}
                                           </span>
@@ -1285,6 +1318,8 @@ export const HistoricTablesModule: React.FC = () => {
                       {activeTournamentTable.matchArchive.map((m, idx) => {
                         const isJuniorHome = m.homeTeam.includes('Junior');
                         const isJuniorAway = m.awayTeam.includes('Junior');
+                        const homeCrest = getTournamentTeamCrest(activeTournamentTable, m.homeTeam, isJuniorHome);
+                        const awayCrest = getTournamentTeamCrest(activeTournamentTable, m.awayTeam, isJuniorAway);
                         const juniorWon = (isJuniorHome && m.homeScore > m.awayScore) || (isJuniorAway && m.awayScore > m.homeScore);
                         const isDraw = m.homeScore === m.awayScore;
 
@@ -1306,10 +1341,10 @@ export const HistoricTablesModule: React.FC = () => {
                             <div className="flex items-center justify-between gap-2 font-semibold">
                               <span className={`truncate text-right flex-1 flex items-center justify-end gap-1.5 ${isJuniorHome ? 'text-red-400 font-bold' : 'text-slate-200'}`}>
                                 <span>{m.homeTeam.replace('de Barranquilla', '').trim()}</span>
-                                {isJuniorHome && (
+                                {homeCrest && (
                                   <img
-                                    src="/assets/aistudio/image_82370351.png"
-                                    alt="Junior"
+                                    src={homeCrest.src}
+                                    alt={homeCrest.alt}
                                     className="w-4 h-4 object-contain shrink-0 drop-shadow inline-block"
                                   />
                                 )}
@@ -1318,10 +1353,10 @@ export const HistoricTablesModule: React.FC = () => {
                                 {m.homeScore} - {m.awayScore}
                               </span>
                               <span className={`truncate text-left flex-1 flex items-center gap-1.5 ${isJuniorAway ? 'text-red-400 font-bold' : 'text-slate-200'}`}>
-                                {isJuniorAway && (
+                                {awayCrest && (
                                   <img
-                                    src="/assets/aistudio/image_82370351.png"
-                                    alt="Junior"
+                                    src={awayCrest.src}
+                                    alt={awayCrest.alt}
                                     className="w-4 h-4 object-contain shrink-0 drop-shadow inline-block"
                                   />
                                 )}

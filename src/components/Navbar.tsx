@@ -41,21 +41,21 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-6 h-16">
+        <div className="flex items-center justify-between gap-2 xl:gap-3 h-16">
           {/* Brand Wordmark & Shield */}
           <button
             onClick={() => handleNavClick('inicio')}
-            className="flex items-center gap-2.5 text-left focus:outline-none group whitespace-nowrap shrink-0"
+            className="flex items-center gap-2 text-left focus:outline-none group whitespace-nowrap shrink-0"
             title="Ir al Portal Principal de Ventanas"
           >
             {/* Junior Official Shield Logo */}
             <img
               src="/assets/aistudio/image_82370351.png"
               alt="Escudo Oficial Junior de Barranquilla"
-              className="w-10 h-10 object-contain shrink-0 group-hover:scale-105 transition-transform drop-shadow"
+              className="w-9 h-9 object-contain shrink-0 group-hover:scale-105 transition-transform drop-shadow"
             />
             <div>
-              <span className="font-display text-lg sm:text-xl font-black tracking-wide text-white group-hover:text-red-500 transition-colors uppercase block leading-none">
+              <span className="font-display text-base sm:text-lg font-black tracking-wide text-white group-hover:text-red-500 transition-colors uppercase block leading-none">
                 Junior de Barranquilla
               </span>
               <span className="text-[10px] text-slate-400 font-medium tracking-wider uppercase block mt-0.5">
@@ -65,12 +65,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           {/* Clean 6-Window Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-3 text-xs font-medium text-slate-300">
+          <nav className="hidden xl:flex items-center gap-1 text-xs font-medium text-slate-300">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`transition-colors whitespace-nowrap shrink-0 py-1.5 px-2.5 rounded-md border-b-2 ${
+                className={`transition-colors whitespace-nowrap shrink-0 py-1.5 px-2 rounded-md border-b-2 ${
                   activeSection === item.id
                     ? 'text-white border-red-500 bg-red-950/40 font-bold'
                     : 'text-slate-300 border-transparent hover:text-white hover:bg-slate-900'
@@ -82,12 +82,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Action + Utility Controls */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 shrink-0">
             {/* Home Portal Button if inside a window */}
             {!isHome ? (
               <button
                 onClick={() => handleNavClick('inicio')}
-                className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5"
+                className="px-2.5 py-1.5 text-xs font-bold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5"
                 title="Volver a la vista principal de las 6 ventanas"
               >
                 <Home className="w-3.5 h-3.5 text-red-400" />
@@ -100,7 +100,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     const el = document.getElementById('linea-tiempo');
                     if (el) el.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="hidden lg:flex px-2.5 py-1.5 text-xs font-semibold text-amber-300 bg-amber-950/40 hover:bg-amber-900/60 border border-amber-800/80 rounded-lg transition-colors items-center gap-1.5"
+                  className="hidden lg:flex px-2.5 py-1.5 text-xs font-semibold text-amber-300 bg-amber-950/40 hover:bg-amber-900/60 border border-amber-800/80 rounded-lg transition-colors items-center gap-1.5 whitespace-nowrap"
                 >
                   <Clock className="w-3.5 h-3.5 text-amber-400" />
                   <span>Línea de Tiempo</span>
@@ -108,7 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                 <button
                   onClick={() => handleNavClick('titulos')}
-                  className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm transition-colors whitespace-nowrap flex items-center gap-1.5"
+                  className="px-2.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm transition-colors whitespace-nowrap flex items-center gap-1.5"
                 >
                   <LayoutGrid className="w-3.5 h-3.5" />
                   <span>12★ Títulos</span>

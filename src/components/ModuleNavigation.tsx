@@ -320,9 +320,9 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
   return (
     <div className="sticky top-16 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5">
-        <div className="flex flex-col gap-2.5">
-          {/* Fila Principal: Navegación + Buscador + Switcher */}
-          <div className="flex flex-wrap lg:flex-nowrap items-center justify-between gap-3">
+        <div className="flex flex-col gap-2">
+          {/* Fila 1: Navegación + Buscador + Compartir */}
+          <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-2.5">
             {/* Izquierda: Volver al Portal + Breadcrumb del módulo activo */}
             <div className="flex items-center gap-2.5 shrink-0">
               <button
@@ -562,43 +562,41 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
               )}
             </div>
 
-            {/* Derecha: Pestañas de acceso directo a las 6 ventanas */}
-            <div className="flex items-center gap-1 overflow-x-auto pb-0.5 lg:pb-0 scrollbar-none shrink-0">
-              {MODULE_ITEMS.map((item) => {
-                const Icon = item.icon;
-                const isActive = activeModule === item.id;
+            {/* Derecha Fila 1: Botón de Compartir Módulo Actual */}
+            <ShareButton
+              sectionTitle={`Módulo ${currentConfig.number}: ${currentConfig.label}`}
+              moduleId={activeModule}
+              buttonText="Compartir"
+              size="sm"
+              className="shrink-0 font-medium"
+            />
+          </div>
 
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => onSelectModule(item.id)}
-                    className={`px-2 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all flex items-center gap-1 shrink-0 border ${
-                      isActive
-                        ? 'bg-red-600 text-white border-red-500 font-bold shadow-md shadow-red-950/50'
-                        : 'bg-slate-900/80 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white'
-                    }`}
-                    title={item.description}
-                  >
-                    <span className="font-mono text-[10px] opacity-75">{item.number}</span>
-                    <Icon className="w-3 h-3 shrink-0" />
-                    <span className="text-[10px] sm:text-[11px] font-display uppercase tracking-wide">
-                      {item.shortLabel}
-                    </span>
-                  </button>
-                );
-              })}
+          {/* Fila 2: Pestañas completas de acceso directo a las 6 ventanas */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-0.5 scrollbar-none border-t border-slate-800/70 pt-2">
+            {MODULE_ITEMS.map((item) => {
+              const Icon = item.icon;
+              const isActive = activeModule === item.id;
 
-              <div className="h-5 w-px bg-slate-800 mx-0.5 hidden sm:block" />
-
-              {/* Botón de Compartir Módulo Actual */}
-              <ShareButton
-                sectionTitle={`Módulo ${currentConfig.number}: ${currentConfig.label}`}
-                moduleId={activeModule}
-                buttonText="Compartir"
-                size="sm"
-                className="shrink-0 font-medium"
-              />
-            </div>
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onSelectModule(item.id)}
+                  className={`px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all flex items-center gap-1.5 shrink-0 border ${
+                    isActive
+                      ? 'bg-red-600 text-white border-red-500 font-bold shadow-md shadow-red-950/50'
+                      : 'bg-slate-900/80 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-white'
+                  }`}
+                  title={item.description}
+                >
+                  <span className="font-mono text-[10px] opacity-75">{item.number}</span>
+                  <Icon className="w-3.5 h-3.5 shrink-0" />
+                  <span className="text-[11px] font-display uppercase tracking-wide">
+                    {item.shortLabel}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
