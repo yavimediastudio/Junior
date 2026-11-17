@@ -13,6 +13,10 @@ import {
   isSinglePhaseTournament,
   getTournamentJuniorCrest,
   getTournamentTeamCrest,
+  getRowStatusBadge,
+  getTournamentDecadeKey,
+  groupTournamentsByDecade,
+  getAdjacentTournaments,
 } from './footballLogic';
 import { LeagueStanding, MatchFixture } from '../types/football';
 
@@ -317,33 +321,45 @@ test('1948 tournament single-phase flag and historical crest resolution', () => 
   }
 });
 
-test('Santa Fe 1948-1950 historical crest applies strictly to 1948-1950 tournaments', () => {
+test('Santa Fe 1948-1949 and 1950-1952 historical crests apply strictly to their respective tournaments', () => {
   const t1948 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1948-inaugural');
   const t1950 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1950-dorado');
   const t1951 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1951-dorado');
+  const t1952 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1952-dorado');
+  const t1953 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1953-dorado');
   const t1977 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1977-hexagonal');
-  assert.ok(t1948 && t1950 && t1951 && t1977);
+  assert.ok(t1948 && t1950 && t1951 && t1952 && t1953 && t1977);
 
   assert.equal(
     getTournamentTeamCrest(t1948, 'Independiente Santa Fe')?.src,
     '/assets/aistudio/SANTA_FE_1948-1950_6d4be8eb.png'
   );
   assert.equal(
-    getTournamentTeamCrest(t1950, 'Independiente Santa Fe')?.src,
+    getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Independiente Santa Fe')?.src,
     '/assets/aistudio/SANTA_FE_1948-1950_6d4be8eb.png'
   );
-  assert.equal(getTournamentTeamCrest(t1951, 'Independiente Santa Fe'), null);
+  for (const tbl of [t1950, t1951, t1952]) {
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Independiente Santa Fe')?.src,
+      '/assets/aistudio/SANTA_FE_1950-1952_88ef6caa.png',
+      `Expected Santa Fe 1950-1952 crest for ${tbl.id}`
+    );
+  }
+  assert.equal(getTournamentTeamCrest(t1953, 'Independiente Santa Fe'), null);
   assert.equal(getTournamentTeamCrest(t1977, 'Independiente Santa Fe'), null);
 
   // Boca Juniors de Cali must never resolve to Junior's crest
-  assert.equal(getTournamentTeamCrest(t1950, 'Boca Juniors de Cali', false), null);
+  assert.equal(
+    getTournamentTeamCrest(t1950, 'Boca Juniors de Cali', false)?.src,
+    '/assets/aistudio/image_7a8c8dde.png'
+  );
   assert.equal(
     getTournamentTeamCrest(t1950, 'Junior de Barranquilla', true)?.src,
     '/assets/aistudio/image_82370351.png'
   );
 });
 
-test('Deportes Caldas 1947-1950 historical crest applies strictly to 1947-1950 tournaments', () => {
+test('Deportes Caldas 1947-1949 and 1950-1961 historical crests apply strictly to their respective tournaments', () => {
   const t1948 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1948-inaugural');
   const t1950 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1950-dorado');
   const t1951 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1951-dorado');
@@ -354,12 +370,28 @@ test('Deportes Caldas 1947-1950 historical crest applies strictly to 1947-1950 t
     '/assets/aistudio/Escudo_Deportes_Caldas_1947-1950.svg_8c1299a8.webp'
   );
   assert.equal(
-    getTournamentTeamCrest(t1950, 'Deportes Caldas')?.src,
+    getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Deportes Caldas')?.src,
     '/assets/aistudio/Escudo_Deportes_Caldas_1947-1950.svg_8c1299a8.webp'
   );
-  assert.equal(getTournamentTeamCrest(t1951, 'Deportes Caldas'), null);
-  assert.equal(getTournamentTeamCrest(t1948, 'Once Deportivo'), null);
+  assert.equal(
+    getTournamentTeamCrest(t1950, 'Deportes Caldas')?.src,
+    '/assets/aistudio/DEPORTES_CLADA_50-61_6bc0153b.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest(t1951, 'Deportes Caldas')?.src,
+    '/assets/aistudio/DEPORTES_CLADA_50-61_6bc0153b.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-1961', year: '1961' }, 'Deportes Caldas')?.src,
+    '/assets/aistudio/DEPORTES_CLADA_50-61_6bc0153b.png'
+  );
+  assert.equal(getTournamentTeamCrest({ id: 'custom-1962', year: '1962' }, 'Deportes Caldas'), null);
+  assert.equal(
+    getTournamentTeamCrest(t1948, 'Once Deportivo')?.src,
+    '/assets/aistudio/image_93c1f912.png'
+  );
   assert.equal(getTournamentTeamCrest(t1950, 'Once Caldas'), null);
+  assert.equal(getTournamentTeamCrest(t1951, 'Once Caldas'), null);
 });
 
 test('Millonarios 1947-1955 historical crest applies to 1947-1955 tables (including 1953 receso) and not 1966+', () => {
@@ -380,11 +412,15 @@ test('Millonarios 1947-1955 historical crest applies to 1947-1955 tables (includ
   assert.equal(getTournamentTeamCrest(t2023, 'Millonarios F.C.'), null);
 });
 
-test('Atlético Municipal 1947-1950 historical crest applies strictly to 1947-1950 and excludes Universidad Nacional', () => {
+test('Atlético Municipal / Nacional 1947-1949 and 1950-1953 historical crests apply strictly and exclude Universidad Nacional', () => {
   const t1948 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1948-inaugural');
   const t1950 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1950-dorado');
   const t1951 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1951-dorado');
-  assert.ok(t1948 && t1950 && t1951);
+  const t1952 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1952-dorado');
+  const t1953 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1953-dorado');
+  const tReceso = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1953-1966-receso');
+  const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
+  assert.ok(t1948 && t1950 && t1951 && t1952 && t1953 && tReceso && t1966);
 
   assert.equal(
     getTournamentTeamCrest(t1948, 'Atlético Municipal (Nacional)')?.src,
@@ -395,11 +431,30 @@ test('Atlético Municipal 1947-1950 historical crest applies strictly to 1947-19
     '/assets/aistudio/Escudo_de_Atl_tico_Municipal__luego__Atl_tico_Nacional___1947-1950_64e37cfb.png'
   );
   assert.equal(
-    getTournamentTeamCrest(t1950, 'Atlético Municipal (Nacional)')?.src,
+    getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Atlético Municipal')?.src,
     '/assets/aistudio/Escudo_de_Atl_tico_Municipal__luego__Atl_tico_Nacional___1947-1950_64e37cfb.png'
   );
-  assert.equal(getTournamentTeamCrest(t1948, 'Universidad Nacional'), null);
-  assert.equal(getTournamentTeamCrest(t1951, 'Atlético Nacional'), null);
+  assert.equal(
+    getTournamentTeamCrest(t1950, 'Atlético Municipal (Nacional)')?.src,
+    '/assets/aistudio/Escudo_de_Atl_tico_Municipal__luego__Atl_tico_Nacional___1950-1953_896fee19.png'
+  );
+  for (const tbl of [t1951, t1952, t1953, tReceso]) {
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Atlético Nacional')?.src,
+      '/assets/aistudio/Escudo_de_Atl_tico_Municipal__luego__Atl_tico_Nacional___1950-1953_896fee19.png',
+      `Expected Atlético Nacional 1950-1953 crest for ${tbl.id}`
+    );
+  }
+  assert.equal(
+    getTournamentTeamCrest(t1948, 'Universidad Nacional')?.src,
+    '/assets/aistudio/image_63a79417.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest(t1951, 'Universidad Nacional')?.src,
+    '/assets/aistudio/image_63a79417.png'
+  );
+  assert.equal(getTournamentTeamCrest({ id: 'custom-1954', year: '1954' }, 'Atlético Nacional'), null);
+  assert.equal(getTournamentTeamCrest(t1966, 'Atlético Nacional'), null);
 });
 
 test('América de Cali 1940-1961 historical crest applies strictly to 1940-1961 and excludes 1966+', () => {
@@ -445,11 +500,377 @@ test('Independiente Medellín 1913-1951 historical crest applies strictly to 191
   const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
   assert.ok(t1950 && t1951 && t1952 && t1966);
 
-  assert.equal(getTournamentTeamCrest(t1950, 'Huracán de Medellín'), null);
-  assert.equal(getTournamentTeamCrest(t1951, 'Huracán de Medellín'), null);
+  assert.notEqual(
+    getTournamentTeamCrest(t1950, 'Huracán de Medellín')?.src,
+    '/assets/aistudio/MEDELLIN_1913-1951_1abd4262.png'
+  );
+  assert.notEqual(
+    getTournamentTeamCrest(t1951, 'Huracán de Medellín')?.src,
+    '/assets/aistudio/MEDELLIN_1913-1951_1abd4262.png'
+  );
   assert.equal(getTournamentTeamCrest(t1952, 'Independiente Medellín'), null);
   assert.equal(getTournamentTeamCrest(t1966, 'Independiente Medellín'), null);
 });
+
+test('Deportivo Cali 1948-2012 historical crest applies strictly to 1948-2012 and excludes América/Boca/2013+', () => {
+  for (const id of ['1948-inaugural', '1967-campeonato', '1995-96-cuadrangular', '2004-II-cuadrangular', '2012-II-cuadrangular']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Deportivo Cali')?.src,
+      '/assets/aistudio/deportivo_cali_1948-2012_35d865b2.png',
+      `Expected Deportivo Cali 1948-2012 crest for ${id}`
+    );
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Dep. Cali')?.src,
+      '/assets/aistudio/deportivo_cali_1948-2012_35d865b2.png',
+      `Expected Dep. Cali 1948-2012 crest for ${id}`
+    );
+  }
+
+  const t1950 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1950-dorado');
+  const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
+  const t2013 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2013-I-regular');
+  const t2023 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2023-II-cuadrangular');
+  assert.ok(t1950 && t1966 && t2013 && t2023);
+
+  assert.equal(
+    getTournamentTeamCrest(t1950, 'Boca Juniors de Cali')?.src,
+    '/assets/aistudio/image_7a8c8dde.png'
+  );
+  assert.equal(getTournamentTeamCrest(t1966, 'América de Cali'), null);
+  assert.equal(getTournamentTeamCrest(t2013, 'Deportivo Cali'), null);
+  assert.equal(getTournamentTeamCrest(t2023, 'Deportivo Cali'), null);
+});
+
+test('getRowStatusBadge derives non-empty Estado / Clasificación across all 92 historical tables', () => {
+  const t1948 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1948-inaugural');
+  const t2003I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2003-I-cuadrangular');
+  const t2019II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2019-II-cuadrangular');
+  assert.ok(t1948 && t2003I && t2019II);
+
+  assert.equal(getRowStatusBadge(t1948, t1948.regularRows![0], 'regular'), 'Campeón ★');
+  assert.equal(getRowStatusBadge(t1948, t1948.regularRows![1], 'regular'), 'Subcampeón 🥈');
+  assert.equal(getRowStatusBadge(t1948, t1948.regularRows![2], 'regular'), '3º Puesto');
+
+  // Runner-up resolved via Final match even when champion won the other semifinal group
+  assert.equal(getRowStatusBadge(t2003I, t2003I.rows[0], 'finalSummary'), 'Subcampeón 🥈');
+  assert.equal(getRowStatusBadge(t2019II, t2019II.rows[0], 'finalSummary'), 'Subcampeón 🥈');
+
+  // Zero empty or '-' badges across all 92 tournaments
+  for (const t of CHRONOLOGICAL_STANDINGS_TABLES) {
+    for (const r of t.regularRows || []) {
+      const badge = getRowStatusBadge(t, r, 'regular');
+      assert.ok(badge && badge !== '-', `Empty badge in ${t.id} regularRows for ${r.team}`);
+    }
+    for (const r of t.secondaryRegularTable?.rows || []) {
+      const badge = getRowStatusBadge(t, r, 'secondaryRegular');
+      assert.ok(badge && badge !== '-', `Empty badge in ${t.id} secondaryRegularTable for ${r.team}`);
+    }
+    for (const g of t.finalGroups || []) {
+      for (const r of g.rows) {
+        const badge = getRowStatusBadge(t, r, 'finalGroup', g.groupName);
+        assert.ok(badge && badge !== '-', `Empty badge in ${t.id} finalGroup ${g.groupName} for ${r.team}`);
+      }
+    }
+    for (const r of t.rows || []) {
+      const badge = getRowStatusBadge(t, r, 'finalSummary');
+      assert.ok(badge && badge !== '-', `Empty badge in ${t.id} rows for ${r.team}`);
+    }
+  }
+});
+
+test('Once Deportivo historical crest applies to Once Deportivo without colliding with Once Caldas or Deportes Caldas', () => {
+  for (const id of ['1948-inaugural', '1950-dorado', '1951-dorado']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Once Deportivo');
+    assert.equal(crest?.src, '/assets/aistudio/image_93c1f912.png');
+    assert.equal(crest?.needsLightBackdrop, true);
+  }
+
+  const t1952 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1952-dorado');
+  const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
+  assert.ok(t1952 && t1966);
+  assert.equal(getTournamentTeamCrest(t1952, 'Deportivo Manizales'), null);
+  assert.equal(getTournamentTeamCrest(t1966, 'Once Caldas'), null);
+});
+
+test('Universidad Nacional historical crest applies across 1948-1952 without colliding with Atlético Nacional or Atlético Municipal', () => {
+  for (const id of ['1948-inaugural', '1950-dorado', '1951-dorado', '1952-dorado']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Universidad Nacional');
+    assert.equal(crest?.src, '/assets/aistudio/image_63a79417.png');
+    assert.equal(crest?.needsLightBackdrop, true);
+  }
+
+  const t1948 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1948-inaugural');
+  const t1951 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1951-dorado');
+  const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
+  assert.ok(t1948 && t1951 && t1966);
+  assert.notEqual(
+    getTournamentTeamCrest(t1948, 'Atlético Municipal (Nacional)')?.src,
+    '/assets/aistudio/image_63a79417.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest(t1951, 'Atlético Nacional')?.src,
+    '/assets/aistudio/Escudo_de_Atl_tico_Municipal__luego__Atl_tico_Nacional___1950-1953_896fee19.png'
+  );
+  assert.notEqual(
+    getTournamentTeamCrest(t1951, 'Atlético Nacional')?.src,
+    '/assets/aistudio/image_63a79417.png'
+  );
+  assert.equal(getTournamentTeamCrest(t1966, 'Atlético Nacional'), null);
+});
+
+test('groupTournamentsByDecade groups all 92 tournaments chronologically with accurate star and runner-up counts', () => {
+  assert.equal(getTournamentDecadeKey({ year: '1948' }), '1948-1959');
+  assert.equal(getTournamentDecadeKey({ year: '1953-1966' }), '1948-1959');
+  assert.equal(getTournamentDecadeKey({ year: '1977' }), '1970s');
+  assert.equal(getTournamentDecadeKey({ year: '1995/96' }), '1990s');
+  assert.equal(getTournamentDecadeKey({ year: '2025-II' }), '2020s');
+
+  const ascBuckets = groupTournamentsByDecade(CHRONOLOGICAL_STANDINGS_TABLES, 'asc');
+  assert.equal(ascBuckets.length, 8);
+  assert.equal(ascBuckets[0].key, '1948-1959');
+  assert.equal(ascBuckets[ascBuckets.length - 1].key, '2020s');
+
+  const totalItems = ascBuckets.reduce((acc, b) => acc + b.items.length, 0);
+  const totalStars = ascBuckets.reduce((acc, b) => acc + b.starCount, 0);
+  assert.equal(totalItems, CHRONOLOGICAL_STANDINGS_TABLES.length);
+  assert.equal(totalStars, 12);
+
+  const descBuckets = groupTournamentsByDecade([...CHRONOLOGICAL_STANDINGS_TABLES].reverse(), 'desc');
+  assert.equal(descBuckets[0].key, '2020s');
+  assert.equal(descBuckets[descBuckets.length - 1].key, '1948-1959');
+
+  // Adjacent tournaments respect filtered list and fall back to full list when active item is filtered out
+  const starsOnly = CHRONOLOGICAL_STANDINGS_TABLES.filter(isJuniorChampionTournament);
+  assert.equal(starsOnly.length, 12);
+  const adjStar2 = getAdjacentTournaments(starsOnly, CHRONOLOGICAL_STANDINGS_TABLES, starsOnly[1].id);
+  assert.equal(adjStar2.prev?.id, starsOnly[0].id);
+  assert.equal(adjStar2.next?.id, starsOnly[2].id);
+  assert.equal(adjStar2.currentIndex, 1);
+  assert.equal(adjStar2.totalCount, 12);
+
+  const adjFallback = getAdjacentTournaments(starsOnly, CHRONOLOGICAL_STANDINGS_TABLES, '1948-inaugural');
+  assert.equal(adjFallback.prev, null);
+  assert.equal(adjFallback.next?.id, '1950-dorado');
+});
+
+test('Boca Juniors de Cali crest applies across 1950-1953 tables without colliding with Junior, Deportivo Cali, or Boca (ARG)', () => {
+  for (const id of ['1950-dorado', '1951-dorado', '1952-dorado', '1953-dorado', '1953-1966-receso']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Boca Juniors de Cali');
+    assert.equal(crest?.src, '/assets/aistudio/image_7a8c8dde.png');
+  }
+
+  const t1950 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1950-dorado');
+  assert.ok(t1950);
+  assert.notEqual(
+    getTournamentTeamCrest(t1950, 'Deportivo Cali')?.src,
+    '/assets/aistudio/image_7a8c8dde.png'
+  );
+  assert.notEqual(
+    getTournamentTeamCrest(t1950, 'Junior de Barranquilla', true)?.src,
+    '/assets/aistudio/image_7a8c8dde.png'
+  );
+  assert.equal(getTournamentTeamCrest({ id: 'lib-2001', year: '2001' }, 'Boca Juniors'), null);
+});
+
+test('Cúcuta Deportivo 1950-1971 historical crest applies strictly to 1950-1971 tables and excludes 1972+', () => {
+  for (const id of [
+    '1950-dorado',
+    '1951-dorado',
+    '1952-dorado',
+    '1953-dorado',
+    '1953-1966-receso',
+    '1966-reingreso',
+    '1967-campeonato',
+    '1968-campeonato',
+    '1969-campeonato',
+    '1970-cuadrangular',
+    '1971-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Cúcuta Deportivo');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/cucuta_deportivo_1950-1971_b12221f4.png',
+      `Expected Cúcuta Deportivo 1950-1971 crest for ${id}`
+    );
+    assert.equal(crest?.needsLightBackdrop, undefined);
+  }
+
+  assert.equal(getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Cúcuta Deportivo'), null);
+  const t1972 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1972-triangular');
+  const t2006 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2006-II-regular');
+  assert.ok(t1972 && t2006);
+  assert.equal(getTournamentTeamCrest(t1972, 'Cúcuta Deportivo'), null);
+  assert.equal(getTournamentTeamCrest(t2006, 'Cúcuta Deportivo'), null);
+});
+
+test('Atlético Bucaramanga 1950-1957 historical crest applies strictly to 1950-1957 tables and excludes 1958+', () => {
+  for (const id of [
+    '1950-dorado',
+    '1951-dorado',
+    '1952-dorado',
+    '1953-dorado',
+    '1953-1966-receso',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Atlético Bucaramanga')?.src,
+      '/assets/aistudio/bucaramanga_1950-1957_80f6c063.png',
+      `Expected Atlético Bucaramanga 1950-1957 crest for ${id}`
+    );
+  }
+
+  const tReceso = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1953-1966-receso');
+  assert.ok(tReceso);
+  assert.equal(
+    getTournamentTeamCrest(tReceso, 'Atlético Bucaramanga (Retirado)')?.src,
+    '/assets/aistudio/bucaramanga_1950-1957_80f6c063.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-1957', year: '1957' }, 'Atlético Bucaramanga')?.src,
+    '/assets/aistudio/bucaramanga_1950-1957_80f6c063.png'
+  );
+  assert.equal(getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Atlético Bucaramanga'), null);
+  assert.equal(getTournamentTeamCrest({ id: 'custom-1958', year: '1958' }, 'Atlético Bucaramanga'), null);
+
+  const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
+  const t2024 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2024-I-cuadrangular');
+  assert.ok(t1966 && t2024);
+  assert.equal(getTournamentTeamCrest(t1966, 'Atlético Bucaramanga'), null);
+  assert.equal(getTournamentTeamCrest(t2024, 'Atlético Bucaramanga'), null);
+});
+
+test('Sporting de Barranquilla 1950-1953 historical crest applies strictly to 1950-1953 tables and excludes 1954+/1988+', () => {
+  for (const id of [
+    '1950-dorado',
+    '1951-dorado',
+    '1952-dorado',
+    '1953-dorado',
+    '1953-1966-receso',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Sporting de Barranquilla')?.src,
+      '/assets/aistudio/sporting_1950-1953_871e9ddd.png',
+      `Expected Sporting 1950-1953 crest for ${id}`
+    );
+  }
+
+  assert.equal(getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Sporting de Barranquilla'), null);
+  assert.equal(getTournamentTeamCrest({ id: 'custom-1954', year: '1954' }, 'Sporting de Barranquilla'), null);
+  const t1988 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1988-octogonal');
+  if (t1988) {
+    assert.equal(getTournamentTeamCrest(t1988, 'Sporting de Barranquilla'), null);
+    assert.equal(getTournamentTeamCrest(t1988, 'Sporting Club'), null);
+  }
+  assert.equal(getTournamentTeamCrest({ id: 'lib-1953', year: '1953' }, 'Sporting Cristal'), null);
+});
+
+test('Deportivo Pereira 1949-1952 historical crest applies strictly to 1949-1952 tables and excludes 1953+', () => {
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Deportivo Pereira')?.src,
+    '/assets/aistudio/PEREIRA_DEL_49_al_52_17730967.png'
+  );
+  for (const id of ['1950-dorado', '1951-dorado', '1952-dorado']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Deportivo Pereira')?.src,
+      '/assets/aistudio/PEREIRA_DEL_49_al_52_17730967.png',
+      `Expected Deportivo Pereira 1949-1952 crest for ${id}`
+    );
+  }
+
+  const t1948 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1948-inaugural');
+  const t1953 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1953-dorado');
+  const tReceso = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1953-1966-receso');
+  const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
+  assert.ok(t1948 && t1953 && tReceso && t1966);
+  assert.equal(getTournamentTeamCrest(t1948, 'Deportivo Pereira'), null);
+  assert.equal(getTournamentTeamCrest(t1953, 'Deportivo Pereira'), null);
+  assert.equal(getTournamentTeamCrest(tReceso, 'Deportivo Pereira'), null);
+  assert.equal(getTournamentTeamCrest(t1966, 'Deportivo Pereira'), null);
+});
+
+test('Huracán de Medellín crest applies across 1950-1951 tables and excludes non-Medellín Huracán', () => {
+  for (const id of ['1950-dorado', '1951-dorado']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Huracán de Medellín')?.src,
+      '/assets/aistudio/huracan_de_medellin_534acebd.png',
+      `Expected Huracán de Medellín crest for ${id}`
+    );
+  }
+
+  assert.equal(getTournamentTeamCrest({ id: 'lib-1974', year: '1974' }, 'Huracán'), null);
+  assert.equal(
+    getTournamentTeamCrest({ id: '1950-dorado', year: '1950' }, 'Independiente Medellín')?.src,
+    '/assets/aistudio/MEDELLIN_1913-1951_1abd4262.png'
+  );
+});
+
+test('Deportes Quindío 1951-1967 historical crest applies strictly to 1951-1967 tables and excludes 1950/1968+', () => {
+  for (const id of [
+    '1951-dorado',
+    '1952-dorado',
+    '1953-dorado',
+    '1953-1966-receso',
+    '1966-reingreso',
+    '1967-campeonato',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Deportes Quindío')?.src,
+      '/assets/aistudio/quindio_del_51_al_67_d5631340.png',
+      `Expected Deportes Quindío 1951-1967 crest for ${id}`
+    );
+  }
+
+  const tReceso = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1953-1966-receso');
+  assert.ok(tReceso);
+  assert.equal(
+    getTournamentTeamCrest(tReceso, 'Deportes Quindío (Subcampeón 1953)')?.src,
+    '/assets/aistudio/quindio_del_51_al_67_d5631340.png'
+  );
+
+  assert.equal(getTournamentTeamCrest({ id: '1950-dorado', year: '1950' }, 'Deportes Quindío'), null);
+  const t1968 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1968-campeonato');
+  if (t1968) {
+    assert.equal(getTournamentTeamCrest(t1968, 'Deportes Quindío'), null);
+  }
+  assert.equal(getTournamentTeamCrest({ id: 'custom-1968', year: '1968' }, 'Deportes Quindío'), null);
+});
+
+test('Deportivo Samarios historical crest applies across 1951-1952 tables without colliding with Unión Magdalena', () => {
+  for (const id of ['1951-dorado', '1952-dorado']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Deportivo Samarios')?.src,
+      '/assets/aistudio/SAMARIOS_50-51_fd182237.png',
+      `Expected Deportivo Samarios crest for ${id}`
+    );
+  }
+
+  assert.equal(getTournamentTeamCrest({ id: '1953-dorado', year: '1953' }, 'Unión Magdalena'), null);
+});
+
+
+
+
 
 
 

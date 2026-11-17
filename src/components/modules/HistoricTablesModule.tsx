@@ -12,6 +12,7 @@ import {
   CheckCircle,
   Medal,
   Layers,
+  ChevronLeft,
   ChevronRight,
   ExternalLink,
   Sparkles,
@@ -30,6 +31,10 @@ import {
 } from '../../data/juniorData';
 import { ShareButton } from '../ShareButton';
 import {
+  TournamentNavigatorSidebar,
+  TableCategoryFilter,
+} from './TournamentNavigatorSidebar';
+import {
   HistoricAllTimeTeam,
   YearlyStandingRecord,
   TournamentStandingsTable,
@@ -43,6 +48,9 @@ import {
   isSinglePhaseTournament,
   getTournamentJuniorCrest,
   getTournamentTeamCrest,
+  getRowStatusBadge,
+  groupTournamentsByDecade,
+  getAdjacentTournaments,
 } from '../../utils/footballLogic';
 
 export const HistoricTablesModule: React.FC = () => {
@@ -57,9 +65,7 @@ export const HistoricTablesModule: React.FC = () => {
   const [selectedFinalGroupIdx, setSelectedFinalGroupIdx] = useState<'all' | number>('all');
   const [selectedMatchStage, setSelectedMatchStage] = useState<string>('all');
   const [showAllMatches, setShowAllMatches] = useState<boolean>(false);
-  const [tableCategoryFilter, setTableCategoryFilter] = useState<
-    'todos' | 'estrellas' | 'no_campeon' | 'subcampeonatos' | 'cuadrangulares' | 'hexagonales' | 'octogonales' | 'playoffs' | 'regulares'
-  >('todos');
+  const [tableCategoryFilter, setTableCategoryFilter] = useState<TableCategoryFilter>('todos');
   const [tournamentSearchQuery, setTournamentSearchQuery] = useState('');
 
   // Reset sub-filters when switching tournament
@@ -103,39 +109,47 @@ export const HistoricTablesModule: React.FC = () => {
   const [eraFilter, setEraFilter] = useState<'todas' | 'cortos' | 'largos'>('todas');
   const [expandedYearRow, setExpandedYearRow] = useState<string | null>(null);
 
-  // Filtered tournament tables list sorted chronologically
-  const filteredTournamentTables = [...HISTORIC_TOURNAMENT_STANDINGS_TABLES]
-    .sort((a, b) => {
-      const orderA = a.chronologicalOrder ?? 0;
-      const orderB = b.chronologicalOrder ?? 0;
-      return sortOrder === 'asc' ? orderA - orderB : orderB - orderA;
-    })
-    .filter((t) => {
-      // Text search query
-      if (tournamentSearchQuery.trim() !== '') {
-        const q = tournamentSearchQuery.toLowerCase();
-        const matchYear = t.year.toLowerCase().includes(q);
-        const matchTitle = t.phaseTitle.toLowerCase().includes(q);
-        const matchName = t.tournamentName.toLowerCase().includes(q);
-        const matchChampion = t.championTeam.toLowerCase().includes(q);
-        const matchFinish = t.juniorFinish.toLowerCase().includes(q);
-        if (!matchYear && !matchTitle && !matchName && !matchChampion && !matchFinish) return false;
-      }
+  // Ordered full list & filtered tournament tables sorted chronologically
+  const orderedTournamentTables = [...HISTORIC_TOURNAMENT_STANDINGS_TABLES].sort((a, b) => {
+    const orderA = a.chronologicalOrder ?? 0;
+    const orderB = b.chronologicalOrder ?? 0;
+    return sortOrder === 'asc' ? orderA - orderB : orderB - orderA;
+  });
 
-      if (tableCategoryFilter === 'estrellas') return isJuniorChampionTournament(t);
-      if (tableCategoryFilter === 'no_campeon') return !isJuniorChampionTournament(t);
-      if (tableCategoryFilter === 'subcampeonatos') return isJuniorRunnerUpTournament(t);
-      if (tableCategoryFilter === 'cuadrangulares') return t.phaseType === 'cuadrangular';
-      if (tableCategoryFilter === 'hexagonales') return t.phaseType === 'hexagonal';
-      if (tableCategoryFilter === 'octogonales') return t.phaseType === 'octogonal';
-      if (tableCategoryFilter === 'playoffs') return t.phaseType === 'playoff' || t.phaseType === 'triangular';
-      if (tableCategoryFilter === 'regulares') return t.phaseType === 'anual';
-      return true;
-    });
+  const filteredTournamentTables = orderedTournamentTables.filter((t) => {
+    if (tournamentSearchQuery.trim() !== '') {
+      const q = tournamentSearchQuery.toLowerCase();
+      const matchYear = t.year.toLowerCase().includes(q);
+      const matchTitle = t.phaseTitle.toLowerCase().includes(q);
+      const matchName = t.tournamentName.toLowerCase().includes(q);
+      const matchChampion = t.championTeam.toLowerCase().includes(q);
+      const matchFinish = t.juniorFinish.toLowerCase().includes(q);
+      if (!matchYear && !matchTitle && !matchName && !matchChampion && !matchFinish) return false;
+    }
+
+    if (tableCategoryFilter === 'estrellas') return isJuniorChampionTournament(t);
+    if (tableCategoryFilter === 'no_campeon') return !isJuniorChampionTournament(t);
+    if (tableCategoryFilter === 'subcampeonatos') return isJuniorRunnerUpTournament(t);
+    if (tableCategoryFilter === 'cuadrangulares') return t.phaseType === 'cuadrangular';
+    if (tableCategoryFilter === 'hexagonales') return t.phaseType === 'hexagonal';
+    if (tableCategoryFilter === 'octogonales') return t.phaseType === 'octogonal';
+    if (tableCategoryFilter === 'playoffs') return t.phaseType === 'playoff' || t.phaseType === 'triangular';
+    if (tableCategoryFilter === 'regulares') return t.phaseType === 'anual';
+    return true;
+  });
+
+  const decadeBuckets = groupTournamentsByDecade(filteredTournamentTables, sortOrder);
+  const starsTotalCount = HISTORIC_TOURNAMENT_STANDINGS_TABLES.filter(isJuniorChampionTournament).length;
+  const runnerUpTotalCount = HISTORIC_TOURNAMENT_STANDINGS_TABLES.filter(isJuniorRunnerUpTournament).length;
 
   const activeTournamentTable: TournamentStandingsTable =
     HISTORIC_TOURNAMENT_STANDINGS_TABLES.find((t) => t.id === selectedTableId) ||
     HISTORIC_TOURNAMENT_STANDINGS_TABLES[0];
+  const adjacentTournaments = getAdjacentTournaments(
+    filteredTournamentTables,
+    orderedTournamentTables,
+    activeTournamentTable.id
+  );
   const singlePhaseTournament = isSinglePhaseTournament(activeTournamentTable);
   const juniorCrest = getTournamentJuniorCrest(activeTournamentTable);
   const championCrest = getTournamentTeamCrest(activeTournamentTable, activeTournamentTable.championTeam);
@@ -168,27 +182,25 @@ export const HistoricTablesModule: React.FC = () => {
   };
 
   return (
-    <section id="tablas-historicas" className="py-16 bg-slate-950 border-b border-slate-800 scroll-mt-16">
+    <section id="tablas-historicas" className="py-10 bg-slate-950 border-b border-slate-800 scroll-mt-16 overflow-x-clip">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Module Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div className="flex flex-col gap-4 mb-6">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-2">
-              <Table className="w-4 h-4 text-red-500" />
-              <span>Módulo 1 · Tablas de Posiciones Oficiales Dimayor</span>
-              <span aria-hidden="true">·</span>
-              <span>1948 - 2026</span>
+            <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-1.5">
+              <Table className="w-4 h-4 text-red-500 shrink-0" />
+              <span>Módulo 1 · Tablas de Posiciones Oficiales Dimayor · 1948 - 2026</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-extrabold uppercase text-white tracking-tight">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase text-white tracking-tight text-balance max-w-4xl">
               Tablas de Posiciones: Cuadrangulares, Hexagonales & Año a Año
             </h2>
-            <p className="text-xs text-slate-400 mt-1 max-w-2xl">
-              Consulta las tablas de posiciones completas con todos los equipos, puntos y goles en los Cuadrangulares Finales, Hexagonales, Octogonales, Play-offs y el historial completo año por año (1948 - 2026).
+            <p className="text-xs text-slate-400 mt-1 max-w-3xl">
+              Explora por décadas las 92 tablas oficiales con escudos históricos, fases finales y archivo año por año (1948 - 2026).
             </p>
           </div>
 
           {/* Subtabs Switcher */}
-          <div className="flex items-center p-1 bg-slate-900 border border-slate-800 rounded-lg overflow-x-auto max-w-full shrink-0">
+          <div className="flex items-center p-1 bg-slate-900 border border-slate-800 rounded-lg overflow-x-auto max-w-full self-start">
             <button
               onClick={() => setActiveTab('tablas_posiciones')}
               className={`px-3.5 py-2 text-xs font-semibold rounded-md transition-colors whitespace-nowrap flex items-center gap-1.5 ${
@@ -262,296 +274,170 @@ export const HistoricTablesModule: React.FC = () => {
         {/* TAB 1: TABLAS DE POSICIONES CRONOLÓGICAS (TODOS CONTRA TODOS + PLAY-OFFS)  */}
         {/* ========================================================================= */}
         {activeTab === 'tablas_posiciones' && (
-          <div className="space-y-6">
-            {/* Header Proof Banner with Chronological Direction Selector */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-red-950/60 via-slate-900 to-amber-950/40 border border-red-500/30 flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
-                  <ListOrdered className="w-4 h-4 text-amber-400" />
-                  <span>Tablas Oficiales en Orden Cronológico (1948 - 2026)</span>
-                  <span className="text-slate-500">·</span>
-                  <span className="text-slate-300">1º Todos contra Todos + 2º Play-offs</span>
-                </div>
-                <p className="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                  Lista cronológica oficial de campeonatos de la Dimayor. Para cada certamen se detalla primero la <strong className="text-white">1ª Fase de Todos contra Todos (Fase Regular)</strong> y a continuación la <strong className="text-white">2ª Fase de Play-offs</strong> (Cuadrangular, Hexagonal, Octogonal, Triangular o Play-offs K.O.).
-                </p>
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-[310px_minmax(0,1fr)] gap-6 items-start">
+            {/* Master Column: Decade-Grouped Tournament Navigator */}
+            <TournamentNavigatorSidebar
+              activeTournament={activeTournamentTable}
+              decadeBuckets={decadeBuckets}
+              totalTournamentsCount={HISTORIC_TOURNAMENT_STANDINGS_TABLES.length}
+              filteredCount={filteredTournamentTables.length}
+              starsCount={starsTotalCount}
+              runnerUpCount={runnerUpTotalCount}
+              selectedTableId={activeTournamentTable.id}
+              onSelectTable={setSelectedTableId}
+              sortOrder={sortOrder}
+              onToggleSortOrder={() => setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
+              tableCategoryFilter={tableCategoryFilter}
+              onChangeCategoryFilter={setTableCategoryFilter}
+              searchQuery={tournamentSearchQuery}
+              onChangeSearchQuery={setTournamentSearchQuery}
+              onResetFilters={() => {
+                setTournamentSearchQuery('');
+                setTableCategoryFilter('todos');
+              }}
+            />
 
-              {/* Quick Summary Badges & Chronological Order Direction Button */}
-              <div className="flex flex-wrap items-center gap-2 shrink-0">
-                <button
-                  onClick={() => setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'))}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-amber-500/40 hover:border-amber-400 text-xs font-bold text-amber-300 transition-colors shadow-sm"
-                  title="Haz clic para invertir el orden cronológico"
-                >
-                  <ArrowDownUp className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Orden: </span>
-                  <span className="text-white">
-                    {sortOrder === 'asc' ? '1948 ➔ 2026 (Antiguo a Reciente)' : '2026 ➔ 1948 (Reciente a Antiguo)'}
-                  </span>
-                </button>
-                <span className="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono text-xs font-bold">
-                  ★ 12 Estrellas
-                </span>
-                <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-200 border border-slate-700 font-mono text-xs font-bold">
-                  🥈 10 Subcampeonatos Oficiales
-                </span>
-              </div>
-            </div>
-
-            {/* Category Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
-              <span className="text-[11px] font-semibold text-slate-400 uppercase mr-1 shrink-0">Filtro:</span>
-              <button
-                onClick={() => setTableCategoryFilter('todos')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
-                  tableCategoryFilter === 'todos' ? 'bg-red-600 text-white font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                Todas las Tablas ({HISTORIC_TOURNAMENT_STANDINGS_TABLES.length})
-              </button>
-              <button
-                onClick={() => setTableCategoryFilter('no_campeon')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1 ${
-                  tableCategoryFilter === 'no_campeon' ? 'bg-rose-600 text-white font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                <span>🚫 Años sin Título (No Campeón)</span>
-                <span className="text-[10px] opacity-75 font-mono">
-                  ({HISTORIC_TOURNAMENT_STANDINGS_TABLES.filter((t) => !isJuniorChampionTournament(t)).length})
-                </span>
-              </button>
-              <button
-                onClick={() => setTableCategoryFilter('estrellas')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
-                  tableCategoryFilter === 'estrellas' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                ★ Campeón ({HISTORIC_TOURNAMENT_STANDINGS_TABLES.filter(isJuniorChampionTournament).length} Estrellas)
-              </button>
-              <button
-                onClick={() => setTableCategoryFilter('subcampeonatos')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
-                  tableCategoryFilter === 'subcampeonatos' ? 'bg-slate-200 text-slate-950 font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                🥈 Subcampeonatos ({HISTORIC_TOURNAMENT_STANDINGS_TABLES.filter(isJuniorRunnerUpTournament).length})
-              </button>
-              <button
-                onClick={() => setTableCategoryFilter('cuadrangulares')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
-                  tableCategoryFilter === 'cuadrangulares' ? 'bg-emerald-600 text-white font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                Cuadrangulares
-              </button>
-              <button
-                onClick={() => setTableCategoryFilter('hexagonales')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
-                  tableCategoryFilter === 'hexagonales' ? 'bg-sky-600 text-white font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                Hexagonales
-              </button>
-              <button
-                onClick={() => setTableCategoryFilter('octogonales')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
-                  tableCategoryFilter === 'octogonales' ? 'bg-amber-600 text-white font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                Octogonales
-              </button>
-              <button
-                onClick={() => setTableCategoryFilter('playoffs')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
-                  tableCategoryFilter === 'playoffs' ? 'bg-purple-600 text-white font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                Play-offs / K.O.
-              </button>
-              <button
-                onClick={() => setTableCategoryFilter('regulares')}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
-                  tableCategoryFilter === 'regulares' ? 'bg-slate-700 text-white font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'
-                }`}
-              >
-                Fases Regulares Únicas
-              </button>
-            </div>
-
-            {/* Quick Search & Direct Dropdown Selector */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-xl bg-slate-900 border border-slate-800">
-              <div className="relative flex-1">
-                <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={tournamentSearchQuery}
-                  onChange={(e) => setTournamentSearchQuery(e.target.value)}
-                  placeholder="Buscar campeonato cronológico (ej. 1948, 1977, 1993, 2004, 2023, 2026, Nacional)..."
-                  className="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-950 border border-slate-800 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-red-500"
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[11px] font-semibold text-slate-400 uppercase whitespace-nowrap">Seleccionar Campeonato:</span>
-                <select
-                  value={selectedTableId}
-                  onChange={(e) => setSelectedTableId(e.target.value)}
-                  className="text-xs bg-slate-950 border border-slate-800 rounded-lg py-1.5 px-2.5 text-slate-200 focus:outline-none focus:border-red-500 max-w-xs truncate"
-                >
-                  <optgroup label="⭐ Años Campeón (12 Estrellas Oficiales)">
-                    {HISTORIC_TOURNAMENT_STANDINGS_TABLES.filter(isJuniorChampionTournament).map((t) => (
-                      <option key={t.id} value={t.id}>{t.year} - {t.tournamentName} (★ CAMPEÓN)</option>
-                    ))}
-                  </optgroup>
-                  <optgroup label="🚫 Años sin Título (No Campeón - Subcampeonatos & Fases Finales)">
-                    {HISTORIC_TOURNAMENT_STANDINGS_TABLES.filter((t) => !isJuniorChampionTournament(t)).map((t) => (
-                      <option key={t.id} value={t.id}>
-                        {t.year} - {t.tournamentName} ({isJuniorRunnerUpTournament(t) ? '🥈 Subcampeón' : 'No campeón'})
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
-              </div>
-            </div>
-
-            {/* Tournament Selector Grid (Chronologically Ordered) */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
-              {filteredTournamentTables.map((t) => {
-                const isSelected = t.id === selectedTableId;
-                const isChampion = isJuniorChampionTournament(t);
-                const isSilver = isJuniorRunnerUpTournament(t);
-
-                return (
-                  <button
-                    key={t.id}
-                    onClick={() => setSelectedTableId(t.id)}
-                    className={`p-3 rounded-xl text-left transition-all border ${
-                      isSelected
-                        ? 'bg-red-600 text-white border-red-500 shadow-lg shadow-red-950/60 ring-2 ring-red-400/50'
-                        : isChampion
-                        ? 'bg-slate-900 hover:bg-slate-850 text-slate-200 border-amber-500/40 ring-1 ring-amber-500/20'
-                        : isSilver
-                        ? 'bg-slate-900 hover:bg-slate-850 text-slate-200 border-slate-600'
-                        : 'bg-slate-900/60 hover:bg-slate-850 text-slate-300 border-slate-800'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-1 mb-1">
-                      <span className="font-mono text-xs font-black block">{t.year}</span>
-                      {isChampion ? (
-                        <span className="text-[10px] font-bold text-amber-300">★ Campeón</span>
-                      ) : isSilver ? (
-                        <span className="text-[10px] font-bold text-slate-300">🥈 Subcampeón</span>
-                      ) : (
-                        <span className="text-[9px] font-semibold text-rose-400">No campeón</span>
-                      )}
-                    </div>
-                    <div className="text-[11px] font-bold truncate leading-tight">
-                      {t.phaseType === 'cuadrangular'
-                        ? 'Cuadrangular'
-                        : t.phaseType === 'hexagonal'
-                        ? 'Hexagonal Final'
-                        : t.phaseType === 'octogonal'
-                        ? 'Octogonal Final'
-                        : t.phaseType === 'triangular'
-                        ? 'Triangular Final'
-                        : t.phaseType === 'playoff'
-                        ? 'Play-offs K.O.'
-                        : 'Campeonato Corrido'}
-                    </div>
-                    <div className="text-[9px] text-slate-400 mt-1 truncate">
-                      {t.tournamentName}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            {filteredTournamentTables.length === 0 && (
-              <div className="p-8 text-center text-slate-400 text-xs bg-slate-900 rounded-xl border border-slate-800">
-                No se encontraron tablas de posiciones con el filtro o búsqueda actual. Restablece la categoría o búsqueda.
-              </div>
-            )}
-
-            {/* Active Tournament Detail Header Card */}
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden shadow-2xl">
+            {/* Detail Column: Active Tournament Card & Tables (Always Above the Fold) */}
+            <div className="min-w-0 rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden shadow-2xl">
               <div className="p-5 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2 mb-2">
-                      <span className="font-mono text-xs font-bold text-red-400 bg-red-950/60 border border-red-800/80 px-2.5 py-0.5 rounded">
+                {/* Sequential Prev / Next Navigation Bar beside Header */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-800/80">
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      disabled={!adjacentTournaments.prev}
+                      onClick={() =>
+                        adjacentTournaments.prev && setSelectedTableId(adjacentTournaments.prev.id)
+                      }
+                      aria-label={
+                        adjacentTournaments.prev
+                          ? `Ir al torneo anterior: ${adjacentTournaments.prev.year}`
+                          : 'No hay torneo anterior'
+                      }
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors whitespace-nowrap shrink-0 ${
+                        adjacentTournaments.prev
+                          ? 'bg-slate-950 border-slate-700 text-slate-200 hover:border-red-500 hover:text-white'
+                          : 'bg-slate-950/40 border-slate-800/70 text-slate-600 cursor-not-allowed'
+                      }`}
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" />
+                      <span>Anterior</span>
+                      {adjacentTournaments.prev && (
+                        <span className="font-mono tabular-nums text-[11px] text-slate-400">
+                          {adjacentTournaments.prev.year}
+                        </span>
+                      )}
+                    </button>
+
+                    <button
+                      type="button"
+                      disabled={!adjacentTournaments.next}
+                      onClick={() =>
+                        adjacentTournaments.next && setSelectedTableId(adjacentTournaments.next.id)
+                      }
+                      aria-label={
+                        adjacentTournaments.next
+                          ? `Ir al torneo siguiente: ${adjacentTournaments.next.year}`
+                          : 'No hay torneo siguiente'
+                      }
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors whitespace-nowrap shrink-0 ${
+                        adjacentTournaments.next
+                          ? 'bg-slate-950 border-slate-700 text-slate-200 hover:border-red-500 hover:text-white'
+                          : 'bg-slate-950/40 border-slate-800/70 text-slate-600 cursor-not-allowed'
+                      }`}
+                    >
+                      {adjacentTournaments.next && (
+                        <span className="font-mono tabular-nums text-[11px] text-slate-400">
+                          {adjacentTournaments.next.year}
+                        </span>
+                      )}
+                      <span>Siguiente</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+
+                  <div className="text-[11px] text-slate-400 font-mono tabular-nums">
+                    Torneo {adjacentTournaments.currentIndex + 1} de {adjacentTournaments.totalCount}
+                  </div>
+                </div>
+
+                <div className="flex flex-col xl:flex-row xl:items-start justify-between gap-5">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs mb-1.5">
+                      <span className="font-mono tabular-nums font-bold text-red-400">
                         Año {activeTournamentTable.year}
                       </span>
-                      <span
-                        className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
-                          activeTournamentTable.phaseType === 'cuadrangular'
-                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
-                            : activeTournamentTable.phaseType === 'hexagonal'
-                            ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
-                            : activeTournamentTable.phaseType === 'octogonal'
-                            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                            : activeTournamentTable.phaseType === 'triangular'
-                            ? 'bg-purple-500/20 text-purple-300 border border-purple-500/30'
-                            : activeTournamentTable.phaseType === 'playoff'
-                            ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
-                            : 'bg-slate-800 text-slate-300'
-                        }`}
-                      >
-                        Formato: {activeTournamentTable.phaseType === 'cuadrangular' ? 'Todos contra Todos + Cuadrangulares' : activeTournamentTable.phaseType === 'hexagonal' ? 'Todos contra Todos + Hexagonal Final' : activeTournamentTable.phaseType === 'octogonal' ? 'Todos contra Todos + Octogonal Final' : activeTournamentTable.phaseType === 'triangular' ? 'Todos contra Todos + Triangular Final' : activeTournamentTable.phaseType === 'playoff' ? 'Todos contra Todos + Play-offs K.O.' : 'Liga Única Corrida'}
+                      <span aria-hidden="true" className="text-slate-600">·</span>
+                      <span className="font-semibold text-slate-300">
+                        {activeTournamentTable.phaseType === 'cuadrangular'
+                          ? 'Todos contra Todos + Cuadrangulares'
+                          : activeTournamentTable.phaseType === 'hexagonal'
+                          ? 'Todos contra Todos + Hexagonal Final'
+                          : activeTournamentTable.phaseType === 'octogonal'
+                          ? 'Todos contra Todos + Octogonal Final'
+                          : activeTournamentTable.phaseType === 'triangular'
+                          ? 'Todos contra Todos + Triangular Final'
+                          : activeTournamentTable.phaseType === 'playoff'
+                          ? 'Todos contra Todos + Play-offs K.O.'
+                          : 'Liga Única Corrida'}
                       </span>
+                      <span aria-hidden="true" className="text-slate-600">·</span>
                       {isJuniorChampionTournament(activeTournamentTable) ? (
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                          ★ Campeón de Colombia (Estrella Oficial)
+                        <span className="font-bold text-amber-400">
+                          ★ Campeón de Colombia
                         </span>
                       ) : isJuniorRunnerUpTournament(activeTournamentTable) ? (
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-slate-200/20 text-slate-200 border border-slate-400/40">
-                          🥈 Subcampeón de Colombia (Estrella de Plata)
+                        <span className="font-bold text-slate-200">
+                          🥈 Subcampeón de Colombia
                         </span>
                       ) : (
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-rose-950/60 text-rose-300 border border-rose-800/60">
-                          🚫 No Campeón
+                        <span className="font-semibold text-slate-400">
+                          Campaña oficial Dimayor
                         </span>
                       )}
                     </div>
 
-                    <h3 className="font-display text-2xl font-black uppercase text-white tracking-tight">
+                    <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-white tracking-tight text-balance">
                       {activeTournamentTable.tournamentName}
                     </h3>
-                    <p className="text-xs text-slate-300 mt-1 max-w-3xl leading-relaxed">
+                    <p className="text-xs text-slate-300 mt-1.5 max-w-2xl leading-relaxed">
                       {activeTournamentTable.description}
                     </p>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row items-end gap-2.5 shrink-0 self-start md:self-auto">
-                    <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-right w-full sm:w-auto">
-                      <div className="text-[10px] text-slate-400 uppercase font-bold">
-                        {isJuniorChampionTournament(activeTournamentTable) ? 'Campeón de Liga' : 'Campeón del Campeonato'}
+                  <div className="flex flex-col sm:flex-row xl:flex-col items-stretch sm:items-center xl:items-end gap-2.5 shrink-0 xl:w-[270px]">
+                    <div className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 xl:text-right flex-1 sm:flex-initial xl:w-full">
+                      <div className="text-[10px] text-slate-400 uppercase font-semibold tracking-wider">
+                        {isJuniorChampionTournament(activeTournamentTable) ? 'Campeón de Liga' : 'Campeón del Torneo'}
                       </div>
-                      <div className="text-sm font-black text-amber-400 font-display mt-0.5 flex items-center justify-end gap-1.5">
+                      <div className="text-sm font-black text-amber-400 font-display mt-0.5 flex items-center xl:justify-end gap-1.5">
                         {championCrest && !isJuniorChampionTournament(activeTournamentTable) && (
                           <img
                             src={championCrest.src}
                             alt={championCrest.alt}
-                            className="w-4 h-4 object-contain shrink-0 drop-shadow"
+                            className={`w-4 h-4 object-contain shrink-0 drop-shadow ${championCrest.needsLightBackdrop ? 'bg-white rounded-full p-[1px]' : ''}`}
                           />
                         )}
-                        <span>{activeTournamentTable.championTeam}</span>
+                        <span className="truncate">{activeTournamentTable.championTeam}</span>
                       </div>
-                      <div className="text-[11px] text-slate-300 mt-1 flex items-center justify-end gap-1.5">
+                      <div className="text-[11px] text-slate-300 mt-1 flex items-center xl:justify-end gap-1.5">
                         <img
                           src={juniorCrest.src}
                           alt={juniorCrest.alt}
                           className="w-4 h-4 object-contain shrink-0 drop-shadow"
                         />
-                        <span>Junior: <strong className="text-white">{activeTournamentTable.juniorFinish}</strong></span>
+                        <span className="truncate">
+                          Junior: <strong className="text-white">{activeTournamentTable.juniorFinish}</strong>
+                        </span>
                       </div>
                     </div>
 
                     <ShareButton
                       sectionTitle={`Campeonato ${activeTournamentTable.year} - ${activeTournamentTable.tournamentName}`}
                       customHash={`#tablas-historicas?tabla=${activeTournamentTable.id}`}
-                      buttonText="Compartir Campeonato"
+                      buttonText="Compartir"
                       size="sm"
-                      className="w-full sm:w-auto justify-center"
+                      className="w-full sm:w-auto xl:w-full justify-center"
                     />
                   </div>
                 </div>
@@ -692,7 +578,7 @@ export const HistoricTablesModule: React.FC = () => {
                                         <img
                                           src={crest.src}
                                           alt={crest.alt}
-                                          className="w-5 h-5 object-contain shrink-0 drop-shadow"
+                                          className={`w-5 h-5 object-contain shrink-0 drop-shadow ${crest.needsLightBackdrop ? 'bg-white rounded-full p-0.5' : ''}`}
                                         />
                                       ) : null;
                                     })()}
@@ -723,19 +609,27 @@ export const HistoricTablesModule: React.FC = () => {
                                 </td>
 
                                 <td className="py-2.5 px-4 text-center whitespace-nowrap">
-                                  <span
-                                    className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
-                                      isChampionStatusBadge(row.statusBadge)
-                                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
-                                        : isRunnerUpStatusBadge(row.statusBadge)
-                                        ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
-                                        : row.statusBadge?.toUpperCase().includes('CLASIFICADO')
-                                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                                        : 'bg-slate-800 text-slate-400'
-                                    }`}
-                                  >
-                                    {row.statusBadge || '-'}
-                                  </span>
+                                  {(() => {
+                                    const badge = getRowStatusBadge(activeTournamentTable, row, 'regular');
+                                    const upper = badge.toUpperCase();
+                                    return (
+                                      <span
+                                        className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                                          isChampionStatusBadge(badge)
+                                            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
+                                            : isRunnerUpStatusBadge(badge)
+                                            ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
+                                            : upper.includes('CLASIFICADO')
+                                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                                            : upper.includes('ELIMINADO')
+                                            ? 'bg-rose-950/40 text-rose-300/80 border border-rose-500/20'
+                                            : 'bg-slate-800 text-slate-300 border border-slate-700/60'
+                                        }`}
+                                      >
+                                        {badge}
+                                      </span>
+                                    );
+                                  })()}
                                 </td>
                               </tr>
                             );
@@ -818,7 +712,7 @@ export const HistoricTablesModule: React.FC = () => {
                                             <img
                                               src={crest.src}
                                               alt={crest.alt}
-                                              className="w-5 h-5 object-contain shrink-0 drop-shadow"
+                                              className={`w-5 h-5 object-contain shrink-0 drop-shadow ${crest.needsLightBackdrop ? 'bg-white rounded-full p-0.5' : ''}`}
                                               referrerPolicy="no-referrer"
                                             />
                                           ) : null;
@@ -846,19 +740,27 @@ export const HistoricTablesModule: React.FC = () => {
                                       {row.pts}
                                     </td>
                                     <td className="py-2.5 px-4 text-center whitespace-nowrap">
-                                      <span
-                                        className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
-                                          isChampionStatusBadge(row.statusBadge)
-                                            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
-                                            : isRunnerUpStatusBadge(row.statusBadge)
-                                            ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
-                                            : row.statusBadge?.toUpperCase().includes('CLASIFICADO')
-                                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                                            : 'bg-slate-800 text-slate-400'
-                                        }`}
-                                      >
-                                        {row.statusBadge || '-'}
-                                      </span>
+                                      {(() => {
+                                        const badge = getRowStatusBadge(activeTournamentTable, row, 'secondaryRegular');
+                                        const upper = badge.toUpperCase();
+                                        return (
+                                          <span
+                                            className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                                              isChampionStatusBadge(badge)
+                                                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
+                                                : isRunnerUpStatusBadge(badge)
+                                                ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
+                                                : upper.includes('CLASIFICADO')
+                                                ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                                                : upper.includes('ELIMINADO')
+                                                ? 'bg-rose-950/40 text-rose-300/80 border border-rose-500/20'
+                                                : 'bg-slate-800 text-slate-300 border border-slate-700/60'
+                                            }`}
+                                          >
+                                            {badge}
+                                          </span>
+                                        );
+                                      })()}
                                     </td>
                                   </tr>
                                 );
@@ -1004,7 +906,7 @@ export const HistoricTablesModule: React.FC = () => {
                                                       <img
                                                         src={crest.src}
                                                         alt={crest.alt}
-                                                        className="w-5 h-5 object-contain shrink-0 drop-shadow"
+                                                        className={`w-5 h-5 object-contain shrink-0 drop-shadow ${crest.needsLightBackdrop ? 'bg-white rounded-full p-0.5' : ''}`}
                                                         referrerPolicy="no-referrer"
                                                       />
                                                     ) : null;
@@ -1032,19 +934,27 @@ export const HistoricTablesModule: React.FC = () => {
                                                 {row.pts}
                                               </td>
                                               <td className="py-2.5 px-4 text-center whitespace-nowrap">
-                                                <span
-                                                  className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
-                                                    isChampionStatusBadge(row.statusBadge)
-                                                      ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
-                                                      : isRunnerUpStatusBadge(row.statusBadge)
-                                                      ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
-                                                      : row.statusBadge?.toUpperCase().includes('CLASIFICADO')
-                                                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                                                      : 'bg-slate-800 text-slate-400'
-                                                  }`}
-                                                >
-                                                  {row.statusBadge || '-'}
-                                                </span>
+                                                {(() => {
+                                                  const badge = getRowStatusBadge(activeTournamentTable, row, 'finalGroup', fg.groupName);
+                                                  const upper = badge.toUpperCase();
+                                                  return (
+                                                    <span
+                                                      className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                                                        isChampionStatusBadge(badge)
+                                                          ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
+                                                          : isRunnerUpStatusBadge(badge)
+                                                          ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
+                                                          : upper.includes('CLASIFICADO')
+                                                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                                                          : upper.includes('ELIMINADO')
+                                                          ? 'bg-rose-950/40 text-rose-300/80 border border-rose-500/20'
+                                                          : 'bg-slate-800 text-slate-300 border border-slate-700/60'
+                                                      }`}
+                                                    >
+                                                      {badge}
+                                                    </span>
+                                                  );
+                                                })()}
                                               </td>
                                             </tr>
                                           );
@@ -1111,7 +1021,7 @@ export const HistoricTablesModule: React.FC = () => {
                                               <img
                                                 src={crest.src}
                                                 alt={crest.alt}
-                                                className="w-5 h-5 object-contain shrink-0 drop-shadow"
+                                                className={`w-5 h-5 object-contain shrink-0 drop-shadow ${crest.needsLightBackdrop ? 'bg-white rounded-full p-0.5' : ''}`}
                                                 referrerPolicy="no-referrer"
                                               />
                                             ) : null;
@@ -1143,19 +1053,27 @@ export const HistoricTablesModule: React.FC = () => {
                                       </td>
 
                                       <td className="py-2.5 px-4 text-center whitespace-nowrap">
-                                        <span
-                                          className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
-                                            isChampionStatusBadge(row.statusBadge)
-                                              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
-                                              : isRunnerUpStatusBadge(row.statusBadge)
-                                              ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
-                                              : row.statusBadge?.toUpperCase().includes('CLASIFICADO')
-                                              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                                              : 'bg-slate-800 text-slate-400'
-                                          }`}
-                                        >
-                                          {row.statusBadge || '-'}
-                                        </span>
+                                        {(() => {
+                                          const badge = getRowStatusBadge(activeTournamentTable, row, 'finalSummary');
+                                          const upper = badge.toUpperCase();
+                                          return (
+                                            <span
+                                              className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                                                isChampionStatusBadge(badge)
+                                                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
+                                                  : isRunnerUpStatusBadge(badge)
+                                                  ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
+                                                  : upper.includes('CLASIFICADO')
+                                                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                                                  : upper.includes('ELIMINADO')
+                                                  ? 'bg-rose-950/40 text-rose-300/80 border border-rose-500/20'
+                                                  : 'bg-slate-800 text-slate-300 border border-slate-700/60'
+                                              }`}
+                                            >
+                                              {badge}
+                                            </span>
+                                          );
+                                        })()}
                                       </td>
                                     </tr>
                                   );
@@ -1345,7 +1263,7 @@ export const HistoricTablesModule: React.FC = () => {
                                   <img
                                     src={homeCrest.src}
                                     alt={homeCrest.alt}
-                                    className="w-4 h-4 object-contain shrink-0 drop-shadow inline-block"
+                                    className={`w-4 h-4 object-contain shrink-0 drop-shadow inline-block ${homeCrest.needsLightBackdrop ? 'bg-white rounded-full p-[1px]' : ''}`}
                                   />
                                 )}
                               </span>
@@ -1357,7 +1275,7 @@ export const HistoricTablesModule: React.FC = () => {
                                   <img
                                     src={awayCrest.src}
                                     alt={awayCrest.alt}
-                                    className="w-4 h-4 object-contain shrink-0 drop-shadow inline-block"
+                                    className={`w-4 h-4 object-contain shrink-0 drop-shadow inline-block ${awayCrest.needsLightBackdrop ? 'bg-white rounded-full p-[1px]' : ''}`}
                                   />
                                 )}
                                 <span>{m.awayTeam.replace('de Barranquilla', '').trim()}</span>
