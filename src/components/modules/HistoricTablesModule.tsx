@@ -51,6 +51,13 @@ import {
   getRowStatusBadge,
   groupTournamentsByDecade,
   getAdjacentTournaments,
+  computeJuniorMatchArchiveSummary,
+  getMatchArchiveOpponents,
+  getMatchArchiveLapOptions,
+  filterMatchArchiveFixtures,
+  MatchArchiveLapFilter,
+  MatchArchiveVenueFilter,
+  MatchArchiveOutcomeFilter,
 } from '../../utils/footballLogic';
 
 export const HistoricTablesModule: React.FC = () => {
@@ -67,6 +74,10 @@ export const HistoricTablesModule: React.FC = () => {
   const [showAllMatches, setShowAllMatches] = useState<boolean>(false);
   const [tableCategoryFilter, setTableCategoryFilter] = useState<TableCategoryFilter>('todos');
   const [tournamentSearchQuery, setTournamentSearchQuery] = useState('');
+  const [matchLapFilter, setMatchLapFilter] = useState<MatchArchiveLapFilter>('all');
+  const [matchVenueFilter, setMatchVenueFilter] = useState<MatchArchiveVenueFilter>('all');
+  const [matchOutcomeFilter, setMatchOutcomeFilter] = useState<MatchArchiveOutcomeFilter>('all');
+  const [matchOpponentFilter, setMatchOpponentFilter] = useState<string>('all');
 
   // Reset sub-filters when switching tournament
   useEffect(() => {
@@ -74,6 +85,10 @@ export const HistoricTablesModule: React.FC = () => {
     setSelectedFinalGroupIdx('all');
     setSelectedMatchStage('all');
     setShowAllMatches(false);
+    setMatchLapFilter('all');
+    setMatchVenueFilter('all');
+    setMatchOutcomeFilter('all');
+    setMatchOpponentFilter('all');
   }, [selectedTableId]);
 
   // Sincronizar selección directa desde el buscador global o línea de tiempo
@@ -195,7 +210,7 @@ export const HistoricTablesModule: React.FC = () => {
               Tablas de Posiciones: Cuadrangulares, Hexagonales & Año a Año
             </h2>
             <p className="text-xs text-slate-400 mt-1 max-w-3xl">
-              Explora por décadas las 92 tablas oficiales con escudos históricos, fases finales y archivo año por año (1948 - 2026).
+              Explora por décadas las 91 tablas oficiales con escudos históricos, fases finales y archivo año por año (1948 - 2026).
             </p>
           </div>
 
@@ -1218,80 +1233,244 @@ export const HistoricTablesModule: React.FC = () => {
                 )}
 
                 {/* ARCHIVO COMPLETO DE PARTIDOS OFICIALES DE LA CAMPAÑA */}
-                {activeTournamentTable.matchArchive && activeTournamentTable.matchArchive.length > 0 && (
-                  <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3 pt-2">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-red-500" />
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-                          Campaña Oficial Partido a Partido ({activeTournamentTable.matchArchive.length} Fechas)
-                        </h4>
+                {activeTournamentTable.matchArchive && activeTournamentTable.matchArchive.length > 0 && (() => {
+                  const allMatches = activeTournamentTable.matchArchive;
+                  const showExtendedFilters = allMatches.length >= 18;
+                  const lapOptions = getMatchArchiveLapOptions(allMatches.length);
+                  const showLapFilters = lapOptions.length > 0;
+                  const summary = computeJuniorMatchArchiveSummary(allMatches);
+                  const opponents = showExtendedFilters ? getMatchArchiveOpponents(allMatches) : [];
+                  const visibleMatches = showExtendedFilters
+                    ? filterMatchArchiveFixtures(allMatches, {
+                        lap: showLapFilters ? matchLapFilter : 'all',
+                        venue: matchVenueFilter,
+                        outcome: matchOutcomeFilter,
+                        opponent: matchOpponentFilter,
+                      })
+                    : allMatches;
+                  const hasActiveFilters =
+                    matchLapFilter !== 'all' ||
+                    matchVenueFilter !== 'all' ||
+                    matchOutcomeFilter !== 'all' ||
+                    matchOpponentFilter !== 'all';
+
+                  return (
+                    <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3 pt-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4 text-red-500 shrink-0" />
+                            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+                              Campaña Oficial de Junior Partido a Partido ({allMatches.length} Fechas)
+                            </h4>
+                          </div>
+                          {summary.pj > 0 && (
+                            <p className="text-[11px] font-mono tabular-nums text-slate-400">
+                              Balance: {summary.pj} PJ · {summary.pg} PG · {summary.pe} PE · {summary.pp} PP · {summary.gf}:{summary.gc} ({summary.dg >= 0 ? `+${summary.dg}` : summary.dg}) · {summary.pts} Pts
+                            </p>
+                          )}
+                        </div>
+                        <span className="text-[10px] font-mono font-semibold text-slate-400">
+                          Fuente oficial: Archivo Histórico Dimayor & Wikipedia
+                        </span>
                       </div>
-                      <span className="text-[10px] font-mono font-semibold text-slate-400">
-                        Fuente oficial: Archivo Histórico Dimayor & Wikipedia
-                      </span>
-                    </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-                      {activeTournamentTable.matchArchive.map((m, idx) => {
-                        const isJuniorHome = m.homeTeam.includes('Junior');
-                        const isJuniorAway = m.awayTeam.includes('Junior');
-                        const homeCrest = getTournamentTeamCrest(activeTournamentTable, m.homeTeam, isJuniorHome);
-                        const awayCrest = getTournamentTeamCrest(activeTournamentTable, m.awayTeam, isJuniorAway);
-                        const juniorWon = (isJuniorHome && m.homeScore > m.awayScore) || (isJuniorAway && m.awayScore > m.homeScore);
-                        const isDraw = m.homeScore === m.awayScore;
-
-                        return (
-                          <div
-                            key={idx}
-                            className={`p-3 rounded-lg border text-xs transition-colors ${
-                              juniorWon
-                                ? 'bg-slate-950 border-emerald-500/40 hover:border-emerald-400'
-                                : isDraw
-                                ? 'bg-slate-950 border-slate-700 hover:border-slate-600'
-                                : 'bg-slate-950 border-rose-900/40 hover:border-rose-800'
-                            }`}
-                          >
-                            <div className="flex items-center justify-between text-[10px] text-slate-400 mb-1.5 font-mono">
-                              <span className="font-bold text-amber-400">{m.round}</span>
-                              <span>{m.date}</span>
-                            </div>
-                            <div className="flex items-center justify-between gap-2 font-semibold">
-                              <span className={`truncate text-right flex-1 flex items-center justify-end gap-1.5 ${isJuniorHome ? 'text-red-400 font-bold' : 'text-slate-200'}`}>
-                                <span>{m.homeTeam.replace('de Barranquilla', '').trim()}</span>
-                                {homeCrest && (
-                                  <img
-                                    src={homeCrest.src}
-                                    alt={homeCrest.alt}
-                                    className={`w-4 h-4 object-contain shrink-0 drop-shadow inline-block ${homeCrest.needsLightBackdrop ? 'bg-white rounded-full p-[1px]' : ''}`}
-                                  />
-                                )}
-                              </span>
-                              <span className="px-2 py-0.5 rounded bg-slate-900 font-mono font-bold text-white border border-slate-700 text-xs shrink-0">
-                                {m.homeScore} - {m.awayScore}
-                              </span>
-                              <span className={`truncate text-left flex-1 flex items-center gap-1.5 ${isJuniorAway ? 'text-red-400 font-bold' : 'text-slate-200'}`}>
-                                {awayCrest && (
-                                  <img
-                                    src={awayCrest.src}
-                                    alt={awayCrest.alt}
-                                    className={`w-4 h-4 object-contain shrink-0 drop-shadow inline-block ${awayCrest.needsLightBackdrop ? 'bg-white rounded-full p-[1px]' : ''}`}
-                                  />
-                                )}
-                                <span>{m.awayTeam.replace('de Barranquilla', '').trim()}</span>
-                              </span>
-                            </div>
-                            {m.note && (
-                              <div className="mt-1.5 pt-1.5 border-t border-slate-800/80 text-[10px] text-amber-300/90 leading-tight">
-                                ★ {m.note}
+                      {showExtendedFilters && (
+                        <div className="flex flex-col gap-2.5 pb-1">
+                          <div className="flex flex-wrap items-center justify-between gap-2">
+                            {showLapFilters && (
+                              <div className="flex flex-wrap items-center gap-1 p-1 rounded-lg bg-slate-950 border border-slate-800">
+                                {lapOptions.map((opt) => (
+                                  <button
+                                    key={opt.id}
+                                    type="button"
+                                    aria-pressed={matchLapFilter === opt.id}
+                                    onClick={() => setMatchLapFilter(opt.id)}
+                                    className={`px-2.5 py-1.5 rounded-md text-[11px] font-semibold whitespace-nowrap shrink-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 ${
+                                      matchLapFilter === opt.id
+                                        ? 'bg-red-600 text-white'
+                                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                                    }`}
+                                  >
+                                    {opt.label}
+                                  </button>
+                                ))}
                               </div>
                             )}
+
+                            <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                              <div className="flex flex-wrap items-center gap-1 p-1 rounded-lg bg-slate-950 border border-slate-800 max-w-full">
+                                {[
+                                  { id: 'all' as const, label: 'Todos' },
+                                  { id: 'home' as const, label: 'Local' },
+                                  { id: 'away' as const, label: 'Visitante' },
+                                ].map((opt) => (
+                                  <button
+                                    key={opt.id}
+                                    type="button"
+                                    aria-pressed={matchVenueFilter === opt.id}
+                                    onClick={() => setMatchVenueFilter(opt.id)}
+                                    className={`px-2.5 py-1.5 rounded-md text-[11px] font-semibold whitespace-nowrap shrink-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 ${
+                                      matchVenueFilter === opt.id
+                                        ? 'bg-red-600 text-white'
+                                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                                    }`}
+                                  >
+                                    {opt.label}
+                                  </button>
+                                ))}
+                              </div>
+
+                              <div className="flex flex-wrap items-center gap-1 p-1 rounded-lg bg-slate-950 border border-slate-800 max-w-full">
+                                {[
+                                  { id: 'all' as const, label: 'Resultado' },
+                                  { id: 'win' as const, label: `Ganados (${summary.pg})` },
+                                  { id: 'draw' as const, label: `Empates (${summary.pe})` },
+                                  { id: 'loss' as const, label: `Perdidos (${summary.pp})` },
+                                ].map((opt) => (
+                                  <button
+                                    key={opt.id}
+                                    type="button"
+                                    aria-pressed={matchOutcomeFilter === opt.id}
+                                    onClick={() => setMatchOutcomeFilter(opt.id)}
+                                    className={`px-2.5 py-1.5 rounded-md text-[11px] font-semibold whitespace-nowrap shrink-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 ${
+                                      matchOutcomeFilter === opt.id
+                                        ? 'bg-red-600 text-white'
+                                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+                                    }`}
+                                  >
+                                    {opt.label}
+                                  </button>
+                                ))}
+                              </div>
+
+                              {opponents.length > 0 && (
+                                <select
+                                  aria-label="Filtrar partidos por rival"
+                                  value={matchOpponentFilter}
+                                  onChange={(e) => setMatchOpponentFilter(e.target.value)}
+                                  className="w-full sm:w-auto px-2.5 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-[11px] font-semibold text-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                                >
+                                  <option value="all">Todos los rivales ({opponents.length})</option>
+                                  {opponents.map((opp) => (
+                                    <option key={opp} value={opp}>
+                                      {opp}
+                                    </option>
+                                  ))}
+                                </select>
+                              )}
+                            </div>
                           </div>
-                        );
-                      })}
+
+                          {hasActiveFilters && (
+                            <div className="flex items-center justify-between text-[11px] text-slate-400 font-mono tabular-nums">
+                              <span>
+                                Mostrando {visibleMatches.length} de {allMatches.length} partidos de Junior
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setMatchLapFilter('all');
+                                  setMatchVenueFilter('all');
+                                  setMatchOutcomeFilter('all');
+                                  setMatchOpponentFilter('all');
+                                }}
+                                className="text-red-400 hover:text-red-300 font-sans font-semibold underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 rounded"
+                              >
+                                Limpiar filtros
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {visibleMatches.length === 0 ? (
+                        <div className="p-6 rounded-lg bg-slate-950 border border-slate-800 text-center space-y-2">
+                          <p className="text-xs text-slate-300">
+                            No hay partidos de Junior que coincidan con los filtros seleccionados.
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setMatchLapFilter('all');
+                              setMatchVenueFilter('all');
+                              setMatchOutcomeFilter('all');
+                              setMatchOpponentFilter('all');
+                            }}
+                            className="px-3 py-1.5 rounded-md bg-red-600 text-white text-xs font-semibold hover:bg-red-500 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+                          >
+                            Ver los {allMatches.length} partidos
+                          </button>
+                        </div>
+                      ) : (
+                        <div data-testid="match-archive-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                          {visibleMatches.map((m, idx) => {
+                            const isJuniorHome = m.homeTeam.includes('Junior');
+                            const isJuniorAway = m.awayTeam.includes('Junior');
+                            const homeCrest = getTournamentTeamCrest(activeTournamentTable, m.homeTeam, isJuniorHome);
+                            const awayCrest = getTournamentTeamCrest(activeTournamentTable, m.awayTeam, isJuniorAway);
+                            const juniorWon = (isJuniorHome && m.homeScore > m.awayScore) || (isJuniorAway && m.awayScore > m.homeScore);
+                            const isDraw = m.homeScore === m.awayScore;
+
+                            return (
+                              <div
+                                key={`${m.round}-${idx}`}
+                                className={`p-3 rounded-lg border text-xs transition-colors ${
+                                  juniorWon
+                                    ? 'bg-slate-950 border-emerald-500/40 hover:border-emerald-400'
+                                    : isDraw
+                                    ? 'bg-slate-950 border-slate-700 hover:border-slate-600'
+                                    : 'bg-slate-950 border-rose-900/40 hover:border-rose-800'
+                                }`}
+                              >
+                                <div className="flex items-center justify-between text-[10px] text-slate-400 mb-1.5 font-mono tabular-nums">
+                                  <span className="font-bold text-amber-400">{m.round}</span>
+                                  <span>{m.date}</span>
+                                </div>
+                                <div className="flex items-center justify-between gap-2 font-semibold">
+                                  <span
+                                    title={m.homeTeam}
+                                    className={`min-w-0 text-right flex-1 flex items-center justify-end gap-1.5 ${isJuniorHome ? 'text-red-400 font-bold' : 'text-slate-200'}`}
+                                  >
+                                    <span className="truncate">{m.homeTeam.replace('de Barranquilla', '').trim()}</span>
+                                    {homeCrest && (
+                                      <img
+                                        src={homeCrest.src}
+                                        alt={homeCrest.alt}
+                                        className={`w-4 h-4 object-contain shrink-0 drop-shadow inline-block ${homeCrest.needsLightBackdrop ? 'bg-white rounded-full p-[1px]' : ''}`}
+                                      />
+                                    )}
+                                  </span>
+                                  <span className="px-2 py-0.5 rounded bg-slate-900 font-mono tabular-nums font-bold text-white border border-slate-700 text-xs shrink-0">
+                                    {m.homeScore} - {m.awayScore}
+                                  </span>
+                                  <span
+                                    title={m.awayTeam}
+                                    className={`min-w-0 text-left flex-1 flex items-center gap-1.5 ${isJuniorAway ? 'text-red-400 font-bold' : 'text-slate-200'}`}
+                                  >
+                                    {awayCrest && (
+                                      <img
+                                        src={awayCrest.src}
+                                        alt={awayCrest.alt}
+                                        className={`w-4 h-4 object-contain shrink-0 drop-shadow inline-block ${awayCrest.needsLightBackdrop ? 'bg-white rounded-full p-[1px]' : ''}`}
+                                      />
+                                    )}
+                                    <span className="truncate">{m.awayTeam.replace('de Barranquilla', '').trim()}</span>
+                                  </span>
+                                </div>
+                                {m.note && (
+                                  <div className="mt-1.5 pt-1.5 border-t border-slate-800/80 text-[10px] text-amber-300/90 leading-tight">
+                                    ★ {m.note}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
               </div>
             </div>
           </div>

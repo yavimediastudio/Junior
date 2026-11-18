@@ -51,7 +51,7 @@ export const MODULE_ITEMS: ModuleItemConfig[] = [
     tagline: 'Cuadrangulares, Hexagonales & Año a Año',
     icon: Table,
     description: 'Tablas de posiciones completas de torneos y fases finales: Cuadrangulares, Hexagonales, Octogonales, Play-offs y archivo año por año (1948-2026).',
-    statValue: '92 Tablas',
+    statValue: '91 Tablas',
     statLabel: 'Torneos Oficiales 1948-2026',
     accentColor: 'from-red-600/20 to-slate-900',
     borderHover: 'hover:border-red-500/50',

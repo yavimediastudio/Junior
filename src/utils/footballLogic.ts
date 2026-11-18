@@ -286,17 +286,35 @@ export function isSinglePhaseTournament(t: { hasFinalPhase?: boolean }): boolean
 
 /**
  * Returns the Junior crest image asset path to display for a given tournament table.
- * Uses the 1948 historical crest exclusively for the 1948 inaugural championship.
+ * - 1946-1949 (including 1948 inaugural championship): uses the 1946-1950 JCD historical crest.
+ * - 1950: uses the 1950-1951 JUNIOR three-stripe historical crest.
+ * - 1951-1966 (1951-1953 El Dorado & 1966 Dimayor return): uses the 1951-1966 9-stripe shield under navy chief.
+ * - 1967+: uses the official Junior crest.
  */
 export function getTournamentJuniorCrest(t: { id?: string; year?: string }): {
   src: string;
   alt: string;
 } {
-  const is1948 = t.id === '1948-inaugural' || t.year === '1948';
-  if (is1948) {
+  const startYear = extractTournamentStartYear(t.year);
+  const is1946To1949 =
+    t.id === '1948-inaugural' ||
+    (startYear !== null && startYear >= 1946 && startYear <= 1949);
+  if (is1946To1949) {
     return {
-      src: '/assets/aistudio/ESCUDO_JUNIOR_1948_106008e2.png',
-      alt: 'Escudo Histórico Junior 1948',
+      src: '/assets/aistudio/ESCUDO_JUNIOR_1946-1950_7ea2a3f2.png',
+      alt: 'Escudo Histórico Junior 1946-1950',
+    };
+  }
+  if (startYear === 1950) {
+    return {
+      src: '/assets/aistudio/ESCUDO_JUNIOR_1950-51_106008e2.png',
+      alt: 'Escudo Histórico Junior 1950-1951',
+    };
+  }
+  if (startYear !== null && startYear >= 1951 && startYear <= 1966) {
+    return {
+      src: '/assets/aistudio/ESCUDO_JUNIOR_1951-66_e0a54e06.png',
+      alt: 'Escudo Histórico Junior 1951-1966',
     };
   }
   return {
@@ -316,10 +334,10 @@ export function extractTournamentStartYear(year?: string): number | null {
 
 /**
  * Returns the team crest asset to display inside a specific tournament table/match card.
- * - Junior: uses 1948 crest in 1948, and official Junior crest across all tournaments.
- * - Santa Fe: uses 1948-1950 CISF historical crest for 1948-1949 tables, and 1950-1952 crest strictly for 1950-1952 tables.
- * - Deportes Caldas: uses 1947-1950 historical crest for 1947-1949 tables, and 1950-1961 crest strictly for 1950-1961 tables.
- * - Millonarios: uses 1947-1955 historical crest for 1947-1955 tables (including 1953 table in receso).
+ * - Junior: uses 1946-1950 JCD crest in 1946-1949 tables (1948), 1950-1951 crest in 1950, 1951-1966 crest in 1951-1966 tables, and official Junior crest from 1967 onward.
+ * - Santa Fe: uses 1948-1950 CISF historical crest for 1948-1949 tables, 1950-1952 crest for 1950-1951 tables, 1952-1956 crest strictly for 1952-1956 tables, and 1966-1967 Campeón 66 crest strictly for 1966-1967 tables.
+ * - Deportes Caldas / Deportivo Manizales: uses 1947-1950 historical crest for 1947-1949 tables, and 1950-1961 crest strictly for 1950-1961 tables.
+ * - Millonarios: uses 1947-1955 historical crest for 1947-1955 tables.
  * - Atlético Municipal / Nacional: uses 1947-1950 historical crest for 1947-1949 tables, and 1950-1953 crest strictly for 1950-1953 tables.
  * - América de Cali: uses 1940-1961 historical crest strictly for 1940-1961 tables.
  * - Independiente Medellín: uses 1913-1951 FBC historical crest strictly for 1913-1951 tables.
@@ -330,10 +348,11 @@ export function extractTournamentStartYear(year?: string): number | null {
  * - Cúcuta Deportivo: uses 1950-1971 historical CD yin-yang crest strictly for 1950-1971 tables.
  * - Atlético Bucaramanga: uses 1950-1957 historical AB pennant crest strictly for 1950-1957 tables.
  * - Sporting de Barranquilla: uses 1950-1953 historical black-and-gold crest strictly for 1950-1953 tables.
- * - Deportivo Pereira: uses 1949-1952 historical DP golden-ball crest strictly for 1949-1952 tables.
+ * - Deportivo Pereira: uses 1949-1952 historical DP golden-ball crest for 1949-1951 tables, 1952-1956 yellow-chevron D.P. crest for 1952-1955 tables, and 1956-1989 DP diagonal red-yellow crest strictly for 1956-1989 tables.
  * - Huracán de Medellín: uses hot-air balloon crest across 1950-1951 tables without colliding with Independiente Medellín.
  * - Deportes Quindío: uses 1951-1967 historical DQ pennant crest strictly for 1951-1967 tables.
  * - Deportivo Samarios: uses historical Santa Marta Samarios crest across its El Dorado tables and matches.
+ * - Unión Magdalena: uses official Unión Magdalena crest across its historical and modern tables and matches.
  */
 export function getTournamentTeamCrest(
   t: { id?: string; year?: string },
@@ -360,23 +379,38 @@ export function getTournamentTeamCrest(
 
   const isSantaFe = lower.includes('santa fe');
   const year = (t.year || '').trim();
+  const numericYear = /^\d{4}$/.test(year) ? Number(year) : null;
+  const startYear = extractTournamentStartYear(year);
+
   if (isSantaFe && (year === '1948' || year === '1949')) {
     return {
       src: '/assets/aistudio/SANTA_FE_1948-1950_6d4be8eb.png',
       alt: 'Escudo Histórico Santa Fe 1948-1950',
     };
   }
-  if (isSantaFe && (year === '1950' || year === '1951' || year === '1952')) {
+  if (isSantaFe && (year === '1950' || year === '1951')) {
     return {
       src: '/assets/aistudio/SANTA_FE_1950-1952_88ef6caa.png',
       alt: 'Escudo Histórico Santa Fe 1950-1952',
     };
   }
+  if (isSantaFe && startYear !== null && startYear >= 1952 && startYear <= 1956) {
+    return {
+      src: '/assets/aistudio/SANTA_FE_1952-1956_f7f7b9c3.png',
+      alt: 'Escudo Histórico Santa Fe 1952-1956',
+    };
+  }
+  if (isSantaFe && startYear !== null && startYear >= 1966 && startYear <= 1967) {
+    return {
+      src: '/assets/aistudio/SANTA_FE_1966-1967_a0a1e3e6.png',
+      alt: 'Escudo Histórico Santa Fe 1966-1967',
+    };
+  }
 
-  const numericYear = /^\d{4}$/.test(year) ? Number(year) : null;
-  const startYear = extractTournamentStartYear(year);
-
-  const isDeportesCaldas = lower.includes('deportes caldas');
+  const isDeportesCaldas =
+    lower.includes('deportes caldas') ||
+    lower.includes('deportivo manizales') ||
+    lower.includes('dep. manizales');
   if (
     isDeportesCaldas &&
     (year === '1947' || year === '1948' || year === '1949')
@@ -401,8 +435,9 @@ export function getTournamentTeamCrest(
   const isMillonarios = lower.includes('millonarios');
   if (
     isMillonarios &&
-    ((numericYear !== null && numericYear >= 1947 && numericYear <= 1955) ||
-      t.id === '1953-1966-receso')
+    numericYear !== null &&
+    numericYear >= 1947 &&
+    numericYear <= 1955
   ) {
     return {
       src: '/assets/aistudio/MILLONARIOS_1947-1955_a27e65ae.png',
@@ -557,11 +592,33 @@ export function getTournamentTeamCrest(
     isDeportivoPereira &&
     startYear !== null &&
     startYear >= 1949 &&
-    startYear <= 1952
+    startYear <= 1951
   ) {
     return {
       src: '/assets/aistudio/PEREIRA_DEL_49_al_52_17730967.png',
       alt: 'Escudo Histórico Deportivo Pereira 1949-1952',
+    };
+  }
+  if (
+    isDeportivoPereira &&
+    startYear !== null &&
+    startYear >= 1952 &&
+    startYear <= 1955
+  ) {
+    return {
+      src: '/assets/aistudio/PEREIRA_DEL_52_al_56_ef90fe97.png',
+      alt: 'Escudo Histórico Deportivo Pereira 1952-1956',
+    };
+  }
+  if (
+    isDeportivoPereira &&
+    startYear !== null &&
+    startYear >= 1956 &&
+    startYear <= 1989
+  ) {
+    return {
+      src: '/assets/aistudio/PEREIRA_DEL_56_al_89_eb282c12.png',
+      alt: 'Escudo Histórico Deportivo Pereira 1956-1989',
     };
   }
 
@@ -592,6 +649,17 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/SAMARIOS_50-51_fd182237.png',
       alt: 'Escudo Histórico Deportivo Samarios',
+    };
+  }
+
+  const isUnionMagdalena =
+    lower.includes('unión magdalena') ||
+    lower.includes('union magdalena') ||
+    lower.includes('u. magdalena');
+  if (isUnionMagdalena) {
+    return {
+      src: '/assets/aistudio/image_83f09d09.png',
+      alt: 'Escudo Oficial Unión Magdalena',
     };
   }
 
@@ -847,8 +915,8 @@ export function getRowStatusBadge(
 }
 
 export type DecadeKey =
-  | '1948-1959'
-  | '1960s'
+  | '1948-1953'
+  | '1966-1969'
   | '1970s'
   | '1980s'
   | '1990s'
@@ -863,8 +931,8 @@ export interface DecadeMeta {
 }
 
 export const DECADE_METADATA: DecadeMeta[] = [
-  { key: '1948-1959', label: '1948 – 1959', subtitle: 'Inicios y El Dorado' },
-  { key: '1960s', label: '1960 – 1969', subtitle: 'Reingreso Dimayor' },
+  { key: '1948-1953', label: '1948 – 1953', subtitle: 'Inicios y El Dorado' },
+  { key: '1966-1969', label: '1966 – 1969', subtitle: 'Reingreso Dimayor' },
   { key: '1970s', label: '1970 – 1979', subtitle: '1ª Estrella ★' },
   { key: '1980s', label: '1980 – 1989', subtitle: '2ª Estrella ★' },
   { key: '1990s', label: '1990 – 1999', subtitle: '3ª y 4ª Estrella ★' },
@@ -875,8 +943,8 @@ export const DECADE_METADATA: DecadeMeta[] = [
 
 export function getTournamentDecadeKey(t: { year?: string }): DecadeKey {
   const startYear = extractTournamentStartYear(t.year);
-  if (startYear === null || startYear < 1960) return '1948-1959';
-  if (startYear < 1970) return '1960s';
+  if (startYear === null || startYear < 1960) return '1948-1953';
+  if (startYear < 1970) return '1966-1969';
   if (startYear < 1980) return '1970s';
   if (startYear < 1990) return '1980s';
   if (startYear < 2000) return '1990s';
@@ -967,4 +1035,205 @@ export function getAdjacentTournaments<T extends { id: string }>(
     totalCount: activeList.length,
   };
 }
+
+export interface MatchArchiveEntry {
+  round: string;
+  date: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
+  note?: string;
+}
+
+export type MatchArchiveLapFilter = 'all' | '1' | '2' | '3' | '4';
+export type MatchArchiveVenueFilter = 'all' | 'home' | 'away';
+export type MatchArchiveOutcomeFilter = 'all' | 'win' | 'draw' | 'loss';
+
+export interface MatchArchiveFilterOptions {
+  lap?: MatchArchiveLapFilter;
+  venue?: MatchArchiveVenueFilter;
+  outcome?: MatchArchiveOutcomeFilter;
+  opponent?: string;
+}
+
+export interface JuniorMatchArchiveSummary {
+  pj: number;
+  pg: number;
+  pe: number;
+  pp: number;
+  gf: number;
+  gc: number;
+  dg: number;
+  pts: number;
+}
+
+export interface MatchArchiveLapOption {
+  id: MatchArchiveLapFilter;
+  label: string;
+}
+
+const TWO_LAP_MATCH_TOTALS = new Set([18, 22, 28, 30, 34]);
+
+function isJuniorClubName(teamName: string): boolean {
+  const lower = (teamName || '').toLowerCase();
+  return lower.includes('junior') && !lower.includes('boca juniors');
+}
+
+export function extractMatchRoundNumber(round: string): number | null {
+  const m = /^fecha\s+(\d+)/i.exec((round || '').trim());
+  return m ? Number(m[1]) : null;
+}
+
+export function getMatchLapNumber(
+  round: string,
+  totalMatches: number,
+  index?: number
+): number | null {
+  if (totalMatches === 52) {
+    const roundNum = extractMatchRoundNumber(round);
+    if (roundNum !== null && roundNum >= 1 && roundNum <= 52) {
+      return Math.ceil(roundNum / 13);
+    }
+    if (index !== undefined && index >= 0 && index < 52) {
+      return Math.floor(index / 13) + 1;
+    }
+    return null;
+  }
+
+  if (TWO_LAP_TOURNAMENT_VALID(totalMatches)) {
+    const half = totalMatches / 2;
+    const roundNum = extractMatchRoundNumber(round);
+    if (roundNum !== null && roundNum >= 1 && roundNum <= totalMatches) {
+      return roundNum <= half ? 1 : 2;
+    }
+    if (index !== undefined && index >= 0 && index < totalMatches) {
+      return index < half ? 1 : 2;
+    }
+    return null;
+  }
+
+  return null;
+}
+
+function TWO_LAP_TOURNAMENT_VALID(totalMatches: number): boolean {
+  return TWO_LAP_MATCH_TOTALS.has(totalMatches);
+}
+
+export function getMatchArchiveLapOptions(
+  totalMatches: number
+): MatchArchiveLapOption[] {
+  if (totalMatches === 52) {
+    return [
+      { id: 'all', label: 'Todas (52)' },
+      { id: '1', label: '1.ª Vuelta (1–13)' },
+      { id: '2', label: '2.ª Vuelta (14–26)' },
+      { id: '3', label: '3.ª Vuelta (27–39)' },
+      { id: '4', label: '4.ª Vuelta (40–52)' },
+    ];
+  }
+
+  if (TWO_LAP_MATCH_TOTALS.has(totalMatches)) {
+    const half = totalMatches / 2;
+    return [
+      { id: 'all', label: `Todas (${totalMatches})` },
+      { id: '1', label: `1.ª Vuelta (1–${half})` },
+      { id: '2', label: `2.ª Vuelta (${half + 1}–${totalMatches})` },
+    ];
+  }
+
+  return [];
+}
+
+export function computeJuniorMatchArchiveSummary(
+  matches: MatchArchiveEntry[]
+): JuniorMatchArchiveSummary {
+  let pj = 0;
+  let pg = 0;
+  let pe = 0;
+  let pp = 0;
+  let gf = 0;
+  let gc = 0;
+
+  for (const m of matches) {
+    const isHome = isJuniorClubName(m.homeTeam);
+    const isAway = isJuniorClubName(m.awayTeam);
+    if (!isHome && !isAway) continue;
+
+    pj += 1;
+    const jg = isHome ? m.homeScore : m.awayScore;
+    const og = isHome ? m.awayScore : m.homeScore;
+    gf += jg;
+    gc += og;
+    if (jg > og) pg += 1;
+    else if (jg === og) pe += 1;
+    else pp += 1;
+  }
+
+  return {
+    pj,
+    pg,
+    pe,
+    pp,
+    gf,
+    gc,
+    dg: gf - gc,
+    pts: pg * 2 + pe,
+  };
+}
+
+export function getMatchArchiveOpponents(matches: MatchArchiveEntry[]): string[] {
+  const opponents = new Set<string>();
+  for (const m of matches) {
+    const isHome = isJuniorClubName(m.homeTeam);
+    const isAway = isJuniorClubName(m.awayTeam);
+    if (!isHome && !isAway) continue;
+    const opp = isHome ? m.awayTeam : m.homeTeam;
+    if (opp) opponents.add(opp);
+  }
+  return Array.from(opponents).sort((a, b) => a.localeCompare(b, 'es'));
+}
+
+export function filterMatchArchiveFixtures(
+  matches: MatchArchiveEntry[],
+  filters: MatchArchiveFilterOptions
+): MatchArchiveEntry[] {
+  const totalMatches = matches.length;
+  const {
+    lap = 'all',
+    venue = 'all',
+    outcome = 'all',
+    opponent = 'all',
+  } = filters;
+
+  return matches.filter((m, index) => {
+    const isHome = isJuniorClubName(m.homeTeam);
+    const isAway = isJuniorClubName(m.awayTeam);
+    if (!isHome && !isAway) return false;
+
+    if (lap !== 'all') {
+      const matchLap = getMatchLapNumber(m.round, totalMatches, index);
+      if (String(matchLap) !== lap) return false;
+    }
+
+    if (venue === 'home' && !isHome) return false;
+    if (venue === 'away' && !isAway) return false;
+
+    if (outcome !== 'all') {
+      const jg = isHome ? m.homeScore : m.awayScore;
+      const og = isHome ? m.awayScore : m.homeScore;
+      if (outcome === 'win' && !(jg > og)) return false;
+      if (outcome === 'draw' && !(jg === og)) return false;
+      if (outcome === 'loss' && !(jg < og)) return false;
+    }
+
+    if (opponent !== 'all') {
+      const opp = isHome ? m.awayTeam : m.homeTeam;
+      if (opp !== opponent) return false;
+    }
+
+    return true;
+  });
+}
+
 

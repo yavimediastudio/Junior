@@ -81,8 +81,8 @@ export const TournamentNavigatorSidebar: React.FC<TournamentNavigatorSidebarProp
 }) => {
   const activeDecadeKey = getTournamentDecadeKey(activeTournament);
   const [expandedDecades, setExpandedDecades] = useState<Record<DecadeKey, boolean>>({
-    '1948-1959': activeDecadeKey === '1948-1959',
-    '1960s': activeDecadeKey === '1960s',
+    '1948-1953': activeDecadeKey === '1948-1953',
+    '1966-1969': activeDecadeKey === '1966-1969',
     '1970s': activeDecadeKey === '1970s',
     '1980s': activeDecadeKey === '1980s',
     '1990s': activeDecadeKey === '1990s',

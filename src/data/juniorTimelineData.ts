@@ -220,8 +220,8 @@ export const JUNIOR_TIMELINE_MILESTONES: TimelineMilestone[] = [
     scoreOrRecord: '15 Pts en 1953 (8.º DG) • Retiro Dimayor',
     manager: 'Varios (Fútbol Aficionado)',
     relatedModuleId: 'tablas-historicas',
-    relatedModuleLabel: 'Ver Período 1953-1966 en Tablas Históricas (Ventana 01)',
-    standingsTableId: '1953-1966-receso',
+    relatedModuleLabel: 'Ver Tabla Oficial de 1953 en Tablas Históricas (Ventana 01)',
+    standingsTableId: '1953-dorado',
   },
   {
     id: '1966-regreso',

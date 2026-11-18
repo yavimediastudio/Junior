@@ -833,26 +833,25 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     ],
     "matchArchive": [
       {
-        "round": "Duelo 1",
-        "date": "1950",
+        "round": "Fecha 1",
+        "date": "1.ª Vuelta (1950)",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
+        "awayTeam": "Universidad Nacional",
+        "homeScore": 0,
         "awayScore": 1,
-        "note": "Gran victoria 2-1 ante Los Millonarios de Di Stéfano en Barranquilla"
+        "note": "En cancha 2-2; partido demandado y adjudicado 0-1 a Universidad Nacional"
       },
       {
-        "round": "Duelo 2",
-        "date": "1950",
-        "homeTeam": "Millonarios F.C.",
+        "round": "Fecha 2",
+        "date": "1.ª Vuelta (1950)",
+        "homeTeam": "Deportivo Cali",
         "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1,
-        "note": "Empate 1-1 en Bogotá con actuación de Heleno de Freitas"
+        "homeScore": 3,
+        "awayScore": 1
       },
       {
-        "round": "Duelo 3",
-        "date": "1950",
+        "round": "Fecha 3",
+        "date": "1.ª Vuelta (1950)",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportes Caldas",
         "homeScore": 1,
@@ -860,171 +859,8 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "note": "Duelo ante el futuro campeón de la temporada"
       },
       {
-        "round": "Duelo 4",
-        "date": "1950",
-        "homeTeam": "Deportes Caldas",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 5",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Sporting de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 3,
-        "note": "Primer derbi barranquillero profesional en el Romelio Martínez"
-      },
-      {
-        "round": "Duelo 6",
-        "date": "1950",
-        "homeTeam": "Sporting de Barranquilla",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 7",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 8",
-        "date": "1950",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 9",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "round": "Duelo 10",
-        "date": "1950",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 3,
-        "note": "Gran victoria de visitante 2-3 en Medellín"
-      },
-      {
-        "round": "Duelo 11",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Huracán de Medellín",
-        "homeScore": 6,
-        "awayScore": 2,
-        "note": "Goleada histórica 6-2 con recital de fútbol ofensivo"
-      },
-      {
-        "round": "Duelo 12",
-        "date": "1950",
-        "homeTeam": "Huracán de Medellín",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "round": "Duelo 13",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 4,
-        "awayScore": 3
-      },
-      {
-        "round": "Duelo 14",
-        "date": "1950",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "round": "Duelo 15",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "round": "Duelo 16",
-        "date": "1950",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 17",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "round": "Duelo 18",
-        "date": "1950",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 19",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Boca Juniors de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 20",
-        "date": "1950",
-        "homeTeam": "Boca Juniors de Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 5,
-        "awayScore": 0
-      },
-      {
-        "round": "Duelo 21",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "round": "Duelo 22",
-        "date": "1950",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 23",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Municipal",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 24",
-        "date": "1950",
+        "round": "Fecha 4",
+        "date": "1.ª Vuelta (1950)",
         "homeTeam": "Atlético Municipal",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 0,
@@ -1032,16 +868,181 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "note": "Victoria a domicilio 0-1 en Medellín"
       },
       {
-        "round": "Duelo 25",
-        "date": "1950",
+        "round": "Fecha 5",
+        "date": "1.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 6",
+        "date": "1.ª Vuelta (1950)",
+        "homeTeam": "Boca Juniors de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 5,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 7",
+        "date": "1.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 8",
+        "date": "1.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 9",
+        "date": "1.ª Vuelta (1950)",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 10",
+        "date": "1.ª Vuelta (1950)",
+        "homeTeam": "Sporting de Barranquilla",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 11",
+        "date": "1.ª Vuelta (1950)",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Once Deportivo",
         "homeScore": 4,
         "awayScore": 1
       },
       {
-        "round": "Duelo 26",
-        "date": "1950",
+        "round": "Fecha 12",
+        "date": "1.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 4,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 13",
+        "date": "1.ª Vuelta (1950)",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 14",
+        "date": "1.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Huracán de Medellín",
+        "homeScore": 6,
+        "awayScore": 2,
+        "note": "Goleada histórica 6-2 con recital de fútbol ofensivo"
+      },
+      {
+        "round": "Fecha 15",
+        "date": "1.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C.",
+        "homeScore": 2,
+        "awayScore": 1,
+        "note": "Gran victoria 2-1 ante Los Millonarios de Di Stéfano en Barranquilla"
+      },
+      {
+        "round": "Fecha 16",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Universidad Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2,
+        "note": "Victoria 1-2 en Bogotá iniciando la segunda vuelta"
+      },
+      {
+        "round": "Fecha 17",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 18",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Deportes Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 19",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Municipal",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 20",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 21",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Boca Juniors de Cali",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 22",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 23",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 3,
+        "note": "Gran victoria de visitante 2-3 en Medellín"
+      },
+      {
+        "round": "Fecha 24",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 25",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Sporting de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 3,
+        "note": "Primer derbi barranquillero profesional en el Romelio Martínez"
+      },
+      {
+        "round": "Fecha 26",
+        "date": "2.ª Vuelta (1950)",
         "homeTeam": "Once Deportivo",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 2,
@@ -1049,37 +1050,37 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "note": "Triunfo como visitante 2-3 en Manizales"
       },
       {
-        "round": "Duelo 27",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 1
+        "round": "Fecha 27",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 2
       },
       {
-        "round": "Duelo 28",
-        "date": "1950",
-        "homeTeam": "Deportivo Pereira",
+        "round": "Fecha 28",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 29",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Huracán de Medellín",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 2,
-        "awayScore": 1
+        "awayScore": 2
       },
       {
-        "round": "Duelo 29",
-        "date": "1950",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Universidad Nacional",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 30",
-        "date": "1950",
-        "homeTeam": "Universidad Nacional",
+        "round": "Fecha 30",
+        "date": "2.ª Vuelta (1950)",
+        "homeTeam": "Millonarios F.C.",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 1,
-        "awayScore": 2,
-        "note": "Victoria 1-2 en Bogotá cerrando la campaña de 1950"
+        "awayScore": 1,
+        "note": "Cierre de la campaña de 1950 ante Millonarios en Barranquilla"
       }
     ]
   },
@@ -1090,7 +1091,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     "tournamentName": "Campeonato Colombiano 1951",
     "phaseTitle": "Campeonato 1951 (Época de El Dorado - 8º Puesto)",
     "phaseType": "anual",
-    "description": "En una de las temporadas más disputadas de El Dorado con 18 clubes participantes, Millonarios fue campeón con 60 puntos y Boca Juniors de Cali subcampeón con 49. Junior ocupó el 8º puesto oficial con 36 puntos en 34 partidos (14 PG, 8 PE, 12 PP, 66 GF, 58 GC, +8 DG). Destacó el resonante triunfo 0-1 como visitante ante el campeón Millonarios en Bogotá, la goleada 6-1 a Medellín y las victorias en los primeros clásicos costeños ante el debutante Deportivo Samarios (predecesor del Unión Magdalena). Alfredo Di Stéfano fue el máximo goleador del torneo con 32 tantos.",
+    "description": "En una de las temporadas más disputadas de El Dorado con 18 clubes participantes, Millonarios fue campeón con 60 puntos y Boca Juniors de Cali subcampeón con 49. Junior ocupó el 8º puesto oficial con 36 puntos en 34 partidos (14 PG, 8 PE, 12 PP, 66 GF, 58 GC, +8 DG). Destacó el resonante triunfo 0-1 como visitante ante el campeón Millonarios en Bogotá, la goleada 6-1 a Medellín y la victoria 2-3 ante el debutante Deportivo Samarios en Santa Marta (predecesor del Unión Magdalena). Alfredo Di Stéfano fue el máximo goleador del torneo con 32 tantos.",
     "juniorFinish": "8º Puesto Oficial en El Dorado (36 Pts)",
     "championTeam": "Millonarios F.C",
     "hasRegularPhase": true,
@@ -1538,25 +1539,8 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     ],
     "matchArchive": [
       {
-        "round": "Duelo 1",
-        "date": "1951",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 1,
-        "note": "Histórica victoria 0-1 como visitante ante el campeón Millonarios en Bogotá"
-      },
-      {
-        "round": "Duelo 2",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 4
-      },
-      {
-        "round": "Duelo 3",
-        "date": "1951",
+        "round": "Fecha 1",
+        "date": "1.ª Vuelta (1951)",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Independiente Medellín",
         "homeScore": 6,
@@ -1564,94 +1548,40 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "note": "Goleada histórica 6-1 a Medellín en el Romelio Martínez"
       },
       {
-        "round": "Duelo 4",
-        "date": "1951",
-        "homeTeam": "Independiente Medellín",
+        "round": "Fecha 2",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Atlético Bucaramanga",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 1,
-        "awayScore": 4,
-        "note": "Contundente triunfo 1-4 de visitante en Medellín"
+        "awayScore": 0
       },
       {
-        "round": "Duelo 5",
-        "date": "1951",
-        "homeTeam": "Deportivo Samarios",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 3,
-        "note": "Primer clásico del Caribe profesional: victoria 2-3 en Santa Marta"
-      },
-      {
-        "round": "Duelo 6",
-        "date": "1951",
+        "round": "Fecha 3",
+        "date": "1.ª Vuelta (1951)",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Samarios",
-        "homeScore": 1,
-        "awayScore": 0,
-        "note": "Victoria 1-0 en el Romelio Martínez"
-      },
-      {
-        "round": "Duelo 7",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Sporting de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 1,
-        "note": "Triunfo en el derbi barranquillero 2-1"
-      },
-      {
-        "round": "Duelo 8",
-        "date": "1951",
-        "homeTeam": "Sporting de Barranquilla",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1,
-        "note": "Empate 1-1 en el clásico currambero"
-      },
-      {
-        "round": "Duelo 9",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "América de Cali",
+        "awayTeam": "Huracán de Medellín",
         "homeScore": 4,
-        "awayScore": 0,
-        "note": "Gran goleada 4-0 sobre América en casa"
+        "awayScore": 2
       },
       {
-        "round": "Duelo 10",
-        "date": "1951",
-        "homeTeam": "América de Cali",
+        "round": "Fecha 4",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Independiente Santa Fe",
         "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "round": "Duelo 11",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 3,
+        "homeScore": 1,
         "awayScore": 1
       },
       {
-        "round": "Duelo 12",
-        "date": "1951",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Junior de Barranquilla",
+        "round": "Fecha 5",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Deportivo",
         "homeScore": 2,
-        "awayScore": 0
+        "awayScore": 4
       },
       {
-        "round": "Duelo 13",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 14",
-        "date": "1951",
+        "round": "Fecha 6",
+        "date": "1.ª Vuelta (1951)",
         "homeTeam": "Deportes Quindío",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 1,
@@ -1659,16 +1589,116 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "note": "Victoria 1-3 a domicilio en Armenia"
       },
       {
-        "round": "Duelo 15",
-        "date": "1951",
+        "round": "Fecha 7",
+        "date": "1.ª Vuelta (1951)",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Huracán de Medellín",
-        "homeScore": 4,
+        "awayTeam": "Universidad Nacional",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 8",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Deportes Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 9",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Sporting de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1,
+        "note": "Triunfo en el derbi barranquillero 2-1"
+      },
+      {
+        "round": "Fecha 10",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 11",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Millonarios F.C.",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 1,
+        "note": "Histórica victoria 0-1 como visitante ante el campeón Millonarios en Bogotá"
+      },
+      {
+        "round": "Fecha 12",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 3,
         "awayScore": 2
       },
       {
-        "round": "Duelo 16",
-        "date": "1951",
+        "round": "Fecha 13",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 14",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 2,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 15",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Deportivo Samarios",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 3,
+        "note": "Primer clásico del Caribe profesional: victoria 2-3 en Santa Marta"
+      },
+      {
+        "round": "Fecha 16",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Boca Juniors de Cali",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 17",
+        "date": "1.ª Vuelta (1951)",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 18",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 4,
+        "note": "Contundente triunfo 1-4 de visitante en Medellín"
+      },
+      {
+        "round": "Fecha 19",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 20",
+        "date": "2.ª Vuelta (1951)",
         "homeTeam": "Huracán de Medellín",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 1,
@@ -1676,148 +1706,119 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "note": "Triunfo 1-2 como visitante"
       },
       {
-        "round": "Duelo 17",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 18",
-        "date": "1951",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "round": "Duelo 19",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "round": "Duelo 20",
-        "date": "1951",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 21",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Universidad Nacional",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "round": "Duelo 22",
-        "date": "1951",
-        "homeTeam": "Universidad Nacional",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "round": "Duelo 23",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Boca Juniors de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 24",
-        "date": "1951",
-        "homeTeam": "Boca Juniors de Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "round": "Duelo 25",
-        "date": "1951",
+        "round": "Fecha 21",
+        "date": "2.ª Vuelta (1951)",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Independiente Santa Fe",
         "homeScore": 2,
         "awayScore": 2
       },
       {
-        "round": "Duelo 26",
-        "date": "1951",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 27",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "round": "Duelo 28",
-        "date": "1951",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "round": "Duelo 29",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Caldas",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "round": "Duelo 30",
-        "date": "1951",
-        "homeTeam": "Deportes Caldas",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "round": "Duelo 31",
-        "date": "1951",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Once Deportivo",
-        "homeScore": 2,
-        "awayScore": 4
-      },
-      {
-        "round": "Duelo 32",
-        "date": "1951",
+        "round": "Fecha 22",
+        "date": "2.ª Vuelta (1951)",
         "homeTeam": "Once Deportivo",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 4,
         "awayScore": 2
       },
       {
-        "round": "Duelo 33",
-        "date": "1951",
+        "round": "Fecha 23",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 24",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Universidad Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 25",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Caldas",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 26",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Sporting de Barranquilla",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Empate 1-1 en el clásico currambero"
+      },
+      {
+        "round": "Fecha 27",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 28",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C.",
+        "homeScore": 1,
+        "awayScore": 4
+      },
+      {
+        "round": "Fecha 29",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 30",
+        "date": "2.ª Vuelta (1951)",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Cúcuta Deportivo",
         "homeScore": 0,
         "awayScore": 3
       },
       {
-        "round": "Duelo 34",
-        "date": "1951",
-        "homeTeam": "Cúcuta Deportivo",
+        "round": "Fecha 31",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Atlético Nacional",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 1,
-        "awayScore": 0
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 32",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Samarios",
+        "homeScore": 1,
+        "awayScore": 4,
+        "note": "Clásico caribeño de segunda vuelta en el Romelio Martínez (1-4)"
+      },
+      {
+        "round": "Fecha 33",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Boca Juniors de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 34",
+        "date": "2.ª Vuelta (1951)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 4,
+        "awayScore": 0,
+        "note": "Goleada 4-0 ante América en el Romelio Martínez cerrando la campaña"
       }
     ]
   },
@@ -2205,115 +2206,111 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     "matchArchive": [
       {
         "round": "Fecha 1",
-        "date": "1952",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 4,
-        "note": "Inicio arrollador: victoria 1-4 de visitante en Medellín"
+        "date": "1.ª Vuelta · J. 1 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 3,
+        "awayScore": 1,
+        "note": "Debut victorioso 3-1 ante Atlético Nacional en el Romelio Martínez"
       },
       {
         "round": "Fecha 2",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 0,
-        "note": "Solvente victoria 2-0 en el Romelio Martínez ante los azucareros"
+        "date": "1.ª Vuelta · J. 2 (1952)",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 5,
+        "awayScore": 3,
+        "note": "Festival de goles (5-3) en la visita a Cali"
       },
       {
         "round": "Fecha 3",
-        "date": "1952",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
+        "date": "1.ª Vuelta · J. 3 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 4,
         "awayScore": 2,
-        "note": "Victoria 1-2 a domicilio en Bucaramanga"
+        "note": "Festejo con lluvia de goles en el Romelio (4-2)"
       },
       {
         "round": "Fecha 4",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Samarios",
-        "homeScore": 3,
-        "awayScore": 2,
-        "note": "Emocionante triunfo 3-2 en el clásico caribeño"
+        "date": "1.ª Vuelta · J. 4 (1952)",
+        "homeTeam": "Deportivo Samarios",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1,
+        "note": "Primer clásico del Caribe de la temporada en Santa Marta"
       },
       {
         "round": "Fecha 5",
-        "date": "1952",
-        "homeTeam": "Deportivo Manizales",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1,
-        "note": "Empate 1-1 en Manizales ante la nueva escuadra caldense"
+        "date": "1.ª Vuelta · J. 5 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Manizales",
+        "homeScore": 4,
+        "awayScore": 0,
+        "note": "Goleada 4-0 con recital ofensivo de Dimarco"
       },
       {
         "round": "Fecha 6",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 5,
-        "awayScore": 0,
-        "note": "Rotunda goleada 5-0 en Barranquilla con gran tarde de Gambina y Dimarco"
+        "date": "1.ª Vuelta · J. 6 (1952)",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
       },
       {
         "round": "Fecha 7",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "América de Cali",
-        "homeScore": 3,
-        "awayScore": 1,
-        "note": "Contundente 3-1 en casa frente a los diablos rojos"
+        "date": "1.ª Vuelta · J. 7 (1952)",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Valiosa paridad sin goles en el Pascual Guerrero"
       },
       {
         "round": "Fecha 8",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 3,
-        "awayScore": 1,
-        "note": "Gran victoria 3-1 ante el conjunto cardenal en el Romelio Martínez"
+        "date": "1.ª Vuelta · J. 8 (1952)",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 2
       },
       {
         "round": "Fecha 9",
-        "date": "1952",
-        "homeTeam": "Universidad Nacional",
-        "awayTeam": "Junior de Barranquilla",
+        "date": "1.ª Vuelta · J. 9 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Universidad Nacional",
         "homeScore": 1,
-        "awayScore": 1,
-        "note": "Igualdad 1-1 en Bogotá"
+        "awayScore": 1
       },
       {
         "round": "Fecha 10",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 0,
-        "note": "Sólido 2-0 frente a los motilones en Barranquilla"
+        "date": "1.ª Vuelta · J. 10 (1952)",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
       },
       {
         "round": "Fecha 11",
-        "date": "1952",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
+        "date": "1.ª Vuelta · J. 11 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 4,
         "awayScore": 1,
-        "note": "Empate 1-1 en Armenia ante una de las revelaciones"
+        "note": "Contundente goleada 4-1 con doblete de Gambina"
       },
       {
         "round": "Fecha 12",
-        "date": "1952",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 0,
-        "note": "Caída ante el encendido Ballet Azul de Di Stéfano en El Campín"
+        "date": "1.ª Vuelta · J. 12 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C.",
+        "homeScore": 1,
+        "awayScore": 2,
+        "note": "Apretado choque en Barranquilla frente al campeón (1-2)"
       },
       {
         "round": "Fecha 13",
-        "date": "1952",
+        "date": "1.ª Vuelta · J. 13 (1952)",
         "homeTeam": "Sporting de Barranquilla",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 1,
@@ -2322,7 +2319,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 14",
-        "date": "1952",
+        "date": "1.ª Vuelta · J. 15 (1952)",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Boca Juniors de Cali",
         "homeScore": 0,
@@ -2331,125 +2328,129 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 15",
-        "date": "1952",
-        "homeTeam": "Boca Juniors de Cali",
+        "date": "2.ª Vuelta · J. 16 (1952)",
+        "homeTeam": "Atlético Nacional",
         "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 2,
-        "note": "Duelo vibrante de seis goles en Cali"
+        "homeScore": 1,
+        "awayScore": 4,
+        "note": "Goleada 1-4 como visitante en Medellín iniciando la segunda vuelta"
       },
       {
         "round": "Fecha 16",
-        "date": "1952",
+        "date": "2.ª Vuelta · J. 17 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 2,
+        "awayScore": 0,
+        "note": "Solvente victoria 2-0 en el Romelio Martínez ante los azucareros"
+      },
+      {
+        "round": "Fecha 17",
+        "date": "2.ª Vuelta · J. 18 (1952)",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2,
+        "note": "Victoria 1-2 a domicilio en Bucaramanga"
+      },
+      {
+        "round": "Fecha 18",
+        "date": "2.ª Vuelta · J. 19 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Samarios",
+        "homeScore": 3,
+        "awayScore": 2,
+        "note": "Emocionante triunfo 3-2 en el clásico caribeño"
+      },
+      {
+        "round": "Fecha 19",
+        "date": "2.ª Vuelta · J. 20 (1952)",
+        "homeTeam": "Deportivo Manizales",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Empate 1-1 en Manizales ante la nueva escuadra caldense"
+      },
+      {
+        "round": "Fecha 20",
+        "date": "2.ª Vuelta · J. 21 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 5,
+        "awayScore": 0,
+        "note": "Rotunda goleada 5-0 en Barranquilla con gran tarde de Gambina y Dimarco"
+      },
+      {
+        "round": "Fecha 21",
+        "date": "2.ª Vuelta · J. 22 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 3,
+        "awayScore": 1,
+        "note": "Contundente 3-1 en casa frente a los diablos rojos"
+      },
+      {
+        "round": "Fecha 22",
+        "date": "2.ª Vuelta · J. 23 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 3,
+        "awayScore": 1,
+        "note": "Gran victoria 3-1 ante el conjunto cardenal en el Romelio Martínez"
+      },
+      {
+        "round": "Fecha 23",
+        "date": "2.ª Vuelta · J. 24 (1952)",
+        "homeTeam": "Universidad Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Igualdad 1-1 en Bogotá"
+      },
+      {
+        "round": "Fecha 24",
+        "date": "2.ª Vuelta · J. 25 (1952)",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 2,
+        "awayScore": 0,
+        "note": "Sólido 2-0 frente a los motilones en Barranquilla"
+      },
+      {
+        "round": "Fecha 25",
+        "date": "2.ª Vuelta · J. 26 (1952)",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Empate 1-1 en Armenia ante una de las revelaciones"
+      },
+      {
+        "round": "Fecha 26",
+        "date": "2.ª Vuelta · J. 27 (1952)",
+        "homeTeam": "Millonarios F.C.",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 0,
+        "note": "Caída ante el encendido Ballet Azul de Di Stéfano en El Campín"
+      },
+      {
+        "round": "Fecha 27",
+        "date": "2.ª Vuelta · J. 28 (1952)",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Sporting de Barranquilla",
         "homeScore": 2,
         "awayScore": 1,
-        "note": "Nuevo festejo tiburón en el derbi currambero (2-1)"
-      },
-      {
-        "round": "Fecha 17",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 2,
-        "note": "Apretado choque en Barranquilla frente al campeón (1-2)"
-      },
-      {
-        "round": "Fecha 18",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 4,
-        "awayScore": 1,
-        "note": "Contundente goleada 4-1 con doblete de Gambina"
-      },
-      {
-        "round": "Fecha 19",
-        "date": "1952",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "round": "Fecha 20",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Universidad Nacional",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "round": "Fecha 21",
-        "date": "1952",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "round": "Fecha 22",
-        "date": "1952",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0,
-        "note": "Valiosa paridad sin goles en el Pascual Guerrero"
-      },
-      {
-        "round": "Fecha 23",
-        "date": "1952",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "round": "Fecha 24",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Manizales",
-        "homeScore": 4,
-        "awayScore": 0,
-        "note": "Goleada 4-0 con recital ofensivo de Dimarco"
-      },
-      {
-        "round": "Fecha 25",
-        "date": "1952",
-        "homeTeam": "Deportivo Samarios",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 1,
-        "note": "Revancha samaria en Santa Marta (2-1)"
-      },
-      {
-        "round": "Fecha 26",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 4,
-        "awayScore": 2,
-        "note": "Festejo con lluvia de goles en el Romelio (4-2)"
-      },
-      {
-        "round": "Fecha 27",
-        "date": "1952",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 5,
-        "awayScore": 3,
-        "note": "Festival de goles (5-3) en la visita a Cali"
+        "note": "Festejo tiburón en el derbi currambero (2-1)"
       },
       {
         "round": "Fecha 28",
-        "date": "1952",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 1,
-        "note": "Cierre de campeonato con victoria 3-1 ante Atlético Nacional"
+        "date": "2.ª Vuelta · J. 30 (1952)",
+        "homeTeam": "Boca Juniors de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 2,
+        "note": "Duelo vibrante de seis goles en Cali cerrando la campaña (4-2)"
       }
     ]
   },
@@ -2765,7 +2766,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     "matchArchive": [
       {
         "round": "Fecha 1",
-        "date": "1953",
+        "date": "19 de abril de 1953",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Independiente Santa Fe",
         "homeScore": 1,
@@ -2773,7 +2774,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 2",
-        "date": "1953",
+        "date": "26 de abril de 1953",
         "homeTeam": "Deportes Quindío",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 6,
@@ -2781,7 +2782,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 3",
-        "date": "1953",
+        "date": "3 de mayo de 1953",
         "homeTeam": "Millonarios F.C.",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 4,
@@ -2789,7 +2790,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 4",
-        "date": "1953",
+        "date": "10 de mayo de 1953",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Cúcuta Deportivo",
         "homeScore": 2,
@@ -2798,7 +2799,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 5",
-        "date": "1953",
+        "date": "17 de mayo de 1953",
         "homeTeam": "Boca Juniors de Cali",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 3,
@@ -2806,7 +2807,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 6",
-        "date": "1953",
+        "date": "24 de mayo de 1953",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Atlético Nacional",
         "homeScore": 0,
@@ -2814,7 +2815,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 7",
-        "date": "1953",
+        "date": "31 de mayo de 1953",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Unión Magdalena",
         "homeScore": 2,
@@ -2823,7 +2824,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 8",
-        "date": "1953",
+        "date": "7 de junio de 1953",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Sporting de Barranquilla",
         "homeScore": 0,
@@ -2832,7 +2833,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 9",
-        "date": "1953",
+        "date": "14 de junio de 1953",
         "homeTeam": "Atlético Bucaramanga",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 2,
@@ -2841,7 +2842,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 10",
-        "date": "1953",
+        "date": "21 de junio de 1953",
         "homeTeam": "Deportivo Pereira",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 2,
@@ -2849,7 +2850,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 11",
-        "date": "1953",
+        "date": "27 de junio de 1953",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportivo Cali",
         "homeScore": 1,
@@ -2858,7 +2859,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 12",
-        "date": "1953",
+        "date": "26 de julio de 1953",
         "homeTeam": "Independiente Santa Fe",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 3,
@@ -2867,7 +2868,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 13",
-        "date": "1953",
+        "date": "1 de agosto de 1953",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportes Quindío",
         "homeScore": 3,
@@ -2876,7 +2877,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 14",
-        "date": "1953",
+        "date": "16 de agosto de 1953",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Millonarios F.C.",
         "homeScore": 2,
@@ -2885,7 +2886,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 15",
-        "date": "1953",
+        "date": "23 de agosto de 1953",
         "homeTeam": "Cúcuta Deportivo",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 3,
@@ -2893,7 +2894,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 16",
-        "date": "1953",
+        "date": "30 de agosto de 1953",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Boca Juniors de Cali",
         "homeScore": 1,
@@ -2901,7 +2902,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 17",
-        "date": "1953",
+        "date": "6 de septiembre de 1953",
         "homeTeam": "Atlético Nacional",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 3,
@@ -2909,7 +2910,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 18",
-        "date": "1953",
+        "date": "13 de septiembre de 1953",
         "homeTeam": "Unión Magdalena",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 2,
@@ -2918,7 +2919,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 19",
-        "date": "1953",
+        "date": "20 de septiembre de 1953",
         "homeTeam": "Sporting de Barranquilla",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 3,
@@ -2927,7 +2928,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 20",
-        "date": "1953",
+        "date": "29 de septiembre de 1953",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Atlético Bucaramanga",
         "homeScore": 1,
@@ -2936,7 +2937,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 21",
-        "date": "1953",
+        "date": "4 de octubre de 1953",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportivo Pereira",
         "homeScore": 5,
@@ -2945,252 +2946,12 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
       },
       {
         "round": "Fecha 22",
-        "date": "1953",
+        "date": "11 de octubre de 1953",
         "homeTeam": "Deportivo Cali",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 2,
         "awayScore": 2,
         "note": "Cierre del torneo con empate 2-2 en Cali antes del receso profesional"
-      }
-    ]
-  },
-  {
-    "id": "1953-1966-receso",
-    "year": "1953-1966",
-    "chronologicalOrder": 195401,
-    "tournamentName": "Período de Receso Profesional (1953 - 1966)",
-    "phaseTitle": "Período 1953 - 1966: Fin de El Dorado y 12 Años de Receso Profesional",
-    "phaseType": "anual",
-    "description": "En 1953 Junior sumó 15 puntos (8.º puesto oficial por diferencia de gol -15 en triple empate con Unión Magdalena y Sporting; reseñado como 10.º en algunas crónicas por victorias). Con el fin de El Dorado, el club afrontó una grave crisis económica que lo obligó a retirarse de la Dimayor, participando durante 12 años en el torneo aficionado de la Liga Departamental del Atlántico hasta su retorno en 1966.",
-    "juniorFinish": "15 Pts en 1953 (8.º DG / 10.º por PG) · 12 Años en Liga Departamental",
-    "championTeam": "Fútbol Aficionado (Liga Departamental del Atlántico)",
-    "isJuniorChampion": false,
-    "isJuniorRunnerUp": false,
-    "hasRegularPhase": true,
-    "regularPhaseTitle": "Tabla Final del Campeonato 1953 (Triple Empate en 15 Puntos)",
-    "regularPhaseDescription": "En 1953 Junior igualó con 15 puntos junto a Unión Magdalena y Sporting (8.º por diferencia de gol: -15; 10.º según crónicas por número de triunfos). Tras el fin de El Dorado, se retiró de la Dimayor por 12 años para disputar la liga aficionada departamental.",
-    "regularRows": [
-      {
-        "pos": 1,
-        "team": "Millonarios F.C. (Campeón 1953)",
-        "pj": 22,
-        "pg": 14,
-        "pe": 7,
-        "pp": 1,
-        "gf": 51,
-        "gc": 22,
-        "dg": 29,
-        "pts": 35,
-        "statusBadge": "Tricampeón"
-      },
-      {
-        "pos": 2,
-        "team": "Deportes Quindío (Subcampeón 1953)",
-        "pj": 22,
-        "pg": 14,
-        "pe": 5,
-        "pp": 3,
-        "gf": 66,
-        "gc": 40,
-        "dg": 26,
-        "pts": 33,
-        "statusBadge": "Subcampeón"
-      },
-      {
-        "pos": 3,
-        "team": "Boca Juniors de Cali",
-        "pj": 22,
-        "pg": 13,
-        "pe": 5,
-        "pp": 4,
-        "gf": 44,
-        "gc": 30,
-        "dg": 14,
-        "pts": 31,
-        "statusBadge": "3º Puesto"
-      },
-      {
-        "pos": 4,
-        "team": "Independiente Santa Fe",
-        "pj": 22,
-        "pg": 12,
-        "pe": 5,
-        "pp": 5,
-        "gf": 57,
-        "gc": 30,
-        "dg": 27,
-        "pts": 29,
-        "statusBadge": "4º Puesto"
-      },
-      {
-        "pos": 5,
-        "team": "Deportivo Cali",
-        "pj": 22,
-        "pg": 9,
-        "pe": 8,
-        "pp": 5,
-        "gf": 38,
-        "gc": 30,
-        "dg": 8,
-        "pts": 26,
-        "statusBadge": "5º Puesto"
-      },
-      {
-        "pos": 6,
-        "team": "Cúcuta Deportivo",
-        "pj": 22,
-        "pg": 11,
-        "pe": 4,
-        "pp": 7,
-        "gf": 58,
-        "gc": 42,
-        "dg": 16,
-        "pts": 26,
-        "statusBadge": "6º Puesto"
-      },
-      {
-        "pos": 7,
-        "team": "Atlético Nacional",
-        "pj": 22,
-        "pg": 10,
-        "pe": 5,
-        "pp": 7,
-        "gf": 57,
-        "gc": 45,
-        "dg": 12,
-        "pts": 25,
-        "statusBadge": "7º Puesto"
-      },
-      {
-        "pos": 8,
-        "team": "Junior de Barranquilla",
-        "pj": 22,
-        "pg": 4,
-        "pe": 7,
-        "pp": 11,
-        "gf": 38,
-        "gc": 53,
-        "dg": -15,
-        "pts": 15,
-        "statusBadge": "8.º (Dif. Gol -15)",
-        "isJunior": true
-      },
-      {
-        "pos": 9,
-        "team": "Unión Magdalena",
-        "pj": 22,
-        "pg": 6,
-        "pe": 3,
-        "pp": 13,
-        "gf": 35,
-        "gc": 58,
-        "dg": -23,
-        "pts": 15,
-        "statusBadge": "9º Puesto"
-      },
-      {
-        "pos": 10,
-        "team": "Sporting de Barranquilla",
-        "pj": 22,
-        "pg": 6,
-        "pe": 3,
-        "pp": 13,
-        "gf": 38,
-        "gc": 68,
-        "dg": -30,
-        "pts": 15,
-        "statusBadge": "10º Puesto"
-      },
-      {
-        "pos": 11,
-        "team": "Deportivo Pereira",
-        "pj": 22,
-        "pg": 6,
-        "pe": 2,
-        "pp": 14,
-        "gf": 42,
-        "gc": 72,
-        "dg": -30,
-        "pts": 14,
-        "statusBadge": "11º Puesto"
-      },
-      {
-        "pos": 12,
-        "team": "Atlético Bucaramanga (Retirado)",
-        "pj": 22,
-        "pg": 0,
-        "pe": 0,
-        "pp": 22,
-        "gf": 11,
-        "gc": 45,
-        "dg": -34,
-        "pts": 0,
-        "statusBadge": "12º Puesto"
-      }
-    ],
-    "hasFinalPhase": false,
-    "finalPhaseTitle": "El Receso Profesional (1954 - 1965)",
-    "rows": [
-      {
-        "pos": 1,
-        "team": "Junior de Barranquilla (Liga Departamental del Atlántico)",
-        "pj": 12,
-        "pg": 10,
-        "pe": 2,
-        "pp": 0,
-        "gf": 42,
-        "gc": 11,
-        "dg": 31,
-        "pts": 22,
-        "statusBadge": "Torneo Aficionado",
-        "isJunior": true
-      }
-    ],
-    "matchArchive": [
-      {
-        "round": "1953",
-        "date": "Temporada 1953",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Dimayor",
-        "homeScore": 10,
-        "awayScore": 15,
-        "note": "En 1953 cerró con 15 puntos (8.º por DG -15; 10.º en crónicas por PG). Fin del histórico período de El Dorado"
-      },
-      {
-        "round": "1954",
-        "date": "Enero de 1954",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Dimayor",
-        "homeScore": 0,
-        "awayScore": 0,
-        "note": "El club afronta una grave crisis económica que lo obliga a retirarse de la Dimayor"
-      },
-      {
-        "round": "1954-1965",
-        "date": "1954 a 1965",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Liga Departamental del Atlántico",
-        "homeScore": 12,
-        "awayScore": 0,
-        "note": "Pasa a participar durante 12 años del torneo aficionado de la liga departamental, desapareciendo del profesionalismo colombiano"
-      },
-      {
-        "round": "1965",
-        "date": "Finales de 1965",
-        "homeTeam": "Dirigencia Currambera",
-        "awayTeam": "Gestión Dimayor",
-        "homeScore": 1,
-        "awayScore": 0,
-        "note": "Un grupo de ilustres barranquilleros liderados por Arturo Fernández Renowitzky impulsa el retorno a la Dimayor"
-      },
-      {
-        "round": "1966",
-        "date": "Temporada 1966",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Retorno Profesional",
-        "homeScore": 1,
-        "awayScore": 0,
-        "note": "El regreso triunfal de Junior al profesionalismo tras 12 años de ausencia contratando al brasileño Dida (Campeón Mundial 1958)"
       }
     ]
   },
@@ -3553,58 +3314,430 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     ],
     "matchArchive": [
       {
-        "round": "Récord del Torneo",
-        "date": "Temporada 1966",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 7,
-        "awayScore": 1,
-        "note": "★ Mayor victoria como local de todo el Campeonato Colombiano 1966 (7-1 en el Estadio Romelio Martínez)"
+        "round": "Fecha 1",
+        "date": "30 de enero de 1966",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Histórico regreso de Junior a Primera División tras 13 años de ausencia"
       },
       {
-        "round": "Récord del Torneo",
-        "date": "Temporada 1966",
+        "round": "Fecha 2",
+        "date": "6 de febrero de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Primera victoria de Junior en su retorno a Primera en el Romelio Martínez"
+      },
+      {
+        "round": "Fecha 3",
+        "date": "13 de febrero de 1966",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 4",
+        "date": "20 de febrero de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 5",
+        "date": "27 de febrero de 1966",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 6",
+        "date": "6 de marzo de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 7",
+        "date": "13 de marzo de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 0,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 8",
+        "date": "27 de marzo de 1966",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 9",
+        "date": "3 de abril de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 10",
+        "date": "10 de abril de 1966",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 11",
+        "date": "1.ª Vuelta · Fecha 11",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Partido aplazado de la Fecha 11 · Triunfo tiburón en Barranquilla"
+      },
+      {
+        "round": "Fecha 12",
+        "date": "27 de abril de 1966",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 13",
+        "date": "8 de mayo de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 14",
+        "date": "15 de mayo de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 15",
+        "date": "19 de mayo de 1966",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 16",
+        "date": "22 de mayo de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 17",
+        "date": "29 de mayo de 1966",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 18",
+        "date": "5 de junio de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 4,
+        "awayScore": 3,
+        "note": "Triunfo memorable 4-3 ante Independiente Santa Fe, futuro campeón de 1966"
+      },
+      {
+        "round": "Fecha 19",
+        "date": "9 de junio de 1966",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 20",
+        "date": "12 de junio de 1966",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 21",
+        "date": "19 de junio de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 4,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 22",
+        "date": "2.ª Vuelta · Fecha 22",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 3,
+        "note": "Partido aplazado de la Fecha 22 · Vibrante empate 3-3 en el Atanasio Girardot"
+      },
+      {
+        "round": "Fecha 23",
+        "date": "29 de junio de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 24",
+        "date": "3 de julio de 1966",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 25",
+        "date": "10 de julio de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 26",
+        "date": "17 de julio de 1966",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2,
+        "note": "Clásico costeño en Santa Marta: victoria rojiblanca 1-2 tras 13 años"
+      },
+      {
+        "round": "Fecha 27",
+        "date": "20 de julio de 1966",
         "homeTeam": "América de Cali",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 0,
         "awayScore": 4,
-        "note": "★ Mayor victoria como visitante de todo el Campeonato 1966 (0-4 de Junior en el Pascual Guerrero de Cali)"
+        "note": "Récord del torneo: mayor victoria como visitante de todo el Campeonato 1966 (0-4 en el Pascual Guerrero)"
       },
       {
-        "round": "Clásico Caribeño",
-        "date": "Temporada 1966",
+        "round": "Fecha 28",
+        "date": "24 de julio de 1966",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 7,
         "awayScore": 1,
-        "note": "Reanudación del clásico de la Costa tras 13 años de ausencia profesional"
+        "note": "Récord del torneo: mayor goleada local de todo el Campeonato Colombiano 1966 (7-1 en el Romelio Martínez)"
       },
       {
-        "round": "vs Campeón",
-        "date": "Temporada 1966",
+        "round": "Fecha 29",
+        "date": "31 de julio de 1966",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 30",
+        "date": "7 de agosto de 1966",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 2,
-        "note": "Intenso duelo ante el conjunto cardenal de Gabriel Ochoa Uribe y el goleador Omar Lorenzo Devanni (31 goles)"
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 4,
+        "awayScore": 3
       },
       {
-        "round": "vs Subcampeón",
-        "date": "Temporada 1966",
+        "round": "Fecha 31",
+        "date": "14 de agosto de 1966",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 32",
+        "date": "21 de agosto de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 1,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 33",
+        "date": "25 de agosto de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 34",
+        "date": "4 de septiembre de 1966",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 35",
+        "date": "11 de septiembre de 1966",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Independiente Medellín",
         "homeScore": 3,
-        "awayScore": 2,
-        "note": "Gran victoria en Barranquilla ante el poderoso DIM, equipo más goleador de la temporada (106 goles)"
+        "awayScore": 1
       },
       {
-        "round": "Dupla Goleadora",
-        "date": "Balance Anual",
-        "homeTeam": "Antonio Rada (27 goles)",
-        "awayTeam": "Dida (20 goles)",
-        "homeScore": 47,
+        "round": "Fecha 36",
+        "date": "18 de septiembre de 1966",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 37",
+        "date": "25 de septiembre de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 1,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 38",
+        "date": "2 de octubre de 1966",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 39",
+        "date": "9 de octubre de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 40",
+        "date": "12 de octubre de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 4,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 41",
+        "date": "16 de octubre de 1966",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 42",
+        "date": "23 de octubre de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 43",
+        "date": "30 de octubre de 1966",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 44",
+        "date": "6 de noviembre de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 45",
+        "date": "11 de noviembre de 1966",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 4
+      },
+      {
+        "round": "Fecha 46",
+        "date": "4.ª Vuelta · Fecha 46",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1,
+        "note": "Partido aplazado de la Fecha 46 en Cali"
+      },
+      {
+        "round": "Fecha 47",
+        "date": "20 de noviembre de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 48",
+        "date": "27 de noviembre de 1966",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 49",
+        "date": "30 de noviembre de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 50",
+        "date": "8 de diciembre de 1966",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 51",
+        "date": "11 de diciembre de 1966",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 2,
         "awayScore": 0,
-        "note": "Entre el cañonero Toño Rada y el brasileño campeón mundial Dida convirtieron 47 de los 94 goles de Junior"
+        "note": "Contundente triunfo 2-0 ante Millonarios en el cierre en casa en Barranquilla"
+      },
+      {
+        "round": "Fecha 52",
+        "date": "17 de diciembre de 1966",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
       }
     ]
   },
@@ -3967,49 +4100,428 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     ],
     "matchArchive": [
       {
-        "round": "vs Campeón",
+        "round": "Fecha 1",
+        "date": "5 de febrero de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Debut de Junior en el Campeonato 1967 en el Romelio Martínez"
+      },
+      {
+        "round": "Fecha 2",
+        "date": "12 de febrero de 1967",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 3",
+        "date": "19 de febrero de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 4",
+        "date": "26 de febrero de 1967",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 5",
+        "date": "5 de marzo de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 6",
+        "date": "12 de marzo de 1967",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 7",
+        "date": "19 de marzo de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 8",
+        "date": "26–27 de marzo de 1967",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 9",
+        "date": "2 de abril de 1967",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 4,
+        "note": "Contundente goleada 0-4 como visitante frente al Deportes Tolima"
+      },
+      {
+        "round": "Fecha 10",
+        "date": "9 de abril de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Triunfo 1-0 en Barranquilla frente al futuro campeón Deportivo Cali"
+      },
+      {
+        "round": "Fecha 11",
+        "date": "16 de abril de 1967",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 12",
+        "date": "23 de abril de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 4,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 13",
+        "date": "30 de abril de 1967",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 14",
+        "date": "4 de mayo de 1967",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 15",
+        "date": "7 de mayo de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 16",
+        "date": "14 de mayo de 1967",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 17",
+        "date": "21 de mayo de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 1,
+        "awayScore": 5
+      },
+      {
+        "round": "Fecha 18",
+        "date": "25 de mayo de 1967",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 19",
+        "date": "28 de mayo de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 20",
+        "date": "2 de junio de 1967",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 21",
+        "date": "4 de junio de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 22",
+        "date": "11 de junio de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 23",
+        "date": "18 de junio de 1967",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 6,
+        "awayScore": 1,
+        "note": "Mayor derrota del año (6-1) frente al Deportivo Cali en el Pascual Guerrero"
+      },
+      {
+        "round": "Fecha 24",
+        "date": "25 de junio de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 25",
+        "date": "29 de junio de 1967",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 26",
+        "date": "2 de julio de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 27",
+        "date": "9 de julio de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 28",
+        "date": "16 de julio de 1967",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 4,
+        "note": "Clásico costeño en Santa Marta: goleada rojiblanca 1-4"
+      },
+      {
+        "round": "Fecha 29",
+        "date": "20 de julio de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 30",
+        "date": "23 de julio de 1967",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 31",
+        "date": "30 de julio de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 32",
+        "date": "8 de agosto de 1967",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 33",
+        "date": "13 de agosto de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 34",
+        "date": "20 de agosto de 1967",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 35",
+        "date": "27 de agosto de 1967",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 36",
+        "date": "3 de septiembre de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 37",
+        "date": "10 de septiembre de 1967",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 38",
+        "date": "17 de septiembre de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 39",
+        "date": "24 de septiembre de 1967",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 40",
+        "date": "1 de octubre de 1967",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 41",
+        "date": "8 de octubre de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 42",
+        "date": "12 de octubre de 1967",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 43",
+        "date": "15 de octubre de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 44",
+        "date": "22 de octubre de 1967",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 45",
+        "date": "29 de octubre de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 5,
+        "awayScore": 3,
+        "note": "Vibrante festival ofensivo (5-3) en el Romelio Martínez ante Deportivo Pereira"
+      },
+      {
+        "round": "Fecha 46",
+        "date": "1 de noviembre de 1967",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 47",
+        "date": "5 de noviembre de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 48",
+        "date": "12 de noviembre de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 49",
         "date": "19 de noviembre de 1967",
         "homeTeam": "Deportivo Cali",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 0,
         "awayScore": 0,
-        "note": "★ Empate 0-0 en Cali donde el Deportivo Cali se consagró campeón anticipado del fútbol colombiano"
+        "note": "★ Empate 0-0 en Cali donde el Deportivo Cali se consagró campeón anticipado de 1967"
       },
       {
-        "round": "Gran Victoria",
-        "date": "Temporada 1967",
+        "round": "Fecha 50",
+        "date": "26 de noviembre de 1967",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 51",
+        "date": "3 de diciembre de 1967",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 52",
+        "date": "10 de diciembre de 1967",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
         "homeScore": 3,
         "awayScore": 1,
-        "note": "Memorable triunfo en el Romelio Martínez frente al subcampeón de José María Ferrero"
-      },
-      {
-        "round": "Clásico Caribeño",
-        "date": "Temporada 1967",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 4,
-        "awayScore": 2,
-        "note": "Gran victoria con fiesta de goles en el Romelio Martínez frente al rival de patio"
-      },
-      {
-        "round": "La Magia de Dida",
-        "date": "Ciclo 1966-1967",
-        "homeTeam": "Dida (Edvaldo Alves)",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 33,
-        "awayScore": 0,
-        "note": "El campeón mundial brasileño Dida completó 33 goles oficiales en su paso por el Tiburón, incluyendo antológicas chilenas"
-      },
-      {
-        "round": "Aporte Ofensivo",
-        "date": "Temporada 1967",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Fútbol Colombiano",
-        "homeScore": 80,
-        "awayScore": 64,
-        "note": "Junior anotó 80 goles con las figuras de Toño Rada, Dida y Othón Dacunha escalando al 5.º puesto nacional"
+        "note": "Triunfo 3-1 en el cierre del campeonato en Barranquilla para asegurar el 5.º puesto (59 pts)"
       }
     ]
   },
