@@ -55,10 +55,12 @@ import {
   getMatchArchiveOpponents,
   getMatchArchiveLapOptions,
   filterMatchArchiveFixtures,
+  buildPlayoffKnockoutBrackets,
   MatchArchiveLapFilter,
   MatchArchiveVenueFilter,
   MatchArchiveOutcomeFilter,
 } from '../../utils/footballLogic';
+import { PlayoffKnockoutBracket } from './PlayoffKnockoutBracket';
 
 export const HistoricTablesModule: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
@@ -430,7 +432,7 @@ export const HistoricTablesModule: React.FC = () => {
                           <img
                             src={championCrest.src}
                             alt={championCrest.alt}
-                            className={`w-4 h-4 object-contain shrink-0 drop-shadow ${championCrest.needsLightBackdrop ? 'bg-white rounded-full p-[1px]' : ''}`}
+                            className="w-4 h-4 object-contain shrink-0 drop-shadow"
                           />
                         )}
                         <span className="truncate">{activeTournamentTable.championTeam}</span>
@@ -593,7 +595,7 @@ export const HistoricTablesModule: React.FC = () => {
                                         <img
                                           src={crest.src}
                                           alt={crest.alt}
-                                          className={`w-5 h-5 object-contain shrink-0 drop-shadow ${crest.needsLightBackdrop ? 'bg-white rounded-full p-0.5' : ''}`}
+                                          className="w-5 h-5 object-contain shrink-0 drop-shadow"
                                         />
                                       ) : null;
                                     })()}
@@ -727,7 +729,7 @@ export const HistoricTablesModule: React.FC = () => {
                                             <img
                                               src={crest.src}
                                               alt={crest.alt}
-                                              className={`w-5 h-5 object-contain shrink-0 drop-shadow ${crest.needsLightBackdrop ? 'bg-white rounded-full p-0.5' : ''}`}
+                                              className="w-5 h-5 object-contain shrink-0 drop-shadow"
                                               referrerPolicy="no-referrer"
                                             />
                                           ) : null;
@@ -921,7 +923,7 @@ export const HistoricTablesModule: React.FC = () => {
                                                       <img
                                                         src={crest.src}
                                                         alt={crest.alt}
-                                                        className={`w-5 h-5 object-contain shrink-0 drop-shadow ${crest.needsLightBackdrop ? 'bg-white rounded-full p-0.5' : ''}`}
+                                                        className="w-5 h-5 object-contain shrink-0 drop-shadow"
                                                         referrerPolicy="no-referrer"
                                                       />
                                                     ) : null;
@@ -980,6 +982,12 @@ export const HistoricTablesModule: React.FC = () => {
                                 ))}
                             </div>
                           </div>
+                        ) : activeTournamentTable.phaseType === 'playoff' &&
+                          buildPlayoffKnockoutBrackets(
+                            activeTournamentTable.playoffMatches,
+                            activeTournamentTable.championTeam
+                          ).length > 0 ? (
+                          <PlayoffKnockoutBracket tournament={activeTournamentTable} />
                         ) : (
                           <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900">
                             <table className="w-full text-left border-collapse text-xs">
@@ -1036,7 +1044,7 @@ export const HistoricTablesModule: React.FC = () => {
                                               <img
                                                 src={crest.src}
                                                 alt={crest.alt}
-                                                className={`w-5 h-5 object-contain shrink-0 drop-shadow ${crest.needsLightBackdrop ? 'bg-white rounded-full p-0.5' : ''}`}
+                                                className="w-5 h-5 object-contain shrink-0 drop-shadow"
                                                 referrerPolicy="no-referrer"
                                               />
                                             ) : null;
@@ -1099,119 +1107,174 @@ export const HistoricTablesModule: React.FC = () => {
                         )}
 
                         {/* Play-off Finals, Cuadrangular, Hexagonal & Octogonal Matches */}
-                        {activeTournamentTable.playoffMatches && activeTournamentTable.playoffMatches.length > 0 && (() => {
-                          const allMatches = activeTournamentTable.playoffMatches;
-                          const uniqueStages = Array.from(new Set(allMatches.map((m) => m.stage)));
-                          const filteredMatches =
-                            selectedMatchStage === 'all'
-                              ? allMatches
-                              : allMatches.filter((m) => m.stage === selectedMatchStage);
-                          const visibleMatches =
-                            !showAllMatches && filteredMatches.length > 24
-                              ? filteredMatches.slice(0, 24)
-                              : filteredMatches;
+                        {activeTournamentTable.playoffMatches &&
+                          activeTournamentTable.playoffMatches.length > 0 &&
+                          !(
+                            (!activeTournamentTable.finalGroups || activeTournamentTable.finalGroups.length === 0) &&
+                            activeTournamentTable.phaseType === 'playoff' &&
+                            buildPlayoffKnockoutBrackets(
+                              activeTournamentTable.playoffMatches,
+                              activeTournamentTable.championTeam
+                            ).length > 0
+                          ) &&
+                          (() => {
+                            const allMatches = activeTournamentTable.playoffMatches;
+                            const uniqueStages = Array.from(new Set(allMatches.map((m) => m.stage)));
+                            const filteredMatches =
+                              selectedMatchStage === 'all'
+                                ? allMatches
+                                : allMatches.filter((m) => m.stage === selectedMatchStage);
+                            const visibleMatches =
+                              !showAllMatches && filteredMatches.length > 24
+                                ? filteredMatches.slice(0, 24)
+                                : filteredMatches;
 
-                          return (
-                            <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
-                              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-red-400">
-                                  <Flame className="w-4 h-4 text-red-500" />
-                                  <span>Partidos Oficiales de Fase Final ({allMatches.length})</span>
-                                </div>
-                                {uniqueStages.length > 1 && (
-                                  <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-                                    <button
-                                      onClick={() => {
-                                        setSelectedMatchStage('all');
-                                        setShowAllMatches(false);
-                                      }}
-                                      className={`px-2.5 py-1 rounded-md font-semibold transition-colors ${
-                                        selectedMatchStage === 'all'
-                                          ? 'bg-red-600 text-white'
-                                          : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
-                                      }`}
-                                    >
-                                      Todos ({allMatches.length})
-                                    </button>
-                                    {uniqueStages.slice(0, 8).map((stage) => (
+                            return (
+                              <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-red-400">
+                                    <Flame className="w-4 h-4 text-red-500" />
+                                    <span>Partidos Oficiales de Fase Final ({allMatches.length})</span>
+                                  </div>
+                                  {uniqueStages.length > 1 && (
+                                    <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
                                       <button
-                                        key={stage}
                                         onClick={() => {
-                                          setSelectedMatchStage(stage);
+                                          setSelectedMatchStage('all');
                                           setShowAllMatches(false);
                                         }}
                                         className={`px-2.5 py-1 rounded-md font-semibold transition-colors ${
-                                          selectedMatchStage === stage
+                                          selectedMatchStage === 'all'
                                             ? 'bg-red-600 text-white'
                                             : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
                                         }`}
                                       >
-                                        {stage}
+                                        Todos ({allMatches.length})
                                       </button>
-                                    ))}
+                                      {uniqueStages.slice(0, 8).map((stage) => (
+                                        <button
+                                          key={stage}
+                                          onClick={() => {
+                                            setSelectedMatchStage(stage);
+                                            setShowAllMatches(false);
+                                          }}
+                                          className={`px-2.5 py-1 rounded-md font-semibold transition-colors ${
+                                            selectedMatchStage === stage
+                                              ? 'bg-red-600 text-white'
+                                              : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+                                          }`}
+                                        >
+                                          {stage}
+                                        </button>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                                  {visibleMatches.map((m, idx) => {
+                                    const isJuniorHome =
+                                      m.homeTeam.toLowerCase().includes('junior') &&
+                                      !m.homeTeam.toLowerCase().includes('boca juniors');
+                                    const isJuniorAway =
+                                      m.awayTeam.toLowerCase().includes('junior') &&
+                                      !m.awayTeam.toLowerCase().includes('boca juniors');
+                                    const homeCrest = getTournamentTeamCrest(
+                                      activeTournamentTable,
+                                      m.homeTeam,
+                                      isJuniorHome
+                                    );
+                                    const awayCrest = getTournamentTeamCrest(
+                                      activeTournamentTable,
+                                      m.awayTeam,
+                                      isJuniorAway
+                                    );
+
+                                    return (
+                                      <div
+                                        key={idx}
+                                        className={`p-3.5 rounded-xl bg-slate-950 border space-y-1.5 ${
+                                          isJuniorHome || isJuniorAway
+                                            ? 'border-red-500/40'
+                                            : 'border-slate-800'
+                                        }`}
+                                      >
+                                        <div className="flex items-center justify-between gap-2 text-[10px] font-mono">
+                                          <span className="uppercase font-bold text-amber-400 truncate">{m.stage}</span>
+                                          {m.date && <span className="text-slate-400 shrink-0">{m.date}</span>}
+                                        </div>
+                                        <div className="flex items-center justify-between gap-2 text-xs font-bold text-white">
+                                          <span
+                                            title={m.homeTeam}
+                                            className={`min-w-0 flex-1 flex items-center justify-end gap-1.5 text-right ${
+                                              isJuniorHome ? 'text-red-300' : ''
+                                            }`}
+                                          >
+                                            <span className="truncate">{m.homeTeam.replace('de Barranquilla', '').trim()}</span>
+                                            {homeCrest && (
+                                              <img
+                                                src={homeCrest.src}
+                                                alt={homeCrest.alt}
+                                                className="w-4 h-4 object-contain shrink-0 drop-shadow"
+                                                referrerPolicy="no-referrer"
+                                              />
+                                            )}
+                                          </span>
+                                          <span className="font-mono text-sm px-2.5 py-0.5 rounded bg-slate-900 text-red-400 border border-slate-700 shrink-0 tabular-nums">
+                                            {m.homeScore} - {m.awayScore}
+                                          </span>
+                                          <span
+                                            title={m.awayTeam}
+                                            className={`min-w-0 flex-1 flex items-center gap-1.5 text-left ${
+                                              isJuniorAway ? 'text-red-300' : ''
+                                            }`}
+                                          >
+                                            {awayCrest && (
+                                              <img
+                                                src={awayCrest.src}
+                                                alt={awayCrest.alt}
+                                                className="w-4 h-4 object-contain shrink-0 drop-shadow"
+                                                referrerPolicy="no-referrer"
+                                              />
+                                            )}
+                                            <span className="truncate">{m.awayTeam.replace('de Barranquilla', '').trim()}</span>
+                                          </span>
+                                        </div>
+                                        {m.venue && (
+                                          <div className="text-[10px] text-slate-500 truncate">
+                                            {m.venue}
+                                          </div>
+                                        )}
+                                        {m.scorers && (
+                                          <div className="text-[10px] text-emerald-300/90 leading-relaxed pt-1 border-t border-slate-800/80">
+                                            {m.scorers}
+                                          </div>
+                                        )}
+                                        {m.note && (
+                                          <div className="text-[10px] text-slate-400 pt-1 border-t border-slate-800/80 leading-relaxed">
+                                            {m.note}
+                                          </div>
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+
+                                {filteredMatches.length > 24 && (
+                                  <div className="pt-2 text-center">
+                                    <button
+                                      onClick={() => setShowAllMatches((prev) => !prev)}
+                                      className="px-4 py-1.5 rounded-lg bg-slate-950 border border-slate-700 hover:border-red-500 text-xs font-bold text-slate-200 transition-colors"
+                                    >
+                                      {showAllMatches
+                                        ? 'Contraer lista de partidos'
+                                        : `Mostrar todos los ${filteredMatches.length} partidos oficiales`}
+                                    </button>
                                   </div>
                                 )}
                               </div>
-
-                              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                                {visibleMatches.map((m, idx) => (
-                                  <div
-                                    key={idx}
-                                    className={`p-3.5 rounded-xl bg-slate-950 border space-y-1.5 ${
-                                      m.homeTeam.includes('Junior') || m.awayTeam.includes('Junior')
-                                        ? 'border-red-500/40'
-                                        : 'border-slate-800'
-                                    }`}
-                                  >
-                                    <div className="flex items-center justify-between gap-2 text-[10px] font-mono">
-                                      <span className="uppercase font-bold text-amber-400 truncate">{m.stage}</span>
-                                      {m.date && <span className="text-slate-400 shrink-0">{m.date}</span>}
-                                    </div>
-                                    <div className="flex items-center justify-between gap-2 text-xs font-bold text-white">
-                                      <span className={`truncate ${m.homeTeam.includes('Junior') ? 'text-red-300' : ''}`}>
-                                        {m.homeTeam}
-                                      </span>
-                                      <span className="font-mono text-sm px-2.5 py-0.5 rounded bg-slate-900 text-red-400 border border-slate-700 shrink-0 tabular-nums">
-                                        {m.homeScore} - {m.awayScore}
-                                      </span>
-                                      <span className={`truncate text-right ${m.awayTeam.includes('Junior') ? 'text-red-300' : ''}`}>
-                                        {m.awayTeam}
-                                      </span>
-                                    </div>
-                                    {m.venue && (
-                                      <div className="text-[10px] text-slate-500 truncate">
-                                        {m.venue}
-                                      </div>
-                                    )}
-                                    {m.scorers && (
-                                      <div className="text-[10px] text-emerald-300/90 leading-relaxed pt-1 border-t border-slate-800/80">
-                                        {m.scorers}
-                                      </div>
-                                    )}
-                                    {m.note && (
-                                      <div className="text-[10px] text-slate-400 pt-1 border-t border-slate-800/80 leading-relaxed">
-                                        {m.note}
-                                      </div>
-                                    )}
-                                  </div>
-                                ))}
-                              </div>
-
-                              {filteredMatches.length > 24 && (
-                                <div className="pt-2 text-center">
-                                  <button
-                                    onClick={() => setShowAllMatches((prev) => !prev)}
-                                    className="px-4 py-1.5 rounded-lg bg-slate-950 border border-slate-700 hover:border-red-500 text-xs font-bold text-slate-200 transition-colors"
-                                  >
-                                    {showAllMatches
-                                      ? 'Contraer lista de partidos'
-                                      : `Mostrar todos los ${filteredMatches.length} partidos oficiales`}
-                                  </button>
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })()}
+                            );
+                          })()}
                       </>
                     ) : (
                       /* Campeonato de Fase Única Corrida */
@@ -1236,7 +1299,7 @@ export const HistoricTablesModule: React.FC = () => {
                 {activeTournamentTable.matchArchive && activeTournamentTable.matchArchive.length > 0 && (() => {
                   const allMatches = activeTournamentTable.matchArchive;
                   const showExtendedFilters = allMatches.length >= 18;
-                  const lapOptions = getMatchArchiveLapOptions(allMatches.length);
+                  const lapOptions = getMatchArchiveLapOptions(allMatches.length, allMatches);
                   const showLapFilters = lapOptions.length > 0;
                   const summary = computeJuniorMatchArchiveSummary(allMatches);
                   const opponents = showExtendedFilters ? getMatchArchiveOpponents(allMatches) : [];
@@ -1423,9 +1486,9 @@ export const HistoricTablesModule: React.FC = () => {
                                     : 'bg-slate-950 border-rose-900/40 hover:border-rose-800'
                                 }`}
                               >
-                                <div className="flex items-center justify-between text-[10px] text-slate-400 mb-1.5 font-mono tabular-nums">
-                                  <span className="font-bold text-amber-400">{m.round}</span>
-                                  <span>{m.date}</span>
+                                <div className="flex items-center justify-between gap-2 text-[10px] text-slate-400 mb-1.5 font-mono tabular-nums">
+                                  <span className="font-bold text-amber-400 truncate">{m.round}</span>
+                                  <span className="whitespace-nowrap shrink-0">{m.date}</span>
                                 </div>
                                 <div className="flex items-center justify-between gap-2 font-semibold">
                                   <span
@@ -1437,7 +1500,7 @@ export const HistoricTablesModule: React.FC = () => {
                                       <img
                                         src={homeCrest.src}
                                         alt={homeCrest.alt}
-                                        className={`w-4 h-4 object-contain shrink-0 drop-shadow inline-block ${homeCrest.needsLightBackdrop ? 'bg-white rounded-full p-[1px]' : ''}`}
+                                        className="w-4 h-4 object-contain shrink-0 drop-shadow inline-block"
                                       />
                                     )}
                                   </span>
@@ -1452,7 +1515,7 @@ export const HistoricTablesModule: React.FC = () => {
                                       <img
                                         src={awayCrest.src}
                                         alt={awayCrest.alt}
-                                        className={`w-4 h-4 object-contain shrink-0 drop-shadow inline-block ${awayCrest.needsLightBackdrop ? 'bg-white rounded-full p-[1px]' : ''}`}
+                                        className="w-4 h-4 object-contain shrink-0 drop-shadow inline-block"
                                       />
                                     )}
                                     <span className="truncate">{m.awayTeam.replace('de Barranquilla', '').trim()}</span>

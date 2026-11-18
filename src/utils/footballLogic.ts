@@ -335,30 +335,34 @@ export function extractTournamentStartYear(year?: string): number | null {
 /**
  * Returns the team crest asset to display inside a specific tournament table/match card.
  * - Junior: uses 1946-1950 JCD crest in 1946-1949 tables (1948), 1950-1951 crest in 1950, 1951-1966 crest in 1951-1966 tables, and official Junior crest from 1967 onward.
- * - Santa Fe: uses 1948-1950 CISF historical crest for 1948-1949 tables, 1950-1952 crest for 1950-1951 tables, 1952-1956 crest strictly for 1952-1956 tables, and 1966-1967 Campeón 66 crest strictly for 1966-1967 tables.
+ * - Santa Fe: uses 1948-1950 CISF historical crest for 1948-1949 tables, 1950-1952 crest for 1950-1951 tables, 1952-1956 crest strictly for 1952-1956 tables, 1966-1967 Campeón 66 crest for 1966 tables, and 1967-2012 classic crest strictly for 1967-2012 tables.
  * - Deportes Caldas / Deportivo Manizales: uses 1947-1950 historical crest for 1947-1949 tables, and 1950-1961 crest strictly for 1950-1961 tables.
- * - Millonarios: uses 1947-1955 historical crest for 1947-1955 tables.
- * - Atlético Municipal / Nacional: uses 1947-1950 historical crest for 1947-1949 tables, and 1950-1953 crest strictly for 1950-1953 tables.
- * - América de Cali: uses 1940-1961 historical crest strictly for 1940-1961 tables.
- * - Independiente Medellín: uses 1913-1951 FBC historical crest strictly for 1913-1951 tables.
+ * - Once Caldas: uses 1961-1967 tricolor-and-C historical crest for 1961-1966 tables, 1967-1971 C-rings crest strictly for 1967-1971 tables, and 1972-1976 Cristal Caldas oval crest strictly for 1972-1976 tables.
+ * - Millonarios: uses 1947-1955 historical crest for 1947-1955 tables, and 1956-1974 crest strictly for 1956-1974 tables.
+ * - Atlético Municipal / Nacional: uses 1947-1950 historical crest for 1947-1949 tables, 1950-1953 crest for 1950-1953 tables, and 1954-1988 crowned shield crest strictly for 1954-1988 tables.
+ * - América de Cali: uses 1940-1961 historical crest strictly for 1940-1961 tables, and 1964-1976 devil-and-ball crest strictly for 1964-1976 tables.
+ * - Independiente Medellín: uses 1913-1951 FBC historical crest strictly for 1913-1951 tables, and 1966-1997 DIM diagonal crest strictly for 1966-1997 tables.
  * - Deportivo Cali: uses 1948-2012 historical crest strictly for 1948-2012 tables.
  * - Once Deportivo: uses historical D emblem in 1948-1951 tables.
  * - Universidad Nacional: uses historical crest in 1948-1952 tables.
  * - Boca Juniors de Cali: uses CABJ Cali crest across historical tables and matches.
- * - Cúcuta Deportivo: uses 1950-1971 historical CD yin-yang crest strictly for 1950-1971 tables.
- * - Atlético Bucaramanga: uses 1950-1957 historical AB pennant crest strictly for 1950-1957 tables.
+ * - Cúcuta Deportivo: uses 1950-1971 historical CD yin-yang crest for 1950-1971 tables, and 1972-2005 red-and-black CD circle crest strictly for 1972-2005 tables.
+ * - Atlético Bucaramanga: uses 1950-1957 historical AB pennant crest for 1950-1956 tables, and 1957-1985 leopard crest strictly for 1957-1985 tables.
  * - Sporting de Barranquilla: uses 1950-1953 historical black-and-gold crest strictly for 1950-1953 tables.
  * - Deportivo Pereira: uses 1949-1952 historical DP golden-ball crest for 1949-1951 tables, 1952-1956 yellow-chevron D.P. crest for 1952-1955 tables, and 1956-1989 DP diagonal red-yellow crest strictly for 1956-1989 tables.
  * - Huracán de Medellín: uses hot-air balloon crest across 1950-1951 tables without colliding with Independiente Medellín.
- * - Deportes Quindío: uses 1951-1967 historical DQ pennant crest strictly for 1951-1967 tables.
+ * - Deportes Quindío: uses 1951-1967 historical DQ pennant crest for 1951-1966 tables, and 1967-1986 star-and-tricolor crest strictly for 1967-1986 tables.
+ * - Deportes Tolima: uses 1966-1997 yellow-and-black DT crest strictly for 1966-1997 tables.
  * - Deportivo Samarios: uses historical Santa Marta Samarios crest across its El Dorado tables and matches.
  * - Unión Magdalena: uses official Unión Magdalena crest across its historical and modern tables and matches.
+ * - Real Cartagena: uses 1971-2013 antique shield crest strictly for 1971-2013 tables and matches.
+ * - Oro Negro: uses Club Deportivo Oro Negro (Barrancabermeja) crest across its 1971 tables and matches.
  */
 export function getTournamentTeamCrest(
   t: { id?: string; year?: string },
   teamName: string,
   isJuniorRow?: boolean
-): { src: string; alt: string; needsLightBackdrop?: boolean } | null {
+): { src: string; alt: string } | null {
   const lower = (teamName || '').toLowerCase();
   const isJunior =
     isJuniorRow === true || (lower.includes('junior') && !lower.includes('boca juniors'));
@@ -400,10 +404,16 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Santa Fe 1952-1956',
     };
   }
-  if (isSantaFe && startYear !== null && startYear >= 1966 && startYear <= 1967) {
+  if (isSantaFe && startYear === 1966) {
     return {
       src: '/assets/aistudio/SANTA_FE_1966-1967_a0a1e3e6.png',
       alt: 'Escudo Histórico Santa Fe 1966-1967',
+    };
+  }
+  if (isSantaFe && startYear !== null && startYear >= 1967 && startYear <= 2012) {
+    return {
+      src: '/assets/aistudio/SANTA_FE_1967-2012_2ab6a468.png',
+      alt: 'Escudo Histórico Santa Fe 1967-2012',
     };
   }
 
@@ -432,6 +442,44 @@ export function getTournamentTeamCrest(
     };
   }
 
+  const isOnceCaldas =
+    lower.includes('once caldas') ||
+    lower.includes('cristal caldas') ||
+    lower.trim() === 'caldas';
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 1961 &&
+    startYear <= 1966
+  ) {
+    return {
+      src: '/assets/aistudio/41396e6d-3efd-4d4c-97b6-ed027c1bfbc7_e6495777.png',
+      alt: 'Escudo Histórico Once Caldas 1961-1967',
+    };
+  }
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 1967 &&
+    startYear <= 1971
+  ) {
+    return {
+      src: '/assets/aistudio/logo_c_anillos_transparente_2c90e2d2.png',
+      alt: 'Escudo Histórico Once Caldas 1967-1971',
+    };
+  }
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 1972 &&
+    startYear <= 1976
+  ) {
+    return {
+      src: '/assets/aistudio/ince_caldas_de_1972-1976_0fb41669.png',
+      alt: 'Escudo Histórico Once Caldas 1972-1976',
+    };
+  }
+
   const isMillonarios = lower.includes('millonarios');
   if (
     isMillonarios &&
@@ -442,6 +490,17 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/MILLONARIOS_1947-1955_a27e65ae.png',
       alt: 'Escudo Histórico Millonarios 1947-1955',
+    };
+  }
+  if (
+    isMillonarios &&
+    startYear !== null &&
+    startYear >= 1956 &&
+    startYear <= 1974
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_1956-1974_706de05d.png',
+      alt: 'Escudo Histórico Millonarios 1956-1974',
     };
   }
 
@@ -472,6 +531,17 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Atlético Nacional 1950-1953',
     };
   }
+  if (
+    isAtleticoNacionalClub &&
+    startYear !== null &&
+    startYear >= 1954 &&
+    startYear <= 1988
+  ) {
+    return {
+      src: '/assets/aistudio/nacional_54-88_e08b0a06.png',
+      alt: 'Escudo Histórico Atlético Nacional 1954-1988',
+    };
+  }
 
   const isAmericaDeCali =
     (lower.includes('américa') || lower.includes('america')) &&
@@ -487,6 +557,17 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico América de Cali 1940-1961',
     };
   }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 1964 &&
+    startYear <= 1976
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_1964-1976_162e4a73.png',
+      alt: 'Escudo Histórico América de Cali 1964-1976',
+    };
+  }
 
   const isIndependienteMedellin =
     (lower.includes('independiente medellín') ||
@@ -496,7 +577,8 @@ export function getTournamentTeamCrest(
       lower.includes('indep. medellín') ||
       lower.includes('indep. medellin') ||
       lower.trim() === 'medellín' ||
-      lower.trim() === 'medellin') &&
+      lower.trim() === 'medellin' ||
+      /\bdim\b/.test(lower)) &&
     !lower.includes('huracán') &&
     !lower.includes('huracan');
   if (
@@ -508,6 +590,17 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/MEDELLIN_1913-1951_1abd4262.png',
       alt: 'Escudo Histórico Independiente Medellín 1913-1951',
+    };
+  }
+  if (
+    isIndependienteMedellin &&
+    startYear !== null &&
+    startYear >= 1966 &&
+    startYear <= 1997
+  ) {
+    return {
+      src: '/assets/aistudio/MEDELLIN_1966-1997_7d6775c6.png',
+      alt: 'Escudo Histórico Independiente Medellín 1966-1997',
     };
   }
 
@@ -532,7 +625,6 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/image_93c1f912.png',
       alt: 'Escudo Histórico Once Deportivo',
-      needsLightBackdrop: true,
     };
   }
 
@@ -540,7 +632,6 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/image_63a79417.png',
       alt: 'Escudo Histórico Universidad Nacional',
-      needsLightBackdrop: true,
     };
   }
 
@@ -556,17 +647,39 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Cúcuta Deportivo 1950-1971',
     };
   }
+  if (
+    isCucutaDeportivo &&
+    startYear !== null &&
+    startYear >= 1972 &&
+    startYear <= 2005
+  ) {
+    return {
+      src: '/assets/aistudio/cucuta_deportivo_1972-2005_570a5c06.png',
+      alt: 'Escudo Histórico Cúcuta Deportivo 1972-2005',
+    };
+  }
 
   const isAtleticoBucaramanga = lower.includes('bucaramanga');
   if (
     isAtleticoBucaramanga &&
     startYear !== null &&
     startYear >= 1950 &&
-    startYear <= 1957
+    startYear <= 1956
   ) {
     return {
       src: '/assets/aistudio/bucaramanga_1950-1957_80f6c063.png',
       alt: 'Escudo Histórico Atlético Bucaramanga 1950-1957',
+    };
+  }
+  if (
+    isAtleticoBucaramanga &&
+    startYear !== null &&
+    startYear >= 1957 &&
+    startYear <= 1985
+  ) {
+    return {
+      src: '/assets/aistudio/bucaramanga_1957-1985_9fd1460e.png',
+      alt: 'Escudo Histórico Atlético Bucaramanga 1957-1985',
     };
   }
 
@@ -637,11 +750,35 @@ export function getTournamentTeamCrest(
     isDeportesQuindio &&
     startYear !== null &&
     startYear >= 1951 &&
-    startYear <= 1967
+    startYear <= 1966
   ) {
     return {
       src: '/assets/aistudio/quindio_del_51_al_67_d5631340.png',
       alt: 'Escudo Histórico Deportes Quindío 1951-1967',
+    };
+  }
+  if (
+    isDeportesQuindio &&
+    startYear !== null &&
+    startYear >= 1967 &&
+    startYear <= 1986
+  ) {
+    return {
+      src: '/assets/aistudio/quindio_del_67_al_86_9cf838c0.png',
+      alt: 'Escudo Histórico Deportes Quindío 1967-1986',
+    };
+  }
+
+  const isDeportesTolima = lower.includes('tolima');
+  if (
+    isDeportesTolima &&
+    startYear !== null &&
+    startYear >= 1966 &&
+    startYear <= 1997
+  ) {
+    return {
+      src: '/assets/aistudio/tolima_del_66_al_97_98e00cd9.png',
+      alt: 'Escudo Histórico Deportes Tolima 1966-1997',
     };
   }
 
@@ -660,6 +797,27 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/image_83f09d09.png',
       alt: 'Escudo Oficial Unión Magdalena',
+    };
+  }
+
+  const isRealCartagena =
+    lower.includes('real cartagena') || lower.includes('r. cartagena');
+  if (
+    isRealCartagena &&
+    startYear !== null &&
+    startYear >= 1971 &&
+    startYear <= 2013
+  ) {
+    return {
+      src: '/assets/aistudio/Escudo_Real_Cartagena__antiguo__4f756fbf.png',
+      alt: 'Escudo Histórico Real Cartagena 1971-2013',
+    };
+  }
+
+  if (lower.includes('oro negro')) {
+    return {
+      src: '/assets/aistudio/cd_oro_negro_barrancabermeja_2017-presente-AwvJV6bkxQh9lNXq_b9c7d4e1.webp',
+      alt: 'Escudo Histórico Oro Negro de Barrancabermeja',
     };
   }
 
@@ -1046,7 +1204,16 @@ export interface MatchArchiveEntry {
   note?: string;
 }
 
-export type MatchArchiveLapFilter = 'all' | '1' | '2' | '3' | '4';
+export type MatchArchiveLapFilter =
+  | 'all'
+  | '1'
+  | '2'
+  | '3'
+  | '4'
+  | 'apertura'
+  | 'finalizacion'
+  | 'cuadrangular'
+  | 'triangular';
 export type MatchArchiveVenueFilter = 'all' | 'home' | 'away';
 export type MatchArchiveOutcomeFilter = 'all' | 'win' | 'draw' | 'loss';
 
@@ -1090,13 +1257,42 @@ export function getMatchLapNumber(
   totalMatches: number,
   index?: number
 ): number | null {
-  if (totalMatches === 52) {
+  if (totalMatches === 50) {
+    const roundNum = extractMatchRoundNumber(round);
+    if (roundNum !== null && roundNum >= 1 && roundNum <= 50) {
+      if (roundNum <= 13) return 1;
+      if (roundNum <= 26) return 2;
+      if (roundNum <= 38) return 3;
+      return 4;
+    }
+    if (index !== undefined && index >= 0 && index < 50) {
+      if (index < 13) return 1;
+      if (index < 26) return 2;
+      if (index < 38) return 3;
+      return 4;
+    }
+    return null;
+  }
+
+  if (totalMatches === 52 || totalMatches === 56 || totalMatches === 58) {
+    if (totalMatches === 58 && /cuad(?:rangular|\.)/i.test(round || '')) {
+      return 5;
+    }
+    if (totalMatches === 56 && /triang(?:ular|\.)/i.test(round || '')) {
+      return 5;
+    }
     const roundNum = extractMatchRoundNumber(round);
     if (roundNum !== null && roundNum >= 1 && roundNum <= 52) {
       return Math.ceil(roundNum / 13);
     }
     if (index !== undefined && index >= 0 && index < 52) {
       return Math.floor(index / 13) + 1;
+    }
+    if (totalMatches === 58 && index !== undefined && index >= 52 && index < 58) {
+      return 5;
+    }
+    if (totalMatches === 56 && index !== undefined && index >= 52 && index < 56) {
+      return 5;
     }
     return null;
   }
@@ -1121,9 +1317,90 @@ function TWO_LAP_TOURNAMENT_VALID(totalMatches: number): boolean {
 }
 
 export function getMatchArchiveLapOptions(
-  totalMatches: number
+  totalMatches: number,
+  matches?: Pick<MatchArchiveEntry, 'round'>[]
 ): MatchArchiveLapOption[] {
+  if (totalMatches === 56) {
+    const hasSemesterTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /apertura|finalizaci[oó]n/i.test(m.round || ''));
+    const hasTriangularTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /triang(?:ular|\.)/i.test(m.round || ''));
+    if (hasSemesterTags && hasTriangularTags) {
+      return [
+        { id: 'all', label: 'Todas (56)' },
+        { id: 'apertura', label: 'Apertura (1–26)' },
+        { id: 'finalizacion', label: 'Finalización (27–52)' },
+        { id: 'triangular', label: 'Triangular Final (4)' },
+        { id: '1', label: 'Ap. 1.ª Vta (1–13)' },
+        { id: '2', label: 'Ap. 2.ª Vta (14–26)' },
+        { id: '3', label: 'Fin. 1.ª Vta (27–39)' },
+        { id: '4', label: 'Fin. 2.ª Vta (40–52)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 58) {
+    const hasSemesterTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /apertura|finalizaci[oó]n/i.test(m.round || ''));
+    const hasCuadrangularTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /cuad(?:rangular|\.)/i.test(m.round || ''));
+    if (hasSemesterTags && hasCuadrangularTags) {
+      return [
+        { id: 'all', label: 'Todas (58)' },
+        { id: 'apertura', label: 'Apertura (1–26)' },
+        { id: 'finalizacion', label: 'Finalización (27–52)' },
+        { id: 'cuadrangular', label: 'Cuadrangular Final (6)' },
+        { id: '1', label: 'Ap. 1.ª Vta (1–13)' },
+        { id: '2', label: 'Ap. 2.ª Vta (14–26)' },
+        { id: '3', label: 'Fin. 1.ª Vta (27–39)' },
+        { id: '4', label: 'Fin. 2.ª Vta (40–52)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 50) {
+    const hasSemesterTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /apertura|finalizaci[oó]n/i.test(m.round || ''));
+    if (hasSemesterTags) {
+      return [
+        { id: 'all', label: 'Todas (50)' },
+        { id: 'apertura', label: 'Apertura (1–26)' },
+        { id: 'finalizacion', label: 'Finalización (27–50)' },
+        { id: '1', label: 'Ap. 1.ª Vta (1–13)' },
+        { id: '2', label: 'Ap. 2.ª Vta (14–26)' },
+        { id: '3', label: 'Fin. 1.ª Vta (27–38)' },
+        { id: '4', label: 'Fin. 2.ª Vta (39–50)' },
+      ];
+    }
+    return [
+      { id: 'all', label: 'Todas (50)' },
+      { id: '1', label: '1.ª Vuelta (1–13)' },
+      { id: '2', label: '2.ª Vuelta (14–26)' },
+      { id: '3', label: '3.ª Vuelta (27–38)' },
+      { id: '4', label: '4.ª Vuelta (39–50)' },
+    ];
+  }
+
   if (totalMatches === 52) {
+    const hasSemesterTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /apertura|finalizaci[oó]n/i.test(m.round || ''));
+    if (hasSemesterTags) {
+      return [
+        { id: 'all', label: 'Todas (52)' },
+        { id: 'apertura', label: 'Apertura (1–26)' },
+        { id: 'finalizacion', label: 'Finalización (27–52)' },
+        { id: '1', label: 'Ap. 1.ª Vta (1–13)' },
+        { id: '2', label: 'Ap. 2.ª Vta (14–26)' },
+        { id: '3', label: 'Fin. 1.ª Vta (27–39)' },
+        { id: '4', label: 'Fin. 2.ª Vta (40–52)' },
+      ];
+    }
     return [
       { id: 'all', label: 'Todas (52)' },
       { id: '1', label: '1.ª Vuelta (1–13)' },
@@ -1213,7 +1490,15 @@ export function filterMatchArchiveFixtures(
 
     if (lap !== 'all') {
       const matchLap = getMatchLapNumber(m.round, totalMatches, index);
-      if (String(matchLap) !== lap) return false;
+      if (lap === 'apertura') {
+        if (matchLap !== 1 && matchLap !== 2) return false;
+      } else if (lap === 'finalizacion') {
+        if (matchLap !== 3 && matchLap !== 4) return false;
+      } else if (lap === 'cuadrangular' || lap === 'triangular') {
+        if (matchLap !== 5) return false;
+      } else if (String(matchLap) !== lap) {
+        return false;
+      }
     }
 
     if (venue === 'home' && !isHome) return false;
@@ -1234,6 +1519,309 @@ export function filterMatchArchiveFixtures(
 
     return true;
   });
+}
+
+export interface PlayoffMatchInput {
+  stage: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
+  date?: string;
+  venue?: string;
+  scorers?: string;
+  note?: string;
+}
+
+export interface PlayoffKnockoutTie {
+  id: string;
+  stageLabel: string;
+  teamA: string;
+  teamB: string;
+  teamAGoals: number;
+  teamBGoals: number;
+  winnerTeam: string | null;
+  penaltiesLabel?: string;
+  involvesJunior: boolean;
+  isFinalTie: boolean;
+  isThirdPlaceTie: boolean;
+  legs: PlayoffMatchInput[];
+}
+
+export interface PlayoffKnockoutRound {
+  key: string;
+  label: string;
+  order: number;
+  isFinalRound: boolean;
+  isThirdPlaceRound: boolean;
+  ties: PlayoffKnockoutTie[];
+}
+
+function classifyKnockoutStage(rawStage: string): {
+  key: string;
+  label: string;
+  order: number;
+  isFinalRound: boolean;
+  isThirdPlaceRound: boolean;
+} | null {
+  const s = (rawStage || '').trim().toLowerCase();
+  if (!s) return null;
+  if (
+    s.includes('resultado') ||
+    s.includes('estadística') ||
+    s.includes('estadistica') ||
+    s.includes('enfrentamientos previos')
+  ) {
+    return null;
+  }
+  if (s.includes('tercer')) {
+    return {
+      key: 'tercer-lugar',
+      label: 'Definición del 3.er Lugar',
+      order: 4,
+      isFinalRound: false,
+      isThirdPlaceRound: true,
+    };
+  }
+  if (s.includes('cuarto')) {
+    return {
+      key: 'cuartos',
+      label: 'Cuartos de Final',
+      order: 1,
+      isFinalRound: false,
+      isThirdPlaceRound: false,
+    };
+  }
+  if (s.includes('semifinal')) {
+    return {
+      key: 'semifinales',
+      label: 'Semifinales',
+      order: 2,
+      isFinalRound: false,
+      isThirdPlaceRound: false,
+    };
+  }
+  if (/\bfinal\b/.test(s)) {
+    return {
+      key: 'final',
+      label: s.includes('gran') ? 'Gran Final Nacional' : 'Final',
+      order: 3,
+      isFinalRound: true,
+      isThirdPlaceRound: false,
+    };
+  }
+  return null;
+}
+
+function extractPenaltyWinner(
+  legs: PlayoffMatchInput[],
+  teamA: string,
+  teamB: string
+): { winnerTeam: string | null; penaltiesLabel?: string } {
+  for (let i = legs.length - 1; i >= 0; i--) {
+    const note = legs[i].note || '';
+    const match =
+      /penales?:?\s*(\d+)\s*[-–:]\s*(\d+)/i.exec(note) ||
+      /(\d+)\s*[-–:]\s*(\d+)\s*(?:en\s*)?p(?:enales)?\.?/i.exec(note);
+    if (!match) continue;
+    const s1 = Number(match[1]);
+    const s2 = Number(match[2]);
+    if (Number.isNaN(s1) || Number.isNaN(s2) || s1 === s2) continue;
+
+    const legHomeKey = normalizeClubKey(legs[i].homeTeam);
+    const keyA = normalizeClubKey(teamA);
+    const homeWon = s1 > s2;
+    const legWinnerIsA = isSameClubKey(legHomeKey, keyA) ? homeWon : !homeWon;
+    return {
+      winnerTeam: legWinnerIsA ? teamA : teamB,
+      penaltiesLabel: `Penales ${s1}-${s2}`,
+    };
+  }
+  return { winnerTeam: null };
+}
+
+/**
+ * Groups raw playoff match entries into head-to-head direct-elimination ties ("llaves"),
+ * computing aggregate scores, penalty winners, and round ordering while stripping noisy league dumps.
+ */
+export function buildPlayoffKnockoutBrackets(
+  playoffMatches: PlayoffMatchInput[] = [],
+  championTeam?: string
+): PlayoffKnockoutRound[] {
+  if (!Array.isArray(playoffMatches) || playoffMatches.length === 0) {
+    return [];
+  }
+
+  const stageCounts = new Map<string, number>();
+  let hasDedicatedFinalStage = false;
+  for (const m of playoffMatches) {
+    const raw = (m.stage || '').trim();
+    stageCounts.set(raw, (stageCounts.get(raw) || 0) + 1);
+    const lower = raw.toLowerCase();
+    if (
+      /\bfinal\b/.test(lower) &&
+      !lower.includes('gran final') &&
+      !lower.includes('semifinal') &&
+      !lower.includes('cuarto')
+    ) {
+      hasDedicatedFinalStage = true;
+    }
+  }
+
+  const roundsMap = new Map<
+    string,
+    {
+      meta: NonNullable<ReturnType<typeof classifyKnockoutStage>>;
+      tiesMap: Map<string, PlayoffMatchInput[]>;
+    }
+  >();
+
+  for (const m of playoffMatches) {
+    const rawStage = (m.stage || '').trim();
+    const rawLower = rawStage.toLowerCase();
+    if (
+      rawLower === 'gran final' &&
+      (stageCounts.get(rawStage) || 0) > 4 &&
+      hasDedicatedFinalStage
+    ) {
+      continue;
+    }
+
+    const meta = classifyKnockoutStage(rawStage);
+    if (!meta) continue;
+
+    let bucket = roundsMap.get(meta.key);
+    if (!bucket) {
+      bucket = { meta, tiesMap: new Map() };
+      roundsMap.set(meta.key, bucket);
+    }
+
+    const keyH = normalizeClubKey(m.homeTeam);
+    const keyA = normalizeClubKey(m.awayTeam);
+    if (!keyH || !keyA) continue;
+    const pairKey = [keyH, keyA].sort().join('__vs__');
+
+    const legs = bucket.tiesMap.get(pairKey) || [];
+    legs.push(m);
+    bucket.tiesMap.set(pairKey, legs);
+  }
+
+  const championKey = normalizeClubKey(championTeam);
+  const rounds: PlayoffKnockoutRound[] = [];
+
+  for (const { meta, tiesMap } of roundsMap.values()) {
+    const ties: PlayoffKnockoutTie[] = [];
+    for (const [pairKey, legs] of tiesMap.entries()) {
+      const first = legs[0];
+      const teamA = first.homeTeam;
+      const teamB = first.awayTeam;
+      const keyA = normalizeClubKey(teamA);
+
+      let teamAGoals = 0;
+      let teamBGoals = 0;
+      for (const leg of legs) {
+        const legHomeKey = normalizeClubKey(leg.homeTeam);
+        if (isSameClubKey(legHomeKey, keyA)) {
+          teamAGoals += leg.homeScore;
+          teamBGoals += leg.awayScore;
+        } else {
+          teamBGoals += leg.homeScore;
+          teamAGoals += leg.awayScore;
+        }
+      }
+
+      const keyB = normalizeClubKey(teamB);
+      let winnerTeam: string | null = null;
+      let penaltiesLabel: string | undefined;
+
+      if (meta.isFinalRound && championKey) {
+        if (isSameClubKey(keyA, championKey)) winnerTeam = teamA;
+        else if (isSameClubKey(keyB, championKey)) winnerTeam = teamB;
+      }
+
+      const penResult = extractPenaltyWinner(legs, teamA, teamB);
+      if (penResult.penaltiesLabel) {
+        penaltiesLabel = penResult.penaltiesLabel;
+      }
+
+      if (!winnerTeam) {
+        if (teamAGoals > teamBGoals) winnerTeam = teamA;
+        else if (teamBGoals > teamAGoals) winnerTeam = teamB;
+        else if (penResult.winnerTeam) winnerTeam = penResult.winnerTeam;
+      }
+
+      const involvesJunior = isJuniorClubName(teamA) || isJuniorClubName(teamB);
+
+      ties.push({
+        id: `${meta.key}-${pairKey}`,
+        stageLabel: meta.label,
+        teamA,
+        teamB,
+        teamAGoals,
+        teamBGoals,
+        winnerTeam,
+        penaltiesLabel,
+        involvesJunior,
+        isFinalTie: meta.isFinalRound,
+        isThirdPlaceTie: meta.isThirdPlaceRound,
+        legs,
+      });
+    }
+
+    if (ties.length > 0) {
+      rounds.push({
+        key: meta.key,
+        label: meta.label,
+        order: meta.order,
+        isFinalRound: meta.isFinalRound,
+        isThirdPlaceRound: meta.isThirdPlaceRound,
+        ties,
+      });
+    }
+  }
+
+  const sortedRounds = rounds.sort((a, b) => a.order - b.order);
+
+  // If a quarterfinal or semifinal tie ended level on aggregate without a penalty note,
+  // infer the advancing club from who participated in the next knockout round.
+  const nextAdvancingTeams = new Map<string, Set<string>>();
+  for (const r of sortedRounds) {
+    const teamSet = new Set<string>();
+    for (const tie of r.ties) {
+      teamSet.add(normalizeClubKey(tie.teamA));
+      teamSet.add(normalizeClubKey(tie.teamB));
+    }
+    nextAdvancingTeams.set(r.key, teamSet);
+  }
+
+  for (const r of sortedRounds) {
+    const nextRoundKey =
+      r.key === 'cuartos'
+        ? 'semifinales'
+        : r.key === 'semifinales'
+        ? 'final'
+        : null;
+    if (!nextRoundKey) continue;
+    const advancingSet = nextAdvancingTeams.get(nextRoundKey);
+    if (!advancingSet) continue;
+
+    for (const tie of r.ties) {
+      if (tie.winnerTeam) continue;
+      const keyA = normalizeClubKey(tie.teamA);
+      const keyB = normalizeClubKey(tie.teamB);
+      const aAdv = advancingSet.has(keyA);
+      const bAdv = advancingSet.has(keyB);
+      if (aAdv && !bAdv) {
+        tie.winnerTeam = tie.teamA;
+        if (!tie.penaltiesLabel) tie.penaltiesLabel = 'Avanzó por penales';
+      } else if (bAdv && !aAdv) {
+        tie.winnerTeam = tie.teamB;
+        if (!tie.penaltiesLabel) tie.penaltiesLabel = 'Avanzó por penales';
+      }
+    }
+  }
+
+  return sortedRounds;
 }
 
 

@@ -4537,7 +4537,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     "championTeam": "Unión Magdalena",
     "hasRegularPhase": true,
     "regularPhaseTitle": "Torneo Apertura 1968 (26 Fechas · Todos contra Todos)",
-    "regularPhaseDescription": "Acumulado oficial de las 26 fechas del Torneo Apertura y 26 del Finalización. Junior fue 2.º con 70 puntos y la delantera más arrolladora del país con 109 goles en fase regular.",
+    "regularPhaseDescription": "Tabla oficial de las 26 fechas del Torneo Apertura 1968. Junior finalizó 4.º con 35 puntos y 54 goles; sumado al Finalización lideró la Reclasificación goleadora con 109 tantos en 52 fechas.",
     "regularRows": [
       {
         "pos": 1,
@@ -4940,31 +4940,13 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     ],
     "playoffMatches": [
       {
-        "stage": "Tercer lugar",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 1,
-        "date": "12 de diciembre",
-        "venue": "Bogotá"
-      },
-      {
-        "stage": "Tercer lugar",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 4,
-        "awayScore": 4,
-        "date": "15 de diciembre",
-        "venue": "Barranquilla"
-      },
-      {
         "stage": "Final",
         "homeTeam": "Deportivo Cali",
         "awayTeam": "Unión Magdalena",
         "homeScore": 0,
         "awayScore": 1,
-        "date": "12 de diciembre",
-        "venue": "Cali"
+        "date": "12 de diciembre de 1968",
+        "venue": "Estadio Pascual Guerrero, Cali"
       },
       {
         "stage": "Final",
@@ -4972,1340 +4954,457 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "awayTeam": "Deportivo Cali",
         "homeScore": 2,
         "awayScore": 2,
-        "date": "15 de diciembre",
-        "venue": "Santa Marta"
+        "date": "15 de diciembre de 1968",
+        "venue": "Estadio Eduardo Santos, Santa Marta",
+        "note": "Unión Magdalena campeón nacional por marcador global 3-2 (1.ª estrella)"
       },
       {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 4,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
+        "stage": "Tercer lugar",
+        "homeTeam": "Millonarios F.C.",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 2,
-        "awayScore": 2
+        "awayScore": 1,
+        "date": "12 de diciembre de 1968",
+        "venue": "Estadio Nemesio Camacho El Campín, Bogotá"
       },
       {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
+        "stage": "Tercer lugar",
+        "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Quindío",
         "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Once Caldas",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 5,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 3,
-        "awayScore": 5
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 6,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 7,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 5,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 5
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "América de Cali",
-        "homeScore": 3,
-        "awayScore": 6
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 5
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Once Caldas",
-        "homeScore": 4,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 5,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 0,
-        "awayScore": 2
+        "awayScore": 4,
+        "date": "15 de diciembre de 1968",
+        "venue": "Estadio Romelio Martínez, Barranquilla",
+        "note": "Millonarios obtuvo el 3.er puesto por marcador global 6-5 tras vibrante empate 4-4"
       }
     ],
     "matchArchive": [
       {
-        "round": "Épico 4-4",
-        "date": "15 de diciembre de 1968",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 4,
-        "awayScore": 4,
-        "note": "★ Extraordinaria lluvia de goles en el Romelio Martínez en la definición del 3.er puesto"
-      },
-      {
-        "round": "Goleada Histórica",
-        "date": "Torneo Finalización 1968",
-        "homeTeam": "Independiente Santa Fe",
+        "round": "Fecha 1 · Apertura",
+        "date": "21 de enero de 1968",
+        "homeTeam": "América de Cali",
         "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 5,
-        "note": "Impresionante triunfo de Junior en Bogotá goleando 1-5 a Santa Fe"
-      },
-      {
-        "round": "Clásico Caribeño",
-        "date": "Torneo Finalización 1968",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Unión Magdalena",
         "homeScore": 3,
-        "awayScore": 2,
-        "note": "Victoria frente al campeón nacional en vibrante choque costeño"
+        "awayScore": 3,
+        "note": "Debut de Junior en el Campeonato 1968 con vibrante empate 3-3 en Cali ante América"
       },
       {
-        "round": "Festival de Goles",
-        "date": "Torneo Apertura 1968",
+        "round": "Fecha 2 · Apertura",
+        "date": "28 de enero de 1968",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Once Caldas",
         "homeScore": 5,
         "awayScore": 3,
-        "note": "Fiesta ofensiva tiburona en el Romelio Martínez"
+        "note": "Festival ofensivo (5-3) en el estreno en casa en el Romelio Martínez ante Once Caldas"
       },
       {
-        "round": "Goleada en Casa",
-        "date": "Torneo Apertura 1968",
+        "round": "Fecha 3 · Apertura",
+        "date": "4 de febrero de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 4 · Apertura",
+        "date": "11 de febrero de 1968",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 5 · Apertura",
+        "date": "18 de febrero de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 6 · Apertura",
+        "date": "25 de febrero de 1968",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 4,
+        "note": "Goleada 0-4 a domicilio en Ibagué frente al Deportes Tolima"
+      },
+      {
+        "round": "Fecha 7 · Apertura",
+        "date": "3 de marzo de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 8 · Apertura",
+        "date": "10 de marzo de 1968",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 9 · Apertura",
+        "date": "24 de marzo de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 10 · Apertura",
+        "date": "31 de marzo de 1968",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 11 · Apertura",
+        "date": "7 de abril de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 12 · Apertura",
+        "date": "14 de abril de 1968",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 13 · Apertura",
+        "date": "21 de abril de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 5,
+        "awayScore": 0,
+        "note": "Contundente 5-0 sobre Quindío en Barranquilla cerrando la 1.ª vuelta del Apertura"
+      },
+      {
+        "round": "Fecha 14 · Apertura",
+        "date": "28 de abril de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 15 · Apertura",
+        "date": "1 de mayo de 1968",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 16 · Apertura",
+        "date": "5 de mayo de 1968",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 17 · Apertura",
+        "date": "12 de mayo de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 18 · Apertura",
+        "date": "19 de mayo de 1968",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 19 · Apertura",
+        "date": "23 de mayo de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 5,
+        "awayScore": 1,
+        "note": "Segunda manita del Apertura: 5-1 ante Deportes Tolima en el Romelio Martínez"
+      },
+      {
+        "round": "Fecha 20 · Apertura",
+        "date": "26 de mayo de 1968",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 21 · Apertura",
+        "date": "2 de junio de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 22 · Apertura",
+        "date": "9 de junio de 1968",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 23 · Apertura",
+        "date": "13 de junio de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 24 · Apertura",
+        "date": "16 de junio de 1968",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 25 · Apertura",
+        "date": "23 de junio de 1968",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Cúcuta Deportivo",
         "homeScore": 5,
         "awayScore": 1,
-        "note": "Contundente demostración de poderío ofensivo"
+        "note": "Nueva goleada 5-1 en casa frente a Cúcuta Deportivo en el cierre del Apertura"
       },
       {
-        "round": "Poderío Ofensivo",
-        "date": "Torneo Finalización 1968",
+        "round": "Fecha 26 · Apertura",
+        "date": "29 de junio de 1968",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 27 · Finalización",
+        "date": "7 de julio de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 2,
+        "awayScore": 4
+      },
+      {
+        "round": "Fecha 28 · Finalización",
+        "date": "14 de julio de 1968",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 29 · Finalización",
+        "date": "21 de julio de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 3,
+        "awayScore": 0,
+        "note": "Categórico triunfo 3-0 ante Millonarios en Barranquilla en el Torneo Finalización"
+      },
+      {
+        "round": "Fecha 30 · Finalización",
+        "date": "28 de julio de 1968",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 31 · Finalización",
+        "date": "4 de agosto de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 32 · Finalización",
+        "date": "7 de agosto de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 33 · Finalización",
+        "date": "11 de agosto de 1968",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 34 · Finalización",
+        "date": "15 de agosto de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 35 · Finalización",
+        "date": "18 de agosto de 1968",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 36 · Finalización",
+        "date": "25 de agosto de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 2,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 37 · Finalización",
+        "date": "1 de septiembre de 1968",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 38 · Finalización",
+        "date": "8 de septiembre de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 3,
+        "awayScore": 2,
+        "note": "Triunfo 3-2 ante el futuro campeón Unión Magdalena en vibrante clásico caribeño"
+      },
+      {
+        "round": "Fecha 39 · Finalización",
+        "date": "15 de septiembre de 1968",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 40 · Finalización",
+        "date": "22 de septiembre de 1968",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 41 · Finalización",
+        "date": "27 de septiembre de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 42 · Finalización",
+        "date": "6 de octubre de 1968",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 43 · Finalización",
+        "date": "13 de octubre de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 44 · Finalización",
+        "date": "20 de octubre de 1968",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 45 · Finalización",
+        "date": "28 de octubre de 1968",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 46 · Finalización",
+        "date": "1 de noviembre de 1968",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportivo Pereira",
         "homeScore": 5,
         "awayScore": 2,
-        "note": "Goleada con gran protagonismo de la delantera rojiblanca"
+        "note": "Festival de goles 5-2 frente a Deportivo Pereira en el Romelio Martínez"
       },
       {
-        "round": "Récord de 114 Goles",
-        "date": "Temporada 1968",
+        "round": "Fecha 47 · Finalización",
+        "date": "3 de noviembre de 1968",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 48 · Finalización",
+        "date": "10 de noviembre de 1968",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Fútbol Colombiano",
-        "homeScore": 114,
-        "awayScore": 74,
-        "note": "Máquina goleadora de 114 tantos en 54 partidos bajo la conducción de Luis Alberto Miloc"
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 49 · Finalización",
+        "date": "17 de noviembre de 1968",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 5,
+        "note": "Histórica goleada 1-5 a domicilio en El Campín frente a Santa Fe"
+      },
+      {
+        "round": "Fecha 50 · Finalización",
+        "date": "24 de noviembre de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 51 · Finalización",
+        "date": "1 de diciembre de 1968",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 52 · Finalización",
+        "date": "8 de diciembre de 1968",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 4,
+        "awayScore": 1,
+        "note": "Victoria 4-1 ante Once Caldas para cerrar la fase regular como el equipo más ganador (30 PG) y goleador (109 GF)"
       }
     ]
   },
@@ -6321,7 +5420,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     "championTeam": "Deportivo Cali",
     "hasRegularPhase": true,
     "regularPhaseTitle": "Torneo Apertura 1969 (26 Fechas · Todos contra Todos)",
-    "regularPhaseDescription": "Acumulado oficial de las 26 fechas del Torneo Apertura y 26 del Finalización. Junior se ubicó en la 5.ª posición con 57 puntos y 87 goles marcados en la temporada regular.",
+    "regularPhaseDescription": "Tabla oficial de las 26 fechas del Torneo Apertura 1969. Junior finalizó 5.º con 28 puntos (10 PG, 8 PE, 8 PP, 42 GF, 39 GC); sumado al Finalización acumuló 57 puntos en la Reclasificación anual.",
     "regularRows": [
       {
         "pos": 1,
@@ -6670,7 +5769,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     },
     "hasFinalPhase": true,
     "finalPhaseTitle": "Fase Final 1969: Triangular Final por el Título Nacional",
-    "finalPhaseDescription": "Disputado entre Deportivo Cali (ganador Apertura), Millonarios (ganador Finalización) y América (clasificado del Apertura) para definir al campeón y los cupos a la Copa Libertadores.",
+    "finalPhaseDescription": "Disputado entre Deportivo Cali (ganador Apertura), Millonarios F.C (ganador Finalización) y América de Cali (escolta del Apertura). Junior de Barranquilla no clasificó a este Triangular Final; Deportivo Cali se coronó campeón invicto con 7 puntos.",
     "rows": [
       {
         "pos": 1,
@@ -6753,1406 +5852,432 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         ]
       }
     ],
-    "playoffMatches": [
-      {
-        "stage": "Torneo Finalización · Desempate",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 1,
-        "date": "18 de diciembre",
-        "venue": "Medellín",
-        "note": "Penales: 5-0"
-      },
-      {
-        "stage": "Torneo Finalización · Desempate",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 0,
-        "date": "21 de diciembre",
-        "venue": "Cali"
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 5,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 4,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 3,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "América de Cali",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 6
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 6,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "América de Cali",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 6,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 5,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Triangular final",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Triangular final",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Triangular final",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Triangular final",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Triangular final",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Triangular final",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      }
-    ],
+    "playoffMatches": [],
     "matchArchive": [
       {
-        "round": "Gran Goleada",
-        "date": "Torneo Apertura 1969",
+        "round": "Fecha 1 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 5,
-        "awayScore": 1,
-        "note": "★ Espectacular goleada 5-1 al conjunto embajador en el Romelio Martínez"
-      },
-      {
-        "round": "Victoria al Campeón",
-        "date": "Torneo Finalización 1969",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
+        "awayTeam": "Independiente Santa Fe",
         "homeScore": 3,
-        "awayScore": 2,
-        "note": "Gran victoria 3-2 sobre el Deportivo Cali que sería campeón nacional"
-      },
-      {
-        "round": "Triunfo Contundente",
-        "date": "Torneo Finalización 1969",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "América de Cali",
-        "homeScore": 3,
-        "awayScore": 0,
-        "note": "Goleada 3-0 en Barranquilla frente al subcampeón de Hugo Horacio Lóndero"
-      },
-      {
-        "round": "Goleada Paisa",
-        "date": "Torneo Finalización 1969",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 4,
         "awayScore": 1,
-        "note": "Contundente 4-1 frente a los verdolagas en el Romelio"
+        "note": "16 de febrero de 1969 (domingo de Carnaval): triunfo 3-1 ante Santa Fe en el Romelio Martínez"
       },
       {
-        "round": "Festival Ofensivo",
-        "date": "Torneo Finalización 1969",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 4,
-        "awayScore": 2,
-        "note": "Gran victoria 4-2 sobre el DIM con gran producción ofensiva"
+        "round": "Fecha 2 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
       },
       {
-        "round": "Lluvia de Goles",
-        "date": "Torneo Apertura 1969",
+        "round": "Fecha 3 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "América de Cali",
         "homeScore": 4,
         "awayScore": 4,
-        "note": "Inolvidable empate 4-4 en la primera vuelta del campeonato"
+        "note": "Vibrante empate 4-4 ante América de Cali en Barranquilla"
       },
       {
-        "round": "Campaña General",
-        "date": "Temporada 1969",
+        "round": "Fecha 4 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 5 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Fútbol Colombiano",
-        "homeScore": 87,
-        "awayScore": 81,
-        "note": "5.º Puesto en Reclasificación con 57 puntos y 87 goles bajo Tocker, Dacunha y Miloc"
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 5,
+        "awayScore": 1,
+        "note": "Espectacular goleada 5-1 a Millonarios en el Romelio Martínez"
+      },
+      {
+        "round": "Fecha 6 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 7 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 8 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 9 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 10 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 11 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 12 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 13 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 14 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 15 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 16 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 17 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 18 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 19 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 20 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 21 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 22 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 23 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 24 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 25 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 2,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 26 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 27 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 28 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 29 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 3,
+        "awayScore": 0,
+        "note": "Goleada 3-0 en Barranquilla frente al subcampeón nacional América de Cali"
+      },
+      {
+        "round": "Fecha 30 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 31 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Triunfo 1-0 en Barranquilla ante Millonarios, ganador del Finalización"
+      },
+      {
+        "round": "Fecha 32 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 33 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 4,
+        "awayScore": 2,
+        "note": "Festival ofensivo 4-2 sobre Independiente Medellín en el Romelio"
+      },
+      {
+        "round": "Fecha 34 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 35 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 3,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 36 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 37 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 38 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 39 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 40 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 41 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 3,
+        "awayScore": 2,
+        "note": "Gran victoria 3-2 en Barranquilla sobre el futuro campeón Deportivo Cali"
+      },
+      {
+        "round": "Fecha 42 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 43 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 44 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 6,
+        "awayScore": 1,
+        "note": "Caída 6-1 en El Campín ante el líder del Torneo Finalización"
+      },
+      {
+        "round": "Fecha 45 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 4,
+        "awayScore": 1,
+        "note": "Contundente 4-1 frente a Atlético Nacional en el Romelio Martínez"
+      },
+      {
+        "round": "Fecha 46 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 47 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 48 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 49 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 50 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 51 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 52 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
       }
     ]
   },
@@ -8169,7 +6294,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     "isJuniorRunnerUp": true,
     "hasRegularPhase": true,
     "regularPhaseTitle": "Torneo Apertura 1970 (26 Fechas · Todos contra Todos)",
-    "regularPhaseDescription": "Acumulado oficial de puntos y goles de toda la temporada (Apertura, Finalización y Cuadrangular Final para los 4 clasificados).",
+    "regularPhaseDescription": "Clasificación oficial del Torneo Apertura 1970 tras 26 fechas todos contra todos. Independiente Santa Fe (37 pts) y Junior de Barranquilla (2.º con 33 pts) obtuvieron los dos cupos del primer semestre al Cuadrangular Final.",
     "regularRows": [
       {
         "pos": 1,
@@ -8445,12 +6570,12 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
           "pos": 9,
           "team": "Junior de Barranquilla",
           "pj": 26,
-          "pg": 7,
-          "pe": 9,
-          "pp": 10,
-          "gf": 27,
-          "gc": 34,
-          "dg": -7,
+          "pg": 8,
+          "pe": 7,
+          "pp": 11,
+          "gf": 44,
+          "gc": 46,
+          "dg": -2,
           "pts": 23,
           "isJunior": true
         },
@@ -8459,12 +6584,12 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
           "team": "Atlético Bucaramanga",
           "pj": 26,
           "pg": 7,
-          "pe": 6,
-          "pp": 13,
-          "gf": 30,
-          "gc": 42,
-          "dg": -12,
-          "pts": 20
+          "pe": 9,
+          "pp": 10,
+          "gf": 27,
+          "gc": 34,
+          "dg": -7,
+          "pts": 23
         },
         {
           "pos": 11,
@@ -8629,1370 +6754,50 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     ],
     "playoffMatches": [
       {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "América de Cali",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
+        "stage": "Fecha 1",
+        "date": "16 de diciembre de 1970",
         "homeTeam": "Cúcuta Deportivo",
         "awayTeam": "Independiente Santa Fe",
         "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "América de Cali",
-        "homeScore": 4,
         "awayScore": 2
       },
       {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
+        "stage": "Fecha 1",
+        "date": "16 de diciembre de 1970",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportivo Cali",
         "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 5,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 6,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 5,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 6,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 5,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 5,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 5,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "SAN",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "SAN",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0
-      }
-    ],
-    "matchArchive": [
-      {
-        "round": "Cuadrangular Final",
-        "date": "13 de diciembre de 1970",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
         "awayScore": 0,
-        "note": "★ Memorable victoria 2-0 sobre el Deportivo Cali en el Romelio Martínez"
+        "note": "★ Triunfo clave 1-0 sobre el Deportivo Cali en el Romelio Martínez"
       },
       {
-        "round": "Cuadrangular Final",
-        "date": "Diciembre de 1970",
+        "stage": "Fecha 2",
+        "date": "18 de diciembre de 1970",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Valioso empate sin goles en El Campín de Bogotá"
+      },
+      {
+        "stage": "Fecha 2",
+        "date": "18 de diciembre de 1970",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 5,
+        "awayScore": 1
+      },
+      {
+        "stage": "Fecha 3",
+        "date": "20 de diciembre de 1970",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "stage": "Fecha 3",
+        "date": "20 de diciembre de 1970",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Cúcuta Deportivo",
         "homeScore": 4,
@@ -10000,8 +6805,8 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "note": "★ Contundente goleada 4-1 en Barranquilla con fiesta en las tribunas"
       },
       {
-        "round": "Cuadrangular Final",
-        "date": "Diciembre de 1970",
+        "stage": "Fecha 4",
+        "date": "23 de diciembre de 1970",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Independiente Santa Fe",
         "homeScore": 3,
@@ -10009,8 +6814,16 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "note": "★ Dramático y vibrante empate 3-3 ante los cardenales en el Romelio"
       },
       {
-        "round": "Cuadrangular Final",
-        "date": "Diciembre de 1970",
+        "stage": "Fecha 4",
+        "date": "23 de diciembre de 1970",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "stage": "Fecha 5",
+        "date": "27 de diciembre de 1970",
         "homeTeam": "Cúcuta Deportivo",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 1,
@@ -10018,17 +6831,376 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "note": "Empate 1-1 en el General Santander que consolidó el cupo a Libertadores"
       },
       {
-        "round": "Cuadrangular Final",
-        "date": "Diciembre de 1970",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0,
-        "note": "Gran empate sin goles en El Campín de Bogotá"
+        "stage": "Fecha 5",
+        "date": "27 de diciembre de 1970",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 1,
+        "awayScore": 1
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1970",
+        "stage": "Fecha 6",
+        "date": "30 de diciembre de 1970",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "stage": "Fecha 6",
+        "date": "30 de diciembre de 1970",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Finalísima en Cali (gol de Enrique Fernández 44'); Junior subcampeón (+3 DG) clasificó a la Copa Libertadores 1971"
+      }
+    ],
+    "matchArchive": [
+      {
+        "round": "Fecha 1 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 3,
+        "awayScore": 1,
+        "note": "Victoria 3-1 en el Clásico de la Costa Caribe en el Romelio Martínez"
+      },
+      {
+        "round": "Fecha 2 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 3 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 4 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 5 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 6 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 7 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 8 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 9 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 10 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 11 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 12 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 13 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 14 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 15 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 3,
+        "awayScore": 2,
+        "note": "Victoria 3-2 en el Apertura vital para asegurar el cupo al Cuadrangular"
+      },
+      {
+        "round": "Fecha 16 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 17 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 18 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 19 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 3,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 20 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 21 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 4,
+        "awayScore": 2,
+        "note": "Triunfo 4-2 con poder ofensivo en Barranquilla"
+      },
+      {
+        "round": "Fecha 22 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 23 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 3,
+        "awayScore": 3,
+        "note": "Vibrante empate 3-3 con lluvia de goles en el Romelio Martínez"
+      },
+      {
+        "round": "Fecha 24 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 25 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 26 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 27 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 0,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 28 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 29 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 3,
+        "awayScore": 3,
+        "note": "Frenético empate 3-3 ante el conjunto cardenal"
+      },
+      {
+        "round": "Fecha 30 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 31 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 32 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 33 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 34 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 35 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 36 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 37 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 38 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 39 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 40 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 41 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 42 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 43 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Atlético Nacional",
         "homeScore": 5,
@@ -10036,40 +7208,134 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         "note": "Arrolladora goleada 5-1 a los verdolagas en Barranquilla"
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1970",
+        "round": "Fecha 44 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 3,
+        "note": "Valiosa victoria 1-3 como visitante en El Campín de Bogotá"
+      },
+      {
+        "round": "Fecha 45 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "América de Cali",
         "homeScore": 4,
         "awayScore": 2,
-        "note": "Gran triunfo 4-2 ante el conjunto escarlata"
+        "note": "Gran triunfo 4-2 ante el conjunto escarlata en el Romelio Martínez"
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1970",
+        "round": "Fecha 46 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 47 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 48 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 49 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Atlético Bucaramanga",
         "homeScore": 4,
         "awayScore": 0,
-        "note": "Goleada 4-0 con recital del artillero Armando Miranda"
+        "note": "Goleada 4-0 en Barranquilla con festival ofensivo tiburón"
       },
       {
-        "round": "Torneo Apertura",
-        "date": "Temporada 1970",
+        "round": "Fecha 50 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 51 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Unión Magdalena",
+        "awayTeam": "Deportes Quindío",
         "homeScore": 3,
-        "awayScore": 1,
-        "note": "Victoria 3-1 en el Clásico de la Costa Caribe"
+        "awayScore": 1
       },
       {
-        "round": "Torneo Apertura",
-        "date": "Temporada 1970",
+        "round": "Fecha 52 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 3,
+        "note": "Triunfo 1-3 a domicilio en Pereira"
+      },
+      {
+        "round": "Cuad. Fecha 1",
+        "date": "16 de diciembre de 1970",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportivo Cali",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Triunfo clave 1-0 sobre el Deportivo Cali en el Romelio Martínez"
+      },
+      {
+        "round": "Cuad. Fecha 2",
+        "date": "18 de diciembre de 1970",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Valioso empate sin goles en El Campín de Bogotá"
+      },
+      {
+        "round": "Cuad. Fecha 3",
+        "date": "20 de diciembre de 1970",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 4,
+        "awayScore": 1,
+        "note": "Contundente goleada 4-1 en Barranquilla con fiesta en las tribunas"
+      },
+      {
+        "round": "Cuad. Fecha 4",
+        "date": "23 de diciembre de 1970",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
         "homeScore": 3,
-        "awayScore": 2,
-        "note": "Victoria 3-2 en el Apertura vital para sellar la clasificación al cuadrangular"
+        "awayScore": 3,
+        "note": "Dramático y vibrante empate 3-3 ante los cardenales en el Romelio"
+      },
+      {
+        "round": "Cuad. Fecha 5",
+        "date": "27 de diciembre de 1970",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Empate 1-1 en el General Santander que consolidó el cupo a Libertadores"
+      },
+      {
+        "round": "Cuad. Fecha 6",
+        "date": "30 de diciembre de 1970",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Finalísima en Cali (gol de Enrique Fernández 44'); Junior subcampeón (+3 DG) clasificó a la Copa Libertadores 1971"
       }
     ]
   },
@@ -10080,12 +7346,12 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     "tournamentName": "Campeonato Colombiano 1971",
     "phaseTitle": "Campeonato Oficial 1971 (Debut en Copa Libertadores • Apertura, Finalización & Cuadrangular Final)",
     "phaseType": "cuadrangular",
-    "description": "El Campeonato Colombiano 1971 (XXIV edición oficial de la Dimayor) se jugó con 14 clubes bajo el sistema semestral de Torneo Apertura (26 fechas) y Torneo Finalización (26 fechas). Tuvo como particularidad histórica única que, por crisis financieras, Independiente Medellín cedió su ficha jugando como Oro Negro en Barrancabermeja, y Atlético Bucaramanga cedió su plaza al Real Cartagena. Independiente Santa Fe se coronó Campeón de Colombia (5.º título) tras empatar en el Cuadrangular Final con Atlético Nacional (7 puntos) y superarlo en una dramática serie de tres partidos de desempate en febrero de 1972 (3-2 en Cali). Para el Atlético Junior de Barranquilla, 1971 fue el año de su debut absoluto en la Copa Libertadores de América (Grupo 5 ante Cali, Barcelona y Emelec). En el torneo local finalizó 12.º en la Reclasificación con 37 puntos en 52 partidos, destacándose triunfos sobre Cali (3-2), Santa Fe (1-0), Unión Magdalena (2-1) y Real Cartagena (2-0). Los botines de oro del torneo fueron Hugo Horacio Lóndero (Nacional) y Apolinar Paniagua (Cali) con 30 goles cada uno.",
+    "description": "El Campeonato Colombiano 1971 (XXIV edición oficial de la Dimayor) se jugó con 14 clubes bajo el sistema semestral de Torneo Apertura (26 fechas) y Torneo Finalización (26 fechas). Tuvo como particularidad histórica única que, por crisis financieras, Independiente Medellín cedió su ficha jugando como Oro Negro en Barrancabermeja, y Atlético Bucaramanga cedió su plaza al Real Cartagena. Independiente Santa Fe se coronó Campeón de Colombia (5.º título) tras empatar en el Cuadrangular Final con Atlético Nacional (7 puntos) y superarlo en una dramática serie de tres partidos de desempate en febrero de 1972 (3-2 en Cali). Para el Atlético Junior de Barranquilla, 1971 fue el año de su debut absoluto en la Copa Libertadores de América (Grupo 5 ante Cali, Barcelona y Emelec). En el torneo local finalizó 12.º en la Reclasificación con 37 puntos en 52 partidos (9 PG, 19 PE, 24 PP, 50 GF, 78 GC), destacándose goleadas en casa ante Oro Negro (5-2) y Deportes Quindío (5-1), así como triunfos sobre Atlético Nacional (2-0), Millonarios (2-1) y América de Cali (3-1). Los botines de oro del torneo fueron Hugo Horacio Lóndero (Cúcuta Deportivo) y Apolinar Paniagua (Deportivo Pereira) con 30 goles cada uno.",
     "juniorFinish": "12º Puesto en Reclasificación (37 Pts en 52 PJ) • Histórico Debut en Copa Libertadores",
     "championTeam": "Independiente Santa Fe",
     "hasRegularPhase": true,
     "regularPhaseTitle": "Torneo Apertura 1971 (26 Fechas · Todos contra Todos)",
-    "regularPhaseDescription": "Acumulado oficial de las 26 fechas del Torneo Apertura y 26 del Torneo Finalización. Incluye la participación histórica de Real Cartagena y Oro Negro de Barrancabermeja.",
+    "regularPhaseDescription": "Tabla oficial de las 26 fechas del Torneo Apertura 1971. Junior finalizó 12.º con 18 puntos (7 PG, 4 PE, 15 PP, 29 GF, 40 GC); sumado al Finalización acumuló 37 puntos en la Reclasificación anual.",
     "regularRows": [
       {
         "pos": 1,
@@ -10434,7 +7700,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     },
     "hasFinalPhase": true,
     "finalPhaseTitle": "Cuadrangular Final 1971 & Serie de Desempate por el Título",
-    "finalPhaseDescription": "Cuadrangular final a 6 fechas entre los cuatro clasificados. Empate en 7 puntos en la cima resuelto en una serie extra de desempate en febrero de 1972 donde Santa Fe se coronó campeón ante Nacional (3-2 en Cali).",
+    "finalPhaseDescription": "Cuadrangular final a 6 fechas entre Atlético Nacional, Deportivo Cali, Millonarios e Independiente Santa Fe. Junior de Barranquilla no clasificó a esta instancia final. Empate en 7 puntos en la cima resuelto en una serie de desempate en febrero de 1972 donde Santa Fe se coronó campeón ante Nacional (3-2 en Cali).",
     "rows": [
       {
         "pos": 1,
@@ -10541,1474 +7807,438 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         ]
       }
     ],
-    "playoffMatches": [
-      {
-        "stage": "Cuadrangular final · Desempate final",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 0,
-        "awayScore": 0,
-        "date": "30 de enero",
-        "venue": "Medellín"
-      },
-      {
-        "stage": "Cuadrangular final · Desempate final",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 0,
-        "date": "3 de febrero",
-        "venue": "Bogotá"
-      },
-      {
-        "stage": "Cuadrangular final · Desempate final",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 2,
-        "date": "10 de febrero",
-        "venue": "Cali"
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Oro Negro",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 4,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "REA",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "SAN",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 8,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Oro Negro",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 5,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "REA",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Oro Negro",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "REA",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 5,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "América de Cali",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Oro Negro",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "REA",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "SAN",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Oro Negro",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "REA",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "SAN",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 5,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "América de Cali",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Oro Negro",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "REA",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "SAN",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Once Caldas",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Oro Negro",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "REA",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 6,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 5,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Oro Negro",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "REA",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "SAN",
-        "homeScore": 0,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "REA",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "SAN",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Oro Negro",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 5,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Once Caldas",
-        "homeScore": 5,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Oro Negro",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "REA",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "SAN",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Oro Negro",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "REA",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "América de Cali",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "Oro Negro",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Real Cartagena",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "América de Cali",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Oro Negro",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "REA",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Oro Negro",
-        "homeScore": 2,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "REA",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "SAN",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "SAN",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Cuadrangular final",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 1
-      }
-    ],
+    "playoffMatches": [],
     "matchArchive": [
       {
-        "round": "Copa Libertadores",
+        "round": "Fecha 1 · Apertura",
+        "date": "7 de febrero de 1971",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Estreno de Junior en el Campeonato Colombiano 1971 con empate 1-1 en Ibagué"
+      },
+      {
+        "round": "Fecha 2 · Apertura",
+        "date": "14 de febrero de 1971",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 3 · Apertura",
+        "date": "21 de febrero de 1971",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Oro Negro",
+        "homeScore": 5,
+        "awayScore": 2,
+        "note": "Goleada 5-2 ante Oro Negro en el Romelio Martínez (reprogramada al 13 de abril por Copa Libertadores)"
+      },
+      {
+        "round": "Fecha 4 · Apertura",
         "date": "28 de febrero de 1971",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 5 · Apertura",
+        "date": "7 de marzo de 1971",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 1,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 6 · Apertura",
+        "date": "14 de marzo de 1971",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 7 · Apertura",
+        "date": "21 de marzo de 1971",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportivo Cali",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 8 · Apertura",
+        "date": "28 de marzo de 1971",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 9 · Apertura",
+        "date": "4 de abril de 1971",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Empate sin goles en el primer Clásico de la Costa de 1971 en Barranquilla"
+      },
+      {
+        "round": "Fecha 10 · Apertura",
+        "date": "11 de abril de 1971",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 11 · Apertura",
+        "date": "18 de abril de 1971",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 12 · Apertura",
+        "date": "25 de abril de 1971",
+        "homeTeam": "Real Cartagena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Primer duelo oficial en Primera División ante Real Cartagena en el Pedro de Heredia"
+      },
+      {
+        "round": "Fecha 13 · Apertura",
+        "date": "2 de mayo de 1971",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
         "homeScore": 2,
         "awayScore": 1,
-        "note": "★ Histórica primera victoria de Junior en la Copa Libertadores (Romelio Martínez)"
+        "note": "Cierre de la primera vuelta con triunfo 2-1 sobre Millonarios en el Romelio Martínez"
       },
       {
-        "round": "Copa Libertadores",
-        "date": "18 de marzo de 1971",
+        "round": "Fecha 14 · Apertura",
+        "date": "9 de mayo de 1971",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Emelec (Ecuador)",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 0,
+        "awayScore": 4
+      },
+      {
+        "round": "Fecha 15 · Apertura",
+        "date": "15 de mayo de 1971",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 16 · Apertura",
+        "date": "20 de mayo de 1971",
+        "homeTeam": "Oro Negro",
+        "awayTeam": "Junior de Barranquilla",
         "homeScore": 1,
-        "awayScore": 1,
-        "note": "★ Empate continental 1-1 en Barranquilla en la primera edición copera"
+        "awayScore": 0
       },
       {
-        "round": "Copa Libertadores",
-        "date": "Edición 1971",
+        "round": "Fecha 17 · Apertura",
+        "date": "23 de mayo de 1971",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Fase de Grupos (Grupo 5)",
-        "homeScore": 1,
-        "awayScore": 1,
-        "note": "Debut absoluto de Los Tiburones en el torneo más prestigioso de América"
+        "awayTeam": "Once Caldas",
+        "homeScore": 2,
+        "awayScore": 1
       },
       {
-        "round": "Torneo Apertura",
-        "date": "Temporada 1971",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
+        "round": "Fecha 18 · Apertura",
+        "date": "30 de mayo de 1971",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
         "homeScore": 3,
-        "awayScore": 2,
-        "note": "Gran victoria 3-2 sobre el Deportivo Cali en el Romelio Martínez"
+        "awayScore": 1
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1971",
+        "round": "Fecha 19 · Apertura",
+        "date": "6 de junio de 1971",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Independiente Santa Fe",
         "homeScore": 1,
-        "awayScore": 0,
-        "note": "Victoria 1-0 en casa ante el cuadro que se consagraría Campeón de Colombia"
+        "awayScore": 2
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1971",
+        "round": "Fecha 20 · Apertura",
+        "date": "10 de junio de 1971",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 21 · Apertura",
+        "date": "13 de junio de 1971",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 5,
         "awayScore": 1,
-        "note": "Empate 1-1 frente al ganador del Torneo Finalización"
+        "note": "Mayor goleada de Junior en la temporada 1971 (5-1 al Quindío en Barranquilla)"
       },
       {
-        "round": "Clásico Caribeño",
-        "date": "Temporada 1971",
+        "round": "Fecha 22 · Apertura",
+        "date": "17 de junio de 1971",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 1,
+        "note": "Triunfo 0-1 como visitante en Santa Marta en el Clásico de la Costa"
+      },
+      {
+        "round": "Fecha 23 · Apertura",
+        "date": "20 de junio de 1971",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 2,
+        "awayScore": 0,
+        "note": "Victoria 2-0 ante el líder Atlético Nacional, ganador del Torneo Apertura"
+      },
+      {
+        "round": "Fecha 24 · Apertura",
+        "date": "27 de junio de 1971",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 25 · Apertura",
+        "date": "4 de julio de 1971",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Real Cartagena",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 26 · Apertura",
+        "date": "11 de julio de 1971",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 27 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 28 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 29 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Oro Negro",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 30 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 31 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 32 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Sólido empate sin goles en Barranquilla ante Santa Fe, campeón de Colombia 1971"
+      },
+      {
+        "round": "Fecha 33 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 34 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 2,
+        "awayScore": 4
+      },
+      {
+        "round": "Fecha 35 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 36 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 0,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 37 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 38 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Real Cartagena",
         "homeScore": 2,
-        "awayScore": 0,
-        "note": "Inédito clásico caribeño frente al Real Cartagena que debutó ese año en la Primera A"
+        "awayScore": 2,
+        "note": "Empate 2-2 en el Romelio Martínez (1 de agosto de 1971) en el clásico caribeño"
       },
       {
-        "round": "Clásico de la Costa",
-        "date": "Temporada 1971",
+        "round": "Fecha 39 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Valioso empate 1-1 en El Campín ante Millonarios, ganador del Torneo Finalización"
+      },
+      {
+        "round": "Fecha 40 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 41 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 3,
+        "awayScore": 1,
+        "note": "Triunfo 3-1 ante América de Cali en el Romelio Martínez"
+      },
+      {
+        "round": "Fecha 42 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Oro Negro",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 43 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 44 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 45 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2,
+        "note": "Destacado empate 2-2 en Bogotá frente al futuro campeón Independiente Santa Fe"
+      },
+      {
+        "round": "Fecha 46 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 47 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 48 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
+        "homeScore": 1,
         "awayScore": 1,
-        "note": "Victoria 2-1 en el Clásico de la Costa Norte"
+        "note": "Empate 1-1 en Barranquilla (26 de septiembre de 1971) en el Clásico de la Costa"
       },
       {
-        "round": "Goleadores del Año",
-        "date": "Balance Anual 1971",
-        "homeTeam": "Armando Miranda & Andrés Salazar",
-        "awayTeam": "Fútbol Colombiano",
-        "homeScore": 28,
+        "round": "Fecha 49 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 50 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 1,
         "awayScore": 0,
-        "note": "La dupla Miranda y Salazar volvió a liderar la artillería rojiblanca en el año del estreno continental"
+        "note": "Victoria 1-0 frente a Deportivo Pereira en Barranquilla"
+      },
+      {
+        "round": "Fecha 51 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Real Cartagena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 52 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 1,
+        "awayScore": 3
       }
     ]
   },
@@ -12024,7 +8254,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     "championTeam": "Millonarios F.C",
     "hasRegularPhase": true,
     "regularPhaseTitle": "Torneo Apertura 1972 (26 Fechas · Todos contra Todos)",
-    "regularPhaseDescription": "Sumatoria oficial Dimayor de las 52 jornadas regulares (26 de Apertura + 26 de Finalización). Junior apenas perdió 8 de 52 partidos.",
+    "regularPhaseDescription": "Tabla oficial del Torneo Apertura 1972 (26 fechas). Millonarios ganó el semestre con 38 puntos y Junior de Barranquilla fue subcampeón con 36 puntos (13 PG, 10 PE, 3 PP), clasificando de forma directa al Triangular Final por el título.",
     "regularRows": [
       {
         "pos": 1,
@@ -12502,1472 +8732,520 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     ],
     "playoffMatches": [
       {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
+        "stage": "Fecha 1",
+        "date": "14 de enero de 1973",
+        "homeTeam": "Millonarios F.C",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 2,
-        "awayScore": 1
+        "awayScore": 1,
+        "note": "Estreno del Triangular Final en El Campín de Bogotá"
       },
       {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "SAN",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
+        "stage": "Fecha 2",
+        "date": "17 de enero de 1973",
         "homeTeam": "Deportivo Cali",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "SAN",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "América de Cali",
+        "awayTeam": "Millonarios F.C",
         "homeScore": 1,
         "awayScore": 1
       },
       {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Cúcuta Deportivo",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 5,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Once Caldas",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "SAN",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "América de Cali",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "SAN",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "SAN",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "SAN",
-        "homeScore": 2,
-        "awayScore": 5
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "SAN",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 4
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 3
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Cúcuta Deportivo",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Desempate",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Desempate",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Desempate",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Desempate",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Desempate",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 3
-      },
-      {
-        "stage": "Desempate",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
+        "stage": "Fecha 3",
+        "date": "19 de enero de 1973",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportivo Cali",
         "homeScore": 1,
-        "awayScore": 0
+        "awayScore": 0,
+        "note": "★ Triunfo rojiblanco 1-0 en el Romelio Martínez en la fase por el título"
       },
       {
-        "stage": "Resultados",
+        "stage": "Fecha 4",
+        "date": "21 de enero de 1973",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
+        "awayTeam": "Millonarios F.C",
         "homeScore": 0,
-        "awayScore": 0
+        "awayScore": 0,
+        "note": "★ Empate sin goles 0-0 en Barranquilla ante el eventual campeón nacional"
       },
       {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
+        "stage": "Fecha 5",
+        "date": "24 de enero de 1973",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 0,
+        "note": "Cierre de la participación rojiblanca en el Triangular Final en Cali"
+      },
+      {
+        "stage": "Fecha 6",
+        "date": "28 de enero de 1973",
+        "homeTeam": "Millonarios F.C",
         "awayTeam": "Deportivo Cali",
         "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 2,
-        "awayScore": 1
+        "awayScore": 0,
+        "note": "Empate 0-0 que consagró campeón nacional a Millonarios (10.ª estrella)"
       }
     ],
     "matchArchive": [
       {
-        "round": "Triangular Final",
-        "date": "Enero de 1973",
+        "round": "Fecha 1 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
+        "awayTeam": "América de Cali",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 2 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
         "homeScore": 1,
-        "awayScore": 0,
-        "note": "★ Triunfo rojiblanco 1-0 en el Romelio Martínez en el arranque de la fase por el título"
+        "awayScore": 0
       },
       {
-        "round": "Triangular Final",
-        "date": "Enero de 1973",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 0,
-        "note": "★ Empate sin goles 0-0 en el Romelio Martínez ante el futuro campeón nacional"
-      },
-      {
-        "round": "Torneo Apertura",
-        "date": "Temporada 1972",
+        "round": "Fecha 3 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportivo Cali",
         "homeScore": 2,
         "awayScore": 0,
-        "note": "Gran victoria 2-0 sobre el Deportivo Cali que cimentó el subcampeonato del Apertura"
+        "note": "Gran victoria 2-0 ante el Deportivo Cali en el Romelio Martínez"
       },
       {
-        "round": "Torneo Apertura",
-        "date": "Temporada 1972",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Once Caldas",
-        "homeScore": 5,
-        "awayScore": 1,
-        "note": "Goleada categórica 5-1 en el Romelio Martínez con gran exhibición ofensiva"
-      },
-      {
-        "round": "Torneo Apertura",
-        "date": "Temporada 1972",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0,
-        "note": "Gran empate a domicilio 0-0 en El Campín ante el ganador del Apertura"
-      },
-      {
-        "round": "Torneo Apertura",
-        "date": "Temporada 1972",
+        "round": "Fecha 4 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Cúcuta Deportivo",
         "homeScore": 1,
-        "awayScore": 0,
-        "note": "Victoria 1-0 frente al conjunto motilón"
+        "awayScore": 0
       },
       {
-        "round": "Torneo Apertura",
-        "date": "Temporada 1972",
+        "round": "Fecha 5 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 6 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 7 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 3,
+        "awayScore": 4,
+        "note": "Partidazo de siete goles 3-4 en Barranquilla ante el líder Millonarios"
+      },
+      {
+        "round": "Fecha 8 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 9 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 10 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 5,
+        "awayScore": 1,
+        "note": "Goleada categórica 5-1 en el Romelio Martínez con festival ofensivo rojiblanco"
+      },
+      {
+        "round": "Fecha 11 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportes Quindío",
         "homeScore": 2,
-        "awayScore": 1,
-        "note": "Triunfo 2-1 en casa"
+        "awayScore": 1
       },
       {
-        "round": "Torneo Apertura",
-        "date": "Temporada 1972",
+        "round": "Fecha 12 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 13 · Apertura",
+        "date": "Apertura · 1.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportes Tolima",
         "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 14 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 15 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 16 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
         "awayScore": 2,
-        "note": "Intenso empate 2-2 en el Romelio"
+        "note": "Gran triunfo 1-2 a domicilio en Cali frente al conjunto azucarero"
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1972",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
+        "round": "Fecha 17 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 18 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 3,
+        "note": "Contundente triunfo 0-3 como visitante en el clásico costeño en Santa Marta"
+      },
+      {
+        "round": "Fecha 19 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 20 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
         "awayScore": 0,
-        "note": "Victoria 2-0 frente a Independiente Santa Fe"
+        "note": "Sólido empate 0-0 en El Campín ante el eventual ganador del Apertura"
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1972",
+        "round": "Fecha 21 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 22 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 23 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 24 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 25 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 1,
+        "note": "Valiosa victoria 0-1 en Bogotá frente a Independiente Santa Fe"
+      },
+      {
+        "round": "Fecha 26 · Apertura",
+        "date": "Apertura · 2.ª Vuelta",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 27 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 28 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 29 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 2,
+        "awayScore": 1,
+        "note": "Triunfo 2-1 en el Romelio Martínez frente al líder del Finalización"
+      },
+      {
+        "round": "Fecha 30 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 31 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 32 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Independiente Medellín",
         "homeScore": 2,
-        "awayScore": 1,
-        "note": "Triunfo 2-1 sobre el Poderoso de la Montaña"
+        "awayScore": 1
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1972",
+        "round": "Fecha 33 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 34 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 35 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Once Caldas",
         "homeScore": 3,
         "awayScore": 2,
-        "note": "Emocionante victoria 3-2 en Barranquilla"
+        "note": "Emocionante victoria 3-2 en Barranquilla frente al conjunto albo"
       },
       {
-        "round": "Legión Brasileña",
-        "date": "Temporada 1972",
-        "homeTeam": "Víctor Ephanor & Leonardo Caldeira",
-        "awayTeam": "Ataque Rojiblanco",
-        "homeScore": 36,
+        "round": "Fecha 36 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Pereira",
+        "homeScore": 3,
+        "awayScore": 3
+      },
+      {
+        "round": "Fecha 37 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Quindío",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 38 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 2,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 39 · Finalización",
+        "date": "Finalización · 1.ª Vuelta",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 0,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 40 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 41 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 42 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 43 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 44 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 45 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 46 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 47 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0
+      },
+      {
+        "round": "Fecha 48 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 49 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 2
+      },
+      {
+        "round": "Fecha 50 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 51 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Fecha 52 · Finalización",
+        "date": "Finalización · 2.ª Vuelta",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1
+      },
+      {
+        "round": "Triang. Fecha 1",
+        "date": "14 de enero de 1973",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1,
+        "note": "Estreno del Triangular Final en El Campín de Bogotá"
+      },
+      {
+        "round": "Triang. Fecha 2",
+        "date": "19 de enero de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 1,
         "awayScore": 0,
-        "note": "Debut estelar de la dupla brasileña Ephanor (~20 goles) y Caldeira (~16 goles) dirigida por Marinho Rodríguez"
+        "note": "Triunfo rojiblanco 1-0 en el Romelio Martínez en la fase por el título"
+      },
+      {
+        "round": "Triang. Fecha 3",
+        "date": "21 de enero de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Empate sin goles 0-0 en Barranquilla ante el eventual campeón nacional"
+      },
+      {
+        "round": "Triang. Fecha 4",
+        "date": "24 de enero de 1973",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 0,
+        "note": "Cierre de la participación rojiblanca en el Triangular Final en Cali"
       }
     ]
   },
@@ -14320,7 +9598,7 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
     },
     "hasFinalPhase": true,
     "finalPhaseTitle": "Triangular Final por el Título 1973 & Desempate Subcampeonato",
-    "finalPhaseDescription": "Disputado en diciembre de 1973 entre Atlético Nacional, Millonarios y Deportivo Cali.",
+    "finalPhaseDescription": "Disputado en diciembre de 1973 entre Atlético Nacional, Millonarios y Deportivo Cali (Junior no clasificó al Triangular). Atlético Nacional se coronó campeón y Millonarios obtuvo el subcampeonato tras el desempate.",
     "rows": [
       {
         "pos": 1,
@@ -14433,1486 +9711,457 @@ export const CHRONOLOGICAL_STANDINGS_TABLES: TournamentStandingsTable[] = [
         ]
       }
     ],
-    "playoffMatches": [
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 01 (29/07/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 01 (29/07/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 01 (29/07/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 01 (29/07/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 01 (29/07/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 01 (29/07/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 02 (05/08/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 7,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 02 (05/08/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Caldas",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 02 (05/08/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 02 (05/08/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 02 (05/08/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 3
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 02 (05/08/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 03 (09/08/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 03 (09/08/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 03 (09/08/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 03 (09/08/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 03 (09/08/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 03 (09/08/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 04 (12/08/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 04 (12/08/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 04 (12/08/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Caldas",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 04 (12/08/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 04 (12/08/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 04 (12/08/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 05 (15/08/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 05 (15/08/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 05 (15/08/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 05 (15/08/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 05 (15/08/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 05 (15/08/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 06 (19/08/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 06 (19/08/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Caldas",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 06 (19/08/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 06 (19/08/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 06 (19/08/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 06 (19/08/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 07 (26/08/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 07 (26/08/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 07 (26/08/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 07 (26/08/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 07 (26/08/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 07 (26/08/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 08 (02/09/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 08 (02/09/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 08 (02/09/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 08 (02/09/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 08 (02/09/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 08 (02/09/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 09 (09/09/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 09 (09/09/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 4
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 09 (09/09/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 09 (09/09/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 09 (09/09/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 09 (09/09/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 10 (16/09/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 10 (16/09/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 10 (16/09/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 10 (16/09/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 10 (16/09/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 4,
-        "awayScore": 3
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 10 (16/09/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 11 (23/09/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 11 (23/09/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 11 (23/09/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 11 (23/09/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 11 (23/09/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 11 (23/09/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 12 (27/09/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 12 (27/09/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 12 (27/09/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 12 (27/09/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 12 (27/09/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 12 (27/09/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 13 (30/09/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 13 (30/09/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 13 (30/09/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Caldas",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 13 (30/09/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 13 (30/09/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 13 (30/09/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 14 (07/10/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 14 (07/10/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 14 (07/10/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 14 (07/10/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Caldas",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 14 (07/10/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 14 (07/10/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 5
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 15 (11/10/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 15 (11/10/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 15 (11/10/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 15 (11/10/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 15 (11/10/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 15 (11/10/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 4,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 16 (14/10/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Caldas",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 16 (14/10/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 16 (14/10/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 16 (14/10/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 16 (14/10/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 16 (14/10/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 17 (21/10/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 17 (21/10/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 17 (21/10/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 17 (21/10/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 17 (21/10/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 17 (21/10/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 18 (28/10/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 5,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 18 (28/10/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 18 (28/10/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Caldas",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 18 (28/10/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 18 (28/10/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 18 (28/10/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 19 (01/11/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 19 (01/11/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 19 (01/11/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 19 (01/11/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 19 (01/11/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 19 (01/11/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 20 (04/11/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 20 (04/11/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 20 (04/11/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 20 (04/11/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "América de Cali",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 20 (04/11/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 20 (04/11/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Caldas",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 21 (11/11/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 21 (11/11/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 21 (11/11/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 3,
-        "awayScore": 3
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 21 (11/11/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 21 (11/11/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 21 (11/11/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 22 (15/11/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 22 (15/11/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 5,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 22 (15/11/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 22 (15/11/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 22 (15/11/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 3
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 22 (15/11/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 23 (18/11/1973)",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 23 (18/11/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 23 (18/11/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 23 (18/11/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 23 (18/11/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 23 (18/11/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 24 (25/11/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Caldas",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 24 (25/11/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 24 (25/11/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 24 (25/11/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 24 (25/11/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 24 (25/11/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "América de Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 25 (02/12/1973)",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 25 (02/12/1973)",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 25 (02/12/1973)",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 3
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 25 (02/12/1973)",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Caldas",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 25 (02/12/1973)",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 25 (02/12/1973)",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 4
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 26 (07/12/1973)",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Independiente Santa Fe",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 26 (07/12/1973)",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "América de Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 26 (07/12/1973)",
-        "homeTeam": "Caldas",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 26 (07/12/1973)",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 26 (07/12/1973)",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Torneo Finalización · Resultados · Fecha 26 (07/12/1973)",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "América de Cali",
-        "awayTeam": "SAN",
-        "homeScore": 4,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Bucaramanga",
-        "awayTeam": "SAN",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Once Caldas",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "Once Caldas",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Junior de Barranquilla",
-        "awayTeam": "SAN",
-        "homeScore": 4,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Unión Magdalena",
-        "awayTeam": "SAN",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Medellín",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "SAN",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "América de Cali",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Atlético Bucaramanga",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Junior de Barranquilla",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Unión Magdalena",
-        "homeScore": 3,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Independiente Medellín",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportivo Pereira",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Quindío",
-        "homeScore": 3,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Once Caldas",
-        "awayTeam": "Deportes Tolima",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Pereira",
-        "awayTeam": "SAN",
-        "homeScore": 2,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Quindío",
-        "awayTeam": "SAN",
-        "homeScore": 1,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Independiente Santa Fe",
-        "awayTeam": "Once Caldas",
-        "homeScore": 1,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "Once Caldas",
-        "homeScore": 2,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportes Tolima",
-        "awayTeam": "SAN",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Deportivo Cali",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 0,
-        "awayScore": 0
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Millonarios F.C.",
-        "awayTeam": "Atlético Nacional",
-        "homeScore": 0,
-        "awayScore": 2
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Deportivo Cali",
-        "homeScore": 2,
-        "awayScore": 1
-      },
-      {
-        "stage": "Resultados",
-        "homeTeam": "Atlético Nacional",
-        "awayTeam": "Millonarios F.C.",
-        "homeScore": 0,
-        "awayScore": 3
-      }
-    ],
+    "playoffMatches": [],
     "matchArchive": [
       {
-        "round": "Botín de Oro Histórico",
-        "date": "Temporada 1973",
-        "homeTeam": "Nelson Silva Pacheco",
-        "awayTeam": "Fútbol Profesional Colombiano",
-        "homeScore": 36,
+        "round": "Fecha 1 · Apertura",
+        "date": "11 de febrero de 1973",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
         "awayScore": 0,
-        "note": "★ ¡Primer Botín de Oro de Dimayor en la historia del Junior de Barranquilla con 36 goles!"
+        "note": "Apertura · 1.ª Vuelta · Debut de la temporada 1973"
       },
       {
-        "round": "Torneo Apertura",
+        "round": "Fecha 2 · Apertura",
+        "date": "18 de febrero de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Cúcuta Deportivo",
+        "homeScore": 2,
+        "awayScore": 2,
+        "note": "Apertura · 1.ª Vuelta · Estreno en el Romelio Martínez (antes del retiro motilón a mitad de año)"
+      },
+      {
+        "round": "Fecha 3 · Apertura",
         "date": "25 de febrero de 1973",
         "homeTeam": "América de Cali",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 3,
         "awayScore": 4,
-        "note": "★ Vibrante festival goleador con triunfo 3-4 en el Pascual Guerrero"
+        "note": "Apertura · 1.ª Vuelta · Festival goleador y primera victoria del año en el Pascual Guerrero"
       },
       {
-        "round": "Torneo Apertura",
+        "round": "Fecha 4 · Apertura",
         "date": "5 de abril de 1973",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportivo Pereira",
         "homeScore": 3,
         "awayScore": 1,
-        "note": "Victoria sólida 3-1 en el Romelio Martínez"
+        "note": "Apertura · 1.ª Vuelta · Partido aplazado resuelto con victoria 3-1 en Barranquilla"
       },
       {
-        "round": "Torneo Apertura",
+        "round": "Fecha 5 · Apertura",
+        "date": "4 de marzo de 1973",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Apertura · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 6 · Apertura",
         "date": "11 de marzo de 1973",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Atlético Nacional",
         "homeScore": 2,
         "awayScore": 0,
-        "note": "Gran triunfo 2-0 frente al equipo que terminaría campeón del año"
+        "note": "Apertura · 1.ª Vuelta · Triunfo 2-0 ante quien sería campeón de Colombia"
       },
       {
-        "round": "Torneo Apertura",
+        "round": "Fecha 7 · Apertura",
+        "date": "18 de marzo de 1973",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Apertura · 1.ª Vuelta · Clásico costeño sin goles en Santa Marta"
+      },
+      {
+        "round": "Fecha 8 · Apertura",
+        "date": "25 de marzo de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 2,
+        "awayScore": 0,
+        "note": "Apertura · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 9 · Apertura",
+        "date": "1 de abril de 1973",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 2,
+        "awayScore": 1,
+        "note": "Apertura · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 10 · Apertura",
+        "date": "8 de abril de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Once Caldas",
+        "homeScore": 2,
+        "awayScore": 2,
+        "note": "Apertura · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 11 · Apertura",
+        "date": "15 de abril de 1973",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Apertura · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 12 · Apertura",
+        "date": "22 de abril de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Medellín",
+        "homeScore": 0,
+        "awayScore": 1,
+        "note": "Apertura · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 13 · Apertura",
+        "date": "29 de abril de 1973",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Apertura · 1.ª Vuelta · Cierre de la primera ronda"
+      },
+      {
+        "round": "Fecha 14 · Apertura",
+        "date": "6 de mayo de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 2,
+        "awayScore": 0,
+        "note": "Apertura · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 15 · Apertura",
+        "date": "13 de mayo de 1973",
+        "homeTeam": "Cúcuta Deportivo",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Apertura · 2.ª Vuelta · Último duelo del año ante Cúcuta antes de su retiro"
+      },
+      {
+        "round": "Fecha 16 · Apertura",
+        "date": "20 de mayo de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 0,
+        "awayScore": 2,
+        "note": "Apertura · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 17 · Apertura",
+        "date": "27 de mayo de 1973",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1,
+        "note": "Apertura · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 18 · Apertura",
+        "date": "31 de mayo de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Apertura · 2.ª Vuelta · Empate sin goles ante el líder y ganador del Apertura"
+      },
+      {
+        "round": "Fecha 19 · Apertura",
+        "date": "3 de junio de 1973",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Apertura · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 20 · Apertura",
+        "date": "10 de junio de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Apertura · 2.ª Vuelta · Clásico costeño en el Romelio Martínez"
+      },
+      {
+        "round": "Fecha 21 · Apertura",
+        "date": "14 de junio de 1973",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1,
+        "note": "Apertura · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 22 · Apertura",
+        "date": "17 de junio de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 1,
+        "awayScore": 4,
+        "note": "Apertura · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 23 · Apertura",
+        "date": "27 de junio de 1973",
+        "homeTeam": "Once Caldas",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Apertura · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 24 · Apertura",
+        "date": "1 de julio de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Independiente Santa Fe",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Apertura · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 25 · Apertura",
+        "date": "8 de julio de 1973",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 0,
+        "note": "Apertura · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 26 · Apertura",
         "date": "15 de julio de 1973",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportes Quindío",
         "homeScore": 2,
         "awayScore": 0,
-        "note": "Victoria 2-0 en casa para cerrar la primera vuelta"
+        "note": "Apertura · 2.ª Vuelta · Cierre del Torneo Apertura (10.º puesto, 23 pts)"
       },
       {
-        "round": "Torneo Finalización",
+        "round": "Fecha 27 · Finalización",
         "date": "29 de julio de 1973",
         "homeTeam": "Once Caldas",
         "awayTeam": "Junior de Barranquilla",
         "homeScore": 0,
         "awayScore": 1,
-        "note": "Victoria como visitante 0-1 en Manizales en el debut del Finalización"
+        "note": "Finalización · 1.ª Vuelta · Triunfo visitante en Manizales en el inicio del Finalización (13 clubes)"
       },
       {
-        "round": "Torneo Finalización",
+        "round": "Fecha 28 · Finalización",
+        "date": "5 de agosto de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportivo Cali",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Finalización · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 29 · Finalización",
+        "date": "9 de agosto de 1973",
+        "homeTeam": "Atlético Nacional",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1,
+        "note": "Finalización · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 30 · Finalización",
+        "date": "12 de agosto de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Deportes Tolima",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Finalización · 1.ª Vuelta · Fecha 5 de liga fue jornada de descanso para Junior tras el retiro de Cúcuta"
+      },
+      {
+        "round": "Fecha 31 · Finalización",
+        "date": "19 de agosto de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Millonarios F.C",
+        "homeScore": 1,
+        "awayScore": 2,
+        "note": "Finalización · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 32 · Finalización",
+        "date": "26 de agosto de 1973",
+        "homeTeam": "Unión Magdalena",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 2,
+        "note": "Finalización · 1.ª Vuelta · Clásico costeño en Santa Marta"
+      },
+      {
+        "round": "Fecha 33 · Finalización",
+        "date": "2 de septiembre de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "América de Cali",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Finalización · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 34 · Finalización",
+        "date": "9 de septiembre de 1973",
+        "homeTeam": "Independiente Medellín",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 0,
+        "note": "Finalización · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 35 · Finalización",
         "date": "16 de septiembre de 1973",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportes Quindío",
         "homeScore": 3,
         "awayScore": 0,
-        "note": "Goleada 3-0 en el Romelio Martínez"
+        "note": "Finalización · 1.ª Vuelta · Goleada 3-0 en el Romelio Martínez"
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1973",
+        "round": "Fecha 36 · Finalización",
+        "date": "23 de septiembre de 1973",
+        "homeTeam": "Atlético Bucaramanga",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 0,
+        "note": "Finalización · 1.ª Vuelta"
+      },
+      {
+        "round": "Fecha 37 · Finalización",
+        "date": "27 de septiembre de 1973",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Independiente Santa Fe",
         "homeScore": 4,
         "awayScore": 1,
-        "note": "Contundente 4-1 sobre Independiente Santa Fe en Barranquilla"
+        "note": "Finalización · 1.ª Vuelta · Contundente 4-1 en Barranquilla"
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1973",
+        "round": "Fecha 38 · Finalización",
+        "date": "30 de septiembre de 1973",
+        "homeTeam": "Deportivo Pereira",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 1,
+        "note": "Finalización · 1.ª Vuelta · Victoria a domicilio para cerrar la primera rueda del Finalización"
+      },
+      {
+        "round": "Fecha 39 · Finalización",
+        "date": "7 de octubre de 1973",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Once Caldas",
         "homeScore": 4,
         "awayScore": 1,
-        "note": "Otra goleada 4-1 en casa con exhibición de Silva Pacheco y Víctor Ephanor"
+        "note": "Finalización · 2.ª Vuelta · Exhibición goleadora de Nelson Silva Pacheco y Víctor Ephanor"
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1973",
+        "round": "Fecha 40 · Finalización",
+        "date": "11 de octubre de 1973",
+        "homeTeam": "Deportivo Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 0,
+        "note": "Finalización · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 41 · Finalización",
+        "date": "14 de octubre de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Nacional",
+        "homeScore": 2,
+        "awayScore": 2,
+        "note": "Finalización · 2.ª Vuelta · Igualdad 2-2 ante el futuro campeón 1973"
+      },
+      {
+        "round": "Fecha 42 · Finalización",
+        "date": "21 de octubre de 1973",
+        "homeTeam": "Deportes Tolima",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 0,
+        "awayScore": 0,
+        "note": "Finalización · 2.ª Vuelta · En la fecha 18 de liga Junior cumplió su segunda jornada libre"
+      },
+      {
+        "round": "Fecha 43 · Finalización",
+        "date": "1 de noviembre de 1973",
+        "homeTeam": "Millonarios F.C",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 1,
+        "note": "Finalización · 2.ª Vuelta · Empate en El Campín"
+      },
+      {
+        "round": "Fecha 44 · Finalización",
+        "date": "4 de noviembre de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Unión Magdalena",
+        "homeScore": 2,
+        "awayScore": 0,
+        "note": "Finalización · 2.ª Vuelta · Victoria en el clásico costeño"
+      },
+      {
+        "round": "Fecha 45 · Finalización",
+        "date": "11 de noviembre de 1973",
+        "homeTeam": "América de Cali",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 4,
+        "awayScore": 1,
+        "note": "Finalización · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 46 · Finalización",
+        "date": "15 de noviembre de 1973",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Independiente Medellín",
         "homeScore": 2,
         "awayScore": 1,
-        "note": "Triunfo 2-1 frente al DIM"
+        "note": "Finalización · 2.ª Vuelta"
       },
       {
-        "round": "Torneo Finalización",
-        "date": "Temporada 1973",
+        "round": "Fecha 47 · Finalización",
+        "date": "18 de noviembre de 1973",
+        "homeTeam": "Deportes Quindío",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 1,
+        "awayScore": 2,
+        "note": "Finalización · 2.ª Vuelta · Triunfo visitante en Armenia"
+      },
+      {
+        "round": "Fecha 48 · Finalización",
+        "date": "25 de noviembre de 1973",
+        "homeTeam": "Junior de Barranquilla",
+        "awayTeam": "Atlético Bucaramanga",
+        "homeScore": 0,
+        "awayScore": 2,
+        "note": "Finalización · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 49 · Finalización",
+        "date": "2 de diciembre de 1973",
+        "homeTeam": "Independiente Santa Fe",
+        "awayTeam": "Junior de Barranquilla",
+        "homeScore": 3,
+        "awayScore": 1,
+        "note": "Finalización · 2.ª Vuelta"
+      },
+      {
+        "round": "Fecha 50 · Finalización",
+        "date": "7 de diciembre de 1973",
         "homeTeam": "Junior de Barranquilla",
         "awayTeam": "Deportivo Pereira",
         "homeScore": 2,
         "awayScore": 0,
-        "note": "Victoria 2-0 en la jornada de cierre"
+        "note": "Finalización · 2.ª Vuelta · Cierre del año (6.º en Finalización, 24 pts; Nelson Silva Pacheco ganó el 1.er Botín de Oro del club con 36 goles)"
       }
     ]
   },
