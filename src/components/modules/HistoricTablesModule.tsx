@@ -29,6 +29,10 @@ import {
   JUNIOR_YEARLY_STANDINGS,
   HISTORIC_TOURNAMENT_STANDINGS_TABLES,
 } from '../../data/juniorData';
+import {
+  ANNUAL_RECLASSIFICATION_TABLES,
+  getAnnualReclassificationByYear,
+} from '../../data/annualReclassificationTables';
 import { ShareButton } from '../ShareButton';
 import {
   TournamentNavigatorSidebar,
@@ -38,11 +42,13 @@ import {
   HistoricAllTimeTeam,
   YearlyStandingRecord,
   TournamentStandingsTable,
+  AnnualReclassificationTable,
   StandingRow,
 } from '../../types/football';
 import {
   isJuniorChampionTournament,
   isJuniorRunnerUpTournament,
+  getJuniorChampionshipStarLabel,
   isChampionStatusBadge,
   isRunnerUpStatusBadge,
   isSinglePhaseTournament,
@@ -52,6 +58,7 @@ import {
   groupTournamentsByDecade,
   getAdjacentTournaments,
   computeJuniorMatchArchiveSummary,
+  getTournamentPointsPerWin,
   getMatchArchiveOpponents,
   getMatchArchiveLapOptions,
   filterMatchArchiveFixtures,
@@ -64,11 +71,14 @@ import { PlayoffKnockoutBracket } from './PlayoffKnockoutBracket';
 
 export const HistoricTablesModule: React.FC = () => {
   const [activeTab, setActiveTab] = useState<
-    'tablas_posiciones' | 'posiciones_anuales' | 'acumulada' | 'formatos' | 'internacional' | 'records'
+    'tablas_posiciones' | 'reclasificacion' | 'posiciones_anuales' | 'acumulada' | 'formatos' | 'internacional' | 'records'
   >('tablas_posiciones');
 
   // Selected tournament table in the Tablas de Posiciones tab
   const [selectedTableId, setSelectedTableId] = useState<string>('1948-inaugural');
+  const [selectedReclasificacionYear, setSelectedReclasificacionYear] = useState<string>(
+    ANNUAL_RECLASSIFICATION_TABLES[0]?.year || '2002'
+  );
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [phaseViewMode, setPhaseViewMode] = useState<'ambas' | 'regular' | 'playoff'>('ambas');
   const [selectedFinalGroupIdx, setSelectedFinalGroupIdx] = useState<'all' | number>('all');
@@ -95,13 +105,23 @@ export const HistoricTablesModule: React.FC = () => {
 
   // Sincronizar selección directa desde el buscador global o línea de tiempo
   useEffect(() => {
+    const applyTableSelection = (tableId: string) => {
+      if (tableId.startsWith('reclasificacion-')) {
+        const targetYear = tableId.replace('reclasificacion-', '');
+        setSelectedReclasificacionYear(targetYear);
+        setActiveTab('reclasificacion');
+        return;
+      }
+      setSelectedTableId(tableId);
+      setActiveTab('tablas_posiciones');
+      setTournamentSearchQuery('');
+      setTableCategoryFilter('todos');
+    };
+
     try {
       const pending = sessionStorage.getItem('junior-pending-standings-table');
       if (pending) {
-        setSelectedTableId(pending);
-        setActiveTab('tablas_posiciones');
-        setTournamentSearchQuery('');
-        setTableCategoryFilter('todos');
+        applyTableSelection(pending);
         sessionStorage.removeItem('junior-pending-standings-table');
       }
     } catch {}
@@ -109,10 +129,7 @@ export const HistoricTablesModule: React.FC = () => {
     const handleSelectTable = (event: Event) => {
       const customEvent = event as CustomEvent<{ tableId: string }>;
       if (customEvent.detail?.tableId) {
-        setSelectedTableId(customEvent.detail.tableId);
-        setActiveTab('tablas_posiciones');
-        setTournamentSearchQuery('');
-        setTableCategoryFilter('todos');
+        applyTableSelection(customEvent.detail.tableId);
       }
     };
     window.addEventListener('junior-select-standings-table', handleSelectTable);
@@ -168,8 +185,14 @@ export const HistoricTablesModule: React.FC = () => {
     activeTournamentTable.id
   );
   const singlePhaseTournament = isSinglePhaseTournament(activeTournamentTable);
+  const isJuniorChamp = isJuniorChampionTournament(activeTournamentTable);
+  const juniorChampStarLabel = getJuniorChampionshipStarLabel(activeTournamentTable);
   const juniorCrest = getTournamentJuniorCrest(activeTournamentTable);
   const championCrest = getTournamentTeamCrest(activeTournamentTable, activeTournamentTable.championTeam);
+  const linkedAnnualReclassification = getAnnualReclassificationByYear(activeTournamentTable.year);
+  const activeReclassificationTable: AnnualReclassificationTable | undefined =
+    ANNUAL_RECLASSIFICATION_TABLES.find((t) => t.year === selectedReclasificacionYear) ||
+    ANNUAL_RECLASSIFICATION_TABLES[0];
 
   // Filtered yearly summary (Tab 2)
   const filteredYearlyStandings = JUNIOR_YEARLY_STANDINGS.filter((item) => {
@@ -228,6 +251,17 @@ export const HistoricTablesModule: React.FC = () => {
             >
               <Table className="w-3.5 h-3.5 text-amber-300" />
               <span>Tablas de Posiciones</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('reclasificacion')}
+              className={`px-3.5 py-2 text-xs font-semibold rounded-md transition-colors whitespace-nowrap flex items-center gap-1.5 ${
+                activeTab === 'reclasificacion'
+                  ? 'bg-red-600 text-white font-bold shadow-sm'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <ListOrdered className="w-3.5 h-3.5" />
+              <span>Reclasificación Anual</span>
             </button>
             <button
               onClick={() => setActiveTab('posiciones_anuales')}
@@ -315,8 +349,24 @@ export const HistoricTablesModule: React.FC = () => {
             />
 
             {/* Detail Column: Active Tournament Card & Tables (Always Above the Fold) */}
-            <div className="min-w-0 rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden shadow-2xl">
-              <div className="p-5 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800">
+            <div
+              className={`min-w-0 rounded-2xl border bg-slate-900 overflow-hidden shadow-2xl ${
+                isJuniorChamp ? 'border-amber-500/35' : 'border-slate-800'
+              }`}
+            >
+              {isJuniorChamp && (
+                <div
+                  aria-hidden="true"
+                  className="h-[2px] w-full bg-gradient-to-r from-amber-400/80 via-amber-200/40 to-transparent"
+                />
+              )}
+              <div
+                className={`p-5 border-b ${
+                  isJuniorChamp
+                    ? 'bg-gradient-to-r from-amber-950/25 via-slate-900 to-slate-950 border-amber-500/20'
+                    : 'bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-slate-800'
+                }`}
+              >
                 {/* Sequential Prev / Next Navigation Bar beside Header */}
                 <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-800/80">
                   <div className="flex items-center gap-2">
@@ -373,8 +423,23 @@ export const HistoricTablesModule: React.FC = () => {
                     </button>
                   </div>
 
-                  <div className="text-[11px] text-slate-400 font-mono tabular-nums">
-                    Torneo {adjacentTournaments.currentIndex + 1} de {adjacentTournaments.totalCount}
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    {linkedAnnualReclassification && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedReclasificacionYear(linkedAnnualReclassification.year);
+                          setActiveTab('reclasificacion');
+                        }}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/35 text-xs font-semibold text-sky-300 hover:text-sky-200 transition-colors whitespace-nowrap"
+                      >
+                        <ListOrdered className="w-3.5 h-3.5 shrink-0" />
+                        <span>Ver Reclasificación Anual {linkedAnnualReclassification.year}</span>
+                      </button>
+                    )}
+                    <div className="text-[11px] text-slate-400 font-mono tabular-nums">
+                      Torneo {adjacentTournaments.currentIndex + 1} de {adjacentTournaments.totalCount}
+                    </div>
                   </div>
                 </div>
 
@@ -414,8 +479,31 @@ export const HistoricTablesModule: React.FC = () => {
                       )}
                     </div>
 
-                    <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-white tracking-tight text-balance">
-                      {activeTournamentTable.tournamentName}
+                    <h3
+                      className={`font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-balance flex flex-wrap items-baseline gap-x-2.5 gap-y-1 ${
+                        isJuniorChamp ? 'text-amber-50' : 'text-white'
+                      }`}
+                    >
+                      {isJuniorChamp && (
+                        <span
+                          aria-hidden="true"
+                          className="text-amber-400 text-xl sm:text-2xl leading-none select-none"
+                        >
+                          ★
+                        </span>
+                      )}
+                      <span>{activeTournamentTable.tournamentName}</span>
+                      {isJuniorChamp && (
+                        <span className="inline-flex items-center gap-1.5 pl-2.5 border-l border-amber-400/35 text-xs sm:text-sm font-bold tracking-wider text-amber-300/95">
+                          <span>Campeón</span>
+                          {juniorChampStarLabel && juniorChampStarLabel !== 'Campeón' && (
+                            <>
+                              <span aria-hidden="true" className="text-amber-500/60">·</span>
+                              <span className="text-amber-200">{juniorChampStarLabel}</span>
+                            </>
+                          )}
+                        </span>
+                      )}
                     </h3>
                     <p className="text-xs text-slate-300 mt-1.5 max-w-2xl leading-relaxed">
                       {activeTournamentTable.description}
@@ -423,12 +511,16 @@ export const HistoricTablesModule: React.FC = () => {
                   </div>
 
                   <div className="flex flex-col sm:flex-row xl:flex-col items-stretch sm:items-center xl:items-end gap-2.5 shrink-0 xl:w-[270px]">
-                    <div className="px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 xl:text-right flex-1 sm:flex-initial xl:w-full">
+                    <div
+                      className={`px-3.5 py-2.5 rounded-xl bg-slate-950 border xl:text-right flex-1 sm:flex-initial xl:w-full ${
+                        isJuniorChamp ? 'border-amber-500/30' : 'border-slate-800'
+                      }`}
+                    >
                       <div className="text-[10px] text-slate-400 uppercase font-semibold tracking-wider">
-                        {isJuniorChampionTournament(activeTournamentTable) ? 'Campeón de Liga' : 'Campeón del Torneo'}
+                        {isJuniorChamp ? 'Campeón de Liga' : 'Campeón del Torneo'}
                       </div>
                       <div className="text-sm font-black text-amber-400 font-display mt-0.5 flex items-center xl:justify-end gap-1.5">
-                        {championCrest && !isJuniorChampionTournament(activeTournamentTable) && (
+                        {championCrest && !isJuniorChamp && (
                           <img
                             src={championCrest.src}
                             alt={championCrest.alt}
@@ -629,40 +721,223 @@ export const HistoricTablesModule: React.FC = () => {
                                   {(() => {
                                     const badge = getRowStatusBadge(activeTournamentTable, row, 'regular');
                                     const upper = badge.toUpperCase();
-                                    return (
-                                      <span
-                                        className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
-                                          isChampionStatusBadge(badge)
-                                            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
-                                            : isRunnerUpStatusBadge(badge)
-                                            ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
-                                            : upper.includes('CLASIFICADO')
-                                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                                            : upper.includes('ELIMINADO')
-                                            ? 'bg-rose-950/40 text-rose-300/80 border border-rose-500/20'
-                                            : 'bg-slate-800 text-slate-300 border border-slate-700/60'
-                                        }`}
-                                      >
-                                        {badge}
-                                      </span>
-                                    );
-                                  })()}
-                                </td>
-                              </tr>
+                                      return (
+                                        <span
+                                          className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                                            isChampionStatusBadge(badge)
+                                              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
+                                              : isRunnerUpStatusBadge(badge)
+                                              ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
+                                              : upper.includes('LÍDER · GRUPO A')
+                                              ? 'bg-amber-500/15 text-amber-300 border border-amber-500/35'
+                                              : upper === 'GRUPO A'
+                                              ? 'bg-sky-500/15 text-sky-300 border border-sky-500/30'
+                                              : upper === 'GRUPO B'
+                                              ? 'bg-slate-800/90 text-slate-300 border border-slate-700'
+                                              : upper.includes('LIBERTADORES') || upper.includes('LIB.')
+                                              ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40'
+                                              : upper.includes('CLASIFICADO')
+                                              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                                              : upper.includes('ELIMINADO')
+                                              ? 'bg-rose-950/40 text-rose-300/80 border border-rose-500/20'
+                                              : 'bg-slate-800 text-slate-300 border border-slate-700/60'
+                                          }`}
+                                        >
+                                          {badge}
+                                        </span>
+                                      );
+                                    })()}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+
+                    {/* Grupos del Torneo Finalización (Grupo A y Grupo B lado a lado) */}
+                    {activeTournamentTable.regularGroups && activeTournamentTable.regularGroups.length > 0 && (
+                      <div className="space-y-3 pt-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-800/90">
+                          <div>
+                            <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-slate-400 font-medium">
+                              <span className="text-sky-400 font-semibold">Torneo Finalización</span>
+                              <span aria-hidden="true">·</span>
+                              <span>21 Fechas</span>
+                              <span aria-hidden="true">·</span>
+                              <span>Grupo A y Grupo B</span>
+                            </div>
+                            <h5 className="text-sm font-bold text-white tracking-tight mt-0.5">
+                              {activeTournamentTable.regularGroupsSectionTitle || `Torneo Finalización ${activeTournamentTable.year} — Grupo A y Grupo B (21 Fechas)`}
+                            </h5>
+                            {activeTournamentTable.regularGroupsSectionDescription && (
+                              <p className="text-xs text-slate-400 mt-1 max-w-4xl leading-relaxed">
+                                {activeTournamentTable.regularGroupsSectionDescription}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 items-stretch">
+                          {activeTournamentTable.regularGroups.map((rg) => {
+                            const isGroupA = rg.groupName.toLowerCase().includes('grupo a');
+                            const leaderRow = rg.rows[0];
+                            const leaderBadge = leaderRow
+                              ? getRowStatusBadge(activeTournamentTable, leaderRow, 'regularGroup', rg.groupName)
+                              : '';
+                            return (
+                              <div
+                                key={rg.id}
+                                className="rounded-xl border border-slate-800 bg-slate-900 overflow-hidden flex flex-col"
+                              >
+                                <div className="px-3 py-2.5 bg-slate-950/90 border-b border-slate-800 flex items-center justify-between gap-2">
+                                  <div className="flex items-center gap-1.5 min-w-0">
+                                    <span
+                                      className={`text-xs font-bold tracking-tight whitespace-nowrap ${
+                                        isGroupA ? 'text-sky-300' : 'text-indigo-300'
+                                      }`}
+                                    >
+                                      {rg.groupName}
+                                    </span>
+                                    {rg.description && (
+                                      <>
+                                        <span aria-hidden="true" className="text-slate-600 text-xs">·</span>
+                                        <span className="text-[11px] text-slate-400 truncate">
+                                          {rg.description}
+                                        </span>
+                                      </>
+                                    )}
+                                  </div>
+                                  <span className="text-[11px] font-mono tabular-nums text-slate-400 whitespace-nowrap shrink-0">
+                                    {rg.rows.length} clubes
+                                  </span>
+                                </div>
+
+                                <div className="overflow-x-auto flex-1">
+                                  <table className="w-full text-left border-collapse text-[11px]">
+                                    <thead>
+                                      <tr className="bg-slate-950/50 border-b border-slate-800 text-slate-400 font-semibold text-[10px] tracking-wider uppercase">
+                                        <th className="py-2 pl-2 pr-1 text-center w-8">Pos</th>
+                                        <th className="py-2 px-1.5">Club</th>
+                                        <th className="py-2 px-1 text-center">PJ</th>
+                                        <th className="py-2 px-1 text-center">PG</th>
+                                        <th className="py-2 px-1 text-center">PE</th>
+                                        <th className="py-2 px-1 text-center">PP</th>
+                                        <th className="py-2 px-1 text-center">GF</th>
+                                        <th className="py-2 px-1 text-center">GC</th>
+                                        <th className="py-2 px-1 text-center">DG</th>
+                                        <th className="py-2 pl-1.5 pr-2 text-center font-bold text-white bg-slate-950/50">PTS</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-slate-800/70">
+                                      {rg.rows.map((row: StandingRow) => {
+                                        const isLeader = row.pos === 1;
+                                        const badge = getRowStatusBadge(activeTournamentTable, row, 'regularGroup', rg.groupName);
+                                        const isQualified = badge.toUpperCase().includes('CLASIFICADO');
+                                        return (
+                                          <tr
+                                            key={`${rg.id}-${row.team}`}
+                                            title={`${row.team} — ${badge}`}
+                                            className={`transition-colors ${
+                                              row.isJunior
+                                                ? 'bg-red-950/45 hover:bg-red-950/65 font-semibold'
+                                                : isLeader
+                                                ? 'bg-amber-950/20 hover:bg-amber-950/30'
+                                                : 'hover:bg-slate-800/40 text-slate-300'
+                                            }`}
+                                          >
+                                            <td className="py-2 pl-2 pr-1 text-center font-mono tabular-nums font-bold">
+                                              {isLeader ? (
+                                                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px]">
+                                                  1º
+                                                </span>
+                                              ) : (
+                                                <span
+                                                  className={
+                                                    row.isJunior
+                                                      ? 'text-red-300'
+                                                      : isQualified
+                                                      ? 'text-emerald-400'
+                                                      : 'text-slate-400'
+                                                  }
+                                                >
+                                                  {row.pos}
+                                                </span>
+                                              )}
+                                            </td>
+                                            <td className="py-2 px-1.5 max-w-[148px]">
+                                              <div className="flex items-center gap-1.5 min-w-0">
+                                                {(() => {
+                                                  const crest = getTournamentTeamCrest(activeTournamentTable, row.team, row.isJunior);
+                                                  return crest ? (
+                                                    <img
+                                                      src={crest.src}
+                                                      alt={crest.alt}
+                                                      className="w-4 h-4 object-contain shrink-0 drop-shadow"
+                                                      referrerPolicy="no-referrer"
+                                                    />
+                                                  ) : null;
+                                                })()}
+                                                <span
+                                                  className={`truncate ${
+                                                    row.isJunior
+                                                      ? 'text-white font-bold'
+                                                      : 'text-slate-200'
+                                                  }`}
+                                                >
+                                                  {row.team}
+                                                </span>
+                                              </div>
+                                            </td>
+                                            <td className="py-2 px-1 text-center font-mono tabular-nums text-slate-400">{row.pj}</td>
+                                            <td className="py-2 px-1 text-center font-mono tabular-nums text-emerald-400 font-semibold">{row.pg}</td>
+                                            <td className="py-2 px-1 text-center font-mono tabular-nums text-slate-400">{row.pe}</td>
+                                            <td className="py-2 px-1 text-center font-mono tabular-nums text-rose-400">{row.pp}</td>
+                                            <td className="py-2 px-1 text-center font-mono tabular-nums text-slate-300">{row.gf}</td>
+                                            <td className="py-2 px-1 text-center font-mono tabular-nums text-slate-400">{row.gc}</td>
+                                            <td className="py-2 px-1 text-center font-mono tabular-nums font-semibold text-slate-200">
+                                              {row.dg > 0 ? `+${row.dg}` : row.dg}
+                                            </td>
+                                            <td className="py-2 pl-1.5 pr-2 text-center font-mono tabular-nums font-black text-white bg-slate-950/60 text-xs">
+                                              {row.pts}
+                                            </td>
+                                          </tr>
+                                        );
+                                      })}
+                                    </tbody>
+                                  </table>
+                                </div>
+
+                                {leaderRow && (
+                                  <div className="px-3 py-2 bg-slate-950/70 border-t border-slate-800/80 flex items-center justify-between gap-2 text-[11px]">
+                                    <span className="text-slate-400 truncate">
+                                      <span className="text-amber-300 font-semibold">{leaderBadge}:</span>{' '}
+                                      <span className="text-slate-200 font-medium">{leaderRow.team}</span>
+                                    </span>
+                                    <span className="font-mono tabular-nums text-slate-300 font-semibold whitespace-nowrap shrink-0">
+                                      {leaderRow.pts} pts
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
                             );
                           })}
-                        </tbody>
-                      </table>
-                    </div>
+                        </div>
+                      </div>
+                    )}
 
-                    {/* Segunda Sub-Tabla Regular (Apertura / Reclasificación / Serie Extra cuando aplica) */}
+                    {/* Segunda Sub-Tabla Regular (Reclasificación 47 Fechas / Finalización según formato) */}
                     {activeTournamentTable.secondaryRegularTable && activeTournamentTable.secondaryRegularTable.rows.length > 0 && (
-                      <div className="space-y-2.5 pt-3">
+                      <div className="space-y-2.5 pt-4">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 rounded-xl bg-slate-900 border border-slate-800">
                           <div>
                             <div className="flex items-center gap-2">
                               <span className="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono text-[10px] font-bold uppercase">
-                                Sub-Fase Regular Anexa
+                                {activeTournamentTable.secondaryRegularTable.badgeLabel
+                                  ? activeTournamentTable.secondaryRegularTable.badgeLabel
+                                  : activeTournamentTable.regularGroups && activeTournamentTable.regularGroups.length > 0
+                                  ? 'Acumulado Oficial · 47 Fechas'
+                                  : 'Sub-Fase Regular Anexa'}
                               </span>
                               <h5 className="text-xs font-bold uppercase text-white tracking-wide">
                                 {activeTournamentTable.secondaryRegularTable.title}
@@ -767,7 +1042,148 @@ export const HistoricTablesModule: React.FC = () => {
                                                 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
                                                 : isRunnerUpStatusBadge(badge)
                                                 ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
+                                                : upper.includes('LIBERTADORES') || upper.includes('LIB.')
+                                                ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40'
                                                 : upper.includes('CLASIFICADO')
+                                                ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                                                : upper.includes('ELIMINADO')
+                                                ? 'bg-rose-950/40 text-rose-300/80 border border-rose-500/20'
+                                                : 'bg-slate-800 text-slate-300 border border-slate-700/60'
+                                            }`}
+                                          >
+                                            {badge}
+                                          </span>
+                                        );
+                                      })()}
+                                    </td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Tercera Sub-Tabla Regular (p. ej. Reclasificación General Oficial) */}
+                    {activeTournamentTable.tertiaryRegularTable && activeTournamentTable.tertiaryRegularTable.rows.length > 0 && (
+                      <div className="space-y-2.5 pt-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 rounded-xl bg-slate-900 border border-slate-800">
+                          <div>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 font-mono text-[10px] font-bold uppercase">
+                                {activeTournamentTable.tertiaryRegularTable.badgeLabel || 'Reclasificación General'}
+                              </span>
+                              <h5 className="text-xs font-bold uppercase text-white tracking-wide">
+                                {activeTournamentTable.tertiaryRegularTable.title}
+                              </h5>
+                            </div>
+                            {activeTournamentTable.tertiaryRegularTable.description && (
+                              <p className="text-[11px] text-slate-400 mt-1">
+                                {activeTournamentTable.tertiaryRegularTable.description}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900">
+                          <table className="w-full text-left border-collapse text-xs">
+                            <thead>
+                              <tr className="bg-slate-950 border-b border-slate-800 text-slate-400 uppercase font-semibold text-[11px] tracking-wider">
+                                <th className="py-2.5 px-3 text-center w-12">Pos</th>
+                                <th className="py-2.5 px-4">Club</th>
+                                <th className="py-2.5 px-3 text-center">PJ</th>
+                                <th className="py-2.5 px-3 text-center">PG</th>
+                                <th className="py-2.5 px-3 text-center">PE</th>
+                                <th className="py-2.5 px-3 text-center">PP</th>
+                                <th className="py-2.5 px-3 text-center">GF</th>
+                                <th className="py-2.5 px-3 text-center">GC</th>
+                                <th className="py-2.5 px-3 text-center">DG</th>
+                                <th className="py-2.5 px-3 text-center font-bold text-white bg-slate-900/60">PTS</th>
+                                <th className="py-2.5 px-4 text-center">Estado / Clasificación</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-slate-800/80">
+                              {activeTournamentTable.tertiaryRegularTable.rows.map((row: StandingRow) => {
+                                const isFirst = row.pos === 1;
+                                const isSecond = row.pos === 2;
+                                return (
+                                  <tr
+                                    key={row.team}
+                                    className={`transition-colors ${
+                                      row.isJunior
+                                        ? 'bg-red-950/40 hover:bg-red-950/60 font-semibold border-l-4 border-l-red-500'
+                                        : isFirst
+                                        ? 'bg-amber-950/20 hover:bg-amber-950/30'
+                                        : 'hover:bg-slate-800/40 text-slate-300'
+                                    }`}
+                                  >
+                                    <td className="py-2.5 px-3 text-center font-mono font-bold">
+                                      {isFirst ? (
+                                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[11px]">
+                                          1º
+                                        </span>
+                                      ) : isSecond ? (
+                                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-slate-700/40 text-slate-300 border border-slate-600 text-[11px]">
+                                          2º
+                                        </span>
+                                      ) : (
+                                        row.pos
+                                      )}
+                                    </td>
+                                    <td className="py-2.5 px-4 whitespace-nowrap">
+                                      <div className="flex items-center gap-2">
+                                        {(() => {
+                                          const crest = getTournamentTeamCrest(activeTournamentTable, row.team, row.isJunior);
+                                          return crest ? (
+                                            <img
+                                              src={crest.src}
+                                              alt={crest.alt}
+                                              className="w-5 h-5 object-contain shrink-0 drop-shadow"
+                                              referrerPolicy="no-referrer"
+                                            />
+                                          ) : null;
+                                        })()}
+                                        <span className={row.isJunior ? 'text-white font-extrabold text-sm' : 'text-slate-200'}>
+                                          {row.team}
+                                        </span>
+                                        {row.isJunior && (
+                                          <span className="text-[10px] uppercase font-mono px-1.5 py-0.2 rounded bg-red-500/20 text-red-300 font-bold border border-red-500/30">
+                                            Tu Papá
+                                          </span>
+                                        )}
+                                      </div>
+                                    </td>
+                                    <td className="py-2.5 px-3 text-center font-mono text-slate-400">{row.pj}</td>
+                                    <td className="py-2.5 px-3 text-center font-mono text-emerald-400 font-bold">{row.pg}</td>
+                                    <td className="py-2.5 px-3 text-center font-mono text-slate-400">{row.pe}</td>
+                                    <td className="py-2.5 px-3 text-center font-mono text-rose-400">{row.pp}</td>
+                                    <td className="py-2.5 px-3 text-center font-mono text-slate-300">{row.gf}</td>
+                                    <td className="py-2.5 px-3 text-center font-mono text-slate-400">{row.gc}</td>
+                                    <td className="py-2.5 px-3 text-center font-mono font-bold text-slate-200">
+                                      {row.dg > 0 ? `+${row.dg}` : row.dg}
+                                    </td>
+                                    <td className="py-2.5 px-3 text-center font-mono font-black text-white bg-slate-950/60 text-sm">
+                                      {row.pts}
+                                    </td>
+                                    <td className="py-2.5 px-4 text-center whitespace-nowrap">
+                                      {(() => {
+                                        const badge = getRowStatusBadge(activeTournamentTable, row, 'tertiaryRegular');
+                                        const upper = badge.toUpperCase();
+                                        return (
+                                          <span
+                                            className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                                              isChampionStatusBadge(badge)
+                                                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
+                                                : isRunnerUpStatusBadge(badge)
+                                                ? 'bg-slate-200/20 text-slate-200 border border-slate-400/40'
+                                                : upper.includes('LIBERTADORES') || upper.includes('LIB.')
+                                                ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40'
+                                                : upper.includes('PROMOCI')
+                                                ? 'bg-amber-950/50 text-amber-300 border border-amber-500/35'
+                                                : upper.includes('DESCENDIDO')
+                                                ? 'bg-rose-950/50 text-rose-300 border border-rose-500/35'
+                                                : upper.includes('CLASIFICADO') || upper.includes('FINALISTA') || upper.includes('SEMIFINALISTA')
                                                 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
                                                 : upper.includes('ELIMINADO')
                                                 ? 'bg-rose-950/40 text-rose-300/80 border border-rose-500/20'
@@ -1151,7 +1567,7 @@ export const HistoricTablesModule: React.FC = () => {
                                       >
                                         Todos ({allMatches.length})
                                       </button>
-                                      {uniqueStages.slice(0, 8).map((stage) => (
+                                      {uniqueStages.slice(0, 10).map((stage) => (
                                         <button
                                           key={stage}
                                           onClick={() => {
@@ -1298,10 +1714,13 @@ export const HistoricTablesModule: React.FC = () => {
                 {/* ARCHIVO COMPLETO DE PARTIDOS OFICIALES DE LA CAMPAÑA */}
                 {activeTournamentTable.matchArchive && activeTournamentTable.matchArchive.length > 0 && (() => {
                   const allMatches = activeTournamentTable.matchArchive;
-                  const showExtendedFilters = allMatches.length >= 18;
                   const lapOptions = getMatchArchiveLapOptions(allMatches.length, allMatches);
                   const showLapFilters = lapOptions.length > 0;
-                  const summary = computeJuniorMatchArchiveSummary(allMatches);
+                  const showExtendedFilters = allMatches.length >= 18 || showLapFilters;
+                  const summary = computeJuniorMatchArchiveSummary(
+                    allMatches,
+                    getTournamentPointsPerWin(activeTournamentTable.year)
+                  );
                   const opponents = showExtendedFilters ? getMatchArchiveOpponents(allMatches) : [];
                   const visibleMatches = showExtendedFilters
                     ? filterMatchArchiveFixtures(allMatches, {
@@ -1534,6 +1953,267 @@ export const HistoricTablesModule: React.FC = () => {
                     </div>
                   );
                 })()}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ========================================================================= */}
+        {/* TAB INDEPENDIENTE: RECLASIFICACIÓN ANUAL (ERA DE TORNEOS CORTOS 2002+)    */}
+        {/* ========================================================================= */}
+        {activeTab === 'reclasificacion' && activeReclassificationTable && (
+          <div className="space-y-6">
+            {/* Year Selector & Editorial Header */}
+            <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden shadow-2xl">
+              <div className="p-5 border-b border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-800/80">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                      Temporada:
+                    </span>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      {ANNUAL_RECLASSIFICATION_TABLES.map((rec) => (
+                        <button
+                          key={rec.id}
+                          type="button"
+                          onClick={() => setSelectedReclasificacionYear(rec.year)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-colors ${
+                            activeReclassificationTable.year === rec.year
+                              ? 'bg-red-600 text-white shadow-sm'
+                              : 'bg-slate-950 border border-slate-800 text-slate-300 hover:border-slate-700 hover:text-white'
+                          }`}
+                        >
+                          {rec.year}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleOpenStandingsTable(activeReclassificationTable.aperturaTableId)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition-colors"
+                    >
+                      <Table className="w-3.5 h-3.5 text-amber-400" />
+                      <span>Apertura {activeReclassificationTable.year}-I</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleOpenStandingsTable(activeReclassificationTable.finalizacionTableId)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition-colors"
+                    >
+                      <Table className="w-3.5 h-3.5 text-sky-400" />
+                      <span>Finalización {activeReclassificationTable.year}-II</span>
+                    </button>
+                    <ShareButton
+                      sectionTitle={activeReclassificationTable.title}
+                      customHash={`#tablas-historicas?tabla=${activeReclassificationTable.id}`}
+                      buttonText="Compartir"
+                      size="sm"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs mb-1.5">
+                    <span className="font-mono font-bold text-sky-400 uppercase">
+                      Tabla Anual Independiente
+                    </span>
+                    <span aria-hidden="true" className="text-slate-600">·</span>
+                    <span className="font-semibold text-slate-300">
+                      {activeReclassificationTable.subtitle}
+                    </span>
+                  </div>
+                  <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-white tracking-tight">
+                    {activeReclassificationTable.title}
+                  </h3>
+                  <p className="text-xs text-slate-300 mt-1.5 max-w-4xl leading-relaxed">
+                    {activeReclassificationTable.description}
+                  </p>
+                </div>
+
+                {/* 4-Card Summary Ribbon */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
+                  <div className="p-3.5 rounded-xl bg-slate-950 border border-sky-500/30">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-sky-400">
+                      Líder Reclasificación {activeReclassificationTable.year}
+                    </div>
+                    <div className="text-sm font-black text-white font-display mt-1">
+                      {activeReclassificationTable.leaderTeam}
+                    </div>
+                    <div className="text-[11px] font-mono text-sky-300 mt-0.5 tabular-nums">
+                      {activeReclassificationTable.leaderPoints} pts acumulados · Cupo Libertadores
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-slate-950 border border-amber-500/30">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
+                      Campeones del Año
+                    </div>
+                    <div className="text-xs font-bold text-white mt-1 space-y-0.5">
+                      <div>I: <span className="text-amber-300">{activeReclassificationTable.aperturaChampion}</span></div>
+                      <div>II: <span className="text-amber-300">{activeReclassificationTable.finalizacionChampion}</span></div>
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-red-950/30 border border-red-500/35">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-red-400">
+                      Junior en Reclasificación
+                    </div>
+                    <div className="text-sm font-black text-white font-display mt-1">
+                      {activeReclassificationTable.juniorPosition}
+                    </div>
+                    <div className="text-[11px] text-slate-300 mt-0.5">
+                      {activeReclassificationTable.juniorSummary}
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-slate-950 border border-rose-500/30">
+                    <div className="text-[10px] font-bold uppercase tracking-wider text-rose-400">
+                      Descenso a Primera B
+                    </div>
+                    <div className="text-sm font-black text-white font-display mt-1">
+                      {activeReclassificationTable.relegatedTeam || 'Sin descenso'}
+                    </div>
+                    <div className="text-[11px] text-slate-400 mt-0.5">
+                      Definido por tabla de promedio 2000–2002
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Independent 18-Club Reclasificación Table */}
+              <div className="p-5 bg-slate-950/40 space-y-4">
+                <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900">
+                  <table className="w-full text-left border-collapse text-xs">
+                    <thead>
+                      <tr className="bg-slate-950 border-b border-slate-800 text-slate-400 uppercase font-semibold text-[11px] tracking-wider">
+                        <th className="py-2.5 px-3 text-center w-12">Pos</th>
+                        <th className="py-2.5 px-4">Club</th>
+                        <th className="py-2.5 px-3 text-center">PJ</th>
+                        <th className="py-2.5 px-3 text-center">PG</th>
+                        <th className="py-2.5 px-3 text-center">PE</th>
+                        <th className="py-2.5 px-3 text-center">PP</th>
+                        <th className="py-2.5 px-3 text-center">GF</th>
+                        <th className="py-2.5 px-3 text-center">GC</th>
+                        <th className="py-2.5 px-3 text-center">DG</th>
+                        <th className="py-2.5 px-3 text-center font-bold text-white bg-slate-900/60">PTS</th>
+                        <th className="py-2.5 px-4 text-center">Estado / Cupos</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800/80">
+                      {activeReclassificationTable.rows.map((row: StandingRow) => {
+                        const isFirst = row.pos === 1;
+                        const badge = row.statusBadge || 'Permanencia';
+                        const upper = badge.toUpperCase();
+                        const crest = getTournamentTeamCrest(
+                          { year: activeReclassificationTable.year },
+                          row.team,
+                          row.isJunior
+                        );
+
+                        return (
+                          <tr
+                            key={row.team}
+                            className={`transition-colors ${
+                              row.isJunior
+                                ? 'bg-red-950/40 hover:bg-red-950/60 font-semibold border-l-4 border-l-red-500'
+                                : isFirst
+                                ? 'bg-sky-950/25 hover:bg-sky-950/35'
+                                : upper.includes('DESCENDIDO')
+                                ? 'bg-rose-950/15 hover:bg-rose-950/25 text-slate-300'
+                                : 'hover:bg-slate-800/40 text-slate-300'
+                            }`}
+                          >
+                            <td className="py-2.5 px-3 text-center font-mono tabular-nums font-bold">
+                              {isFirst ? (
+                                <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/40 text-[11px]">
+                                  1º
+                                </span>
+                              ) : (
+                                row.pos
+                              )}
+                            </td>
+
+                            <td className="py-2.5 px-4 whitespace-nowrap">
+                              <div className="flex items-center gap-2">
+                                {crest && (
+                                  <img
+                                    src={crest.src}
+                                    alt={crest.alt}
+                                    className="w-5 h-5 object-contain shrink-0 drop-shadow"
+                                    referrerPolicy="no-referrer"
+                                  />
+                                )}
+                                <span className={row.isJunior ? 'text-white font-extrabold text-sm' : 'text-slate-200'}>
+                                  {row.team}
+                                </span>
+                                {row.isJunior && (
+                                  <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-red-500/20 text-red-300 font-bold border border-red-500/30">
+                                    Tu Papá
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+
+                            <td className="py-2.5 px-3 text-center font-mono tabular-nums text-slate-400">{row.pj}</td>
+                            <td className="py-2.5 px-3 text-center font-mono tabular-nums text-emerald-400 font-bold">{row.pg}</td>
+                            <td className="py-2.5 px-3 text-center font-mono tabular-nums text-slate-400">{row.pe}</td>
+                            <td className="py-2.5 px-3 text-center font-mono tabular-nums text-rose-400">{row.pp}</td>
+                            <td className="py-2.5 px-3 text-center font-mono tabular-nums text-slate-300">{row.gf}</td>
+                            <td className="py-2.5 px-3 text-center font-mono tabular-nums text-slate-400">{row.gc}</td>
+                            <td className="py-2.5 px-3 text-center font-mono tabular-nums font-bold text-slate-200">
+                              {row.dg > 0 ? `+${row.dg}` : row.dg}
+                            </td>
+                            <td className="py-2.5 px-3 text-center font-mono tabular-nums font-black text-white bg-slate-950/60 text-sm">
+                              {row.pts}
+                            </td>
+                            <td className="py-2.5 px-4 text-center whitespace-nowrap">
+                              <span
+                                className={`inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider ${
+                                  upper.includes('CAMPEÓN')
+                                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                                    : upper.includes('LIBERTADORES')
+                                    ? 'bg-sky-500/20 text-sky-300 border border-sky-500/40'
+                                    : upper.includes('SUDAMERICANA')
+                                    ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                                    : upper.includes('DESCENDIDO')
+                                    ? 'bg-rose-950/60 text-rose-300 border border-rose-500/35'
+                                    : 'bg-slate-800 text-slate-300 border border-slate-700/60'
+                                }`}
+                              >
+                                {badge}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Explanatory Footnotes */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-sky-400 mb-1">
+                      Cupos Internacionales Conmebol
+                    </div>
+                    <p className="text-slate-300 leading-relaxed">
+                      {activeReclassificationTable.internationalSummary}
+                    </p>
+                  </div>
+                  {activeReclassificationTable.relegationNote && (
+                    <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800">
+                      <div className="text-[11px] font-bold uppercase tracking-wider text-rose-400 mb-1">
+                        Nota de Descenso ({activeReclassificationTable.relegatedTeam})
+                      </div>
+                      <p className="text-slate-300 leading-relaxed">
+                        {activeReclassificationTable.relegationNote}
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>

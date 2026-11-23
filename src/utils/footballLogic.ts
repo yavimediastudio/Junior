@@ -261,6 +261,25 @@ export function isJuniorRunnerUpTournament(t: {
 }
 
 /**
+ * Extracts a concise star ordinal label (e.g., "1ª Estrella", "12ª Estrella") for
+ * tournament campaigns where Junior won the league championship. Returns null when
+ * Junior did not win the tournament.
+ */
+export function getJuniorChampionshipStarLabel(t: {
+  championTeam: string;
+  juniorFinish: string;
+  isJuniorChampion?: boolean;
+}): string | null {
+  if (!isJuniorChampionTournament(t)) return null;
+  const finish = t.juniorFinish || '';
+  const match = /(\d+)\s*[ªa°.]*\s*Estrella/i.exec(finish);
+  if (match) {
+    return `${match[1]}ª Estrella`;
+  }
+  return 'Campeón';
+}
+
+/**
  * Classifies row status badge styling: champion vs runner-up vs classified.
  */
 export function isChampionStatusBadge(statusBadge?: string): boolean {
@@ -289,7 +308,10 @@ export function isSinglePhaseTournament(t: { hasFinalPhase?: boolean }): boolean
  * - 1946-1949 (including 1948 inaugural championship): uses the 1946-1950 JCD historical crest.
  * - 1950: uses the 1950-1951 JUNIOR three-stripe historical crest.
  * - 1951-1966 (1951-1953 El Dorado & 1966 Dimayor return): uses the 1951-1966 9-stripe shield under navy chief.
- * - 1967+: uses the official Junior crest.
+ * - 1977-1979: uses the 1977-1980 single-star blue-top shield historical crest.
+ * - 1980-1993: uses the 1980-1993 two-star JUNIOR banner shield historical crest.
+ * - 1994: uses the 1994 three-star JUNIOR F.B.C. shield historical crest.
+ * - 1967-1976 & 1995+: uses the official Junior crest.
  */
 export function getTournamentJuniorCrest(t: { id?: string; year?: string }): {
   src: string;
@@ -317,6 +339,24 @@ export function getTournamentJuniorCrest(t: { id?: string; year?: string }): {
       alt: 'Escudo Histórico Junior 1951-1966',
     };
   }
+  if (startYear !== null && startYear >= 1977 && startYear <= 1979) {
+    return {
+      src: '/assets/aistudio/ESCUDO_JUNIOR_1977-1980_6559099c.png',
+      alt: 'Escudo Histórico Junior 1977-1980',
+    };
+  }
+  if (startYear !== null && startYear >= 1980 && startYear <= 1993) {
+    return {
+      src: '/assets/aistudio/ESCUDO_JUNIOR_1980-1993_13294272.png',
+      alt: 'Escudo Histórico Junior 1980-1993',
+    };
+  }
+  if (startYear === 1994) {
+    return {
+      src: '/assets/aistudio/ESCUDO_JUNIOR_1994_b3280916.png',
+      alt: 'Escudo Histórico Junior 1994',
+    };
+  }
   return {
     src: '/assets/aistudio/image_82370351.png',
     alt: 'Escudo Oficial Junior',
@@ -334,29 +374,32 @@ export function extractTournamentStartYear(year?: string): number | null {
 
 /**
  * Returns the team crest asset to display inside a specific tournament table/match card.
- * - Junior: uses 1946-1950 JCD crest in 1946-1949 tables (1948), 1950-1951 crest in 1950, 1951-1966 crest in 1951-1966 tables, and official Junior crest from 1967 onward.
+ * - Junior: uses 1946-1950 JCD crest in 1946-1949 tables (1948), 1950-1951 crest in 1950, 1951-1966 crest in 1951-1966 tables, 1977-1980 single-star crest in 1977-1979 tables, 1980-1993 two-star JUNIOR banner crest in 1980-1993 tables, 1994 three-star JUNIOR F.B.C. crest in 1994 tables, and official Junior crest in 1967-1976 and 1995+.
  * - Santa Fe: uses 1948-1950 CISF historical crest for 1948-1949 tables, 1950-1952 crest for 1950-1951 tables, 1952-1956 crest strictly for 1952-1956 tables, 1966-1967 Campeón 66 crest for 1966 tables, and 1967-2012 classic crest strictly for 1967-2012 tables.
  * - Deportes Caldas / Deportivo Manizales: uses 1947-1950 historical crest for 1947-1949 tables, and 1950-1961 crest strictly for 1950-1961 tables.
- * - Once Caldas: uses 1961-1967 tricolor-and-C historical crest for 1961-1966 tables, 1967-1971 C-rings crest strictly for 1967-1971 tables, and 1972-1976 Cristal Caldas oval crest strictly for 1972-1976 tables.
- * - Millonarios: uses 1947-1955 historical crest for 1947-1955 tables, and 1956-1974 crest strictly for 1956-1974 tables.
- * - Atlético Municipal / Nacional: uses 1947-1950 historical crest for 1947-1949 tables, 1950-1953 crest for 1950-1953 tables, and 1954-1988 crowned shield crest strictly for 1954-1988 tables.
- * - América de Cali: uses 1940-1961 historical crest strictly for 1940-1961 tables, and 1964-1976 devil-and-ball crest strictly for 1964-1976 tables.
+ * - Once Caldas: uses 1961-1967 tricolor-and-C historical crest for 1961-1966 tables, 1967-1971 C-rings crest strictly for 1967-1971 tables, 1972-1976 Cristal Caldas oval crest for 1972-1975 tables, 1976-1979 Cristal Caldas scalloped flower crest strictly for 1976-1979 tables, 1980 Cristal Caldas red wordmark crest strictly for 1980 tables, 1981-1983 Varta F.B.C. crest strictly for 1981-1983 tables, 1984-1986 tricolor double-C star shield crest strictly for 1984-1986 tables, 1987-1990 squared tricolor double-C star shield crest strictly for 1987-1990 tables, 1991-1993 Philips tricolor double-C star shield crest strictly for 1991-1993 tables, and 1994 Philips Colombiana tricolor double-C star shield crest strictly for 1994 tables.
+ * - Millonarios: uses 1947-1955 historical crest for 1947-1955 tables, 1956-1974 crest for 1956-1973 tables, 1974-1975 circular 10-star crest for 1974 tables, 1975-1976 shield 10-star crest for 1975-1976 tables, 1977-1985 classic shield crest strictly for 1977-1985 tables, 1986-1990 double-ring M shield crest strictly for 1986-1990 tables, 1991-1993 navy-and-white double-ring M shield crest strictly for 1991-1993 tables, and 1994-1996 diagonal blue-and-white double-ring M shield crest strictly for 1994-1996 tables.
+ * - Atlético Municipal / Nacional: uses 1947-1950 historical crest for 1947-1949 tables, 1950-1953 crest for 1950-1953 tables, 1954-1988 crowned shield crest strictly for 1954-1988 tables, 1989-1993 five-star castle shield crest strictly for 1989-1993 tables, and 1994-1995 green-and-white castle diagonal A/N shield crest strictly for 1994-1995 tables.
+ * - América de Cali: uses 1940-1961 historical crest strictly for 1940-1961 tables, 1964-1976 devil-and-ball crest for 1964-1975 tables, 1976-1977 white-shield devil crest for 1976-1977 tables, 1978-1982 crowned-stars crest for 1978-1981 tables, 1982-1983 single-star shield crest for 1982-1983 tables, 1984 two-star shield crest strictly for 1984 tables, 1985 three-star shield crest strictly for 1985 tables, 1986 four-star (3+1) shield crest strictly for 1986 tables, 1987 six-star shield crest strictly for 1987 tables, 1988 circular ADC monogram crest strictly for 1988 tables, 1989-1990 red six-star shield crest strictly for 1989-1990 tables, 1991-1992 white seven-star shield crest strictly for 1991-1992 tables, and 1993-1997 eight-star devil shield crest strictly for 1993-1997 tables.
  * - Independiente Medellín: uses 1913-1951 FBC historical crest strictly for 1913-1951 tables, and 1966-1997 DIM diagonal crest strictly for 1966-1997 tables.
  * - Deportivo Cali: uses 1948-2012 historical crest strictly for 1948-2012 tables.
  * - Once Deportivo: uses historical D emblem in 1948-1951 tables.
  * - Universidad Nacional: uses historical crest in 1948-1952 tables.
  * - Boca Juniors de Cali: uses CABJ Cali crest across historical tables and matches.
  * - Cúcuta Deportivo: uses 1950-1971 historical CD yin-yang crest for 1950-1971 tables, and 1972-2005 red-and-black CD circle crest strictly for 1972-2005 tables.
- * - Atlético Bucaramanga: uses 1950-1957 historical AB pennant crest for 1950-1956 tables, and 1957-1985 leopard crest strictly for 1957-1985 tables.
- * - Sporting de Barranquilla: uses 1950-1953 historical black-and-gold crest strictly for 1950-1953 tables.
- * - Deportivo Pereira: uses 1949-1952 historical DP golden-ball crest for 1949-1951 tables, 1952-1956 yellow-chevron D.P. crest for 1952-1955 tables, and 1956-1989 DP diagonal red-yellow crest strictly for 1956-1989 tables.
+ * - Atlético Bucaramanga: uses 1950-1957 historical AB pennant crest for 1950-1956 tables, 1957-1985 leopard crest strictly for 1957-1985 tables, and 1986-1996 yellow-green A.B. leopard crest strictly for 1986-1996 tables.
+ * - Sporting de Barranquilla: uses 1950-1953 historical black-and-gold crest strictly for 1950-1953 tables, 1988-1990 tiger-and-stripes crest strictly for 1988-1990 tables, and 1991 jaguar-and-tricolor-band crest strictly for 1991 tables.
+ * - Deportivo Pereira: uses 1949-1952 historical DP golden-ball crest for 1949-1951 tables, 1952-1956 yellow-chevron D.P. crest for 1952-1955 tables, 1956-1989 DP diagonal red-yellow crest strictly for 1956-1989 tables, 1990 CP ball-top diagonal crest strictly for 1990 tables, 1991-1993 black-and-yellow DP ball-top diagonal crest strictly for 1991-1993 tables, and 1994-1997 Ferro Club Pereira circular crest strictly for 1994-1997 tables.
  * - Huracán de Medellín: uses hot-air balloon crest across 1950-1951 tables without colliding with Independiente Medellín.
- * - Deportes Quindío: uses 1951-1967 historical DQ pennant crest for 1951-1966 tables, and 1967-1986 star-and-tricolor crest strictly for 1967-1986 tables.
+ * - Deportes Quindío: uses 1951-1967 historical DQ pennant crest for 1951-1966 tables, 1967-1986 star-and-tricolor crest strictly for 1967-1986 tables, 1987-1990 tricolor-ball DQ shield crest strictly for 1987-1990 tables, and 1991-1996 Corporación Deportes Quindío crest strictly for 1991-1996 tables.
  * - Deportes Tolima: uses 1966-1997 yellow-and-black DT crest strictly for 1966-1997 tables.
  * - Deportivo Samarios: uses historical Santa Marta Samarios crest across its El Dorado tables and matches.
  * - Unión Magdalena: uses official Unión Magdalena crest across its historical and modern tables and matches.
  * - Real Cartagena: uses 1971-2013 antique shield crest strictly for 1971-2013 tables and matches.
  * - Oro Negro: uses Club Deportivo Oro Negro (Barrancabermeja) crest across its 1971 tables and matches.
+ * - Envigado F.C.: uses official Envigado F.C. green-and-orange shield crest across its historical and modern tables and matches.
+ * - Atlético Huila: uses official Atlético Huila yellow-and-green AH shield crest across its historical and modern tables and matches.
+ * - Cortuluá: uses 1967-1999 circular Cortuluá crest strictly for tables up through 1999.
  */
 export function getTournamentTeamCrest(
   t: { id?: string; year?: string },
@@ -444,7 +487,9 @@ export function getTournamentTeamCrest(
 
   const isOnceCaldas =
     lower.includes('once caldas') ||
+    lower.includes('once philips') ||
     lower.includes('cristal caldas') ||
+    lower.includes('varta caldas') ||
     lower.trim() === 'caldas';
   if (
     isOnceCaldas &&
@@ -472,11 +517,78 @@ export function getTournamentTeamCrest(
     isOnceCaldas &&
     startYear !== null &&
     startYear >= 1972 &&
-    startYear <= 1976
+    startYear <= 1975
   ) {
     return {
       src: '/assets/aistudio/ince_caldas_de_1972-1976_0fb41669.png',
       alt: 'Escudo Histórico Once Caldas 1972-1976',
+    };
+  }
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 1976 &&
+    startYear <= 1979
+  ) {
+    return {
+      src: '/assets/aistudio/ince_caldas_de_1976-1979_b1634e0f.png',
+      alt: 'Escudo Histórico Once Caldas 1976-1979',
+    };
+  }
+  if (isOnceCaldas && startYear === 1980) {
+    return {
+      src: '/assets/aistudio/Logotipo_rojo_Cristal_Caldas_fa11a891.png',
+      alt: 'Escudo Histórico Once Caldas 1980',
+    };
+  }
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 1981 &&
+    startYear <= 1983
+  ) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_81_al_83_7a7a4a9a.png',
+      alt: 'Escudo Histórico Once Caldas 1981-1983',
+    };
+  }
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 1984 &&
+    startYear <= 1986
+  ) {
+    return {
+      src: '/assets/aistudio/caldas_1984-1986_f5f1d42a.png',
+      alt: 'Escudo Histórico Once Caldas 1984-1986',
+    };
+  }
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 1987 &&
+    startYear <= 1990
+  ) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_87-90_530986be.png',
+      alt: 'Escudo Histórico Once Caldas 1987-1990',
+    };
+  }
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 1991 &&
+    startYear <= 1993
+  ) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_91-93_3e56fe90.png',
+      alt: 'Escudo Histórico Once Caldas 1991-1993',
+    };
+  }
+  if (isOnceCaldas && startYear === 1994) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_94_e6cd8054.png',
+      alt: 'Escudo Histórico Once Caldas 1994',
     };
   }
 
@@ -496,11 +608,72 @@ export function getTournamentTeamCrest(
     isMillonarios &&
     startYear !== null &&
     startYear >= 1956 &&
-    startYear <= 1974
+    startYear <= 1973
   ) {
     return {
       src: '/assets/aistudio/MILLONARIOS_1956-1974_706de05d.png',
       alt: 'Escudo Histórico Millonarios 1956-1974',
+    };
+  }
+  if (isMillonarios && startYear === 1974) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_1974-1975_aad7c182.png',
+      alt: 'Escudo Histórico Millonarios 1974-1975',
+    };
+  }
+  if (
+    isMillonarios &&
+    startYear !== null &&
+    startYear >= 1975 &&
+    startYear <= 1976
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_1975-1976_31a73b01.png',
+      alt: 'Escudo Histórico Millonarios 1975-1976',
+    };
+  }
+  if (
+    isMillonarios &&
+    startYear !== null &&
+    startYear >= 1977 &&
+    startYear <= 1985
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_1977-1985_287f6a88.png',
+      alt: 'Escudo Histórico Millonarios 1977-1985',
+    };
+  }
+  if (
+    isMillonarios &&
+    startYear !== null &&
+    startYear >= 1986 &&
+    startYear <= 1990
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_1986-1990_bfddd8f7.png',
+      alt: 'Escudo Histórico Millonarios 1986-1990',
+    };
+  }
+  if (
+    isMillonarios &&
+    startYear !== null &&
+    startYear >= 1991 &&
+    startYear <= 1993
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_1991-1993_6f66335e.png',
+      alt: 'Escudo Histórico Millonarios 1991-1993',
+    };
+  }
+  if (
+    isMillonarios &&
+    startYear !== null &&
+    startYear >= 1994 &&
+    startYear <= 1996
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_1994-1996_2b96201e.png',
+      alt: 'Escudo Histórico Millonarios 1994-1996',
     };
   }
 
@@ -542,6 +715,28 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Atlético Nacional 1954-1988',
     };
   }
+  if (
+    isAtleticoNacionalClub &&
+    startYear !== null &&
+    startYear >= 1989 &&
+    startYear <= 1993
+  ) {
+    return {
+      src: '/assets/aistudio/nacional_89-93_64c7048e.png',
+      alt: 'Escudo Histórico Atlético Nacional 1989-1993',
+    };
+  }
+  if (
+    isAtleticoNacionalClub &&
+    startYear !== null &&
+    startYear >= 1994 &&
+    startYear <= 1995
+  ) {
+    return {
+      src: '/assets/aistudio/nacional_94-95_6d46dd78.png',
+      alt: 'Escudo Histórico Atlético Nacional 1994-1995',
+    };
+  }
 
   const isAmericaDeCali =
     (lower.includes('américa') || lower.includes('america')) &&
@@ -561,11 +756,107 @@ export function getTournamentTeamCrest(
     isAmericaDeCali &&
     startYear !== null &&
     startYear >= 1964 &&
-    startYear <= 1976
+    startYear <= 1975
   ) {
     return {
       src: '/assets/aistudio/AMERICA_1964-1976_162e4a73.png',
       alt: 'Escudo Histórico América de Cali 1964-1976',
+    };
+  }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 1976 &&
+    startYear <= 1977
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_1976-1977_f8a3472a.png',
+      alt: 'Escudo Histórico América de Cali 1976-1977',
+    };
+  }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 1978 &&
+    startYear <= 1981
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_1978-1982_fb4dc8ad.png',
+      alt: 'Escudo Histórico América de Cali 1978-1982',
+    };
+  }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 1982 &&
+    startYear <= 1983
+  ) {
+    return {
+      src: '/assets/aistudio/america_82-83_5b814bd1.png',
+      alt: 'Escudo Histórico América de Cali 1982-1983',
+    };
+  }
+  if (isAmericaDeCali && startYear === 1984) {
+    return {
+      src: '/assets/aistudio/america_84_a2e0b5ef.png',
+      alt: 'Escudo Histórico América de Cali 1984',
+    };
+  }
+  if (isAmericaDeCali && startYear === 1985) {
+    return {
+      src: '/assets/aistudio/america_85_1df539ce.png',
+      alt: 'Escudo Histórico América de Cali 1985',
+    };
+  }
+  if (isAmericaDeCali && startYear === 1986) {
+    return {
+      src: '/assets/aistudio/america_86_30765880.png',
+      alt: 'Escudo Histórico América de Cali 1986',
+    };
+  }
+  if (isAmericaDeCali && startYear === 1987) {
+    return {
+      src: '/assets/aistudio/AMERICA_1987_c3e7b6ea.png',
+      alt: 'Escudo Histórico América de Cali 1987',
+    };
+  }
+  if (isAmericaDeCali && startYear === 1988) {
+    return {
+      src: '/assets/aistudio/AMERICA_1988_955f5918.png',
+      alt: 'Escudo Histórico América de Cali 1988',
+    };
+  }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 1989 &&
+    startYear <= 1990
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_1989-90_a4c15c3c.png',
+      alt: 'Escudo Histórico América de Cali 1989-1990',
+    };
+  }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 1991 &&
+    startYear <= 1992
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_1991-92_1e26761b.png',
+      alt: 'Escudo Histórico América de Cali 1991-1992',
+    };
+  }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 1993 &&
+    startYear <= 1997
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_1993-97_bb5c7139.png',
+      alt: 'Escudo Histórico América de Cali 1993-1997',
     };
   }
 
@@ -682,6 +973,17 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Atlético Bucaramanga 1957-1985',
     };
   }
+  if (
+    isAtleticoBucaramanga &&
+    startYear !== null &&
+    startYear >= 1986 &&
+    startYear <= 1996
+  ) {
+    return {
+      src: '/assets/aistudio/bucaramanga_1986-1996_91b42c33.png',
+      alt: 'Escudo Histórico Atlético Bucaramanga 1986-1996',
+    };
+  }
 
   const isSportingBarranquilla =
     lower.includes('sporting') && !lower.includes('cristal');
@@ -694,6 +996,23 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/sporting_1950-1953_871e9ddd.png',
       alt: 'Escudo Histórico Sporting de Barranquilla 1950-1953',
+    };
+  }
+  if (
+    isSportingBarranquilla &&
+    startYear !== null &&
+    startYear >= 1988 &&
+    startYear <= 1990
+  ) {
+    return {
+      src: '/assets/aistudio/sporting_del_88_al_90_ce1415f4.png',
+      alt: 'Escudo Histórico Sporting de Barranquilla 1988-1990',
+    };
+  }
+  if (isSportingBarranquilla && startYear === 1991) {
+    return {
+      src: '/assets/aistudio/sporting_del_1991_ea5b0c81.png',
+      alt: 'Escudo Histórico Sporting de Barranquilla 1991',
     };
   }
 
@@ -734,6 +1053,34 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Deportivo Pereira 1956-1989',
     };
   }
+  if (isDeportivoPereira && startYear === 1990) {
+    return {
+      src: '/assets/aistudio/PEREIRA_DEL_90_c5870e7b.png',
+      alt: 'Escudo Histórico Deportivo Pereira 1990',
+    };
+  }
+  if (
+    isDeportivoPereira &&
+    startYear !== null &&
+    startYear >= 1991 &&
+    startYear <= 1993
+  ) {
+    return {
+      src: '/assets/aistudio/PEREIRA_DEL_91-93_c728df5f.png',
+      alt: 'Escudo Histórico Deportivo Pereira 1991-1993',
+    };
+  }
+  if (
+    isDeportivoPereira &&
+    startYear !== null &&
+    startYear >= 1994 &&
+    startYear <= 1997
+  ) {
+    return {
+      src: '/assets/aistudio/PEREIRA_DEL_94-97_f66c1f46.png',
+      alt: 'Escudo Histórico Deportivo Pereira 1994-1997',
+    };
+  }
 
   const isHuracanDeMedellin =
     (lower.includes('huracán') || lower.includes('huracan')) &&
@@ -766,6 +1113,28 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/quindio_del_67_al_86_9cf838c0.png',
       alt: 'Escudo Histórico Deportes Quindío 1967-1986',
+    };
+  }
+  if (
+    isDeportesQuindio &&
+    startYear !== null &&
+    startYear >= 1987 &&
+    startYear <= 1990
+  ) {
+    return {
+      src: '/assets/aistudio/quindio_del_87_al_90_68f06640.png',
+      alt: 'Escudo Histórico Deportes Quindío 1987-1990',
+    };
+  }
+  if (
+    isDeportesQuindio &&
+    startYear !== null &&
+    startYear >= 1991 &&
+    startYear <= 1996
+  ) {
+    return {
+      src: '/assets/aistudio/quindio_del_91_al_96_16f4c349.png',
+      alt: 'Escudo Histórico Deportes Quindío 1991-1996',
     };
   }
 
@@ -821,6 +1190,33 @@ export function getTournamentTeamCrest(
     };
   }
 
+  if (lower.includes('envigado')) {
+    return {
+      src: '/assets/aistudio/escudo_envigado_9ca4099e.png',
+      alt: 'Escudo Oficial Envigado F.C.',
+    };
+  }
+
+  if (lower.includes('huila')) {
+    return {
+      src: '/assets/aistudio/Escudo_de_Atl_tico_Huila.svg_6eeb5b7d.webp',
+      alt: 'Escudo Oficial Atlético Huila',
+    };
+  }
+
+  const isCortulua = lower.includes('cortuluá') || lower.includes('cortulua');
+  if (
+    isCortulua &&
+    startYear !== null &&
+    startYear >= 1967 &&
+    startYear <= 1999
+  ) {
+    return {
+      src: '/assets/aistudio/cortulua-_1967-1999-m7VqpkMKwLIXBo5b_e6ef3247.webp',
+      alt: 'Escudo Histórico Cortuluá 1967-1999',
+    };
+  }
+
   return null;
 }
 
@@ -850,13 +1246,16 @@ function isSameClubKey(a: string, b: string): boolean {
 
 export type StandingRowTableContext =
   | 'regular'
+  | 'regularGroup'
   | 'secondaryRegular'
+  | 'tertiaryRegular'
   | 'finalGroup'
   | 'finalSummary';
 
 export interface TournamentClassificationMeta {
   id?: string;
   championTeam: string;
+  runnerUpTeam?: string;
   juniorFinish?: string;
   isJuniorChampion?: boolean;
   isJuniorRunnerUp?: boolean;
@@ -864,6 +1263,10 @@ export interface TournamentClassificationMeta {
   phaseType?: string;
   rows?: { pos: number; team: string; statusBadge?: string }[];
   regularRows?: { pos: number; team: string; statusBadge?: string }[];
+  regularGroups?: {
+    groupName: string;
+    rows: { pos: number; team: string; statusBadge?: string }[];
+  }[];
   finalGroups?: {
     groupName: string;
     rows: { pos: number; team: string; statusBadge?: string }[];
@@ -882,6 +1285,11 @@ function resolveRunnerUpKey(
 ): string {
   if (isNoChampionTourney) return '';
 
+  // 0. Explicit runnerUpTeam metadata (authoritative when present)
+  if (t.runnerUpTeam && t.runnerUpTeam.trim()) {
+    return normalizeClubKey(t.runnerUpTeam);
+  }
+
   // 1. Direct Gran Final / Final match between two teams (excluding round-robin group titles)
   if (t.playoffMatches && t.playoffMatches.length > 0 && championKey) {
     const finalMatches = t.playoffMatches.filter((m) => {
@@ -889,12 +1297,14 @@ function resolveRunnerUpKey(
       const isFinalWord = /\bfinal\b/.test(st);
       const isRoundRobinOrEarly =
         st.includes('cuadrangular') ||
+        st.includes('cuad.') ||
         st.includes('hexagonal') ||
         st.includes('octogonal') ||
         st.includes('triangular') ||
         st.includes('semifinal') ||
         st.includes('cuartos') ||
-        st.includes('grupo');
+        st.includes('grupo') ||
+        st.includes('fecha ');
       return isFinalWord && !isRoundRobinOrEarly;
     });
     for (let i = finalMatches.length - 1; i >= 0; i--) {
@@ -989,13 +1399,24 @@ export function getRowStatusBadge(
     return `${row.pos}º Puesto`;
   }
 
-  // Regular / Secondary regular phases of multi-phase tournaments
-  if (context === 'regular' || context === 'secondaryRegular') {
+  // Regular / Regular Groups (Finalización Grupo A y B) / Secondary & Tertiary regular phases
+  if (
+    context === 'regular' ||
+    context === 'regularGroup' ||
+    context === 'secondaryRegular' ||
+    context === 'tertiaryRegular'
+  ) {
     if (t.id === '2020-playoffs') {
       if (isChamp) return 'Campeón ★';
       if (isRunnerUp) return 'Subcampeón 🥈';
       if (row.pos === 1) return 'Líder · Clasificado';
       return row.pos <= 8 ? 'Clasificado' : 'Liguilla';
+    }
+
+    // Apertura table feeding directly into Finalización Grupo A (1-7) & Grupo B (8-14)
+    if (context === 'regular' && t.regularGroups && t.regularGroups.length >= 2) {
+      if (row.pos === 1) return 'Líder · Grupo A';
+      return row.pos <= 7 ? 'Grupo A' : 'Grupo B';
     }
 
     const qualifiedKeys = new Set<string>();
@@ -1014,6 +1435,14 @@ export function getRowStatusBadge(
     }
 
     const didQualify = qualifiedKeys.has(rowKey) || isChamp || isRunnerUp;
+
+    if (context === 'regularGroup') {
+      if (row.pos === 1) {
+        return didQualify ? 'Líder · Clasificado' : 'Líder Grupo';
+      }
+      return didQualify ? 'Clasificado' : 'Eliminado';
+    }
+
     if (isChamp) return 'Campeón ★';
     if (isRunnerUp) return 'Subcampeón 🥈';
     if (didQualify) {
@@ -1213,7 +1642,11 @@ export type MatchArchiveLapFilter =
   | 'apertura'
   | 'finalizacion'
   | 'cuadrangular'
-  | 'triangular';
+  | 'semifinal'
+  | 'triangular'
+  | 'hexagonal'
+  | 'octogonal'
+  | 'desempate';
 export type MatchArchiveVenueFilter = 'all' | 'home' | 'away';
 export type MatchArchiveOutcomeFilter = 'all' | 'win' | 'draw' | 'loss';
 
@@ -1258,6 +1691,35 @@ export function getMatchLapNumber(
   index?: number
 ): number | null {
   if (totalMatches === 50) {
+    const trimmed = (round || '').trim();
+    if (/^cuadrangular[oó]n/i.test(trimmed)) {
+      return 5;
+    }
+    if (/^copa\s+mustang\s+i\b/i.test(trimmed)) {
+      const roundNum = extractMatchRoundNumber(trimmed);
+      if (roundNum !== null) {
+        return roundNum <= 15 ? 1 : 2;
+      }
+      if (index !== undefined && index >= 0 && index < 36) {
+        return index < 15 ? 1 : 2;
+      }
+      return 1;
+    }
+    if (/^copa\s+mustang\s+ii\b/i.test(trimmed)) {
+      return 3;
+    }
+    if (/^cuad(?:\.|rangular)\s+final\b/i.test(trimmed)) {
+      return 5;
+    }
+    if (/^semif(?:inal|\.)\s*b\b/i.test(trimmed)) {
+      return 7;
+    }
+    if (/^apertura\s*·/i.test(trimmed)) {
+      return 1;
+    }
+    if (/^finalizaci[oó]n\s*·/i.test(trimmed)) {
+      return 3;
+    }
     const roundNum = extractMatchRoundNumber(round);
     if (roundNum !== null && roundNum >= 1 && roundNum <= 50) {
       if (roundNum <= 13) return 1;
@@ -1274,7 +1736,86 @@ export function getMatchLapNumber(
     return null;
   }
 
+  if (totalMatches === 53) {
+    if (/semif(?:inal|\.)|cuad(?:rangular|\.)/i.test(round || '')) {
+      return 7;
+    }
+    const roundNum = extractMatchRoundNumber(round);
+    if (roundNum !== null && roundNum >= 1 && roundNum <= 47) {
+      if (roundNum <= 13) return 1;
+      if (roundNum <= 26) return 2;
+      if (roundNum <= 38) return 3;
+      return 4;
+    }
+    if (index !== undefined && index >= 0 && index < 53) {
+      if (index < 13) return 1;
+      if (index < 26) return 2;
+      if (index < 38) return 3;
+      if (index < 47) return 4;
+      return 7;
+    }
+    return null;
+  }
+
+  if (totalMatches === 57 || totalMatches === 59 || totalMatches === 61) {
+    if (/desempate/i.test(round || '')) {
+      return 6;
+    }
+    if (/semif(?:inal|\.)/i.test(round || '')) {
+      return 7;
+    }
+    if (/hex(?:agonal|\.)|cuad(?:rangular|\.)\s*final|octog(?:onal|\.)/i.test(round || '')) {
+      return 5;
+    }
+    const roundNum = extractMatchRoundNumber(round);
+    if (roundNum !== null && roundNum >= 1 && roundNum <= 47) {
+      if (roundNum <= 13) return 1;
+      if (roundNum <= 26) return 2;
+      if (roundNum <= 38) return 3;
+      return 4;
+    }
+    if (index !== undefined && index >= 0 && index < totalMatches) {
+      if (index < 13) return 1;
+      if (index < 26) return 2;
+      if (totalMatches === 61) {
+        if (index < 28) return 6;
+        if (index < 40) return 3;
+        if (index < 49) return 4;
+        if (index < 55) return 7;
+        return 5;
+      }
+      if (totalMatches === 59) {
+        if (index < 28) return 6;
+        if (index < 40) return 3;
+        if (index < 49) return 4;
+        return 5;
+      }
+      if (index < 38) return 3;
+      if (index < 47) return 4;
+      return 5;
+    }
+    return null;
+  }
+
   if (totalMatches === 52 || totalMatches === 56 || totalMatches === 58) {
+    if (totalMatches === 56 && /serie\s*extra|bonificaci[oó]n|desempate/i.test(round || '')) {
+      return 6;
+    }
+    if (totalMatches === 56 && /octog(?:onal|\.)/i.test(round || '')) {
+      return 5;
+    }
+    if (totalMatches === 56 && /copa\s+de\s+la\s+paz/i.test(round || '')) {
+      return 1;
+    }
+    if (totalMatches === 56 && /torneo\s+nacional/i.test(round || '')) {
+      const roundNum = extractMatchRoundNumber(round);
+      if (roundNum !== null && roundNum >= 1 && roundNum <= 26) {
+        return roundNum <= 13 ? 3 : 4;
+      }
+      if (index !== undefined && index >= 16 && index < 42) {
+        return index < 29 ? 3 : 4;
+      }
+    }
     if (totalMatches === 58 && /cuad(?:rangular|\.)/i.test(round || '')) {
       return 5;
     }
@@ -1294,6 +1835,131 @@ export function getMatchLapNumber(
     if (totalMatches === 56 && index !== undefined && index >= 52 && index < 56) {
       return 5;
     }
+    return null;
+  }
+
+  if (totalMatches === 36) {
+    if (/pent(?:agonal|\.)/i.test(round || '')) return 1;
+    if (/triang(?:ular|\.)/i.test(round || '')) return 2;
+    if (/finaliz(?:aci[oó]n|\.)/i.test(round || '')) return 3;
+    if (/octog(?:onal|\.)/i.test(round || '')) return 5;
+    if (index !== undefined && index >= 0 && index < 36) {
+      if (index < 8) return 1;
+      if (index < 12) return 2;
+      if (index < 22) return 3;
+      return 5;
+    }
+    return null;
+  }
+
+  if (totalMatches === 40) {
+    const trimmed = (round || '').trim();
+    if (/^pent(?:agonal|\.)/i.test(trimmed)) return 1;
+    if (/^triang(?:ular|\.)/i.test(trimmed)) return 2;
+    if (/^(?:finaliz(?:aci[oó]n|\.)|fin\.)/i.test(trimmed)) {
+      const fMatch = /F(\d+)|Fecha\s+(\d+)/i.exec(trimmed);
+      if (fMatch) {
+        const fNum = Number(fMatch[1] || fMatch[2]);
+        return fNum <= 31 ? 3 : 4;
+      }
+      if (index !== undefined && index >= 12 && index < 40) {
+        return index < 26 ? 3 : 4;
+      }
+      return 3;
+    }
+    if (index !== undefined && index >= 0 && index < 40) {
+      if (index < 8) return 1;
+      if (index < 12) return 2;
+      if (index < 26) return 3;
+      return 4;
+    }
+    return null;
+  }
+
+  if (totalMatches === 54) {
+    const trimmed = (round || '').trim();
+    if (/^(?:copa\s+mustang\s+i\b|ap(?:ertura|\.)\s*·)/i.test(trimmed)) return 1;
+    if (/^(?:copa\s+mustang\s+ii\b|fin(?:alizaci[oó]n|\.)\s*·)/i.test(trimmed)) {
+      const fMatch = /Fecha\s+(\d+)/i.exec(trimmed);
+      if (fMatch) {
+        return Number(fMatch[1]) <= 15 ? 3 : 4;
+      }
+      if (index !== undefined && index >= 18 && index < 48) {
+        return index < 33 ? 3 : 4;
+      }
+      return 3;
+    }
+    if (/semif(?:inal|\.)|cuad(?:rangular|\.)/i.test(trimmed)) return 7;
+    if (index !== undefined && index >= 0 && index < 54) {
+      if (index < 18) return 1;
+      if (index < 33) return 3;
+      if (index < 48) return 4;
+      return 7;
+    }
+    return null;
+  }
+
+  if (totalMatches === 46) {
+    const trimmed = (round || '').trim();
+    if (/^(?:copa\s+mustang\s+i\b|ap(?:ertura|\.)\s*·)/i.test(trimmed)) {
+      const fMatch = /Fecha\s+(\d+)/i.exec(trimmed);
+      if (fMatch) {
+        return Number(fMatch[1]) <= 16 ? 1 : 2;
+      }
+      if (index !== undefined && index >= 0 && index < 32) {
+        return index < 16 ? 1 : 2;
+      }
+      return 1;
+    }
+    if (/^(?:copa\s+mustang\s+ii\b|fin(?:alizaci[oó]n|\.)\s*·)/i.test(trimmed)) {
+      return 3;
+    }
+  }
+
+  if (totalMatches === 44) {
+    const trimmed = (round || '').trim();
+    if (/^apertura\s*·/i.test(trimmed)) return 1;
+    if (/^finalizaci[oó]n\s*·/i.test(trimmed)) return 3;
+    return null;
+  }
+
+  if (totalMatches === 28) {
+    const trimmed = (round || '').trim();
+    if (/^primera\s+fase/i.test(trimmed)) return 1;
+    if (/^regional\s+d\b/i.test(trimmed)) return 3;
+    if (/^semif(?:inal|\.)\s*b\b/i.test(trimmed)) return 7;
+  }
+
+  if (totalMatches === 34) {
+    const trimmed = (round || '').trim();
+    if (/^(?:apertura|ap\.)/i.test(trimmed)) return 1;
+    if (/^(?:finaliz(?:aci[oó]n|\.)|fin\.)/i.test(trimmed)) return 3;
+    if (/cuad(?:rangular|\.)|semif(?:inal|\.)/i.test(trimmed)) return 7;
+  }
+
+  if (totalMatches === 14) {
+    const trimmed = (round || '').trim();
+    if (/^(?:apertura|ap\.)/i.test(trimmed)) return 1;
+    if (/^(?:finaliz(?:aci[oó]n|\.)|fin\.)/i.test(trimmed)) return 3;
+    if (/cuad(?:rangular|\.)\s*final/i.test(trimmed)) return 5;
+    if (/cuad(?:rangular|\.)\s*a|semif(?:inal|\.)/i.test(trimmed)) return 7;
+    return null;
+  }
+
+  if (totalMatches === 12) {
+    const trimmed = (round || '').trim();
+    if (/^(?:apertura|ap\.)/i.test(trimmed)) return 1;
+    if (/^(?:finaliz(?:aci[oó]n|\.)|fin\.)/i.test(trimmed)) return 3;
+    if (/cuad(?:rangular|\.)\s*final/i.test(trimmed)) return 5;
+    if (/cuad(?:rangular|\.)\s*b|semif(?:inal|\.)/i.test(trimmed)) return 7;
+    return null;
+  }
+
+  if (totalMatches === 11) {
+    const trimmed = (round || '').trim();
+    if (/desempate/i.test(trimmed)) return 6;
+    if (/cuad(?:rangular|\.)\s*final/i.test(trimmed)) return 5;
+    if (/cuad(?:rangular|\.)\s*a|semif(?:inal|\.)/i.test(trimmed)) return 7;
     return null;
   }
 
@@ -1318,9 +1984,232 @@ function TWO_LAP_TOURNAMENT_VALID(totalMatches: number): boolean {
 
 export function getMatchArchiveLapOptions(
   totalMatches: number,
-  matches?: Pick<MatchArchiveEntry, 'round'>[]
+  matches?: Pick<MatchArchiveEntry, 'round' | 'date' | 'note'>[]
 ): MatchArchiveLapOption[] {
+  if (totalMatches === 61) {
+    const hasSemesterTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /apertura|finalizaci[oó]n/i.test(m.round || ''));
+    const hasDesempateTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /desempate/i.test(m.round || ''));
+    const hasSemifinalTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /semif(?:inal|\.)/i.test(m.round || ''));
+    const hasCuadrangularFinalTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /cuad(?:rangular|\.)\s*final/i.test(m.round || ''));
+    if (hasSemesterTags && hasDesempateTags && hasSemifinalTags && hasCuadrangularFinalTags) {
+      const finSlice = matches.slice(28, 49);
+      const intragroupSlice = finSlice.filter(
+        (m) => !/intergrupo|pareja/i.test(`${m.date || ''} ${m.note || ''}`)
+      );
+      const isGroupB = intragroupSlice.some((m) =>
+        /grupo\s*b/i.test(`${m.date || ''} ${m.note || ''}`)
+      );
+      const groupLabel = isGroupB ? 'Grupo B' : 'Grupo A';
+      const hasInterleavedFinalizacion = matches
+        .slice(28, 40)
+        .some((m) => /intergrupo|pareja/i.test(`${m.date || ''} ${m.note || ''}`));
+      return [
+        { id: 'all', label: 'Todas (61)' },
+        { id: 'apertura', label: 'Apertura (1–26)' },
+        { id: 'desempate', label: 'Desempate Ap. (2)' },
+        { id: 'finalizacion', label: 'Finalización (27–47)' },
+        { id: 'semifinal', label: 'Cuadrangular Semif. (6)' },
+        { id: 'cuadrangular', label: 'Cuadrangular Final (6)' },
+        { id: '1', label: 'Ap. 1.ª Vta (1–13)' },
+        { id: '2', label: 'Ap. 2.ª Vta (14–26)' },
+        {
+          id: '3',
+          label: hasInterleavedFinalizacion ? `Fin. ${groupLabel} (12)` : `Fin. ${groupLabel} (27–38)`,
+        },
+        {
+          id: '4',
+          label: hasInterleavedFinalizacion ? 'Fin. Intergrupos (9)' : 'Fin. Intergrupos (39–47)',
+        },
+      ];
+    }
+    const hasOctogonalTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /octog(?:onal|\.)/i.test(m.round || ''));
+    if (hasSemesterTags && hasOctogonalTags) {
+      const finSlice = matches.slice(26, 47);
+      const intragroupSlice = finSlice.filter(
+        (m) => !/intergrupo|pareja/i.test(`${m.date || ''} ${m.note || ''}`)
+      );
+      const isGroupB = intragroupSlice.some((m) =>
+        /grupo\s*b/i.test(`${m.date || ''} ${m.note || ''}`)
+      );
+      const groupLabel = isGroupB ? 'Grupo B' : 'Grupo A';
+      const hasInterleavedFinalizacion = matches
+        .slice(26, 38)
+        .some((m) => /intergrupo|pareja/i.test(`${m.date || ''} ${m.note || ''}`));
+      return [
+        { id: 'all', label: 'Todas (61)' },
+        { id: 'apertura', label: 'Apertura (1–26)' },
+        { id: 'finalizacion', label: 'Finalización (27–47)' },
+        { id: 'octogonal', label: 'Octogonal Final (14)' },
+        { id: '1', label: 'Ap. 1.ª Vta (1–13)' },
+        { id: '2', label: 'Ap. 2.ª Vta (14–26)' },
+        {
+          id: '3',
+          label: hasInterleavedFinalizacion ? `Fin. ${groupLabel} (12)` : `Fin. ${groupLabel} (27–38)`,
+        },
+        {
+          id: '4',
+          label: hasInterleavedFinalizacion ? 'Fin. Intergrupos (9)' : 'Fin. Intergrupos (39–47)',
+        },
+      ];
+    }
+  }
+
+  if (totalMatches === 59) {
+    const hasSemesterTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /apertura|finalizaci[oó]n/i.test(m.round || ''));
+    const hasHexagonalTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /hex(?:agonal|\.)/i.test(m.round || ''));
+    const hasDesempateTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /desempate/i.test(m.round || ''));
+    if (hasSemesterTags && hasHexagonalTags && hasDesempateTags) {
+      const hasInterleavedFinalizacion =
+        Array.isArray(matches) &&
+        matches
+          .slice(28, 40)
+          .some((m) => /intergrupo|pareja/i.test(`${m.date || ''} ${m.note || ''}`));
+      return [
+        { id: 'all', label: 'Todas (59)' },
+        { id: 'apertura', label: 'Apertura (1–26)' },
+        { id: 'desempate', label: 'Desempate Ap. (2)' },
+        { id: 'finalizacion', label: 'Finalización (27–47)' },
+        { id: 'hexagonal', label: 'Hexagonal Final (10)' },
+        { id: '1', label: 'Ap. 1.ª Vta (1–13)' },
+        { id: '2', label: 'Ap. 2.ª Vta (14–26)' },
+        {
+          id: '3',
+          label: hasInterleavedFinalizacion ? 'Fin. Grupo A (12)' : 'Fin. Grupo A (27–38)',
+        },
+        {
+          id: '4',
+          label: hasInterleavedFinalizacion ? 'Fin. Intergrupos (9)' : 'Fin. Intergrupos (39–47)',
+        },
+      ];
+    }
+    const hasSemifinalTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /semif(?:inal|\.)/i.test(m.round || ''));
+    const hasCuadrangularFinalTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /cuad(?:rangular|\.)\s*final/i.test(m.round || ''));
+    if (hasSemesterTags && hasSemifinalTags && hasCuadrangularFinalTags) {
+      const finSlice = matches.slice(26, 47);
+      const intragroupSlice = finSlice.filter(
+        (m) => !/intergrupo|pareja/i.test(`${m.date || ''} ${m.note || ''}`)
+      );
+      const isGroupB = intragroupSlice.some((m) =>
+        /grupo\s*b/i.test(`${m.date || ''} ${m.note || ''}`)
+      );
+      const groupLabel = isGroupB ? 'Grupo B' : 'Grupo A';
+      const hasInterleavedFinalizacion = matches
+        .slice(26, 38)
+        .some((m) => /intergrupo|pareja/i.test(`${m.date || ''} ${m.note || ''}`));
+      return [
+        { id: 'all', label: 'Todas (59)' },
+        { id: 'apertura', label: 'Apertura (1–26)' },
+        { id: 'finalizacion', label: 'Finalización (27–47)' },
+        { id: 'semifinal', label: 'Cuadrangular Semif. (6)' },
+        { id: 'cuadrangular', label: 'Cuadrangular Final (6)' },
+        { id: '1', label: 'Ap. 1.ª Vta (1–13)' },
+        { id: '2', label: 'Ap. 2.ª Vta (14–26)' },
+        {
+          id: '3',
+          label: hasInterleavedFinalizacion ? `Fin. ${groupLabel} (12)` : `Fin. ${groupLabel} (27–38)`,
+        },
+        {
+          id: '4',
+          label: hasInterleavedFinalizacion ? 'Fin. Intergrupos (9)' : 'Fin. Intergrupos (39–47)',
+        },
+      ];
+    }
+  }
+
+  if (totalMatches === 53) {
+    const hasSemesterTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /apertura|finalizaci[oó]n/i.test(m.round || ''));
+    const hasSemifinalTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /semif(?:inal|\.)|cuad(?:rangular|\.)/i.test(m.round || ''));
+    if (hasSemesterTags && hasSemifinalTags) {
+      const finSlice = matches.slice(26, 38);
+      const isGroupB = finSlice.some((m) => /grupo\s*b/i.test(`${m.date || ''} ${m.note || ''}`));
+      const groupLabel = isGroupB ? 'Grupo B' : 'Grupo A';
+      return [
+        { id: 'all', label: 'Todas (53)' },
+        { id: 'apertura', label: 'Apertura (1–26)' },
+        { id: 'finalizacion', label: 'Finalización (27–47)' },
+        { id: 'semifinal', label: 'Cuadrangular Semif. (6)' },
+        { id: '1', label: 'Ap. 1.ª Vta (1–13)' },
+        { id: '2', label: 'Ap. 2.ª Vta (14–26)' },
+        { id: '3', label: `Fin. ${groupLabel} (27–38)` },
+        { id: '4', label: 'Fin. Intergrupos (39–47)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 57) {
+    const hasSemesterTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /apertura|finalizaci[oó]n/i.test(m.round || ''));
+    const hasHexagonalTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /hex(?:agonal|\.)/i.test(m.round || ''));
+    if (hasSemesterTags && hasHexagonalTags) {
+      const hasInterleavedFinalizacion =
+        Array.isArray(matches) &&
+        matches
+          .slice(26, 38)
+          .some((m) => /intergrupo|pareja/i.test(`${m.date || ''} ${m.note || ''}`));
+      return [
+        { id: 'all', label: 'Todas (57)' },
+        { id: 'apertura', label: 'Apertura (1–26)' },
+        { id: 'finalizacion', label: 'Finalización (27–47)' },
+        { id: 'hexagonal', label: 'Hexagonal Final (10)' },
+        { id: '1', label: 'Ap. 1.ª Vta (1–13)' },
+        { id: '2', label: 'Ap. 2.ª Vta (14–26)' },
+        {
+          id: '3',
+          label: hasInterleavedFinalizacion ? 'Fin. Grupo A (12)' : 'Fin. Grupo A (27–38)',
+        },
+        {
+          id: '4',
+          label: hasInterleavedFinalizacion ? 'Fin. Intergrupos (9)' : 'Fin. Intergrupos (39–47)',
+        },
+      ];
+    }
+  }
+
   if (totalMatches === 56) {
+    const hasCopaPazTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /copa\s+de\s+la\s+paz/i.test(m.round || ''));
+    const hasOctogonalTags =
+      Array.isArray(matches) &&
+      matches.some((m) => /octog(?:onal|\.)/i.test(m.round || ''));
+    if (hasCopaPazTags && hasOctogonalTags) {
+      return [
+        { id: 'all', label: 'Todas (56)' },
+        { id: 'apertura', label: 'Copa de la Paz (14)' },
+        { id: 'desempate', label: 'Serie Extra (2)' },
+        { id: 'finalizacion', label: 'Torneo Nacional (26)' },
+        { id: 'octogonal', label: 'Octogonal Final (14)' },
+        { id: '3', label: 'Nac. 1.ª Vta (1–13)' },
+        { id: '4', label: 'Nac. 2.ª Vta (14–26)' },
+      ];
+    }
     const hasSemesterTags =
       Array.isArray(matches) &&
       matches.some((m) => /apertura|finalizaci[oó]n/i.test(m.round || ''));
@@ -1363,6 +2252,53 @@ export function getMatchArchiveLapOptions(
   }
 
   if (totalMatches === 50) {
+    const hasCM1 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^copa\s+mustang\s+i\b/i.test((m.round || '').trim()));
+    const hasCuadRegional =
+      Array.isArray(matches) &&
+      matches.some((m) => /^cuadrangular[oó]n/i.test((m.round || '').trim()));
+    const hasCM2 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^copa\s+mustang\s+ii\b/i.test((m.round || '').trim()));
+    if (hasCM1 && hasCuadRegional && hasCM2) {
+      return [
+        { id: 'all', label: 'Todas (50)' },
+        { id: 'apertura', label: 'Apertura · CM I (36)' },
+        { id: 'cuadrangular', label: 'Cuadrangularón D (6)' },
+        { id: 'finalizacion', label: 'Finalización · Gr. A (14)' },
+        { id: '1', label: 'CM I · 1.ª Vta (1–15)' },
+        { id: '2', label: 'CM I · 2.ª Vta (22–36)' },
+      ];
+    }
+    const hasAp1999 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^apertura\s*·/i.test((m.round || '').trim()));
+    const hasFin1999 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^finalizaci[oó]n\s*·/i.test((m.round || '').trim()));
+    const hasSemi1999 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^semif(?:inal|\.)\s*b\b/i.test((m.round || '').trim()));
+    if (hasAp1999 && hasFin1999 && hasSemi1999) {
+      return [
+        { id: 'all', label: 'Todas (50)' },
+        { id: 'apertura', label: 'Apertura (22)' },
+        { id: 'finalizacion', label: 'Finalización (22)' },
+        { id: 'semifinal', label: 'Cuad. Semifinal B (6)' },
+      ];
+    }
+    const hasCuadFinal2000 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^cuad(?:\.|rangular)\s+final\b/i.test((m.round || '').trim()));
+    if (hasAp1999 && hasFin1999 && hasCuadFinal2000) {
+      return [
+        { id: 'all', label: 'Todas (50)' },
+        { id: 'apertura', label: 'Apertura (22)' },
+        { id: 'finalizacion', label: 'Finalización (22)' },
+        { id: 'cuadrangular', label: 'Cuadrangular Final (6)' },
+      ];
+    }
     const hasSemesterTags =
       Array.isArray(matches) &&
       matches.some((m) => /apertura|finalizaci[oó]n/i.test(m.round || ''));
@@ -1410,6 +2346,212 @@ export function getMatchArchiveLapOptions(
     ];
   }
 
+  if (totalMatches === 54) {
+    const hasCM1 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^(?:copa\s+mustang\s+i\b|ap(?:ertura|\.)\s*·)/i.test((m.round || '').trim()));
+    const hasCM2 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^(?:copa\s+mustang\s+ii\b|fin(?:alizaci[oó]n|\.)\s*·)/i.test((m.round || '').trim()));
+    const hasSemi =
+      Array.isArray(matches) &&
+      matches.some((m) => /semif(?:inal|\.)|cuad(?:rangular|\.)/i.test(m.round || ''));
+    if (hasCM1 && hasCM2 && hasSemi) {
+      return [
+        { id: 'all', label: 'Todas (54)' },
+        { id: 'apertura', label: 'Copa Mustang I (18)' },
+        { id: 'finalizacion', label: 'Copa Mustang II (30)' },
+        { id: 'semifinal', label: 'Cuad. Semifinal B (6)' },
+        { id: '3', label: 'Fin. 1.ª Vta (1–15)' },
+        { id: '4', label: 'Fin. 2.ª Vta (16–30)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 46) {
+    const hasCM1 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^(?:copa\s+mustang\s+i\b|ap(?:ertura|\.)\s*·)/i.test((m.round || '').trim()));
+    const hasCM2 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^(?:copa\s+mustang\s+ii\b|fin(?:alizaci[oó]n|\.)\s*·)/i.test((m.round || '').trim()));
+    if (hasCM1 && hasCM2) {
+      return [
+        { id: 'all', label: 'Todas (46)' },
+        { id: 'apertura', label: 'Copa Mustang I (32)' },
+        { id: 'finalizacion', label: 'Copa Mustang II (14)' },
+        { id: '1', label: 'CM I · 1.ª Vta (1–16)' },
+        { id: '2', label: 'CM I · 2.ª Vta (17–32)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 44) {
+    const hasAp2001 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^apertura\s*·/i.test((m.round || '').trim()));
+    const hasFin2001 =
+      Array.isArray(matches) &&
+      matches.some((m) => /^finalizaci[oó]n\s*·/i.test((m.round || '').trim()));
+    if (hasAp2001 && hasFin2001) {
+      return [
+        { id: 'all', label: 'Todas (44)' },
+        { id: 'apertura', label: 'Apertura (22)' },
+        { id: 'finalizacion', label: 'Finalización (22)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 28) {
+    const hasPrimera =
+      Array.isArray(matches) &&
+      matches.some((m) => /^primera\s+fase/i.test((m.round || '').trim()));
+    const hasRegional =
+      Array.isArray(matches) &&
+      matches.some((m) => /^regional\s+d\b/i.test((m.round || '').trim()));
+    const hasSemi =
+      Array.isArray(matches) &&
+      matches.some((m) => /^semif(?:inal|\.)\s*b\b/i.test((m.round || '').trim()));
+    if (hasPrimera && hasRegional && hasSemi) {
+      return [
+        { id: 'all', label: 'Todas (28)' },
+        { id: 'apertura', label: 'Primera Fase (16)' },
+        { id: 'finalizacion', label: 'Regional Grupo D (6)' },
+        { id: 'semifinal', label: 'Cuad. Semifinal B (6)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 36) {
+    const hasPent =
+      Array.isArray(matches) && matches.some((m) => /pent(?:agonal|\.)/i.test(m.round || ''));
+    const hasTri =
+      Array.isArray(matches) && matches.some((m) => /triang(?:ular|\.)/i.test(m.round || ''));
+    const hasFin =
+      Array.isArray(matches) && matches.some((m) => /finaliz(?:aci[oó]n|\.)/i.test(m.round || ''));
+    const hasOct =
+      Array.isArray(matches) && matches.some((m) => /octog(?:onal|\.)/i.test(m.round || ''));
+    if (hasPent && hasTri && hasFin && hasOct) {
+      return [
+        { id: 'all', label: 'Todas (36)' },
+        { id: 'apertura', label: 'Apertura (12)' },
+        { id: '1', label: 'Pentagonal C (8)' },
+        { id: '2', label: 'Triangular D (4)' },
+        { id: 'finalizacion', label: 'Finalización (10)' },
+        { id: 'octogonal', label: 'Octogonal Final (14)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 40) {
+    const hasPent =
+      Array.isArray(matches) && matches.some((m) => /^pent(?:agonal|\.)/i.test((m.round || '').trim()));
+    const hasTri =
+      Array.isArray(matches) && matches.some((m) => /^triang(?:ular|\.)/i.test((m.round || '').trim()));
+    const hasFin =
+      Array.isArray(matches) &&
+      matches.some((m) => /^(?:finaliz(?:aci[oó]n|\.)|fin\.)/i.test((m.round || '').trim()));
+    if (hasPent && hasTri && hasFin) {
+      return [
+        { id: 'all', label: 'Todas (40)' },
+        { id: 'apertura', label: 'Apertura (12)' },
+        { id: '1', label: 'Pentagonal C (8)' },
+        { id: '2', label: 'Triangular B (4)' },
+        { id: 'finalizacion', label: 'Finalización (28)' },
+        { id: '3', label: 'Fin. 1.ª Vta (14)' },
+        { id: '4', label: 'Fin. 2.ª Vta (14)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 34) {
+    const hasAp =
+      Array.isArray(matches) &&
+      matches.some((m) => /^(?:apertura|ap\.)/i.test((m.round || '').trim()));
+    const hasFin =
+      Array.isArray(matches) &&
+      matches.some((m) => /^(?:finaliz(?:aci[oó]n|\.)|fin\.)/i.test((m.round || '').trim()));
+    const hasCuad =
+      Array.isArray(matches) &&
+      matches.some((m) => /cuad(?:rangular|\.)|semif(?:inal|\.)/i.test(m.round || ''));
+    if (hasAp && hasFin && hasCuad) {
+      return [
+        { id: 'all', label: 'Todas (34)' },
+        { id: 'apertura', label: 'Apertura (14)' },
+        { id: 'finalizacion', label: 'Finalización (14)' },
+        { id: 'semifinal', label: 'Cuadrangular A (6)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 14) {
+    const hasAp =
+      Array.isArray(matches) &&
+      matches.some((m) => /^(?:apertura|ap\.)/i.test((m.round || '').trim()));
+    const hasFin =
+      Array.isArray(matches) &&
+      matches.some((m) => /^(?:finaliz(?:aci[oó]n|\.)|fin\.)/i.test((m.round || '').trim()));
+    const hasSemi =
+      Array.isArray(matches) &&
+      matches.some((m) => /cuad(?:rangular|\.)\s*a|semif(?:inal|\.)/i.test(m.round || ''));
+    const hasFinal =
+      Array.isArray(matches) &&
+      matches.some((m) => /cuad(?:rangular|\.)\s*final/i.test(m.round || ''));
+    if (hasAp && hasFin && hasSemi && hasFinal) {
+      return [
+        { id: 'all', label: 'Todas (14)' },
+        { id: 'apertura', label: 'Apertura (3)' },
+        { id: 'finalizacion', label: 'Finalización (2)' },
+        { id: 'semifinal', label: 'Cuad. Semifinal A (3)' },
+        { id: 'cuadrangular', label: 'Cuadrangular Final (6)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 12) {
+    const hasAp =
+      Array.isArray(matches) &&
+      matches.some((m) => /^(?:apertura|ap\.)/i.test((m.round || '').trim()));
+    const hasFin =
+      Array.isArray(matches) &&
+      matches.some((m) => /^(?:finaliz(?:aci[oó]n|\.)|fin\.)/i.test((m.round || '').trim()));
+    const hasSemi =
+      Array.isArray(matches) &&
+      matches.some((m) => /cuad(?:rangular|\.)\s*b|semif(?:inal|\.)/i.test(m.round || ''));
+    const hasFinal =
+      Array.isArray(matches) &&
+      matches.some((m) => /cuad(?:rangular|\.)\s*final/i.test(m.round || ''));
+    if (hasAp && hasFin && hasSemi && hasFinal) {
+      return [
+        { id: 'all', label: 'Todas (12)' },
+        { id: 'apertura', label: 'Apertura (1)' },
+        { id: 'finalizacion', label: 'Finalización (2)' },
+        { id: 'semifinal', label: 'Cuad. Semifinal B (3)' },
+        { id: 'cuadrangular', label: 'Cuadrangular Final (6)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 11) {
+    const hasDes =
+      Array.isArray(matches) &&
+      matches.some((m) => /desempate/i.test(m.round || ''));
+    const hasSemi =
+      Array.isArray(matches) &&
+      matches.some((m) => /cuad(?:rangular|\.)\s*a|semif(?:inal|\.)/i.test(m.round || ''));
+    const hasFinal =
+      Array.isArray(matches) &&
+      matches.some((m) => /cuad(?:rangular|\.)\s*final/i.test(m.round || ''));
+    if (hasDes && hasSemi && hasFinal) {
+      return [
+        { id: 'all', label: 'Todas (11)' },
+        { id: 'desempate', label: 'Desempate Apertura (2)' },
+        { id: 'semifinal', label: 'Cuad. Semifinal A (3)' },
+        { id: 'cuadrangular', label: 'Cuadrangular Final (6)' },
+      ];
+    }
+  }
+
   if (TWO_LAP_MATCH_TOTALS.has(totalMatches)) {
     const half = totalMatches / 2;
     return [
@@ -1422,8 +2564,19 @@ export function getMatchArchiveLapOptions(
   return [];
 }
 
+export function getTournamentPointsPerWin(yearOrOrder: number | string): 2 | 3 {
+  if (typeof yearOrOrder === 'number') {
+    const year = yearOrOrder > 9999 ? Math.floor(yearOrOrder / 100) : yearOrOrder;
+    return year >= 1995 ? 3 : 2;
+  }
+  const match = String(yearOrOrder).match(/\d{4}/);
+  const year = match ? parseInt(match[0], 10) : 0;
+  return year >= 1995 ? 3 : 2;
+}
+
 export function computeJuniorMatchArchiveSummary(
-  matches: MatchArchiveEntry[]
+  matches: MatchArchiveEntry[],
+  pointsPerWin: 2 | 3 = 2
 ): JuniorMatchArchiveSummary {
   let pj = 0;
   let pg = 0;
@@ -1431,6 +2584,7 @@ export function computeJuniorMatchArchiveSummary(
   let pp = 0;
   let gf = 0;
   let gc = 0;
+  let penaltyDrawBonus = 0;
 
   for (const m of matches) {
     const isHome = isJuniorClubName(m.homeTeam);
@@ -1443,8 +2597,12 @@ export function computeJuniorMatchArchiveSummary(
     gf += jg;
     gc += og;
     if (jg > og) pg += 1;
-    else if (jg === og) pe += 1;
-    else pp += 1;
+    else if (jg === og) {
+      pe += 1;
+      if (/\(2\s*pts\s*·\s*penales\s+ganados(?:\)|\s*·)/i.test(m.note || '')) {
+        penaltyDrawBonus += 1;
+      }
+    } else pp += 1;
   }
 
   return {
@@ -1455,7 +2613,7 @@ export function computeJuniorMatchArchiveSummary(
     gf,
     gc,
     dg: gf - gc,
-    pts: pg * 2 + pe,
+    pts: pg * pointsPerWin + pe + penaltyDrawBonus,
   };
 }
 
@@ -1491,11 +2649,42 @@ export function filterMatchArchiveFixtures(
     if (lap !== 'all') {
       const matchLap = getMatchLapNumber(m.round, totalMatches, index);
       if (lap === 'apertura') {
-        if (matchLap !== 1 && matchLap !== 2) return false;
+        if (
+          matchLap !== 1 &&
+          matchLap !== 2 &&
+          !(totalMatches === 50 && matchLap === 5 && /^cuadrangular[oó]n/i.test((m.round || '').trim()))
+        ) {
+          return false;
+        }
       } else if (lap === 'finalizacion') {
         if (matchLap !== 3 && matchLap !== 4) return false;
-      } else if (lap === 'cuadrangular' || lap === 'triangular') {
+      } else if (lap === 'desempate') {
+        if (matchLap !== 6) return false;
+      } else if (lap === 'semifinal') {
+        if (matchLap !== 7) return false;
+      } else if (
+        lap === 'cuadrangular' ||
+        lap === 'triangular' ||
+        lap === 'hexagonal' ||
+        lap === 'octogonal'
+      ) {
         if (matchLap !== 5) return false;
+      } else if (
+        (totalMatches === 57 || totalMatches === 59 || totalMatches === 61) &&
+        (lap === '3' || lap === '4') &&
+        (matchLap === 3 || matchLap === 4) &&
+        (() => {
+          const hasDesempate = matches.some((entry) => /desempate/i.test(entry.round || ''));
+          const finStart = hasDesempate ? 28 : 26;
+          const finEnd = hasDesempate ? 49 : 47;
+          return matches
+            .slice(finStart, finEnd)
+            .some((entry) => /intergrupo|pareja/i.test(`${entry.date || ''} ${entry.note || ''}`));
+        })()
+      ) {
+        const isIntergroupOrPareja = /intergrupo|pareja/i.test(`${m.date || ''} ${m.note || ''}`);
+        if (lap === '3' && isIntergroupOrPareja) return false;
+        if (lap === '4' && !isIntergroupOrPareja) return false;
       } else if (String(matchLap) !== lap) {
         return false;
       }

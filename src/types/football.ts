@@ -266,8 +266,23 @@ export interface TournamentStandingsTable {
   regularPhaseTitle?: string;
   regularPhaseDescription?: string;
   regularRows?: StandingRow[];
+  regularGroupsSectionTitle?: string;
+  regularGroupsSectionDescription?: string;
+  regularGroups?: {
+    id: string;
+    groupName: string;
+    description?: string;
+    rows: StandingRow[];
+  }[];
   secondaryRegularTable?: {
     title: string;
+    badgeLabel?: string;
+    description?: string;
+    rows: StandingRow[];
+  };
+  tertiaryRegularTable?: {
+    title: string;
+    badgeLabel?: string;
     description?: string;
     rows: StandingRow[];
   };
@@ -320,6 +335,26 @@ export interface YearlyStandingRecord {
   gamesPlayed?: number;
   points?: number;
   standingsTableId?: string;
+}
+
+export interface AnnualReclassificationTable {
+  id: string;
+  year: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  aperturaTableId: string;
+  finalizacionTableId: string;
+  aperturaChampion: string;
+  finalizacionChampion: string;
+  leaderTeam: string;
+  leaderPoints: number;
+  juniorPosition: string;
+  juniorSummary: string;
+  relegatedTeam?: string;
+  relegationNote?: string;
+  internationalSummary: string;
+  rows: StandingRow[];
 }
 
 
