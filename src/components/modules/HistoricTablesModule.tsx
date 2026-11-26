@@ -1990,22 +1990,35 @@ export const HistoricTablesModule: React.FC = () => {
                   </div>
 
                   <div className="flex flex-wrap items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => handleOpenStandingsTable(activeReclassificationTable.aperturaTableId)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition-colors"
-                    >
-                      <Table className="w-3.5 h-3.5 text-amber-400" />
-                      <span>Apertura {activeReclassificationTable.year}-I</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleOpenStandingsTable(activeReclassificationTable.finalizacionTableId)}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition-colors"
-                    >
-                      <Table className="w-3.5 h-3.5 text-sky-400" />
-                      <span>Finalización {activeReclassificationTable.year}-II</span>
-                    </button>
+                    {activeReclassificationTable.aperturaTableId === activeReclassificationTable.finalizacionTableId ? (
+                      <button
+                        type="button"
+                        onClick={() => handleOpenStandingsTable(activeReclassificationTable.aperturaTableId)}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition-colors"
+                      >
+                        <Table className="w-3.5 h-3.5 text-amber-400" />
+                        <span>Torneo Único {activeReclassificationTable.year}</span>
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenStandingsTable(activeReclassificationTable.aperturaTableId)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition-colors"
+                        >
+                          <Table className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Apertura {activeReclassificationTable.year}-I</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenStandingsTable(activeReclassificationTable.finalizacionTableId)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-200 transition-colors"
+                        >
+                          <Table className="w-3.5 h-3.5 text-sky-400" />
+                          <span>Finalización {activeReclassificationTable.year}-II</span>
+                        </button>
+                      </>
+                    )}
                     <ShareButton
                       sectionTitle={activeReclassificationTable.title}
                       customHash={`#tablas-historicas?tabla=${activeReclassificationTable.id}`}
@@ -2049,11 +2062,22 @@ export const HistoricTablesModule: React.FC = () => {
 
                   <div className="p-3.5 rounded-xl bg-slate-950 border border-amber-500/30">
                     <div className="text-[10px] font-bold uppercase tracking-wider text-amber-400">
-                      Campeones del Año
+                      {activeReclassificationTable.aperturaTableId === activeReclassificationTable.finalizacionTableId
+                        ? 'Campeón del Año'
+                        : 'Campeones del Año'}
                     </div>
                     <div className="text-xs font-bold text-white mt-1 space-y-0.5">
-                      <div>I: <span className="text-amber-300">{activeReclassificationTable.aperturaChampion}</span></div>
-                      <div>II: <span className="text-amber-300">{activeReclassificationTable.finalizacionChampion}</span></div>
+                      {activeReclassificationTable.aperturaTableId === activeReclassificationTable.finalizacionTableId ? (
+                        <>
+                          <div>Campeón: <span className="text-amber-300">{activeReclassificationTable.aperturaChampion}</span></div>
+                          <div>Subcampeón: <span className="text-slate-300">{activeReclassificationTable.finalizacionChampion}</span></div>
+                        </>
+                      ) : (
+                        <>
+                          <div>I: <span className="text-amber-300">{activeReclassificationTable.aperturaChampion}</span></div>
+                          <div>II: <span className="text-amber-300">{activeReclassificationTable.finalizacionChampion}</span></div>
+                        </>
+                      )}
                     </div>
                   </div>
 
@@ -2077,7 +2101,9 @@ export const HistoricTablesModule: React.FC = () => {
                       {activeReclassificationTable.relegatedTeam || 'Sin descenso'}
                     </div>
                     <div className="text-[11px] text-slate-400 mt-0.5">
-                      Definido por tabla de promedio 2000–2002
+                      {activeReclassificationTable.year === '2020'
+                        ? 'Promedio aplazado a 2021-I · Cúcuta desafiliado'
+                        : `Definido por tabla del promedio ${Number(activeReclassificationTable.year) - 2}–${activeReclassificationTable.year}`}
                     </div>
                   </div>
                 </div>

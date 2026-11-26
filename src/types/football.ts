@@ -196,7 +196,8 @@ export type AppModuleId =
   | 'goleadores-historicos'
   | 'uniformes'
   | 'titulos'
-  | 'actualidad';
+  | 'actualidad'
+  | 'historia';
 
 export type WindowViewMode = 'inicio' | AppModuleId;
 
@@ -311,6 +312,7 @@ export interface TournamentStandingsTable {
   matchArchive?: {
     round: string;
     date: string;
+    venue?: string;
     homeTeam: string;
     awayTeam: string;
     homeScore: number;
@@ -356,5 +358,231 @@ export interface AnnualReclassificationTable {
   internationalSummary: string;
   rows: StandingRow[];
 }
+
+export type FranchiseStatus = 'primera-a' | 'primera-b' | 'desaparecido';
+
+export interface FranchiseEraIdentity {
+  name: string;
+  years: string;
+  city: string;
+  note?: string;
+}
+
+export interface FranchiseCrestEra {
+  src: string;
+  alt: string;
+  eraLabel: string;
+  teamName: string;
+}
+
+export interface ClubFranchiseMetadata {
+  id: string;
+  name: string;
+  shortName: string;
+  monogram: string;
+  status: FranchiseStatus;
+  city: string;
+  department: string;
+  colors: string;
+  primaryHex: string;
+  secondaryHex: string;
+  derbyName: string;
+  aliases: string[];
+  eras: FranchiseEraIdentity[];
+  hasIdentityChange?: boolean;
+  relatedFranchiseIds?: string[];
+  relatedNote?: string;
+  historicalContext: string;
+}
+
+export interface HeadToHeadMatchRecord {
+  id: string;
+  tournamentId: string;
+  year: string;
+  chronologicalOrder: number;
+  tournamentName: string;
+  round: string;
+  date: string;
+  venue: string;
+  isHome: boolean;
+  isFinalPhase: boolean;
+  opponentNameAtTime: string;
+  opponentCrest?: { src: string; alt: string } | null;
+  juniorCrest?: { src: string; alt: string } | null;
+  juniorScore: number;
+  opponentScore: number;
+  outcome: 'W' | 'D' | 'L';
+  note?: string;
+}
+
+export interface HeadToHeadSplitStats {
+  pj: number;
+  pg: number;
+  pe: number;
+  pp: number;
+  gf: number;
+  gc: number;
+  dg: number;
+  winPct: number;
+  pointsPct: number;
+  biggestWin: HeadToHeadMatchRecord | null;
+  biggestLoss: HeadToHeadMatchRecord | null;
+}
+
+export interface HeadToHeadEraBreakdown {
+  eraName: string;
+  years: string;
+  city: string;
+  note?: string;
+  pj: number;
+  pg: number;
+  pe: number;
+  pp: number;
+  gf: number;
+  gc: number;
+}
+
+export interface HeadToHeadFranchiseSummary {
+  franchise: ClubFranchiseMetadata;
+  matches: HeadToHeadMatchRecord[];
+  overall: HeadToHeadSplitStats;
+  home: HeadToHeadSplitStats;
+  away: HeadToHeadSplitStats;
+  eraBreakdowns: HeadToHeadEraBreakdown[];
+  crestGallery: FranchiseCrestEra[];
+  primaryCrest: { src: string; alt: string } | null;
+  firstYear: string;
+  lastYear: string;
+  currentStreak: string;
+  lastMatch: HeadToHeadMatchRecord | null;
+}
+
+export type HistoryTabId =
+  | 'cronica'
+  | 'simbolos'
+  | 'infraestructura'
+  | 'datos'
+  | 'cultura';
+
+export type HistoryEraGroup =
+  | 'todos'
+  | 'fundacion-dorado'
+  | 'regreso-primeras-estrellas'
+  | 'decada-90-2000'
+  | 'era-dorada-2010'
+  | 'centenario-actual';
+
+export type HistoryChapterCategory =
+  | 'todas'
+  | 'fundacion'
+  | 'titulo'
+  | 'internacional'
+  | 'crisis'
+  | 'hito';
+
+export interface HistoryChapter {
+  id: string;
+  number: string;
+  yearLabel: string;
+  title: string;
+  eraLabel: string;
+  eraGroup: Exclude<HistoryEraGroup, 'todos'>;
+  category: Exclude<HistoryChapterCategory, 'todas'>;
+  summary: string;
+  paragraphs: string[];
+  keyFigures: string[];
+  standingsTableId?: string;
+  rivalFranchiseId?: string;
+}
+
+export interface ClubInstitutionalFact {
+  label: string;
+  value: string;
+}
+
+export interface ClubSymbolEntry {
+  id: string;
+  title: string;
+  period: string;
+  paragraphs: string[];
+  highlight?: string;
+  crestImages?: Array<{ src: string; caption: string }>;
+}
+
+export interface ClubFacilityEntry {
+  id: string;
+  type: 'estadio' | 'sede';
+  name: string;
+  period: string;
+  location: string;
+  capacityOrScope: string;
+  paragraphs: string[];
+}
+
+export interface ClubRecordItem {
+  year: string;
+  title: string;
+  detail: string;
+}
+
+export interface ClubCulturalTopic {
+  id: string;
+  group: 'liderazgo' | 'filiales' | 'social' | 'influencia';
+  title: string;
+  subtitle: string;
+  paragraphs: string[];
+  highlights?: string[];
+  rivalFranchiseId?: string;
+}
+
+export type ScorerEraBucket =
+  | 'todos'
+  | '1948-1979'
+  | '1980-1999'
+  | '2000-2014'
+  | '2015-2026';
+
+export type ScorerSpecialFilter =
+  | 'todos'
+  | 'foto-archivo'
+  | 'botin-oro'
+  | 'extranjeros'
+  | 'activos';
+
+export type ScorerSortKey = 'rank' | 'liga' | 'internacional';
+
+export interface ScorerGoalBreakdown {
+  liga: number;
+  copa: number;
+  superliga: number;
+  libertadores: number;
+  sudamericana: number;
+  conmebol: number;
+}
+
+export interface TopScorerProfile {
+  rank: number;
+  id: string;
+  name: string;
+  nickname?: string;
+  nationality: string;
+  countryCode: 'COL' | 'BRA' | 'URU' | 'PAR' | 'ARG' | 'VEN' | 'CHI';
+  position: string;
+  periods: string;
+  eraBucket: Exclude<ScorerEraBucket, 'todos'>;
+  totalGoals: number;
+  matches?: number;
+  breakdown: ScorerGoalBreakdown;
+  isActiveAtClub?: boolean;
+  goldenBoots?: string[];
+  titlesNote?: string;
+  bio: string;
+  photoUrl?: string;
+  photoAttribution?: string;
+  legendId?: string;
+}
+
+
+
 
 

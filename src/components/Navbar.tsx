@@ -20,12 +20,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { theme, toggleTheme } = useTheme();
 
   const navItems = [
-    { id: 'tablas-historicas', label: 'Tablas de Posiciones' },
-    { id: 'resultados-vs-equipos', label: 'Resultados vs Equipos' },
-    { id: 'goleadores-historicos', label: 'Goleadores Históricos' },
+    { id: 'tablas-historicas', label: 'Tablas' },
+    { id: 'resultados-vs-equipos', label: 'vs Equipos' },
+    { id: 'goleadores-historicos', label: 'Goleadores' },
     { id: 'uniformes', label: 'Uniformes' },
     { id: 'titulos', label: 'Títulos' },
     { id: 'actualidad', label: 'Actualidad' },
+    { id: 'historia', label: 'Historia' },
   ];
 
   const handleNavClick = (id: string) => {
@@ -88,7 +89,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={() => handleNavClick('inicio')}
                 className="px-2.5 py-1.5 text-xs font-bold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5"
-                title="Volver a la vista principal de las 6 ventanas"
+                title="Volver a la vista principal de las 7 ventanas"
               >
                 <Home className="w-3.5 h-3.5 text-red-400" />
                 <span className="hidden sm:inline">Portal Principal</span>

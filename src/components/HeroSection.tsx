@@ -48,9 +48,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
           </h1>
 
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl font-normal">
-            Bienvenido a la gran enciclopedia histórica e interactiva de Los Tiburones organizada en <strong>6 ventanas oficiales independientes</strong>:
+            Bienvenido a la gran enciclopedia histórica e interactiva de Los Tiburones organizada en <strong>7 ventanas oficiales independientes</strong>:
             <strong> Tablas Históricas</strong>, <strong>Resultados vs Equipos</strong>, <strong>Goleadores Históricos</strong>,
-            <strong> Uniformes</strong>, <strong>Títulos</strong> y <strong>Actualidad Oficial</strong>. Abre cualquier ventana para explorar su archivo completo sin saturación.
+            <strong> Uniformes</strong>, <strong>Títulos</strong>, <strong>Actualidad Oficial</strong> e <strong>Historia</strong>. Abre cualquier ventana para explorar su archivo completo sin saturación.
           </p>
 
           {/* Action CTAs */}
@@ -65,6 +65,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
             </button>
 
             <button
+              onClick={() => onNavigate('historia')}
+              className="px-5 py-3.5 text-sm font-semibold tracking-wide text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-lg transition-colors flex items-center gap-2"
+            >
+              <span>Ventana 07: Historia (1924–2026)</span>
+            </button>
+
+            <button
               onClick={() => onNavigate('tablas-historicas')}
               className="px-5 py-3.5 text-sm font-semibold tracking-wide text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-lg transition-colors flex items-center gap-2"
             >
@@ -76,13 +83,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
               className="px-5 py-3.5 text-sm font-semibold tracking-wide text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-lg transition-colors flex items-center gap-2"
             >
               <span>Ventana 02: vs Equipos</span>
-            </button>
-
-            <button
-              onClick={() => onNavigate('goleadores-historicos')}
-              className="px-5 py-3.5 text-sm font-semibold tracking-wide text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-lg transition-colors flex items-center gap-2"
-            >
-              <span>Ventana 03: Goleadores</span>
             </button>
           </div>
         </div>

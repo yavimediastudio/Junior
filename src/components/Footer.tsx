@@ -34,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           {/* Col 2: Secciones Rápidas */}
           <div>
             <span className="font-display text-sm font-bold uppercase text-white tracking-wider block mb-3">
-              Los 6 Módulos Oficiales
+              Los 7 Módulos Oficiales
             </span>
             <ul className="space-y-2">
               <li>
@@ -83,6 +83,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   className="hover:text-white transition-colors"
                 >
                   Módulo 6: Actualidad & Plantilla Oficial
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onNavigate('historia')}
+                  className="hover:text-white transition-colors"
+                >
+                  Módulo 7: Historia (1924–2026)
                 </button>
               </li>
             </ul>

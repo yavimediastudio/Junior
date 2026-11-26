@@ -26,6 +26,44 @@ import {
   buildPlayoffKnockoutBrackets,
 } from './footballLogic';
 import { LeagueStanding, MatchFixture } from '../types/football';
+import { RIVAL_FRANCHISES_CATALOG } from '../data/rivalFranchisesData';
+import {
+  buildAllHeadToHeadFranchises,
+  filterHeadToHeadMatches,
+  resolveClubFranchiseId,
+} from './headToHeadLogic';
+import {
+  WIKIPEDIA_SOURCE_URL,
+  CLUB_HISTORY_INTRO,
+  CLUB_INSTITUTIONAL_FACTS,
+  CLUB_HISTORY_CHAPTERS,
+  CLUB_SYMBOLS_DATA,
+  CLUB_STADIUMS_AND_FACILITIES,
+  CLUB_GENERAL_STATS,
+  CLUB_BIGGEST_SCORES,
+  CLUB_LANDMARK_RECORDS,
+  CLUB_CULTURAL_TOPICS,
+} from '../data/clubHistoryData';
+import fs from 'node:fs';
+import path from 'node:path';
+import {
+  filterHistoryChapters,
+  getHistoryEraCounts,
+} from './historyLogic';
+import {
+  TOP_50_SCORERS_DATA,
+  SCORER_ERA_FILTERS,
+  TOP_50_SCORERS_SOURCE_URL,
+} from '../data/topScorers50Data';
+import {
+  getBreakdownSum,
+  getInternationalGoals,
+  getScorerEraCounts,
+  getScorerInitials,
+  filterTopScorers,
+  getAdjacentScorers,
+} from './topScorersLogic';
+import { LEGENDS_DATA } from '../data/juniorData';
 
 test('sortLeagueStandings sorts by points, then goal difference, then goals for', () => {
   const mockStandings: LeagueStanding[] = [
@@ -156,8 +194,11 @@ import {
 import { JUNIOR_TIMELINE_MILESTONES } from '../data/juniorTimelineData';
 import {
   ALL_14_OFFICIAL_TITLES,
+  ALL_TIME_DIMAYOR_TABLE,
   GOLDEN_BOOT_WINNERS,
+  HISTORIC_DERBIES,
   JUNIOR_YEARLY_STANDINGS,
+  STANDINGS_2026_II_DATA,
   STARS_DATA,
 } from '../data/juniorData';
 import {
@@ -525,7 +566,7 @@ test('Deportes Caldas 1947-1949 and 1950-1961 historical crests apply strictly t
   assert.equal(getTournamentTeamCrest(t1951, 'Once Caldas'), null);
 });
 
-test('Millonarios 1947-1955, 1956-1973, 1974-1975, 1975-1976, 1977-1985, 1986-1990, 1991-1993, and 1994-1996 historical crests apply strictly to their respective ranges and exclude 1997+', () => {
+test('Millonarios 1947-1955, 1956-1973, 1974-1975, 1975-1976, 1977-1985, 1986-1990, 1991-1993, 1994-1996, 1997-1999, and 2000-2002 historical crests apply strictly to their respective ranges and exclude 2003+', () => {
   for (const id of ['1948-inaugural', '1950-dorado', '1951-dorado', '1952-dorado', '1953-dorado']) {
     const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
     assert.ok(tbl, `Missing table ${id}`);
@@ -646,15 +687,54 @@ test('Millonarios 1947-1955, 1956-1973, 1974-1975, 1975-1976, 1977-1985, 1986-19
     '/assets/aistudio/MILLONARIOS_1994-1996_2b96201e.png'
   );
 
-  const t1997 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1997-adecuacion');
+  for (const id of ['1997-adecuacion', '1998-reclasificacion', '1999-cuadrangular']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Millonarios F.C.');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MILLONARIOS_1997-1999_224dd26f.png',
+      `Expected Millonarios 1997-1999 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Millonarios 1997-1999');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '1998' }, 'Millonarios')?.src,
+    '/assets/aistudio/MILLONARIOS_1997-1999_224dd26f.png'
+  );
+
+  for (const id of [
+    '2000-cuadrangular',
+    '2001-reclasificacion',
+    '2002-I-regular',
+    '2002-II-regular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Millonarios F.C.');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MILLONARIOS_2000-2002_cda26f62.png',
+      `Expected Millonarios 2000-2002 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Millonarios 2000-2002');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2001' }, 'Millonarios')?.src,
+    '/assets/aistudio/MILLONARIOS_2000-2002_cda26f62.png'
+  );
+
+  const t2003I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2003-I-cuadrangular');
+  const t2003II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2003-II-cuadrangular');
   const t2023 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2023-II-cuadrangular');
-  assert.ok(t1997 && t2023);
-  assert.equal(getTournamentTeamCrest(t1997, 'Millonarios F.C.'), null);
-  assert.equal(getTournamentTeamCrest({ year: '1997' }, 'Millonarios F.C.'), null);
+  assert.ok(t2003I && t2003II && t2023);
+  assert.equal(getTournamentTeamCrest(t2003I, 'Millonarios F.C.'), null);
+  assert.equal(getTournamentTeamCrest(t2003II, 'Millonarios F.C.'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2003' }, 'Millonarios F.C.'), null);
   assert.equal(getTournamentTeamCrest(t2023, 'Millonarios F.C.'), null);
 });
 
-test('Atlético Municipal / Nacional 1947-1949, 1950-1953, 1954-1988, 1989-1993, and 1994-1995 historical crests apply strictly and exclude Universidad Nacional and 1996+', () => {
+test('Atlético Municipal / Nacional 1947-1949, 1950-1953, 1954-1988, 1989-1993, 1994-1995, 1996-1999, and 2000-present crests apply strictly and exclude Universidad Nacional', () => {
   const t1948 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1948-inaugural');
   const t1950 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1950-dorado');
   const t1951 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1951-dorado');
@@ -673,6 +753,10 @@ test('Atlético Municipal / Nacional 1947-1949, 1950-1953, 1954-1988, 1989-1993,
   const t1995 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1995-nivelacion');
   const t199596 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1995-96-cuadrangular');
   const t199697 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1996-97-cuadrangular');
+  const t1997 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1997-adecuacion');
+  const t1998 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1998-reclasificacion');
+  const t1999 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1999-cuadrangular');
+  const t2000 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2000-cuadrangular');
   assert.ok(
     t1948 &&
       t1950 &&
@@ -691,7 +775,11 @@ test('Atlético Municipal / Nacional 1947-1949, 1950-1953, 1954-1988, 1989-1993,
       t1994 &&
       t1995 &&
       t199596 &&
-      t199697
+      t199697 &&
+      t1997 &&
+      t1998 &&
+      t1999 &&
+      t2000
   );
 
   assert.equal(
@@ -742,6 +830,15 @@ test('Atlético Municipal / Nacional 1947-1949, 1950-1953, 1954-1988, 1989-1993,
     );
     assert.equal(crest?.alt, 'Escudo Histórico Atlético Nacional 1994-1995');
   }
+  for (const tbl of [t199697, t1997, t1998, t1999]) {
+    const crest = getTournamentTeamCrest(tbl, 'Atlético Nacional');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/nacional_96-99_1bdc5b71.png',
+      `Expected Atlético Nacional 1996-1999 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Atlético Nacional 1996-1999');
+  }
   assert.equal(
     getTournamentTeamCrest(t1948, 'Universidad Nacional')?.src,
     '/assets/aistudio/image_63a79417.png'
@@ -750,11 +847,38 @@ test('Atlético Municipal / Nacional 1947-1949, 1950-1953, 1954-1988, 1989-1993,
     getTournamentTeamCrest(t1951, 'Universidad Nacional')?.src,
     '/assets/aistudio/image_63a79417.png'
   );
-  assert.equal(getTournamentTeamCrest(t199697, 'Atlético Nacional'), null);
-  assert.equal(getTournamentTeamCrest({ year: '1996' }, 'Atlético Nacional'), null);
+  assert.equal(
+    getTournamentTeamCrest(t2000, 'Universidad Nacional')?.src,
+    '/assets/aistudio/image_63a79417.png'
+  );
+
+  for (const id of [
+    '2000-cuadrangular',
+    '2001-reclasificacion',
+    '2002-I-regular',
+    '2023-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Atlético Nacional');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/escudo_nacional_2000-actualidad_79016b5a.png',
+      `Expected Atlético Nacional 2000-present crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Atlético Nacional 2000-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2000' }, 'Atl. Nacional')?.src,
+    '/assets/aistudio/escudo_nacional_2000-actualidad_79016b5a.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Nacional')?.src,
+    '/assets/aistudio/escudo_nacional_2000-actualidad_79016b5a.png'
+  );
 });
 
-test('América de Cali 1940-1961, 1964-1975, 1976-1977, 1978-1981, 1982-1983, 1984, 1985, 1986, 1987, 1988, 1989-1990, 1991-1992, and 1993-1997 historical crests apply strictly to their respective ranges and exclude 1962-1963 and 1998+', () => {
+test('América de Cali 1940-1961, 1964-1975, 1976-1977, 1978-1981, 1982-1983, 1984, 1985, 1986, 1987, 1988, 1989-1990, 1991-1992, 1993-1997, 1998-2000, and 2001-2004 historical crests apply strictly to their respective ranges and exclude 1962-1963 and 2005+', () => {
   for (const id of ['1948-inaugural', '1950-dorado', '1951-dorado', '1952-dorado']) {
     const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
     assert.ok(tbl, `Missing table ${id}`);
@@ -944,6 +1068,53 @@ test('América de Cali 1940-1961, 1964-1975, 1976-1977, 1978-1981, 1982-1983, 19
     '/assets/aistudio/AMERICA_1993-97_bb5c7139.png'
   );
 
+  const t1999 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1999-cuadrangular');
+  const t2000 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2000-cuadrangular');
+  const t2001 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2001');
+  assert.ok(t1999 && t2000 && t2001);
+
+  for (const tbl of [t1998, t1999, t2000]) {
+    const crest = getTournamentTeamCrest(tbl, 'América de Cali');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/AMERICA_1998-2000_c41f8c6c.png',
+      `Expected América 1998-2000 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico América de Cali 1998-2000');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2000' }, 'América de Cali')?.src,
+    '/assets/aistudio/AMERICA_1998-2000_c41f8c6c.png'
+  );
+
+  for (const id of [
+    '2001-reclasificacion',
+    '2002-I-regular',
+    '2002-II-regular',
+    '2003-I-cuadrangular',
+    '2003-II-cuadrangular',
+    '2004-I-cuadrangular',
+    '2004-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'América de Cali');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/AMERICA_2001-2004_669b33f5.png',
+      `Expected América 2001-2004 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico América de Cali 2001-2004');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2001' }, 'América de Cali')?.src,
+    '/assets/aistudio/AMERICA_2001-2004_669b33f5.png'
+  );
+
+  const t2005I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2005-I-regular');
+  const t2005II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2005-II-cuadrangular');
+  assert.ok(t2005I && t2005II);
+
   assert.equal(
     getTournamentTeamCrest({ id: 'custom-1961', year: '1961' }, 'América de Cali')?.src,
     '/assets/aistudio/AMERICA_1940-1961_e9be8b73.png'
@@ -954,13 +1125,14 @@ test('América de Cali 1940-1961, 1964-1975, 1976-1977, 1978-1981, 1982-1983, 19
   );
   assert.equal(getTournamentTeamCrest({ id: 'custom-1962', year: '1962' }, 'América de Cali'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1963', year: '1963' }, 'América de Cali'), null);
-  assert.equal(getTournamentTeamCrest(t1998, 'América de Cali'), null);
-  assert.equal(getTournamentTeamCrest({ year: '1998' }, 'América de Cali'), null);
+  assert.equal(getTournamentTeamCrest(t2005I, 'América de Cali'), null);
+  assert.equal(getTournamentTeamCrest(t2005II, 'América de Cali'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2005' }, 'América de Cali'), null);
   assert.equal(getTournamentTeamCrest(t2023, 'América de Cali'), null);
   assert.equal(getTournamentTeamCrest(t1948, 'Nacional, América y Santa Fe'), null);
 });
 
-test('Independiente Medellín 1913-1951 and 1966-1997 historical crests apply strictly to their respective ranges and exclude Huracán de Medellín', () => {
+test('Independiente Medellín 1913-1951 and 1966-2006 historical crests apply strictly to their respective ranges and exclude Huracán de Medellín and 2007+', () => {
   for (const id of ['1948-inaugural', '1950-dorado', '1951-dorado']) {
     const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
     assert.ok(tbl, `Missing table ${id}`);
@@ -975,27 +1147,34 @@ test('Independiente Medellín 1913-1951 and 1966-1997 historical crests apply st
     '1966-reingreso',
     '1967-campeonato',
     '1975-finalizacion',
-    '1989-cancelado',
+    '1989-desierto',
     '1995-96-cuadrangular',
     '1996-97-cuadrangular',
     '1997-adecuacion',
+    '1998-reclasificacion',
+    '1999-cuadrangular',
+    '2000-cuadrangular',
+    '2002-I-regular',
   ]) {
     const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
     if (!tbl) continue;
+    const crest = getTournamentTeamCrest(tbl, 'Independiente Medellín');
     assert.equal(
-      getTournamentTeamCrest(tbl, 'Independiente Medellín')?.src,
+      crest?.src,
       '/assets/aistudio/MEDELLIN_1966-1997_7d6775c6.png',
-      `Expected Independiente Medellín 1966-1997 crest for ${id}`
+      `Expected Independiente Medellín 1966-2006 crest for ${id}`
     );
+    assert.equal(crest?.alt, 'Escudo Histórico Independiente Medellín 1966-2006');
   }
 
   const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
   const t1967 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1967-campeonato');
   const t1995 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1995-96-cuadrangular');
-  const t1997 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1997-adecuacion');
   const t1998 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1998-reclasificacion');
+  const t2006II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2006-II');
+  const t2007I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2007-I');
   const t2023 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2023-II-cuadrangular');
-  assert.ok(t1966 && t1967 && t1995 && t1997 && t1998 && t2023);
+  assert.ok(t1966 && t1967 && t1995 && t1998 && t2006II && t2007I && t2023);
 
   assert.equal(
     getTournamentTeamCrest(t1966, 'Indep. Medellín')?.src,
@@ -1010,7 +1189,11 @@ test('Independiente Medellín 1913-1951 and 1966-1997 historical crests apply st
     '/assets/aistudio/MEDELLIN_1966-1997_7d6775c6.png'
   );
   assert.equal(
-    getTournamentTeamCrest(t1997, 'Independiente Medellín')?.src,
+    getTournamentTeamCrest(t1998, 'Independiente Medellín')?.src,
+    '/assets/aistudio/MEDELLIN_1966-1997_7d6775c6.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest(t2006II, 'Independiente Medellín')?.src,
     '/assets/aistudio/MEDELLIN_1966-1997_7d6775c6.png'
   );
 
@@ -1033,7 +1216,8 @@ test('Independiente Medellín 1913-1951 and 1966-1997 historical crests apply st
   );
   assert.equal(getTournamentTeamCrest(t1952, 'Independiente Medellín'), null);
   assert.equal(getTournamentTeamCrest({ year: '1965' }, 'Independiente Medellín'), null);
-  assert.equal(getTournamentTeamCrest(t1998, 'Independiente Medellín'), null);
+  assert.equal(getTournamentTeamCrest(t2007I, 'Independiente Medellín'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2007' }, 'Independiente Medellín'), null);
   assert.equal(getTournamentTeamCrest(t2023, 'Independiente Medellín'), null);
 });
 
@@ -1147,7 +1331,7 @@ test('Once Deportivo historical crest applies to Once Deportivo without collidin
   );
 });
 
-test('Once Caldas 1961-1966, 1967-1971, 1972-1975, 1976-1979, 1980, 1981-1983, 1984-1986, 1987-1990, 1991-1993, and 1994 historical crests apply strictly to their respective ranges and exclude 1960/1995+, Once Deportivo, and Deportes Caldas', () => {
+test('Once Caldas 1961-1966, 1967-1971, 1972-1975, 1976-1979, 1980, 1981-1983, 1984-1986, 1987-1990, 1991-1993, 1994, 1995, 1996, 1997-1999, and 2000-2003 historical crests apply strictly to their respective ranges and exclude 1960/2004+, Once Deportivo, and Deportes Caldas', () => {
   const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
   assert.ok(t1966);
   assert.equal(
@@ -1246,6 +1430,12 @@ test('Once Caldas 1961-1966, 1967-1971, 1972-1975, 1976-1979, 1980, 1981-1983, 1
   const t1993 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1993-cuadrangular');
   const t1994 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1994-cuadrangular');
   const t1995 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1995-nivelacion');
+  const t199596 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1995-96-cuadrangular');
+  const t199697 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1996-97-cuadrangular');
+  const t1997 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1997-adecuacion');
+  const t1998 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1998-reclasificacion');
+  const t1999 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1999-cuadrangular');
+  const t2000 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2000-cuadrangular');
   assert.ok(
     t1950 &&
       t1980 &&
@@ -1263,7 +1453,13 @@ test('Once Caldas 1961-1966, 1967-1971, 1972-1975, 1976-1979, 1980, 1981-1983, 1
       t1992 &&
       t1993 &&
       t1994 &&
-      t1995
+      t1995 &&
+      t199596 &&
+      t199697 &&
+      t1997 &&
+      t1998 &&
+      t1999 &&
+      t2000
   );
 
   assert.equal(
@@ -1364,9 +1560,76 @@ test('Once Caldas 1961-1966, 1967-1971, 1972-1975, 1976-1979, 1980, 1981-1983, 1
     '/assets/aistudio/once_caldas_del_94_e6cd8054.png'
   );
 
+  for (const tbl of [t1995, t199596]) {
+    const crest1995 = getTournamentTeamCrest(tbl, 'Once Caldas');
+    assert.equal(
+      crest1995?.src,
+      '/assets/aistudio/once_caldas_del_95_d4ccc7af.png',
+      `Expected Once Caldas 1995 crest for ${tbl.id}`
+    );
+    assert.equal(crest1995?.alt, 'Escudo Histórico Once Caldas 1995');
+  }
+  assert.equal(
+    getTournamentTeamCrest(t1995, 'Caldas')?.src,
+    '/assets/aistudio/once_caldas_del_95_d4ccc7af.png'
+  );
+
+  const crest1996 = getTournamentTeamCrest(t199697, 'Once Caldas');
+  assert.equal(
+    crest1996?.src,
+    '/assets/aistudio/once_caldas_del_96_deca2e30.png',
+    'Expected Once Caldas 1996 crest for 1996-97-cuadrangular'
+  );
+  assert.equal(crest1996?.alt, 'Escudo Histórico Once Caldas 1996');
+  assert.equal(
+    getTournamentTeamCrest({ year: '1996' }, 'Caldas')?.src,
+    '/assets/aistudio/once_caldas_del_96_deca2e30.png'
+  );
+
+  for (const tbl of [t1997, t1998, t1999]) {
+    const crest = getTournamentTeamCrest(tbl, 'Once Caldas');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/once_caldas_del_97-99_c3f980e2.png',
+      `Expected Once Caldas 1997-1999 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Once Caldas 1997-1999');
+  }
+  assert.equal(
+    getTournamentTeamCrest(t1998, 'Caldas')?.src,
+    '/assets/aistudio/once_caldas_del_97-99_c3f980e2.png'
+  );
+
+  for (const id of [
+    '2000-cuadrangular',
+    '2001-reclasificacion',
+    '2002-I-regular',
+    '2002-II-regular',
+    '2003-I-cuadrangular',
+    '2003-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Once Caldas');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/once_caldas_del_2000-2003_f59a376e.png',
+      `Expected Once Caldas 2000-2003 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Once Caldas 2000-2003');
+  }
+  assert.equal(
+    getTournamentTeamCrest(t2000, 'Caldas')?.src,
+    '/assets/aistudio/once_caldas_del_2000-2003_f59a376e.png'
+  );
+
+  const t2004I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2004-I-cuadrangular');
+  const t2004II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2004-II-cuadrangular');
+  assert.ok(t2004I && t2004II);
   assert.equal(getTournamentTeamCrest({ year: '1960' }, 'Once Caldas'), null);
-  assert.equal(getTournamentTeamCrest(t1995, 'Once Caldas'), null);
-  assert.equal(getTournamentTeamCrest({ year: '1995' }, 'Once Caldas'), null);
+  assert.equal(getTournamentTeamCrest(t2004I, 'Once Caldas'), null);
+  assert.equal(getTournamentTeamCrest(t2004II, 'Once Caldas'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2004' }, 'Once Caldas'), null);
   assert.notEqual(
     getTournamentTeamCrest(t1950, 'Once Deportivo')?.src,
     '/assets/aistudio/41396e6d-3efd-4d4c-97b6-ed027c1bfbc7_e6495777.png'
@@ -1565,7 +1828,7 @@ test('Cúcuta Deportivo 1950-1971 and 1972-2005 historical crests apply strictly
   assert.equal(getTournamentTeamCrest(t2006, 'Cúcuta Deportivo'), null);
 });
 
-test('Atlético Bucaramanga 1950-1956, 1957-1985, and 1986-1996 historical crests apply strictly to their respective ranges and exclude 1949/1997+', () => {
+test('Atlético Bucaramanga 1950-1956, 1957-1985, 1986-1996, 1997-1999, and 2000-2009 historical crests apply strictly to their respective ranges and exclude 1949/2010+', () => {
   for (const id of [
     '1950-dorado',
     '1951-dorado',
@@ -1634,12 +1897,57 @@ test('Atlético Bucaramanga 1950-1956, 1957-1985, and 1986-1996 historical crest
     '/assets/aistudio/bucaramanga_1986-1996_91b42c33.png'
   );
 
+  for (const id of [
+    '1997-adecuacion',
+    '1998-reclasificacion',
+    '1999-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Atlético Bucaramanga');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/bucaramanga_1997-2000_0f96a4fa.png',
+      `Expected Atlético Bucaramanga 1997-1999 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Atlético Bucaramanga 1997-2000');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '1999' }, 'Bucaramanga')?.src,
+    '/assets/aistudio/bucaramanga_1997-2000_0f96a4fa.png'
+  );
+
+  for (const id of [
+    '2000-cuadrangular',
+    '2001-reclasificacion',
+    '2002-I-regular',
+    '2005-I-regular',
+    '2008-II-cuadrangular',
+    '2009-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Atlético Bucaramanga');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/bucaramanga_2000-2009_d6d21063.png',
+      `Expected Atlético Bucaramanga 2000-2009 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Atlético Bucaramanga 2000-2009');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2000' }, 'Bucaramanga')?.src,
+    '/assets/aistudio/bucaramanga_2000-2009_d6d21063.png'
+  );
+
   assert.equal(getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Atlético Bucaramanga'), null);
-  const t1997 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1997-adecuacion');
+  const t2010I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2010-I-semifinal');
+  const t2010II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2010-II-cuadrangular');
   const t2024 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2024-I-cuadrangular');
-  assert.ok(t1997 && t2024);
-  assert.equal(getTournamentTeamCrest(t1997, 'Atlético Bucaramanga'), null);
-  assert.equal(getTournamentTeamCrest({ year: '1997' }, 'Atlético Bucaramanga'), null);
+  assert.ok(t2010I && t2010II && t2024);
+  assert.equal(getTournamentTeamCrest(t2010I, 'Atlético Bucaramanga'), null);
+  assert.equal(getTournamentTeamCrest(t2010II, 'Atlético Bucaramanga'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2010' }, 'Atlético Bucaramanga'), null);
   assert.equal(getTournamentTeamCrest(t2024, 'Atlético Bucaramanga'), null);
 });
 
@@ -1704,7 +2012,7 @@ test('Sporting de Barranquilla 1950-1953, 1988-1990, and 1991 historical crests 
   assert.equal(getTournamentTeamCrest({ id: 'lib-1991', year: '1991' }, 'Sporting Cristal'), null);
 });
 
-test('Deportivo Pereira 1949-1951, 1952-1955, 1956-1989, 1990, 1991-1993, and 1994-1997 historical crests apply strictly to their respective ranges and exclude 1948, 1998+, and Águilas Pereira', () => {
+test('Deportivo Pereira 1949-1951, 1952-1955, 1956-1989, 1990, 1991-1993, 1994-1997, and 2001-2005 historical crests apply strictly to their respective ranges and exclude 1948, 1998-2000, 2006+, and Águilas Pereira', () => {
   assert.equal(
     getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Deportivo Pereira')?.src,
     '/assets/aistudio/PEREIRA_DEL_49_al_52_17730967.png'
@@ -1817,15 +2125,50 @@ test('Deportivo Pereira 1949-1951, 1952-1955, 1956-1989, 1990, 1991-1993, and 19
     );
   }
 
+  for (const id of [
+    '2001-reclasificacion',
+    '2002-I-regular',
+    '2002-II-regular',
+    '2003-I-cuadrangular',
+    '2003-II-cuadrangular',
+    '2004-I-cuadrangular',
+    '2004-II-cuadrangular',
+    '2005-I-regular',
+    '2005-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Deportivo Pereira');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/PEREIRA_DEL_2001-2005_2a6a9e8e.png',
+      `Expected Deportivo Pereira 2001-2005 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Deportivo Pereira 2001-2005');
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Pereira')?.src,
+      '/assets/aistudio/PEREIRA_DEL_2001-2005_2a6a9e8e.png'
+    );
+  }
+
+  const t2006I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2006-I-regular');
+  const t2006II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2006-II-regular');
+  assert.ok(t2006I && t2006II);
+
   assert.equal(getTournamentTeamCrest(t1948, 'Deportivo Pereira'), null);
   assert.equal(getTournamentTeamCrest(t1998, 'Deportivo Pereira'), null);
   assert.equal(getTournamentTeamCrest({ year: '1998' }, 'Deportivo Pereira'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2000' }, 'Deportivo Pereira'), null);
+  assert.equal(getTournamentTeamCrest(t2006I, 'Deportivo Pereira'), null);
+  assert.equal(getTournamentTeamCrest(t2006II, 'Deportivo Pereira'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2006' }, 'Deportivo Pereira'), null);
   assert.equal(getTournamentTeamCrest(t2022, 'Deportivo Pereira'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1953', year: '1953' }, 'Águilas Pereira'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1970', year: '1970' }, 'Águilas Pereira'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1990', year: '1990' }, 'Águilas Pereira'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1992', year: '1992' }, 'Águilas Pereira'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1995', year: '1995' }, 'Águilas Pereira'), null);
+  assert.equal(getTournamentTeamCrest({ id: 'custom-2003', year: '2003' }, 'Águilas Pereira'), null);
 });
 
 test('Huracán de Medellín crest applies across 1950-1951 tables and excludes non-Medellín Huracán', () => {
@@ -1846,7 +2189,7 @@ test('Huracán de Medellín crest applies across 1950-1951 tables and excludes n
   );
 });
 
-test('Deportes Quindío 1951-1966, 1967-1986, 1987-1990, and 1991-1996 historical crests apply strictly to their respective ranges and exclude 1950/1997+', () => {
+test('Deportes Quindío 1951-1966, 1967-1986, 1987-1990, 1991-1996, and 1997-2017 historical crests apply strictly to their respective ranges and exclude 1950/2018+', () => {
   for (const id of [
     '1951-dorado',
     '1952-dorado',
@@ -1937,14 +2280,42 @@ test('Deportes Quindío 1951-1966, 1967-1986, 1987-1990, and 1991-1996 historica
     getTournamentTeamCrest({ id: 'custom-1996', year: '1996' }, 'Deportes Quindío')?.src,
     '/assets/aistudio/quindio_del_91_al_96_16f4c349.png'
   );
+  for (const id of [
+    '1997-adecuacion',
+    '1998-reclasificacion',
+    '1999-cuadrangular',
+    '2000-cuadrangular',
+    '2002-I-regular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Deportes Quindío');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/quindio_del_97_al_2017_a0600b91.png',
+      `Expected Deportes Quindío 1997-2017 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Deportes Quindío 1997-2017');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2013-II' }, 'Quindío')?.src,
+    '/assets/aistudio/quindio_del_97_al_2017_a0600b91.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2017-II' }, 'Deportes Quindío')?.src,
+    '/assets/aistudio/quindio_del_97_al_2017_a0600b91.png'
+  );
+
   assert.equal(getTournamentTeamCrest({ id: '1950-dorado', year: '1950' }, 'Deportes Quindío'), null);
-  assert.equal(getTournamentTeamCrest({ id: 'custom-1997', year: '1997' }, 'Deportes Quindío'), null);
-  const t1997 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1997-adecuacion');
-  assert.ok(t1997);
-  assert.equal(getTournamentTeamCrest(t1997, 'Deportes Quindío'), null);
+  assert.equal(getTournamentTeamCrest({ id: 'custom-2018', year: '2018' }, 'Deportes Quindío'), null);
+  const t2018I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2018-I');
+  const t2021II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2021-II');
+  assert.ok(t2018I && t2021II);
+  assert.equal(getTournamentTeamCrest(t2018I, 'Deportes Quindío'), null);
+  assert.equal(getTournamentTeamCrest(t2021II, 'Deportes Quindío'), null);
 });
 
-test('Deportes Tolima 1966-1997 historical crest applies strictly to 1966-1997 tables and excludes 1965/1998+', () => {
+test('Deportes Tolima 1966-1997 and 1998-2003 historical crests apply strictly to their ranges and exclude 1965/2004+', () => {
   for (const id of [
     '1966-reingreso',
     '1967-campeonato',
@@ -1963,11 +2334,33 @@ test('Deportes Tolima 1966-1997 historical crest applies strictly to 1966-1997 t
     );
   }
 
+  for (const id of [
+    '1998-reclasificacion',
+    '1999-cuadrangular',
+    '2000-cuadrangular',
+    '2001-reclasificacion',
+    '2002-I-regular',
+    '2002-II-regular',
+    '2003-I-cuadrangular',
+    '2003-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Deportes Tolima');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/tolima_del_98_al_2003_60f7af16.png',
+      `Expected Deportes Tolima 1998-2003 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Deportes Tolima 1998-2003');
+  }
+
   const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
   const t1997 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1997-adecuacion');
-  const t1998 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1998-reclasificacion');
+  const t2004I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2004-I-cuadrangular');
+  const t2004II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2004-II-cuadrangular');
   const t2023 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2023-II-cuadrangular');
-  assert.ok(t1966 && t1997 && t1998 && t2023);
+  assert.ok(t1966 && t1997 && t2004I && t2004II && t2023);
 
   assert.equal(
     getTournamentTeamCrest(t1966, 'Deportes Tolima')?.src,
@@ -1978,7 +2371,9 @@ test('Deportes Tolima 1966-1997 historical crest applies strictly to 1966-1997 t
     '/assets/aistudio/tolima_del_66_al_97_98e00cd9.png'
   );
   assert.equal(getTournamentTeamCrest({ id: 'custom-1965', year: '1965' }, 'Deportes Tolima'), null);
-  assert.equal(getTournamentTeamCrest(t1998, 'Deportes Tolima'), null);
+  assert.equal(getTournamentTeamCrest(t2004I, 'Deportes Tolima'), null);
+  assert.equal(getTournamentTeamCrest(t2004II, 'Deportes Tolima'), null);
+  assert.equal(getTournamentTeamCrest({ id: 'custom-2004', year: '2004' }, 'Deportes Tolima'), null);
   assert.equal(getTournamentTeamCrest(t2023, 'Deportes Tolima'), null);
 });
 
@@ -2133,7 +2528,7 @@ test('Atlético Huila official crest applies across historical and modern tables
   );
 });
 
-test('Cortuluá 1967-1999 historical crest applies strictly up through 1999 and excludes 2000+', () => {
+test('Cortuluá 1967-1999 and 2000-2021 historical crests apply strictly to their ranges and exclude 1966/2022+', () => {
   for (const id of [
     '1994-cuadrangular',
     '1995-nivelacion',
@@ -2154,15 +2549,115 @@ test('Cortuluá 1967-1999 historical crest applies strictly up through 1999 and 
     assert.equal(crest?.alt, 'Escudo Histórico Cortuluá 1967-1999');
   }
 
+  for (const id of [
+    '2000-cuadrangular',
+    '2001-reclasificacion',
+    '2002-I-regular',
+    '2004-II-cuadrangular',
+    '2010-I-semifinal',
+    '2016-I-playoffs',
+    '2017-II-playoffs',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Cortuluá');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/cortulua-2000-m7VqpkMKwLIXBo5b_09dbf112.webp',
+      `Expected Cortuluá 2000-2021 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Cortuluá 2000-2021');
+  }
+
   assert.equal(
     getTournamentTeamCrest({ id: 'custom-1999', year: '1999' }, 'Cortulua')?.src,
     '/assets/aistudio/cortulua-_1967-1999-m7VqpkMKwLIXBo5b_e6ef3247.webp'
   );
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2021', year: '2021-II' }, 'Cortulua')?.src,
+    '/assets/aistudio/cortulua-2000-m7VqpkMKwLIXBo5b_09dbf112.webp'
+  );
   assert.equal(getTournamentTeamCrest({ year: '1966' }, 'Cortuluá'), null);
+  const t2022I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2022-I-cuadrangular');
+  const t2022II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2022-II-cuadrangular');
+  assert.ok(t2022I && t2022II);
+  assert.equal(getTournamentTeamCrest(t2022I, 'Cortuluá'), null);
+  assert.equal(getTournamentTeamCrest(t2022II, 'Cortuluá'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2022' }, 'Cortuluá'), null);
+});
+
+test('Deportivo Unicosta 1995-1999 historical crest applies strictly through 1999 and excludes 2000+', () => {
+  for (const id of ['1997-adecuacion', '1998-reclasificacion', '1999-cuadrangular']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Deportivo Unicosta');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/cd_unicosta_barranquilla_1995_1999-L9OGcEHewWNAN9yR_c7fc6da3.webp',
+      `Expected Deportivo Unicosta 1995-1999 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Deportivo Unicosta 1995-1999');
+  }
+
+  assert.equal(
+    getTournamentTeamCrest({ year: '1995' }, 'Unicosta')?.src,
+    '/assets/aistudio/cd_unicosta_barranquilla_1995_1999-L9OGcEHewWNAN9yR_c7fc6da3.webp'
+  );
+  assert.equal(getTournamentTeamCrest({ year: '1994' }, 'Deportivo Unicosta'), null);
   const t2000 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2000');
   assert.ok(t2000);
-  assert.equal(getTournamentTeamCrest(t2000, 'Cortuluá'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2000' }, 'Cortuluá'), null);
+  assert.equal(getTournamentTeamCrest(t2000, 'Deportivo Unicosta'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2000' }, 'Deportivo Unicosta'), null);
+});
+
+test('Deportivo Pasto 1999 and 2000-2006 historical crests apply strictly to their ranges and exclude 1998/2007+', () => {
+  const t1998 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1998-reclasificacion');
+  const t1999 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1999-cuadrangular');
+  const t2007I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2007-I-regular');
+  const t2007II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2007-II-regular');
+  const t2023 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2023-II-cuadrangular');
+  assert.ok(t1998 && t1999 && t2007I && t2007II && t2023);
+
+  const crest1999 = getTournamentTeamCrest(t1999, 'Deportivo Pasto');
+  assert.equal(
+    crest1999?.src,
+    '/assets/aistudio/deportivo_pasto_1999-2006-Aq2eW8GGN2FWMLkr_a9eeaa6f.webp'
+  );
+  assert.equal(crest1999?.alt, 'Escudo Histórico Deportivo Pasto 1999');
+
+  assert.equal(
+    getTournamentTeamCrest({ year: '1999' }, 'Pasto')?.src,
+    '/assets/aistudio/deportivo_pasto_1999-2006-Aq2eW8GGN2FWMLkr_a9eeaa6f.webp'
+  );
+
+  for (const id of [
+    '2000-cuadrangular',
+    '2001-reclasificacion',
+    '2002-II-regular',
+    '2005-I-regular',
+    '2006-I-regular',
+    '2006-II-regular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Deportivo Pasto');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/deportivo_pasto_2000-2006-Aq2eW8GGN2FWMLkr_9ef8c98d.webp',
+      `Expected Deportivo Pasto 2000-2006 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Deportivo Pasto 2000-2006');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2006-I' }, 'Pasto')?.src,
+    '/assets/aistudio/deportivo_pasto_2000-2006-Aq2eW8GGN2FWMLkr_9ef8c98d.webp'
+  );
+
+  assert.equal(getTournamentTeamCrest(t1998, 'Deportivo Pasto'), null);
+  assert.equal(getTournamentTeamCrest(t2007I, 'Deportivo Pasto'), null);
+  assert.equal(getTournamentTeamCrest(t2007II, 'Deportivo Pasto'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2007' }, 'Deportivo Pasto'), null);
+  assert.equal(getTournamentTeamCrest(t2023, 'Deportivo Pasto'), null);
 });
 
 test('1966 Campeonato Colombiano matchArchive contains all 52 Junior matches and reconciles strictly with official standings', () => {
@@ -2462,7 +2957,7 @@ test('1968 playoffs and buildPlayoffKnockoutBrackets produce direct Final & 3rd-
 
   assert.equal(rounds[1].key, 'tercer-lugar');
   assert.equal(rounds[1].ties.length, 1);
-  assert.equal(rounds[1].ties[0].winnerTeam, 'Millonarios F.C.');
+  assert.equal(rounds[1].ties[0].winnerTeam, 'Millonarios F.C');
   assert.equal(rounds[1].ties[0].teamAGoals, 6);
   assert.equal(rounds[1].ties[0].teamBGoals, 5);
 
@@ -2721,7 +3216,7 @@ test('1971 Campeonato Colombiano matchArchive covers Apertura + Finalización (5
       assert.ok(m.date.includes('1971'), `Expected explicit 1971 Apertura date at index ${idx}: ${m.date}`);
     } else {
       assert.ok(
-        m.date === (idx < 39 ? 'Finalización · 1.ª Vuelta' : 'Finalización · 2.ª Vuelta'),
+        m.date === (idx < 39 ? 'Finalización · 1.ª Vuelta · 1971' : 'Finalización · 2.ª Vuelta · 1971'),
         `Unexpected Finalización lap date at index ${idx}: ${m.date}`
       );
     }
@@ -2827,10 +3322,10 @@ test('1972 Campeonato Colombiano matchArchive covers Apertura + Finalización + 
   matches.forEach((m, idx) => {
     if (idx < 26) {
       assert.equal(m.round, `Fecha ${idx + 1} · Apertura`);
-      assert.equal(m.date, idx < 13 ? 'Apertura · 1.ª Vuelta' : 'Apertura · 2.ª Vuelta');
+      assert.equal(m.date, idx < 13 ? 'Apertura · 1.ª Vuelta · 1972' : 'Apertura · 2.ª Vuelta · 1972');
     } else if (idx < 52) {
       assert.equal(m.round, `Fecha ${idx + 1} · Finalización`);
-      assert.equal(m.date, idx < 39 ? 'Finalización · 1.ª Vuelta' : 'Finalización · 2.ª Vuelta');
+      assert.equal(m.date, idx < 39 ? 'Finalización · 1.ª Vuelta · 1972' : 'Finalización · 2.ª Vuelta · 1972');
     } else {
       assert.equal(m.round, `Triang. Fecha ${idx - 51}`);
       assert.ok(m.date.includes('enero de 1973'), `Expected January 1973 date in ${m.round}: ${m.date}`);
@@ -7891,8 +8386,4312 @@ test('2002-I and 2002-II short tournaments and independent Reclasificación Anua
   assert.equal(rec2002.rows[17].team, 'Real Cartagena');
 });
 
+test('2003-I and 2003-II short tournaments, 50 Junior archive matches, stage filters, and independent Reclasificación Anual 2003 reconcile 100% mathematically', () => {
+  const t2003I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2003-I-cuadrangular');
+  const t2003II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2003-II-cuadrangular');
+  assert.ok(t2003I, '2003-I-cuadrangular must exist');
+  assert.ok(t2003II, '2003-II-cuadrangular must exist');
 
+  // Reclasificación MUST remain independent, never embedded inside 2003-I or 2003-II
+  assert.equal(t2003I.secondaryRegularTable, undefined);
+  assert.equal(t2003I.tertiaryRegularTable, undefined);
+  assert.equal(t2003II.secondaryRegularTable, undefined);
+  assert.equal(t2003II.tertiaryRegularTable, undefined);
 
+  assert.equal(t2003I.championTeam, 'Once Caldas');
+  assert.equal(t2003I.runnerUpTeam, 'Junior de Barranquilla');
+  assert.equal(t2003II.championTeam, 'Deportes Tolima');
+  assert.equal(t2003II.runnerUpTeam, 'Deportivo Cali');
+
+  // Verify both 18-club, 18-round regular tables (zero-sum PG=PP, GF=GC, 3*PG+PE=PTS)
+  for (const [tbl, expectedSum] of [
+    [t2003I, { pg: 114, pe: 96, pp: 114, gf: 385, gc: 385 }],
+    [t2003II, { pg: 114, pe: 96, pp: 114, gf: 379, gc: 379 }],
+  ] as const) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, 18);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.deepEqual({ pg, pe, pp, gf, gc }, expectedSum);
+  }
+
+  // Forensic regression guard: Junior 2003-I regular is 27 pts (8-3-7, 19-18) and Pereira is 8th (26 pts, 7 PG)
+  const jun2003IReg = t2003I.regularRows!.find((r) => r.team === 'Junior de Barranquilla')!;
+  const per2003IReg = t2003I.regularRows!.find((r) => r.team === 'Deportivo Pereira')!;
+  assert.deepEqual(
+    { pos: jun2003IReg.pos, pj: jun2003IReg.pj, pg: jun2003IReg.pg, pe: jun2003IReg.pe, pp: jun2003IReg.pp, gf: jun2003IReg.gf, gc: jun2003IReg.gc, pts: jun2003IReg.pts },
+    { pos: 6, pj: 18, pg: 8, pe: 3, pp: 7, gf: 19, gc: 18, pts: 27 }
+  );
+  assert.equal(per2003IReg.pos, 8);
+  assert.equal(per2003IReg.pts, 26);
+
+  // Verify Cuadrangulares A & B + Gran Final match-to-standings reconciliation for both 2003 semesters
+  const verifySemesterPlayoffs = (tbl: typeof t2003I) => {
+    const groups = tbl.finalGroups || [];
+    assert.equal(groups.length, 2);
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+
+    const stages = new Set(playoffs.map((m) => m.stage));
+    assert.deepEqual([...stages].sort(), ['Cuadrangular A', 'Cuadrangular B', 'Gran Final']);
+
+    for (const m of playoffs) {
+      assert.ok(/2003$/.test(m.date || ''), `Expected 2003 date in ${tbl.id}: ${m.date}`);
+      assert.ok(!String(m.date).includes('9 de junio'), `Regression guard: 9 de junio typo found in ${tbl.id}`);
+      assert.ok(m.homeTeam !== 'Millonarios F.C.' && m.awayTeam !== 'Millonarios F.C.', `Non-canonical Millonarios trailing dot in ${tbl.id}`);
+    }
+
+    for (const [idx, stageName] of [[0, 'Cuadrangular A'], [1, 'Cuadrangular B']] as const) {
+      const gRows = groups[idx].rows;
+      const gMatches = playoffs.filter((m) => m.stage === stageName);
+      assert.equal(gMatches.length, 12);
+      const tally = new Map(gRows.map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+      for (const m of gMatches) {
+        const h = tally.get(m.homeTeam)!;
+        const a = tally.get(m.awayTeam)!;
+        assert.ok(h && a, `Unknown team in ${tbl.id} ${stageName}: ${m.homeTeam} vs ${m.awayTeam}`);
+        h.pj++; a.pj++;
+        h.gf += m.homeScore; h.gc += m.awayScore;
+        a.gf += m.awayScore; a.gc += m.homeScore;
+        if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+        else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+        else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+      }
+      for (const r of gRows) {
+        assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+    const finals = playoffs.filter((m) => m.stage === 'Gran Final');
+    assert.equal(finals.length, 2);
+  };
+
+  verifySemesterPlayoffs(t2003I);
+  verifySemesterPlayoffs(t2003II);
+
+  // Regression guard: restored Cuadrangular A Round 4 matches in 2003-I
+  const r4Am = t2003I.playoffMatches!.find(
+    (m) => m.stage === 'Cuadrangular A' && m.homeTeam === 'América de Cali' && m.awayTeam === 'Unión Magdalena' && m.homeScore === 4 && m.awayScore === 1
+  );
+  const r4Oc = t2003I.playoffMatches!.find(
+    (m) => m.stage === 'Cuadrangular A' && m.homeTeam === 'Once Caldas' && m.awayTeam === 'Deportivo Cali' && m.homeScore === 1 && m.awayScore === 1
+  );
+  assert.ok(r4Am && r4Am.date === '25 may 2003');
+  assert.ok(r4Oc && r4Oc.date === '26 may 2003');
+
+  // Verify 26 (2003-I) + 24 (2003-II) Junior matchArchive exact reconciliation & stage filters
+  const apArchive = t2003I.matchArchive || [];
+  const finArchive = t2003II.matchArchive || [];
+  assert.equal(apArchive.length, 26);
+  assert.equal(finArchive.length, 24);
+
+  const canonicalTeams = new Set((t2003I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams.has(m.homeTeam), `Non-canonical homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams.has(m.awayTeam), `Non-canonical awayTeam: ${m.awayTeam}`);
+    assert.ok(/2003$/.test(m.date), `Expected 2003 date: ${m.date}`);
+  }
+
+  // Stage filter options & counts for 26-match (2003-I) and 24-match (2003-II) archives
+  const apLapOpts = getMatchArchiveLapOptions(apArchive.length, apArchive);
+  assert.deepEqual(apLapOpts.map((o) => o.id), ['all', 'apertura', 'semifinal', 'final']);
+  const apRegular = filterMatchArchiveFixtures(apArchive, { lap: 'apertura' });
+  const apCuad = filterMatchArchiveFixtures(apArchive, { lap: 'semifinal' });
+  const apFinal = filterMatchArchiveFixtures(apArchive, { lap: 'final' });
+  assert.equal(apRegular.length, 18);
+  assert.equal(apCuad.length, 6);
+  assert.equal(apFinal.length, 2);
+
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apRegular, 3), {
+    pj: 18, pg: 8, pe: 3, pp: 7, gf: 19, gc: 18, dg: 1, pts: 27,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apCuad, 3), {
+    pj: 6, pg: 4, pe: 0, pp: 2, gf: 9, gc: 5, dg: 4, pts: 12,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apFinal, 3), {
+    pj: 2, pg: 0, pe: 1, pp: 1, gf: 0, gc: 1, dg: -1, pts: 1,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 26, pg: 12, pe: 4, pp: 10, gf: 28, gc: 24, dg: 4, pts: 40,
+  });
+
+  const finLapOpts = getMatchArchiveLapOptions(finArchive.length, finArchive);
+  assert.deepEqual(finLapOpts.map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  const finRegular = filterMatchArchiveFixtures(finArchive, { lap: 'apertura' });
+  const finCuad = filterMatchArchiveFixtures(finArchive, { lap: 'semifinal' });
+  assert.equal(finRegular.length, 18);
+  assert.equal(finCuad.length, 6);
+
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finRegular, 3), {
+    pj: 18, pg: 7, pe: 4, pp: 7, gf: 24, gc: 28, dg: -4, pts: 25,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finCuad, 3), {
+    pj: 6, pg: 3, pe: 1, pp: 2, gf: 8, gc: 7, dg: 1, pts: 10,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 24, pg: 10, pe: 5, pp: 9, gf: 32, gc: 35, dg: -3, pts: 35,
+  });
+
+  // Verify independent Reclasificación Anual 2003 matches exact arithmetic sum of 2003-I + 2003-II + playoffs
+  const rec2003 = getAnnualReclassificationByYear('2003-I');
+  assert.ok(rec2003 && rec2003.id === 'reclasificacion-2003');
+  assert.equal(getAnnualReclassificationByYear('2003-II')?.id, 'reclasificacion-2003');
+  assert.equal(rec2003.rows.length, 18);
+
+  const computed = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const addStats = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed.set(team, cur);
+  };
+  for (const tbl of [t2003I, t2003II]) {
+    for (const r of tbl.regularRows || []) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const fg of tbl.finalGroups || []) for (const r of fg.rows) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of (tbl.playoffMatches || []).filter((pm) => pm.stage === 'Gran Final')) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      addStats(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      addStats(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2003.rows) {
+    const expected = computed.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2003 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2003.rows[0].team, 'Deportivo Cali');
+  assert.equal(rec2003.rows[0].pts, 88);
+  assert.equal(rec2003.rows[1].team, 'Junior de Barranquilla');
+  assert.equal(rec2003.rows[1].pts, 75);
+  assert.equal(rec2003.rows[2].team, 'Millonarios F.C');
+  assert.equal(rec2003.rows[2].pts, 74);
+  assert.equal(rec2003.rows[10].team, 'Centauros Villavicencio');
+  assert.equal(rec2003.rows[10].pts, 53);
+});
+
+// ── 83. 2004 Full Audit: 2004-I, 2004-II (5ª Estrella), 50 Junior Matches & Reclasificación 2004 ──
+test('83. 2004 full audit: zero-sum regular tables, 52 playoffs, 24+26 Junior archive, and Reclasificación 2004', () => {
+  const t2004I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2004-I-cuadrangular')!;
+  const t2004II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2004-II-cuadrangular')!;
+  assert.ok(t2004I && t2004II);
+
+  assert.equal(t2004I.championTeam, 'Independiente Medellín');
+  assert.equal(t2004I.runnerUpTeam, 'Atlético Nacional');
+  assert.equal(t2004I.secondaryRegularTable, undefined);
+  assert.equal(t2004I.tertiaryRegularTable, undefined);
+
+  assert.equal(t2004II.championTeam, 'Junior de Barranquilla');
+  assert.equal(t2004II.runnerUpTeam, 'Atlético Nacional');
+  assert.equal(t2004II.isJuniorChampion, true);
+  assert.equal(t2004II.secondaryRegularTable, undefined);
+  assert.equal(t2004II.tertiaryRegularTable, undefined);
+
+  for (const [tbl, expectedSum] of [
+    [t2004I, { pg: 117, pe: 90, pp: 117, gf: 390, gc: 390 }],
+    [t2004II, { pg: 124, pe: 76, pp: 124, gf: 376, gc: 376 }],
+  ] as const) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.deepEqual({ pg, pe, pp, gf, gc }, expectedSum);
+  }
+
+  const verifySemesterPlayoffs = (tbl: typeof t2004I) => {
+    const groups = tbl.finalGroups || [];
+    assert.equal(groups.length, 2);
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+
+    const stages = new Set(playoffs.map((m) => m.stage));
+    assert.deepEqual([...stages].sort(), ['Cuadrangular A', 'Cuadrangular B', 'Gran Final']);
+
+    for (const m of playoffs) {
+      assert.ok(/2004$/.test(m.date || ''), `Expected 2004 date in ${tbl.id}: ${m.date}`);
+      assert.ok(m.homeTeam !== 'Chicó FC' && m.awayTeam !== 'Chicó FC', `Non-canonical Chicó FC in ${tbl.id}`);
+    }
+
+    for (const [idx, stageName] of [[0, 'Cuadrangular A'], [1, 'Cuadrangular B']] as const) {
+      const gRows = groups[idx].rows;
+      const gMatches = playoffs.filter((m) => m.stage === stageName);
+      assert.equal(gMatches.length, 12);
+      const tally = new Map(gRows.map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+      for (const m of gMatches) {
+        const h = tally.get(m.homeTeam)!;
+        const a = tally.get(m.awayTeam)!;
+        assert.ok(h && a, `Unknown team in ${tbl.id} ${stageName}: ${m.homeTeam} vs ${m.awayTeam}`);
+        h.pj++; a.pj++;
+        h.gf += m.homeScore; h.gc += m.awayScore;
+        a.gf += m.awayScore; a.gc += m.homeScore;
+        if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+        else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+        else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+      }
+      for (const r of gRows) {
+        assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+    assert.equal(playoffs.filter((m) => m.stage === 'Gran Final').length, 2);
+  };
+
+  verifySemesterPlayoffs(t2004I);
+  verifySemesterPlayoffs(t2004II);
+
+  const apArchive = t2004I.matchArchive || [];
+  const finArchive = t2004II.matchArchive || [];
+  assert.equal(apArchive.length, 24);
+  assert.equal(finArchive.length, 26);
+
+  const canonicalTeams = new Set((t2004I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams.has(m.homeTeam), `Non-canonical homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams.has(m.awayTeam), `Non-canonical awayTeam: ${m.awayTeam}`);
+    assert.ok(/2004$/.test(m.date), `Expected 2004 date: ${m.date}`);
+  }
+
+  const apLapOpts = getMatchArchiveLapOptions(apArchive.length, apArchive);
+  assert.deepEqual(apLapOpts.map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.ok(apLapOpts.some((o) => o.id === 'semifinal' && o.label.includes('Cuadrangular A (6)')));
+  const apRegular = filterMatchArchiveFixtures(apArchive, { lap: 'apertura' });
+  const apCuad = filterMatchArchiveFixtures(apArchive, { lap: 'semifinal' });
+  assert.equal(apRegular.length, 18);
+  assert.equal(apCuad.length, 6);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apRegular, 3), {
+    pj: 18, pg: 8, pe: 6, pp: 4, gf: 26, gc: 16, dg: 10, pts: 30,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apCuad, 3), {
+    pj: 6, pg: 1, pe: 3, pp: 2, gf: 4, gc: 8, dg: -4, pts: 6,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 24, pg: 9, pe: 9, pp: 6, gf: 30, gc: 24, dg: 6, pts: 36,
+  });
+
+  const finLapOpts = getMatchArchiveLapOptions(finArchive.length, finArchive);
+  assert.deepEqual(finLapOpts.map((o) => o.id), ['all', 'apertura', 'semifinal', 'final']);
+  assert.ok(finLapOpts.some((o) => o.id === 'semifinal' && o.label.includes('Cuadrangular B (6)')));
+  assert.ok(finLapOpts.some((o) => o.id === 'final' && o.label.includes('Gran Final (2)')));
+  const finRegular = filterMatchArchiveFixtures(finArchive, { lap: 'apertura' });
+  const finCuad = filterMatchArchiveFixtures(finArchive, { lap: 'semifinal' });
+  const finFinal = filterMatchArchiveFixtures(finArchive, { lap: 'final' });
+  assert.equal(finRegular.length, 18);
+  assert.equal(finCuad.length, 6);
+  assert.equal(finFinal.length, 2);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finRegular, 3), {
+    pj: 18, pg: 7, pe: 7, pp: 4, gf: 26, gc: 21, dg: 5, pts: 28,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finCuad, 3), {
+    pj: 6, pg: 4, pe: 1, pp: 1, gf: 11, gc: 5, dg: 6, pts: 13,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finFinal, 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 5, gc: 5, dg: 0, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 26, pg: 12, pe: 8, pp: 6, gf: 42, gc: 31, dg: 11, pts: 44,
+  });
+
+  const rec2004 = getAnnualReclassificationByYear('2004-I');
+  assert.ok(rec2004 && rec2004.id === 'reclasificacion-2004');
+  assert.equal(getAnnualReclassificationByYear('2004-II')?.id, 'reclasificacion-2004');
+  assert.equal(rec2004.rows.length, 18);
+
+  const computed = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const addStats = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed.set(team, cur);
+  };
+  for (const tbl of [t2004I, t2004II]) {
+    for (const r of tbl.regularRows || []) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const fg of tbl.finalGroups || []) for (const r of fg.rows) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of (tbl.playoffMatches || []).filter((pm) => pm.stage === 'Gran Final')) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      addStats(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      addStats(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2004.rows) {
+    const expected = computed.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2004 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2004.rows[0].team, 'América de Cali');
+  assert.equal(rec2004.rows[0].pts, 94);
+  assert.equal(rec2004.rows[1].team, 'Atlético Nacional');
+  assert.equal(rec2004.rows[1].pts, 88);
+  assert.equal(rec2004.rows[2].team, 'Independiente Medellín');
+  assert.equal(rec2004.rows[2].pts, 80);
+  assert.equal(rec2004.rows[3].team, 'Junior de Barranquilla');
+  assert.equal(rec2004.rows[3].pts, 80);
+  assert.equal(rec2004.rows[4].team, 'Deportivo Cali');
+  assert.equal(rec2004.rows[4].pts, 80);
+  assert.equal(rec2004.rows[11].team, 'Cortuluá');
+  assert.equal(rec2004.rows[11].pts, 41);
+});
+
+// ── 84. 2005 Full Audit: 2005-I, 2005-II, 42 Junior Matches & Reclasificación 2005 ──
+test('84. 2005 full audit: zero-sum regular tables, 52 playoffs, 18+24 Junior archive, and Reclasificación 2005', () => {
+  const t2005I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2005-I-regular')!;
+  const t2005II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2005-II-cuadrangular')!;
+  assert.ok(t2005I && t2005II);
+
+  assert.equal(t2005I.championTeam, 'Atlético Nacional');
+  assert.equal(t2005I.runnerUpTeam, 'Independiente Santa Fe');
+  assert.equal(t2005I.secondaryRegularTable, undefined);
+  assert.equal(t2005I.tertiaryRegularTable, undefined);
+
+  assert.equal(t2005II.championTeam, 'Deportivo Cali');
+  assert.equal(t2005II.runnerUpTeam, 'Real Cartagena');
+  assert.equal(t2005II.secondaryRegularTable, undefined);
+  assert.equal(t2005II.tertiaryRegularTable, undefined);
+
+  for (const [tbl, expectedSum] of [
+    [t2005I, { pg: 109, pe: 106, pp: 109, gf: 380, gc: 380 }],
+    [t2005II, { pg: 122, pe: 80, pp: 122, gf: 397, gc: 397 }],
+  ] as const) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.deepEqual({ pg, pe, pp, gf, gc }, expectedSum);
+  }
+
+  const verifySemesterPlayoffs = (tbl: typeof t2005I) => {
+    const groups = tbl.finalGroups || [];
+    assert.equal(groups.length, 2);
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+
+    const stages = new Set(playoffs.map((m) => m.stage));
+    assert.deepEqual([...stages].sort(), ['Cuadrangular A', 'Cuadrangular B', 'Gran Final']);
+
+    for (const m of playoffs) {
+      assert.ok(/2005$/.test(m.date || ''), `Expected 2005 date in ${tbl.id}: ${m.date}`);
+      assert.ok(m.homeTeam !== 'Envigado F.C.' && m.awayTeam !== 'Envigado F.C.', `Non-canonical Envigado dot in ${tbl.id}`);
+      assert.ok(m.homeTeam !== 'Cartagena' && m.awayTeam !== 'Cartagena', `Non-canonical Cartagena short name in ${tbl.id}`);
+    }
+
+    for (const [idx, stageName] of [[0, 'Cuadrangular A'], [1, 'Cuadrangular B']] as const) {
+      const gRows = groups[idx].rows;
+      const gMatches = playoffs.filter((m) => m.stage === stageName);
+      assert.equal(gMatches.length, 12);
+      const tally = new Map(gRows.map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+      for (const m of gMatches) {
+        const h = tally.get(m.homeTeam)!;
+        const a = tally.get(m.awayTeam)!;
+        assert.ok(h && a, `Unknown team in ${tbl.id} ${stageName}: ${m.homeTeam} vs ${m.awayTeam}`);
+        h.pj++; a.pj++;
+        h.gf += m.homeScore; h.gc += m.awayScore;
+        a.gf += m.awayScore; a.gc += m.homeScore;
+        if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+        else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+        else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+      }
+      for (const r of gRows) {
+        assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+    assert.equal(playoffs.filter((m) => m.stage === 'Gran Final').length, 2);
+  };
+
+  verifySemesterPlayoffs(t2005I);
+  verifySemesterPlayoffs(t2005II);
+
+  const apArchive = t2005I.matchArchive || [];
+  const finArchive = t2005II.matchArchive || [];
+  assert.equal(apArchive.length, 18);
+  assert.equal(finArchive.length, 24);
+
+  const canonicalTeams = new Set((t2005I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams.has(m.homeTeam), `Non-canonical homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams.has(m.awayTeam), `Non-canonical awayTeam: ${m.awayTeam}`);
+    assert.ok(/2005$/.test(m.date), `Expected 2005 date: ${m.date}`);
+  }
+
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 18, pg: 7, pe: 4, pp: 7, gf: 26, gc: 23, dg: 3, pts: 25,
+  });
+
+  const finLapOpts = getMatchArchiveLapOptions(finArchive.length, finArchive);
+  assert.deepEqual(finLapOpts.map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.ok(finLapOpts.some((o) => o.id === 'semifinal' && o.label.includes('Cuadrangular A (6)')));
+  const finRegular = filterMatchArchiveFixtures(finArchive, { lap: 'apertura' });
+  const finCuad = filterMatchArchiveFixtures(finArchive, { lap: 'semifinal' });
+  assert.equal(finRegular.length, 18);
+  assert.equal(finCuad.length, 6);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finRegular, 3), {
+    pj: 18, pg: 9, pe: 2, pp: 7, gf: 22, gc: 27, dg: -5, pts: 29,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finCuad, 3), {
+    pj: 6, pg: 3, pe: 1, pp: 2, gf: 7, gc: 8, dg: -1, pts: 10,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 24, pg: 12, pe: 3, pp: 9, gf: 29, gc: 35, dg: -6, pts: 39,
+  });
+
+  const rec2005 = getAnnualReclassificationByYear('2005-I');
+  assert.ok(rec2005 && rec2005.id === 'reclasificacion-2005');
+  assert.equal(getAnnualReclassificationByYear('2005-II')?.id, 'reclasificacion-2005');
+  assert.equal(rec2005.rows.length, 18);
+
+  const computed = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const addStats = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed.set(team, cur);
+  };
+  for (const tbl of [t2005I, t2005II]) {
+    for (const r of tbl.regularRows || []) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const fg of tbl.finalGroups || []) for (const r of fg.rows) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of (tbl.playoffMatches || []).filter((pm) => pm.stage === 'Gran Final')) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      addStats(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      addStats(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2005.rows) {
+    const expected = computed.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2005 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2005.rows[0].team, 'Atlético Nacional');
+  assert.equal(rec2005.rows[0].pts, 80);
+  assert.equal(rec2005.rows[1].team, 'Independiente Santa Fe');
+  assert.equal(rec2005.rows[1].pts, 78);
+  assert.equal(rec2005.rows[2].team, 'Deportivo Cali');
+  assert.equal(rec2005.rows[2].pts, 75);
+  assert.equal(rec2005.rows[6].team, 'Junior de Barranquilla');
+  assert.equal(rec2005.rows[6].pts, 64);
+  assert.equal(rec2005.rows[17].team, 'Unión Magdalena');
+  assert.equal(rec2005.rows[17].pts, 23);
+});
+
+// ── 85. 2006 Full Audit: 2006-I, 2006-II, 36 Junior Matches & Reclasificación 2006 ──
+test('85. 2006 full audit: zero-sum regular tables, 52 playoffs, 18+18 Junior archive, and Reclasificación 2006', () => {
+  const t2006I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2006-I-regular')!;
+  const t2006II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2006-II-regular')!;
+  assert.ok(t2006I && t2006II);
+
+  assert.equal(t2006I.championTeam, 'Deportivo Pasto');
+  assert.equal(t2006I.runnerUpTeam, 'Deportivo Cali');
+  assert.equal(t2006I.secondaryRegularTable, undefined);
+  assert.equal(t2006I.tertiaryRegularTable, undefined);
+
+  assert.equal(t2006II.championTeam, 'Cúcuta Deportivo');
+  assert.equal(t2006II.runnerUpTeam, 'Deportes Tolima');
+  assert.equal(t2006II.secondaryRegularTable, undefined);
+  assert.equal(t2006II.tertiaryRegularTable, undefined);
+
+  for (const [tbl, expectedSum] of [
+    [t2006I, { pg: 119, pe: 86, pp: 119, gf: 404, gc: 404 }],
+    [t2006II, { pg: 127, pe: 70, pp: 127, gf: 414, gc: 414 }],
+  ] as const) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.deepEqual({ pg, pe, pp, gf, gc }, expectedSum);
+  }
+
+  const verifySemesterPlayoffs = (tbl: typeof t2006I) => {
+    const groups = tbl.finalGroups || [];
+    assert.equal(groups.length, 2);
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+
+    const stages = new Set(playoffs.map((m) => m.stage));
+    assert.deepEqual([...stages].sort(), ['Cuadrangular A', 'Cuadrangular B', 'Gran Final']);
+
+    for (const m of playoffs) {
+      assert.ok(/2006$/.test(m.date || ''), `Expected 2006 date in ${tbl.id}: ${m.date}`);
+      assert.ok(m.homeTeam !== 'Millonarios F.C.' && m.awayTeam !== 'Millonarios F.C.', `Non-canonical Millonarios trailing dot in ${tbl.id}`);
+    }
+
+    for (const [idx, stageName] of [[0, 'Cuadrangular A'], [1, 'Cuadrangular B']] as const) {
+      const gRows = groups[idx].rows;
+      const gMatches = playoffs.filter((m) => m.stage === stageName);
+      assert.equal(gMatches.length, 12);
+      const tally = new Map(gRows.map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+      for (const m of gMatches) {
+        const h = tally.get(m.homeTeam)!;
+        const a = tally.get(m.awayTeam)!;
+        assert.ok(h && a, `Unknown team in ${tbl.id} ${stageName}: ${m.homeTeam} vs ${m.awayTeam}`);
+        h.pj++; a.pj++;
+        h.gf += m.homeScore; h.gc += m.awayScore;
+        a.gf += m.awayScore; a.gc += m.homeScore;
+        if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+        else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+        else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+      }
+      for (const r of gRows) {
+        assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+    assert.equal(playoffs.filter((m) => m.stage === 'Gran Final').length, 2);
+  };
+
+  verifySemesterPlayoffs(t2006I);
+  verifySemesterPlayoffs(t2006II);
+
+  const apArchive = t2006I.matchArchive || [];
+  const finArchive = t2006II.matchArchive || [];
+  assert.equal(apArchive.length, 18);
+  assert.equal(finArchive.length, 18);
+
+  const canonicalTeams = new Set((t2006I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams.has(m.homeTeam), `Non-canonical homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams.has(m.awayTeam), `Non-canonical awayTeam: ${m.awayTeam}`);
+    assert.ok(/2006$/.test(m.date), `Expected 2006 date: ${m.date}`);
+  }
+
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 18, pg: 4, pe: 5, pp: 9, gf: 22, gc: 29, dg: -7, pts: 17,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 18, pg: 5, pe: 5, pp: 8, gf: 19, gc: 29, dg: -10, pts: 20,
+  });
+
+  const rec2006 = getAnnualReclassificationByYear('2006-I');
+  assert.ok(rec2006 && rec2006.id === 'reclasificacion-2006');
+  assert.equal(getAnnualReclassificationByYear('2006-II')?.id, 'reclasificacion-2006');
+  assert.equal(rec2006.rows.length, 18);
+
+  const computed = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const addStats = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed.set(team, cur);
+  };
+  for (const tbl of [t2006I, t2006II]) {
+    for (const r of tbl.regularRows || []) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const fg of tbl.finalGroups || []) for (const r of fg.rows) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of (tbl.playoffMatches || []).filter((pm) => pm.stage === 'Gran Final')) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      addStats(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      addStats(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2006.rows) {
+    const expected = computed.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2006 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2006.rows[0].team, 'Cúcuta Deportivo');
+  assert.equal(rec2006.rows[0].pts, 92);
+  assert.equal(rec2006.rows[1].team, 'Deportes Tolima');
+  assert.equal(rec2006.rows[1].pts, 88);
+  assert.equal(rec2006.rows[2].team, 'Deportivo Pasto');
+  assert.equal(rec2006.rows[2].pts, 82);
+  assert.equal(rec2006.rows[15].team, 'Junior de Barranquilla');
+  assert.equal(rec2006.rows[15].pts, 37);
+  assert.equal(rec2006.rows[16].team, 'Envigado F.C');
+  assert.equal(rec2006.rows[16].pts, 34);
+});
+
+// ── 86. 2007 Full Audit: 2007-I, 2007-II, 36 Junior Matches & Reclasificación 2007 ──
+test('86. 2007 full audit: zero-sum regular tables, 52 playoffs, 18+18 Junior archive, and Reclasificación 2007', () => {
+  const t2007I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2007-I-regular')!;
+  const t2007II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2007-II-regular')!;
+  assert.ok(t2007I && t2007II);
+
+  assert.equal(t2007I.championTeam, 'Atlético Nacional');
+  assert.equal(t2007I.runnerUpTeam, 'Atlético Huila');
+  assert.equal(t2007I.secondaryRegularTable, undefined);
+  assert.equal(t2007I.tertiaryRegularTable, undefined);
+
+  assert.equal(t2007II.championTeam, 'Atlético Nacional');
+  assert.equal(t2007II.runnerUpTeam, 'La Equidad');
+  assert.equal(t2007II.secondaryRegularTable, undefined);
+  assert.equal(t2007II.tertiaryRegularTable, undefined);
+
+  for (const [tbl, expectedSum] of [
+    [t2007I, { pg: 114, pe: 96, pp: 114, gf: 414, gc: 414 }],
+    [t2007II, { pg: 118, pe: 88, pp: 118, gf: 400, gc: 400 }],
+  ] as const) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.deepEqual({ pg, pe, pp, gf, gc }, expectedSum);
+  }
+
+  const verifySemesterPlayoffs = (tbl: typeof t2007I) => {
+    const groups = tbl.finalGroups || [];
+    assert.equal(groups.length, 2);
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+
+    const stages = new Set(playoffs.map((m) => m.stage));
+    assert.deepEqual([...stages].sort(), ['Cuadrangular A', 'Cuadrangular B', 'Gran Final']);
+
+    for (const m of playoffs) {
+      assert.ok(/2007$/.test(m.date || ''), `Expected 2007 date in ${tbl.id}: ${m.date}`);
+      assert.ok(m.homeTeam !== 'Millonarios F.C.' && m.awayTeam !== 'Millonarios F.C.', `Non-canonical Millonarios trailing dot in ${tbl.id}`);
+    }
+
+    for (const [idx, stageName] of [[0, 'Cuadrangular A'], [1, 'Cuadrangular B']] as const) {
+      const gRows = groups[idx].rows;
+      const gMatches = playoffs.filter((m) => m.stage === stageName);
+      assert.equal(gMatches.length, 12);
+      const tally = new Map(gRows.map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+      for (const m of gMatches) {
+        const h = tally.get(m.homeTeam)!;
+        const a = tally.get(m.awayTeam)!;
+        assert.ok(h && a, `Unknown team in ${tbl.id} ${stageName}: ${m.homeTeam} vs ${m.awayTeam}`);
+        h.pj++; a.pj++;
+        h.gf += m.homeScore; h.gc += m.awayScore;
+        a.gf += m.awayScore; a.gc += m.homeScore;
+        if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+        else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+        else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+      }
+      for (const r of gRows) {
+        assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+    assert.equal(playoffs.filter((m) => m.stage === 'Gran Final').length, 2);
+  };
+
+  verifySemesterPlayoffs(t2007I);
+  verifySemesterPlayoffs(t2007II);
+
+  const apArchive = t2007I.matchArchive || [];
+  const finArchive = t2007II.matchArchive || [];
+  assert.equal(apArchive.length, 18);
+  assert.equal(finArchive.length, 18);
+
+  const canonicalTeams = new Set((t2007I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams.has(m.homeTeam), `Non-canonical homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams.has(m.awayTeam), `Non-canonical awayTeam: ${m.awayTeam}`);
+    assert.ok(/2007$/.test(m.date), `Expected 2007 date: ${m.date}`);
+  }
+
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 18, pg: 5, pe: 8, pp: 5, gf: 22, gc: 26, dg: -4, pts: 23,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 18, pg: 5, pe: 3, pp: 10, gf: 17, gc: 28, dg: -11, pts: 18,
+  });
+
+  const rec2007 = getAnnualReclassificationByYear('2007-I');
+  assert.ok(rec2007 && rec2007.id === 'reclasificacion-2007');
+  assert.equal(getAnnualReclassificationByYear('2007-II')?.id, 'reclasificacion-2007');
+  assert.equal(rec2007.rows.length, 18);
+
+  const computed = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const addStats = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed.set(team, cur);
+  };
+  for (const tbl of [t2007I, t2007II]) {
+    for (const r of tbl.regularRows || []) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const fg of tbl.finalGroups || []) for (const r of fg.rows) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of (tbl.playoffMatches || []).filter((pm) => pm.stage === 'Gran Final')) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      addStats(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      addStats(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2007.rows) {
+    const expected = computed.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2007 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2007.rows[0].team, 'Atlético Nacional');
+  assert.equal(rec2007.rows[0].pts, 104);
+  assert.equal(rec2007.rows[1].team, 'Cúcuta Deportivo');
+  assert.equal(rec2007.rows[1].pts, 79);
+  assert.equal(rec2007.rows[2].team, 'Boyacá Chicó');
+  assert.equal(rec2007.rows[2].pts, 67);
+  assert.equal(rec2007.rows[15].team, 'Junior de Barranquilla');
+  assert.equal(rec2007.rows[15].pts, 41);
+  assert.equal(rec2007.rows[17].team, 'Real Cartagena');
+  assert.equal(rec2007.rows[17].pts, 31);
+});
+
+// ── 87. 2008 Full Audit: 2008-I, 2008-II, 42 Junior Matches & Reclasificación 2008 ──
+test('87. 2008 full audit: zero-sum regular tables, 52 playoffs, 18+24 Junior archive, and Reclasificación 2008', () => {
+  const t2008I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2008-I-regular')!;
+  const t2008II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2008-II-cuadrangular')!;
+  assert.ok(t2008I && t2008II);
+
+  assert.equal(t2008I.championTeam, 'Boyacá Chicó');
+  assert.equal(t2008I.runnerUpTeam, 'América de Cali');
+  assert.equal(t2008I.secondaryRegularTable, undefined);
+  assert.equal(t2008I.tertiaryRegularTable, undefined);
+
+  assert.equal(t2008II.championTeam, 'América de Cali');
+  assert.equal(t2008II.runnerUpTeam, 'Independiente Medellín');
+  assert.equal(t2008II.secondaryRegularTable, undefined);
+  assert.equal(t2008II.tertiaryRegularTable, undefined);
+
+  for (const [tbl, expectedSum] of [
+    [t2008I, { pg: 124, pe: 76, pp: 124, gf: 406, gc: 406 }],
+    [t2008II, { pg: 123, pe: 78, pp: 123, gf: 353, gc: 353 }],
+  ] as const) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.deepEqual({ pg, pe, pp, gf, gc }, expectedSum);
+  }
+
+  const verifySemesterPlayoffs = (tbl: typeof t2008I) => {
+    const groups = tbl.finalGroups || [];
+    assert.equal(groups.length, 2);
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+
+    const stages = new Set(playoffs.map((m) => m.stage));
+    assert.deepEqual([...stages].sort(), ['Cuadrangular A', 'Cuadrangular B', 'Gran Final']);
+
+    for (const m of playoffs) {
+      assert.ok(/2008$/.test(m.date || ''), `Expected 2008 date in ${tbl.id}: ${m.date}`);
+      assert.ok(m.homeTeam !== 'Envigado F.C.' && m.awayTeam !== 'Envigado F.C.', `Non-canonical Envigado trailing dot in ${tbl.id}`);
+    }
+
+    for (const [idx, stageName] of [[0, 'Cuadrangular A'], [1, 'Cuadrangular B']] as const) {
+      const gRows = groups[idx].rows;
+      const gMatches = playoffs.filter((m) => m.stage === stageName);
+      assert.equal(gMatches.length, 12);
+      const tally = new Map(gRows.map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+      for (const m of gMatches) {
+        const h = tally.get(m.homeTeam)!;
+        const a = tally.get(m.awayTeam)!;
+        assert.ok(h && a, `Unknown team in ${tbl.id} ${stageName}: ${m.homeTeam} vs ${m.awayTeam}`);
+        h.pj++; a.pj++;
+        h.gf += m.homeScore; h.gc += m.awayScore;
+        a.gf += m.awayScore; a.gc += m.homeScore;
+        if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+        else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+        else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+      }
+      for (const r of gRows) {
+        assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+    assert.equal(playoffs.filter((m) => m.stage === 'Gran Final').length, 2);
+  };
+
+  verifySemesterPlayoffs(t2008I);
+  verifySemesterPlayoffs(t2008II);
+
+  const apArchive = t2008I.matchArchive || [];
+  const finArchive = t2008II.matchArchive || [];
+  assert.equal(apArchive.length, 18);
+  assert.equal(finArchive.length, 24);
+
+  const canonicalTeams = new Set((t2008I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams.has(m.homeTeam), `Non-canonical homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams.has(m.awayTeam), `Non-canonical awayTeam: ${m.awayTeam}`);
+    assert.ok(/2008$/.test(m.date), `Expected 2008 date: ${m.date}`);
+  }
+
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 18, pg: 7, pe: 3, pp: 8, gf: 21, gc: 23, dg: -2, pts: 24,
+  });
+
+  const finLapOpts = getMatchArchiveLapOptions(finArchive.length, finArchive);
+  assert.deepEqual(finLapOpts.map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.ok(finLapOpts.some((o) => o.id === 'semifinal' && o.label.includes('Cuadrangular B (6)')));
+  const finRegular = filterMatchArchiveFixtures(finArchive, { lap: 'apertura' });
+  const finCuad = filterMatchArchiveFixtures(finArchive, { lap: 'semifinal' });
+  assert.equal(finRegular.length, 18);
+  assert.equal(finCuad.length, 6);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finRegular, 3), {
+    pj: 18, pg: 10, pe: 1, pp: 7, gf: 27, gc: 19, dg: 8, pts: 31,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finCuad, 3), {
+    pj: 6, pg: 2, pe: 1, pp: 3, gf: 9, gc: 8, dg: 1, pts: 7,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 24, pg: 12, pe: 2, pp: 10, gf: 36, gc: 27, dg: 9, pts: 38,
+  });
+
+  const rec2008 = getAnnualReclassificationByYear('2008-I');
+  assert.ok(rec2008 && rec2008.id === 'reclasificacion-2008');
+  assert.equal(getAnnualReclassificationByYear('2008-II')?.id, 'reclasificacion-2008');
+  assert.equal(rec2008.rows.length, 18);
+
+  const computed = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const addStats = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed.set(team, cur);
+  };
+  for (const tbl of [t2008I, t2008II]) {
+    for (const r of tbl.regularRows || []) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const fg of tbl.finalGroups || []) for (const r of fg.rows) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of (tbl.playoffMatches || []).filter((pm) => pm.stage === 'Gran Final')) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      addStats(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      addStats(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2008.rows) {
+    const expected = computed.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2008 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2008.rows[0].team, 'América de Cali');
+  assert.equal(rec2008.rows[0].pts, 87);
+  assert.equal(rec2008.rows[1].team, 'Independiente Medellín');
+  assert.equal(rec2008.rows[1].pts, 78);
+  assert.equal(rec2008.rows[2].team, 'La Equidad');
+  assert.equal(rec2008.rows[2].pts, 76);
+  assert.equal(rec2008.rows[6].team, 'Junior de Barranquilla');
+  assert.equal(rec2008.rows[6].pts, 62);
+  assert.equal(rec2008.rows[14].team, 'Atlético Bucaramanga');
+  assert.equal(rec2008.rows[14].pts, 45);
+});
+
+// ── 88. 2009 Full Audit: 2009-I, 2009-II, 50 Junior Matches, Deduplicated Playoffs & Reclasificación 2009 ──
+test('88. 2009 full audit: zero-sum regular tables, 52 clean playoffs, 26+24 Junior archive, timeline fix, and Reclasificación 2009', () => {
+  const t2009I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2009-I-cuadrangular')!;
+  const t2009II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2009-II-cuadrangular')!;
+  assert.ok(t2009I && t2009II);
+
+  assert.equal(t2009I.championTeam, 'Once Caldas');
+  assert.equal(t2009I.runnerUpTeam, 'Junior de Barranquilla');
+  assert.equal(t2009I.isJuniorRunnerUp, true);
+  assert.equal(t2009II.championTeam, 'Independiente Medellín');
+  assert.equal(t2009II.runnerUpTeam, 'Atlético Huila');
+
+  for (const [tbl, expectedSum] of [
+    [t2009I, { pg: 119, pe: 86, pp: 119, gf: 378, gc: 378 }],
+    [t2009II, { pg: 107, pe: 110, pp: 107, gf: 461, gc: 461 }],
+  ] as const) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.deepEqual({ pg, pe, pp, gf, gc }, expectedSum);
+  }
+
+  const verifySemesterPlayoffs = (tbl: typeof t2009I) => {
+    const groups = tbl.finalGroups || [];
+    assert.equal(groups.length, 2);
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26, `Expected 26 deduplicated playoffs in ${tbl.id}`);
+
+    const stages = new Set(playoffs.map((m) => m.stage));
+    assert.deepEqual([...stages].sort(), ['Cuadrangular A', 'Cuadrangular B', 'Gran Final']);
+
+    for (const m of playoffs) {
+      assert.ok(/2009$/.test(m.date || ''), `Expected 2009 date in ${tbl.id}: ${m.date}`);
+      assert.ok(m.homeTeam !== 'Envigado F.C.' && m.awayTeam !== 'Envigado F.C.');
+      assert.ok(m.homeTeam !== 'Cartagena' && m.awayTeam !== 'Cartagena');
+      assert.ok(!(m.scorers || '').includes('<small>'), `Unexpected raw HTML in ${tbl.id} scorers`);
+    }
+
+    for (const [idx, stageName] of [[0, 'Cuadrangular A'], [1, 'Cuadrangular B']] as const) {
+      const gRows = groups[idx].rows;
+      const gMatches = playoffs.filter((m) => m.stage === stageName);
+      assert.equal(gMatches.length, 12);
+      const tally = new Map(gRows.map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+      for (const m of gMatches) {
+        const h = tally.get(m.homeTeam)!;
+        const a = tally.get(m.awayTeam)!;
+        assert.ok(h && a, `Unknown team in ${tbl.id} ${stageName}: ${m.homeTeam} vs ${m.awayTeam}`);
+        h.pj++; a.pj++;
+        h.gf += m.homeScore; h.gc += m.awayScore;
+        a.gf += m.awayScore; a.gc += m.homeScore;
+        if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+        else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+        else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+      }
+      for (const r of gRows) {
+        assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+    assert.equal(playoffs.filter((m) => m.stage === 'Gran Final').length, 2);
+  };
+
+  verifySemesterPlayoffs(t2009I);
+  verifySemesterPlayoffs(t2009II);
+
+  const apArchive = t2009I.matchArchive || [];
+  const finArchive = t2009II.matchArchive || [];
+  assert.equal(apArchive.length, 26);
+  assert.equal(finArchive.length, 24);
+
+  const canonicalTeams = new Set((t2009I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams.has(m.homeTeam), `Non-canonical homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams.has(m.awayTeam), `Non-canonical awayTeam: ${m.awayTeam}`);
+    assert.ok(/2009$/.test(m.date), `Expected 2009 date: ${m.date}`);
+  }
+
+  // 2009-I stage filters & totals (18 Regular + 6 Cuad B + 2 Gran Final)
+  const apLapOpts = getMatchArchiveLapOptions(apArchive.length, apArchive);
+  assert.deepEqual(apLapOpts.map((o) => o.id), ['all', 'apertura', 'semifinal', 'final']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'apertura' }), 3), {
+    pj: 18, pg: 9, pe: 4, pp: 5, gf: 30, gc: 18, dg: 12, pts: 31,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 2, pe: 3, pp: 1, gf: 11, gc: 6, dg: 5, pts: 9,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'final' }), 3), {
+    pj: 2, pg: 0, pe: 0, pp: 2, gf: 2, gc: 5, dg: -3, pts: 0,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 26, pg: 11, pe: 7, pp: 8, gf: 43, gc: 29, dg: 14, pts: 40,
+  });
+
+  // 2009-II stage filters & totals (18 Regular + 6 Cuad A)
+  const finLapOpts = getMatchArchiveLapOptions(finArchive.length, finArchive);
+  assert.deepEqual(finLapOpts.map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.ok(finLapOpts.some((o) => o.id === 'semifinal' && o.label.includes('Cuadrangular A (6)')));
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'apertura' }), 3), {
+    pj: 18, pg: 8, pe: 3, pp: 7, gf: 35, gc: 25, dg: 10, pts: 27,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 2, pe: 3, pp: 1, gf: 7, gc: 5, dg: 2, pts: 9,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 24, pg: 10, pe: 6, pp: 8, gf: 42, gc: 30, dg: 12, pts: 36,
+  });
+
+  // Reclasificación Anual 2009 dynamic verification
+  const rec2009 = getAnnualReclassificationByYear('2009-I');
+  assert.ok(rec2009 && rec2009.id === 'reclasificacion-2009');
+  assert.equal(getAnnualReclassificationByYear('2009-II')?.id, 'reclasificacion-2009');
+  assert.equal(rec2009.rows.length, 18);
+
+  const computed = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const addStats = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed.set(team, cur);
+  };
+  for (const tbl of [t2009I, t2009II]) {
+    for (const r of tbl.regularRows || []) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const fg of tbl.finalGroups || []) for (const r of fg.rows) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of (tbl.playoffMatches || []).filter((pm) => pm.stage === 'Gran Final')) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      addStats(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      addStats(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2009.rows) {
+    const expected = computed.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2009 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2009.rows[0].team, 'Junior de Barranquilla');
+  assert.equal(rec2009.rows[0].pts, 76);
+  assert.equal(rec2009.rows[0].pj, 50);
+  assert.equal(rec2009.rows[1].team, 'Deportes Tolima');
+  assert.equal(rec2009.rows[1].pts, 74);
+  assert.equal(rec2009.rows[2].team, 'Independiente Medellín');
+  assert.equal(rec2009.rows[2].pts, 67);
+  assert.equal(rec2009.rows[16].team, 'Deportivo Pasto');
+  assert.equal(rec2009.rows[16].pts, 43);
+  assert.equal(rec2009.rows[17].team, 'América de Cali');
+  assert.equal(rec2009.rows[17].pts, 37);
+
+  // Timeline fact fix & search index check
+  const m2009II = JUNIOR_TIMELINE_MILESTONES.find((m) => m.id === '2009-II-libertadores-teo-bacca')!;
+  assert.ok(m2009II && m2009II.details.some((d) => d.includes('líder de la reclasificación anual con 76 puntos')));
+  assert.ok(!m2009II.details.some((d) => d.includes('tercero en la reclasificación anual')));
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2009' && i.standingsTableId === 'reclasificacion-2009'));
+});
+
+// ── 89. 2010 Full Audit: 2010-I (6ª Estrella ★), 2010-II, 40 Junior Matches & Reclasificación 2010 ──
+test('89. 2010 full audit: zero-sum regular tables, 2010-I KO + 2010-II playoffs, 22+18 Junior archive, search index, and Reclasificación 2010', () => {
+  const t2010I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2010-I-semifinal')!;
+  const t2010II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2010-II-cuadrangular')!;
+  assert.ok(t2010I && t2010II);
+
+  assert.equal(t2010I.championTeam, 'Junior de Barranquilla');
+  assert.equal(t2010I.runnerUpTeam, 'La Equidad');
+  assert.equal(t2010I.isJuniorChampion, true);
+  assert.equal(t2010II.championTeam, 'Once Caldas');
+  assert.equal(t2010II.runnerUpTeam, 'Deportes Tolima');
+  assert.ok(t2010II.description.includes('(4-3 global)'));
+  assert.ok(!t2010II.description.includes('(3-4 global)'));
+  assert.ok(!(t2010II.regularPhaseDescription || '').includes('Wikipedia'));
+
+  for (const [tbl, expectedSum] of [
+    [t2010I, { pg: 125, pe: 74, pp: 125, gf: 442, gc: 442 }],
+    [t2010II, { pg: 113, pe: 98, pp: 113, gf: 422, gc: 422 }],
+  ] as const) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.deepEqual({ pg, pe, pp, gf, gc }, expectedSum);
+  }
+
+  // 2010-I Semifinales K.O. & Gran Final verification (6 matches)
+  const playoffs2010I = t2010I.playoffMatches || [];
+  assert.equal(playoffs2010I.length, 6);
+  assert.deepEqual([...new Set(playoffs2010I.map((m) => m.stage))].sort(), ['Gran Final', 'Semifinales']);
+  for (const m of playoffs2010I) {
+    assert.ok(/2010$/.test(m.date || ''), `Expected 2010 date in 2010-I: ${m.date}`);
+  }
+  const rounds2010I = buildPlayoffKnockoutBrackets(playoffs2010I, t2010I.championTeam);
+  assert.equal(rounds2010I.length, 2);
+  const finalTie2010I = rounds2010I.find((r) => r.key === 'final')?.ties[0];
+  assert.equal(finalTie2010I?.winnerTeam, 'Junior de Barranquilla');
+  const koTally = new Map((t2010I.rows || []).map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+  for (const m of playoffs2010I) {
+    const h = koTally.get(m.homeTeam)!;
+    const a = koTally.get(m.awayTeam)!;
+    h.pj++; a.pj++;
+    h.gf += m.homeScore; h.gc += m.awayScore;
+    a.gf += m.awayScore; a.gc += m.homeScore;
+    if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+    else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+    else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+  }
+  for (const r of t2010I.rows || []) {
+    assert.deepEqual(koTally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+  }
+
+  // 2010-II Cuadrangulares & Gran Final verification (26 matches)
+  const playoffs2010II = t2010II.playoffMatches || [];
+  assert.equal(playoffs2010II.length, 26);
+  assert.deepEqual([...new Set(playoffs2010II.map((m) => m.stage))].sort(), ['Cuadrangular A', 'Cuadrangular B', 'Gran Final']);
+  for (const m of playoffs2010II) {
+    assert.ok(/2010$/.test(m.date || ''), `Expected 2010 date in 2010-II: ${m.date}`);
+    assert.ok(!(m.scorers || '').includes('F, Uribe'));
+  }
+  for (const [idx, stageName] of [[0, 'Cuadrangular A'], [1, 'Cuadrangular B']] as const) {
+    const gRows = (t2010II.finalGroups || [])[idx].rows;
+    const gMatches = playoffs2010II.filter((m) => m.stage === stageName);
+    assert.equal(gMatches.length, 12);
+    const tally = new Map(gRows.map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+    for (const m of gMatches) {
+      const h = tally.get(m.homeTeam)!;
+      const a = tally.get(m.awayTeam)!;
+      h.pj++; a.pj++;
+      h.gf += m.homeScore; h.gc += m.awayScore;
+      a.gf += m.awayScore; a.gc += m.homeScore;
+      if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+      else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+      else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+    }
+    for (const r of gRows) {
+      assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+    }
+  }
+
+  // Junior matchArchive: 22 in 2010-I + 18 in 2010-II
+  const apArchive = t2010I.matchArchive || [];
+  const finArchive = t2010II.matchArchive || [];
+  assert.equal(apArchive.length, 22);
+  assert.equal(finArchive.length, 18);
+
+  const canonicalTeams = new Set((t2010I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams.has(m.homeTeam), `Non-canonical homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams.has(m.awayTeam), `Non-canonical awayTeam: ${m.awayTeam}`);
+    assert.ok(/2010$/.test(m.date), `Expected 2010 date: ${m.date}`);
+  }
+
+  const apLapOpts = getMatchArchiveLapOptions(apArchive.length, apArchive);
+  assert.deepEqual(apLapOpts.map((o) => o.id), ['all', 'apertura', 'semifinal', 'final']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'apertura' }), 3), {
+    pj: 18, pg: 9, pe: 5, pp: 4, gf: 28, gc: 17, dg: 11, pts: 32,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'semifinal' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 3, gc: 2, dg: 1, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'final' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 3, gc: 2, dg: 1, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 22, pg: 11, pe: 5, pp: 6, gf: 34, gc: 21, dg: 13, pts: 38,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 18, pg: 2, pe: 10, pp: 6, gf: 21, gc: 28, dg: -7, pts: 16,
+  });
+
+  // Reclasificación Anual 2010 dynamic verification
+  const rec2010 = getAnnualReclassificationByYear('2010-I');
+  assert.ok(rec2010 && rec2010.id === 'reclasificacion-2010');
+  assert.equal(getAnnualReclassificationByYear('2010-II')?.id, 'reclasificacion-2010');
+  assert.equal(rec2010.rows.length, 18);
+
+  const computed = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const addStats = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed.set(team, cur);
+  };
+  for (const r of t2010I.regularRows || []) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  for (const r of t2010I.rows || []) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  for (const r of t2010II.regularRows || []) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  for (const fg of t2010II.finalGroups || []) for (const r of fg.rows) addStats(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  for (const m of playoffs2010II.filter((pm) => pm.stage === 'Gran Final')) {
+    const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    addStats(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+    addStats(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2010.rows) {
+    const expected = computed.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2010 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2010.rows[0].team, 'Deportes Tolima');
+  assert.equal(rec2010.rows[0].pts, 86);
+  assert.equal(rec2010.rows[1].team, 'Once Caldas');
+  assert.equal(rec2010.rows[1].pts, 77);
+  assert.equal(rec2010.rows[2].team, 'Independiente Santa Fe');
+  assert.equal(rec2010.rows[2].pts, 75);
+  assert.equal(rec2010.rows[9].team, 'Junior de Barranquilla');
+  assert.equal(rec2010.rows[9].pts, 54);
+  assert.equal(rec2010.rows[9].pj, 40);
+  assert.equal(rec2010.rows[16].team, 'Cortuluá');
+  assert.equal(rec2010.rows[16].pts, 28);
+  assert.equal(rec2010.rows[17].team, 'Deportivo Pereira');
+  assert.equal(rec2010.rows[17].pts, 27);
+
+  // Search index verification (missing torneo-2010-II + reclasificacion-anual-2010)
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'torneo-2010-II' && i.standingsTableId === '2010-II-cuadrangular'));
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2010' && i.standingsTableId === 'reclasificacion-2010'));
+});
+
+// ── 90. 2011 Full Audit: 2011-I, 2011-II (7ª Estrella ★), 42 Junior Matches & Reclasificación 2011 ──
+test('90. 2011 full audit: zero-sum regular tables (with Quindío -3 pts sanction), 14+14 KO playoffs, 18+24 Junior archive, brackets, search index, and Reclasificación 2011', () => {
+  const t2011I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2011-I-regular')!;
+  const t2011II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2011-II-playoffs')!;
+  assert.ok(t2011I && t2011II);
+
+  assert.equal(t2011I.championTeam, 'Atlético Nacional');
+  assert.equal(t2011I.runnerUpTeam, 'La Equidad');
+  assert.equal(t2011II.championTeam, 'Junior de Barranquilla');
+  assert.equal(t2011II.runnerUpTeam, 'Once Caldas');
+  assert.equal(t2011II.isJuniorChampion, true);
+  assert.ok((t2011II.regularPhaseDescription || '').includes('-3 puntos'));
+
+  // Zero-sum verification of 2011-I and 2011-II regularRows
+  for (const [tbl, expectedSum, hasQuindioSanction] of [
+    [t2011I, { pg: 122, pe: 80, pp: 122, gf: 442, gc: 442 }, false],
+    [t2011II, { pg: 112, pe: 100, pp: 112, gf: 392, gc: 392 }, true],
+  ] as const) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      const penalty = hasQuindioSanction && r.team === 'Deportes Quindío' ? 3 : 0;
+      assert.equal(r.pg * 3 + r.pe - penalty, r.pts, `Points mismatch for ${r.team} in ${tbl.id}`);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.deepEqual({ pg, pe, pp, gf, gc }, expectedSum);
+  }
+
+  // 2011-I Playoffs: 14 exact matches, zero junk entries, corrected Gran Final Ida scorers, 4 semifinalist rows
+  const playoffs2011I = t2011I.playoffMatches || [];
+  assert.equal(playoffs2011I.length, 14);
+  assert.deepEqual([...new Set(playoffs2011I.map((m) => m.stage))].sort(), ['Cuartos de final', 'Gran Final', 'Semifinales']);
+  assert.ok(playoffs2011I.every((m) => !/estadísticas previas/i.test(m.stage || '')));
+  assert.ok(playoffs2011I.every((m) => /2011$/.test(m.date || '')));
+  const finalIda2011I = playoffs2011I.find((m) => m.stage === 'Gran Final' && m.homeTeam === 'La Equidad')!;
+  assert.ok(finalIda2011I.scorers?.includes('Juan Gilberto Núñez'));
+  assert.ok(finalIda2011I.scorers?.includes('Edwin Rivas'));
+  assert.ok(finalIda2011I.scorers?.includes('Carlos Rentería'));
+  assert.ok(!finalIda2011I.scorers?.includes('Giovanni Moreno'));
+  assert.equal((t2011I.rows || []).length, 8);
+
+  const rounds2011I = buildPlayoffKnockoutBrackets(playoffs2011I, t2011I.championTeam);
+  assert.equal(rounds2011I.length, 3);
+  const qf2011IMil = rounds2011I[0].ties.find((t) => t.teamA === 'Millonarios F.C' || t.teamB === 'Millonarios F.C')!;
+  assert.equal(qf2011IMil.winnerTeam, 'Millonarios F.C');
+  const qf2011INac = rounds2011I[0].ties.find((t) => t.teamA === 'Atlético Nacional' || t.teamB === 'Atlético Nacional')!;
+  assert.equal(qf2011INac.winnerTeam, 'Atlético Nacional');
+  assert.equal(rounds2011I.find((r) => r.key === 'final')?.ties[0].winnerTeam, 'Atlético Nacional');
+
+  // 2011-II Playoffs: 14 exact matches, non-truncated QF note, reconciled 4 semifinalist rows (Junior 9-9, 0 DG)
+  const playoffs2011II = t2011II.playoffMatches || [];
+  assert.equal(playoffs2011II.length, 14);
+  assert.deepEqual([...new Set(playoffs2011II.map((m) => m.stage))].sort(), ['Cuartos de final', 'Gran Final', 'Semifinales']);
+  assert.ok(playoffs2011II.every((m) => /2011$/.test(m.date || '')));
+  const qfJuniorVuelta = playoffs2011II.find((m) => m.stage === 'Cuartos de final' && m.homeTeam === 'Junior de Barranquilla')!;
+  assert.ok(qfJuniorVuelta.note?.includes('Resolución 050'));
+  assert.ok(!qfJuniorVuelta.note?.endsWith('en Tun'));
+
+  const rounds2011II = buildPlayoffKnockoutBrackets(playoffs2011II, t2011II.championTeam);
+  assert.equal(rounds2011II.length, 3);
+  const qfChicoTie = rounds2011II[0].ties.find((t) => t.involvesJunior)!;
+  assert.equal(qfChicoTie.winnerTeam, 'Junior de Barranquilla');
+  assert.equal(qfChicoTie.penaltiesLabel, 'Clasificó por Resolución Dimayor');
+  const sfJuniorTie = rounds2011II[1].ties.find((t) => t.involvesJunior)!;
+  assert.equal(sfJuniorTie.winnerTeam, 'Junior de Barranquilla');
+  const final2011IITie = rounds2011II.find((r) => r.key === 'final')?.ties[0]!;
+  assert.equal(final2011IITie.winnerTeam, 'Junior de Barranquilla');
+
+  // Reconcile both 2011-I and 2011-II semifinalist rows directly against playoffMatches
+  for (const [tbl, matches] of [[t2011I, playoffs2011I], [t2011II, playoffs2011II]] as const) {
+    const tally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+    for (const m of matches) {
+      for (const [tm, gf, gc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+        const cur = tally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+        cur.pj++; cur.gf += gf; cur.gc += gc;
+        if (gf > gc) { cur.pg++; cur.pts += 3; } else if (gf < gc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+        tally.set(tm, cur);
+      }
+    }
+    for (const r of tbl.rows || []) {
+      assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts }, `Playoff row mismatch for ${r.team} in ${tbl.id}`);
+      assert.equal(r.gf - r.gc, r.dg);
+    }
+  }
+
+  // Junior matchArchive: 18 in 2011-I + 24 in 2011-II (18 regular + 2 Cuartos + 2 Semifinal + 2 Gran Final)
+  const apArchive = t2011I.matchArchive || [];
+  const finArchive = t2011II.matchArchive || [];
+  assert.equal(apArchive.length, 18);
+  assert.equal(finArchive.length, 24);
+  const canonicalTeams2011 = new Set((t2011I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams2011.has(m.homeTeam), `Non-canonical homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams2011.has(m.awayTeam), `Non-canonical awayTeam: ${m.awayTeam}`);
+    assert.ok(/2011$/.test(m.date), `Expected 2011 date: ${m.date}`);
+  }
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 18, pg: 5, pe: 4, pp: 9, gf: 19, gc: 28, dg: -9, pts: 19,
+  });
+  const finLapOpts = getMatchArchiveLapOptions(finArchive.length, finArchive);
+  assert.deepEqual(finLapOpts.map((o) => o.id), ['all', 'apertura', 'cuartos', 'semifinal', 'final']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'apertura' }), 3), {
+    pj: 18, pg: 8, pe: 7, pp: 3, gf: 28, gc: 22, dg: 6, pts: 31,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'cuartos' }), 3), {
+    pj: 2, pg: 0, pe: 2, pp: 0, gf: 2, gc: 2, dg: 0, pts: 2,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'semifinal' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 3, gc: 3, dg: 0, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'final' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 4, gc: 4, dg: 0, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 24, pg: 10, pe: 9, pp: 5, gf: 37, gc: 31, dg: 6, pts: 39,
+  });
+
+  // Reclasificación Anual 2011 dynamic verification (regularRows + all 14+14 playoffMatches)
+  const rec2011 = getAnnualReclassificationByYear('2011-I');
+  assert.ok(rec2011 && rec2011.id === 'reclasificacion-2011');
+  assert.equal(getAnnualReclassificationByYear('2011-II')?.id, 'reclasificacion-2011');
+  assert.equal(rec2011.rows.length, 18);
+
+  const computed2011 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2011 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2011.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2011.set(team, cur);
+  };
+  for (const r of t2011I.regularRows || []) add2011(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  for (const r of t2011II.regularRows || []) add2011(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  for (const m of [...playoffs2011I, ...playoffs2011II]) {
+    const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    add2011(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+    add2011(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2011.rows) {
+    const expected = computed2011.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2011 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    const sanction = row.team === 'Deportes Quindío' ? 3 : 0;
+    assert.equal(row.pg * 3 + row.pe - sanction, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2011.rows[0].team, 'Once Caldas');
+  assert.equal(rec2011.rows[0].pts, 79);
+  assert.equal(rec2011.rows[5].team, 'Junior de Barranquilla');
+  assert.equal(rec2011.rows[5].pts, 58);
+  assert.equal(rec2011.rows[5].pj, 42);
+  assert.equal(rec2011.rows[17].team, 'Deportivo Pereira');
+  assert.equal(rec2011.rows[17].pts, 32);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2011' && i.standingsTableId === 'reclasificacion-2011'));
+});
+
+// ── 91. 2012 Full Audit: 2012-I, 2012-II, 42 Junior Matches & Reclasificación 2012 ──
+test('91. 2012 full audit: zero-sum regular tables, 26+26 cuadrangulares/final playoffs, 18+24 Junior archive, search index, and Reclasificación 2012', () => {
+  const t2012I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2012-I-regular')!;
+  const t2012II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2012-II-cuadrangular')!;
+  assert.ok(t2012I && t2012II);
+
+  assert.equal(t2012I.championTeam, 'Independiente Santa Fe');
+  assert.equal(t2012I.runnerUpTeam, 'Deportivo Pasto');
+  assert.equal(t2012II.championTeam, 'Millonarios F.C');
+  assert.equal(t2012II.runnerUpTeam, 'Independiente Medellín');
+  assert.equal(t2012II.finalGroups?.[1].rows[0].team, 'Independiente Medellín');
+
+  // Zero-sum regularRows verification
+  for (const [tbl, expectedSum] of [
+    [t2012I, { pg: 105, pe: 114, pp: 105, gf: 397, gc: 397 }],
+    [t2012II, { pg: 114, pe: 96, pp: 114, gf: 375, gc: 375 }],
+  ] as const) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.deepEqual({ pg, pe, pp, gf, gc }, expectedSum);
+  }
+
+  // Cuadrangulares & Gran Final verification for both 2012-I and 2012-II (26 matches each)
+  for (const tbl of [t2012I, t2012II]) {
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+    assert.deepEqual([...new Set(playoffs.map((m) => m.stage))].sort(), ['Cuadrangular A', 'Cuadrangular B', 'Gran Final']);
+    for (const m of playoffs) {
+      assert.ok(/2012$/.test(m.date || ''), `Expected 2012 date in ${tbl.id}: ${m.date}`);
+    }
+    for (const [idx, stageName] of [[0, 'Cuadrangular A'], [1, 'Cuadrangular B']] as const) {
+      const gRows = (tbl.finalGroups || [])[idx].rows;
+      const gMatches = playoffs.filter((m) => m.stage === stageName);
+      assert.equal(gMatches.length, 12);
+      const tally = new Map(gRows.map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+      for (const m of gMatches) {
+        const h = tally.get(m.homeTeam)!;
+        const a = tally.get(m.awayTeam)!;
+        h.pj++; a.pj++;
+        h.gf += m.homeScore; h.gc += m.awayScore;
+        a.gf += m.awayScore; a.gc += m.homeScore;
+        if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+        else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+        else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+      }
+      for (const r of gRows) {
+        assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+  }
+
+  // Junior matchArchive: 18 in 2012-I + 24 in 2012-II (18 regular + 6 Cuadrangular A)
+  const apArchive = t2012I.matchArchive || [];
+  const finArchive = t2012II.matchArchive || [];
+  assert.equal(apArchive.length, 18);
+  assert.equal(finArchive.length, 24);
+  const canonicalTeams2012 = new Set((t2012I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams2012.has(m.homeTeam), `Non-canonical homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams2012.has(m.awayTeam), `Non-canonical awayTeam: ${m.awayTeam}`);
+    assert.ok(/2012$/.test(m.date), `Expected 2012 date: ${m.date}`);
+  }
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 18, pg: 7, pe: 4, pp: 7, gf: 28, gc: 24, dg: 4, pts: 25,
+  });
+  const finLapOpts = getMatchArchiveLapOptions(finArchive.length, finArchive);
+  assert.deepEqual(finLapOpts.map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'apertura' }), 3), {
+    pj: 18, pg: 8, pe: 8, pp: 2, gf: 27, gc: 15, dg: 12, pts: 32,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 2, pe: 2, pp: 2, gf: 5, gc: 6, dg: -1, pts: 8,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 24, pg: 10, pe: 10, pp: 4, gf: 32, gc: 21, dg: 11, pts: 40,
+  });
+
+  // Reclasificación Anual 2012 dynamic verification
+  const rec2012 = getAnnualReclassificationByYear('2012-I');
+  assert.ok(rec2012 && rec2012.id === 'reclasificacion-2012');
+  assert.equal(getAnnualReclassificationByYear('2012-II')?.id, 'reclasificacion-2012');
+  assert.equal(rec2012.rows.length, 18);
+
+  const computed2012 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2012 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2012.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2012.set(team, cur);
+  };
+  for (const tbl of [t2012I, t2012II]) {
+    for (const r of tbl.regularRows || []) add2012(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const fg of tbl.finalGroups || []) for (const r of fg.rows) add2012(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of (tbl.playoffMatches || []).filter((pm) => pm.stage === 'Gran Final')) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      add2012(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      add2012(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2012.rows) {
+    const expected = computed2012.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2012 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2012.rows[0].team, 'Deportes Tolima');
+  assert.equal(rec2012.rows[0].pts, 80);
+  assert.equal(rec2012.rows[6].team, 'Junior de Barranquilla');
+  assert.equal(rec2012.rows[6].pts, 65);
+  assert.equal(rec2012.rows[6].pj, 42);
+  assert.equal(rec2012.rows[17].team, 'Real Cartagena');
+  assert.equal(rec2012.rows[17].pts, 32);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2012' && i.standingsTableId === 'reclasificacion-2012'));
+});
+
+// ── 92. 2013 Full Audit: 2013-I, 2013-II, 42 Junior Matches & Reclasificación 2013 ──
+test('92. 2013 full audit: zero-sum regular tables, deduplicated 26+26 cuadrangulares/final playoffs, unified Itagüí naming, 18+24 Junior archive, search index, and Reclasificación 2013', () => {
+  const t2013I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2013-I-regular')!;
+  const t2013II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2013-II-cuadrangular')!;
+  assert.ok(t2013I && t2013II);
+
+  assert.equal(t2013I.championTeam, 'Atlético Nacional');
+  assert.equal(t2013I.runnerUpTeam, 'Independiente Santa Fe');
+  assert.equal(t2013II.championTeam, 'Atlético Nacional');
+  assert.equal(t2013II.runnerUpTeam, 'Deportivo Cali');
+
+  // Zero-sum regularRows verification
+  for (const tbl of [t2013I, t2013II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+  }
+
+  // Cuadrangulares & Gran Final verification for both 2013-I and 2013-II (exact 26 matches each, no duplicates, unified Itagüí F. C)
+  for (const tbl of [t2013I, t2013II]) {
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26, `Expected 26 playoffMatches in ${tbl.id}`);
+    assert.deepEqual([...new Set(playoffs.map((m) => m.stage))].sort(), ['Cuadrangular A', 'Cuadrangular B', 'Gran Final']);
+    for (const m of playoffs) {
+      assert.ok(/2013$/.test(m.date || ''), `Expected explicit 2013 date in ${tbl.id}: ${m.date}`);
+      assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+      assert.ok(m.homeTeam !== 'Águilas Doradas' && m.awayTeam !== 'Águilas Doradas', `Unexpected Águilas Doradas in ${tbl.id}`);
+    }
+    for (const [idx, stageName] of [[0, 'Cuadrangular A'], [1, 'Cuadrangular B']] as const) {
+      const gRows = (tbl.finalGroups || [])[idx].rows;
+      const gMatches = playoffs.filter((m) => m.stage === stageName);
+      assert.equal(gMatches.length, 12);
+      const tally = new Map(gRows.map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+      for (const m of gMatches) {
+        const h = tally.get(m.homeTeam)!;
+        const a = tally.get(m.awayTeam)!;
+        assert.ok(h && a, `Missing team in ${tbl.id} ${stageName}: ${m.homeTeam} vs ${m.awayTeam}`);
+        h.pj++; a.pj++;
+        h.gf += m.homeScore; h.gc += m.awayScore;
+        a.gf += m.awayScore; a.gc += m.homeScore;
+        if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+        else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+        else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+      }
+      for (const r of gRows) {
+        assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+  }
+
+  // Junior matchArchive: 18 in 2013-I + 24 in 2013-II (18 regular + 6 Cuadrangular A)
+  const apArchive = t2013I.matchArchive || [];
+  const finArchive = t2013II.matchArchive || [];
+  assert.equal(apArchive.length, 18);
+  assert.equal(finArchive.length, 24);
+  const canonicalTeams2013 = new Set((t2013I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams2013.has(m.homeTeam), `Non-canonical homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams2013.has(m.awayTeam), `Non-canonical awayTeam: ${m.awayTeam}`);
+    assert.ok(/2013$/.test(m.date), `Expected 2013 date: ${m.date}`);
+  }
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 18, pg: 6, pe: 4, pp: 8, gf: 24, gc: 25, dg: -1, pts: 22,
+  });
+  const finLapOpts = getMatchArchiveLapOptions(finArchive.length, finArchive);
+  assert.deepEqual(finLapOpts.map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'apertura' }), 3), {
+    pj: 18, pg: 8, pe: 6, pp: 4, gf: 29, gc: 24, dg: 5, pts: 30,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 3, pe: 1, pp: 2, gf: 10, gc: 7, dg: 3, pts: 10,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 24, pg: 11, pe: 7, pp: 6, gf: 39, gc: 31, dg: 8, pts: 40,
+  });
+
+  // Reclasificación Anual 2013 dynamic verification
+  const rec2013 = getAnnualReclassificationByYear('2013-I');
+  assert.ok(rec2013 && rec2013.id === 'reclasificacion-2013');
+  assert.equal(getAnnualReclassificationByYear('2013-II')?.id, 'reclasificacion-2013');
+  assert.equal(rec2013.rows.length, 18);
+
+  const computed2013 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2013 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2013.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2013.set(team, cur);
+  };
+  for (const tbl of [t2013I, t2013II]) {
+    for (const r of tbl.regularRows || []) add2013(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const fg of tbl.finalGroups || []) for (const r of fg.rows) add2013(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of (tbl.playoffMatches || []).filter((pm) => pm.stage === 'Gran Final')) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      add2013(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      add2013(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2013.rows) {
+    const expected = computed2013.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2013 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2013.rows[0].team, 'Atlético Nacional');
+  assert.equal(rec2013.rows[0].pts, 103);
+  assert.equal(rec2013.rows[7].team, 'Junior de Barranquilla');
+  assert.equal(rec2013.rows[7].pts, 62);
+  assert.equal(rec2013.rows[7].pj, 42);
+  assert.equal(rec2013.rows[17].team, 'Deportes Quindío');
+  assert.equal(rec2013.rows[17].pts, 27);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2013' && i.standingsTableId === 'reclasificacion-2013'));
+});
+
+// ── 93. 2014 Full Audit: 2014-I (Subcampeón 🥈), 2014-II, 42 Junior Matches & Reclasificación 2014 ──
+test('93. 2014 full audit: zero-sum regular tables, 2014-I knockout brackets (clean Wikipedia artifact + penalties), 2014-II 26 cuadrangulares/final playoffs, 24+18 Junior archive, search index, and Reclasificación 2014', () => {
+  const t2014I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2014-I-playoffs')!;
+  const t2014II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2014-II-regular')!;
+  assert.ok(t2014I && t2014II);
+
+  assert.equal(t2014I.championTeam, 'Atlético Nacional');
+  assert.equal(t2014I.runnerUpTeam, 'Junior de Barranquilla');
+  assert.equal(t2014II.championTeam, 'Independiente Santa Fe');
+  assert.equal(t2014II.runnerUpTeam, 'Independiente Medellín');
+
+  // Zero-sum regularRows verification
+  for (const tbl of [t2014I, t2014II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 18);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 18);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+  }
+
+  // 2014-I Playoffs (14 matches) & Knockout Bracket Verification
+  const playoffs2014I = t2014I.playoffMatches || [];
+  assert.equal(playoffs2014I.length, 14);
+  assert.deepEqual([...new Set(playoffs2014I.map((m) => m.stage))].sort(), ['Cuartos de final', 'Gran Final', 'Semifinales']);
+  for (const m of playoffs2014I) {
+    assert.ok(/2014$/.test(m.date || ''), `Expected clean 2014 date: ${m.date}`);
+    assert.ok(!m.scorers?.includes('15px|'), `Unexpected Wikipedia artifact in 2014-I scorers: ${m.scorers}`);
+    assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+    assert.ok(!m.homeTeam.includes('Envigado F.C.') && !m.awayTeam.includes('Envigado F.C.'));
+  }
+  const brackets2014I = buildPlayoffKnockoutBrackets(playoffs2014I, t2014I.championTeam);
+  assert.equal(brackets2014I.length, 3);
+  assert.equal(brackets2014I[0].ties.length, 4);
+  assert.equal(brackets2014I[1].ties.length, 2);
+  assert.equal(brackets2014I[2].ties.length, 1);
+  // Semifinal Junior vs Millonarios (0-0 global, Junior wins 5-4 on penalties)
+  const sfJunior = brackets2014I[1].ties.find((s) => s.teamA === 'Junior de Barranquilla' || s.teamB === 'Junior de Barranquilla')!;
+  assert.equal(sfJunior.winnerTeam, 'Junior de Barranquilla');
+  // Gran Final Junior vs Atlético Nacional (2-2 global, Nacional wins 4-2 on penalties)
+  assert.equal(brackets2014I[2].ties[0].winnerTeam, 'Atlético Nacional');
+
+  // Reconcile 2014-I rows against playoffMatches
+  const tally2014I = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  for (const m of playoffs2014I) {
+    for (const [tm, gf, gc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+      const cur = tally2014I.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+      cur.pj++; cur.gf += gf; cur.gc += gc;
+      if (gf > gc) { cur.pg++; cur.pts += 3; } else if (gf < gc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+      tally2014I.set(tm, cur);
+    }
+  }
+  for (const r of t2014I.rows || []) {
+    assert.deepEqual(tally2014I.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+    assert.equal(r.gf - r.gc, r.dg);
+  }
+
+  // 2014-II Cuadrangulares & Gran Final (26 matches)
+  const playoffs2014II = t2014II.playoffMatches || [];
+  assert.equal(playoffs2014II.length, 26);
+  assert.deepEqual([...new Set(playoffs2014II.map((m) => m.stage))].sort(), ['Cuadrangular A', 'Cuadrangular B', 'Gran Final']);
+  for (const m of playoffs2014II) {
+    assert.ok(/2014$/.test(m.date || ''), `Expected clean 2014 date in 2014-II: ${m.date}`);
+  }
+  for (const [idx, stageName] of [[0, 'Cuadrangular A'], [1, 'Cuadrangular B']] as const) {
+    const gRows = (t2014II.finalGroups || [])[idx].rows;
+    const gMatches = playoffs2014II.filter((m) => m.stage === stageName);
+    assert.equal(gMatches.length, 12);
+    const tally = new Map(gRows.map((r) => [r.team, { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 }]));
+    for (const m of gMatches) {
+      const h = tally.get(m.homeTeam)!;
+      const a = tally.get(m.awayTeam)!;
+      h.pj++; a.pj++;
+      h.gf += m.homeScore; h.gc += m.awayScore;
+      a.gf += m.awayScore; a.gc += m.homeScore;
+      if (m.homeScore > m.awayScore) { h.pg++; h.pts += 3; a.pp++; }
+      else if (m.homeScore < m.awayScore) { a.pg++; a.pts += 3; h.pp++; }
+      else { h.pe++; h.pts += 1; a.pe++; a.pts += 1; }
+    }
+    for (const r of gRows) {
+      assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+    }
+  }
+
+  // Junior matchArchive: 24 in 2014-I (18 regular + 2 Cuartos + 2 Semifinal + 2 Gran Final) + 18 in 2014-II
+  const apArchive = t2014I.matchArchive || [];
+  const finArchive = t2014II.matchArchive || [];
+  assert.equal(apArchive.length, 24);
+  assert.equal(finArchive.length, 18);
+  const canonicalTeams2014I = new Set((t2014I.regularRows || []).map((r) => r.team));
+  const canonicalTeams2014II = new Set((t2014II.regularRows || []).map((r) => r.team));
+  for (const m of apArchive) {
+    assert.ok(canonicalTeams2014I.has(m.homeTeam), `Non-canonical 2014-I homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams2014I.has(m.awayTeam), `Non-canonical 2014-I awayTeam: ${m.awayTeam}`);
+    assert.ok(/2014$/.test(m.date), `Expected 2014 date: ${m.date}`);
+  }
+  for (const m of finArchive) {
+    assert.ok(canonicalTeams2014II.has(m.homeTeam), `Non-canonical 2014-II homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams2014II.has(m.awayTeam), `Non-canonical 2014-II awayTeam: ${m.awayTeam}`);
+    assert.ok(/2014$/.test(m.date), `Expected 2014 date: ${m.date}`);
+  }
+  const apLapOpts = getMatchArchiveLapOptions(apArchive.length, apArchive);
+  assert.deepEqual(apLapOpts.map((o) => o.id), ['all', 'apertura', 'cuartos', 'semifinal', 'final']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'apertura' }), 3), {
+    pj: 18, pg: 10, pe: 3, pp: 5, gf: 20, gc: 17, dg: 3, pts: 33,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'cuartos' }), 3), {
+    pj: 2, pg: 1, pe: 1, pp: 0, gf: 3, gc: 2, dg: 1, pts: 4,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'semifinal' }), 3), {
+    pj: 2, pg: 0, pe: 2, pp: 0, gf: 0, gc: 0, dg: 0, pts: 2,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'final' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 2, gc: 2, dg: 0, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 24, pg: 12, pe: 6, pp: 6, gf: 25, gc: 21, dg: 4, pts: 42,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 18, pg: 6, pe: 4, pp: 8, gf: 19, gc: 20, dg: -1, pts: 22,
+  });
+
+  // Reclasificación Anual 2014 dynamic verification (merging Itagüí F.C + Águilas Pereira as one club)
+  const rec2014 = getAnnualReclassificationByYear('2014-I');
+  assert.ok(rec2014 && rec2014.id === 'reclasificacion-2014');
+  assert.equal(getAnnualReclassificationByYear('2014-II')?.id, 'reclasificacion-2014');
+  assert.equal(rec2014.rows.length, 18);
+
+  const norm2014 = (team: string) => (team === 'Itagüí F.C' ? 'Águilas Pereira' : team);
+  const computed2014 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2014 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const k = norm2014(team);
+    const cur = computed2014.get(k) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2014.set(k, cur);
+  };
+  for (const r of t2014I.regularRows || []) add2014(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  for (const r of t2014II.regularRows || []) add2014(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  for (const m of [...playoffs2014I, ...playoffs2014II]) {
+    const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    add2014(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+    add2014(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+  }
+
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2014.rows) {
+    const expected = computed2014.get(row.team);
+    assert.ok(expected, `Missing computed stats for ${row.team}`);
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      expected,
+      `Reclasificación 2014 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2014.rows[0].team, 'Independiente Santa Fe');
+  assert.equal(rec2014.rows[0].pts, 82);
+  assert.equal(rec2014.rows[1].team, 'Atlético Nacional');
+  assert.equal(rec2014.rows[1].pts, 81);
+  assert.equal(rec2014.rows[4].team, 'Junior de Barranquilla');
+  assert.equal(rec2014.rows[4].pts, 64);
+  assert.equal(rec2014.rows[4].pj, 42);
+  assert.equal(rec2014.rows[17].team, 'Uniautónoma F.C');
+  assert.equal(rec2014.rows[17].pts, 35);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2014' && i.standingsTableId === 'reclasificacion-2014'));
+});
+
+// ── 94. 2015 Full Audit: 2015-I, 2015-II (Subcampeón 🥈), 48 Junior Matches & Reclasificación 2015 ──
+test('94. 2015 full audit: 20-club zero-sum regular tables, clean 14+14 knockout brackets (garbage dump removed), 22+26 Junior archive with 20-fecha filters, search index, and Reclasificación 2015', () => {
+  const t2015I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2015-I-playoffs')!;
+  const t2015II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2015-II-playoffs')!;
+  assert.ok(t2015I && t2015II);
+
+  assert.equal(t2015I.championTeam, 'Deportivo Cali');
+  assert.equal(t2015I.runnerUpTeam, 'Independiente Medellín');
+  assert.equal(t2015II.championTeam, 'Atlético Nacional');
+  assert.equal(t2015II.runnerUpTeam, 'Junior de Barranquilla');
+  assert.equal(t2015II.isJuniorRunnerUp, true);
+
+  // Zero-sum 20-club regularRows verification
+  for (const tbl of [t2015I, t2015II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 20);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 20);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+  }
+
+  // Exact 14 knockout playoffMatches each, clean dates/names, brackets & playoff rows reconciliation
+  for (const tbl of [t2015I, t2015II]) {
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 14, `Expected exact 14 playoffMatches in ${tbl.id}`);
+    assert.deepEqual([...new Set(playoffs.map((m) => m.stage))].sort(), ['Cuartos de final', 'Gran Final', 'Semifinales']);
+    for (const m of playoffs) {
+      assert.ok(/2015$/.test(m.date || ''), `Expected clean 2015 date in ${tbl.id}: ${m.date}`);
+      assert.ok(!m.venue?.includes('align=left') && !m.venue?.includes('[Bogotá]]'));
+      assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+      assert.ok(!m.homeTeam.includes('Envigado F.C.') && !m.awayTeam.includes('Envigado F.C.'));
+    }
+    const tally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+    for (const m of playoffs) {
+      for (const [tm, gf, gc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+        const cur = tally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+        cur.pj++; cur.gf += gf; cur.gc += gc;
+        if (gf > gc) { cur.pg++; cur.pts += 3; } else if (gf < gc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+        tally.set(tm, cur);
+      }
+    }
+    assert.equal((tbl.rows || []).length, 8);
+    for (const r of tbl.rows || []) {
+      assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      assert.equal(r.gf - r.gc, r.dg);
+    }
+  }
+
+  // Bracket penalty resolution checks
+  const b2015I = buildPlayoffKnockoutBrackets(t2015I.playoffMatches || [], t2015I.championTeam);
+  assert.equal(b2015I.length, 3);
+  const sfCali2015I = b2015I[1].ties.find((s) => s.teamA === 'Deportivo Cali' || s.teamB === 'Deportivo Cali')!;
+  assert.equal(sfCali2015I.winnerTeam, 'Deportivo Cali');
+  assert.equal(b2015I[2].ties[0].winnerTeam, 'Deportivo Cali');
+
+  const b2015II = buildPlayoffKnockoutBrackets(t2015II.playoffMatches || [], t2015II.championTeam);
+  assert.equal(b2015II.length, 3);
+  assert.equal(b2015II[2].ties[0].winnerTeam, 'Atlético Nacional');
+
+  // Junior matchArchive: 22 in 2015-I (20 regular + 2 Cuartos) + 26 in 2015-II (20 regular + 6 playoffs)
+  const apArchive = t2015I.matchArchive || [];
+  const finArchive = t2015II.matchArchive || [];
+  assert.equal(apArchive.length, 22);
+  assert.equal(finArchive.length, 26);
+  const canonicalTeams2015 = new Set((t2015I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams2015.has(m.homeTeam), `Non-canonical 2015 homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams2015.has(m.awayTeam), `Non-canonical 2015 awayTeam: ${m.awayTeam}`);
+    assert.ok(/2015$/.test(m.date), `Expected 2015 date: ${m.date}`);
+  }
+  assert.deepEqual(getMatchArchiveLapOptions(apArchive.length, apArchive).map((o) => o.id), ['all', 'apertura', 'cuartos']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 9, pe: 6, pp: 5, gf: 27, gc: 16, dg: 11, pts: 33,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'cuartos' }), 3), {
+    pj: 2, pg: 0, pe: 0, pp: 2, gf: 0, gc: 4, dg: -4, pts: 0,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 22, pg: 9, pe: 6, pp: 7, gf: 27, gc: 20, dg: 7, pts: 33,
+  });
+
+  assert.deepEqual(getMatchArchiveLapOptions(finArchive.length, finArchive).map((o) => o.id), ['all', 'apertura', 'cuartos', 'semifinal', 'final']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 11, pe: 3, pp: 6, gf: 31, gc: 23, dg: 8, pts: 36,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'cuartos' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 4, gc: 3, dg: 1, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'semifinal' }), 3), {
+    pj: 2, pg: 2, pe: 0, pp: 0, gf: 2, gc: 0, dg: 2, pts: 6,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'final' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 2, gc: 2, dg: 0, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 26, pg: 15, pe: 3, pp: 8, gf: 39, gc: 28, dg: 11, pts: 48,
+  });
+
+  // Reclasificación Anual 2015 dynamic verification
+  const rec2015 = getAnnualReclassificationByYear('2015-I');
+  assert.ok(rec2015 && rec2015.id === 'reclasificacion-2015');
+  assert.equal(getAnnualReclassificationByYear('2015-II')?.id, 'reclasificacion-2015');
+  assert.equal(rec2015.rows.length, 20);
+
+  const computed2015 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2015 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2015.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2015.set(team, cur);
+  };
+  for (const r of [...(t2015I.regularRows || []), ...(t2015II.regularRows || [])]) {
+    add2015(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  }
+  for (const m of [...(t2015I.playoffMatches || []), ...(t2015II.playoffMatches || [])]) {
+    const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    add2015(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+    add2015(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+  }
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2015.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2015.get(row.team),
+      `Reclasificación 2015 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2015.rows[0].team, 'Atlético Nacional');
+  assert.equal(rec2015.rows[0].pts, 90);
+  assert.equal(rec2015.rows[2].team, 'Junior de Barranquilla');
+  assert.equal(rec2015.rows[2].pts, 81);
+  assert.equal(rec2015.rows[2].pj, 48);
+  assert.equal(rec2015.rows[19].team, 'Cúcuta Deportivo');
+  assert.equal(rec2015.rows[19].pts, 27);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2015' && i.standingsTableId === 'reclasificacion-2015'));
+});
+
+// ── 95. 2016 Full Audit: 2016-I (Subcampeón 🥈), 2016-II, 46 Junior Matches & Reclasificación 2016 ──
+test('95. 2016 full audit: 20-club zero-sum regular tables, 14+14 knockout brackets with all 6 penalty shootouts, 26+20 Junior archive, search index, and Reclasificación 2016', () => {
+  const t2016I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2016-I-playoffs')!;
+  const t2016II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2016-II-regular')!;
+  assert.ok(t2016I && t2016II);
+
+  assert.equal(t2016I.championTeam, 'Independiente Medellín');
+  assert.equal(t2016I.runnerUpTeam, 'Junior de Barranquilla');
+  assert.equal(t2016I.isJuniorRunnerUp, true);
+  assert.equal(t2016II.championTeam, 'Independiente Santa Fe');
+  assert.equal(t2016II.runnerUpTeam, 'Deportes Tolima');
+
+  // Zero-sum 20-club regularRows verification
+  for (const tbl of [t2016I, t2016II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 20);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 20);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+  }
+
+  // Exact 14 knockout playoffMatches each, clean dates/names, 8-club rows reconciliation
+  for (const tbl of [t2016I, t2016II]) {
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 14);
+    assert.deepEqual([...new Set(playoffs.map((m) => m.stage))].sort(), ['Cuartos de final', 'Gran Final', 'Semifinales']);
+    for (const m of playoffs) {
+      assert.ok(/2016$/.test(m.date || ''), `Expected clean 2016 date in ${tbl.id}: ${m.date}`);
+      assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+    }
+    const tally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+    for (const m of playoffs) {
+      for (const [tm, gf, gc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+        const cur = tally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+        cur.pj++; cur.gf += gf; cur.gc += gc;
+        if (gf > gc) { cur.pg++; cur.pts += 3; } else if (gf < gc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+        tally.set(tm, cur);
+      }
+    }
+    assert.equal((tbl.rows || []).length, 8);
+    for (const r of tbl.rows || []) {
+      assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      assert.equal(r.gf - r.gc, r.dg);
+    }
+  }
+
+  // Verify ALL 6 penalty shootouts in 2016-I (4) and 2016-II (2) resolve to the exact winners
+  const b2016I = buildPlayoffKnockoutBrackets(t2016I.playoffMatches || [], t2016I.championTeam);
+  assert.equal(b2016I[0].ties.find((s) => s.teamA === 'Águilas Doradas' || s.teamB === 'Águilas Doradas')!.winnerTeam, 'Atlético Nacional');
+  assert.equal(b2016I[0].ties.find((s) => s.teamA === 'Millonarios F.C' || s.teamB === 'Millonarios F.C')!.winnerTeam, 'Junior de Barranquilla');
+  assert.equal(b2016I[1].ties.find((s) => s.teamA === 'Cortuluá' || s.teamB === 'Cortuluá')!.winnerTeam, 'Independiente Medellín');
+  assert.equal(b2016I[1].ties.find((s) => s.teamA === 'Atlético Nacional' || s.teamB === 'Atlético Nacional')!.winnerTeam, 'Junior de Barranquilla');
+  assert.equal(b2016I[2].ties[0].winnerTeam, 'Independiente Medellín');
+
+  const b2016II = buildPlayoffKnockoutBrackets(t2016II.playoffMatches || [], t2016II.championTeam);
+  assert.equal(b2016II[0].ties.find((s) => s.teamA === 'Patriotas Boyacá' || s.teamB === 'Patriotas Boyacá')!.winnerTeam, 'Deportes Tolima');
+  assert.equal(b2016II[1].ties.find((s) => s.teamA === 'Atlético Bucaramanga' || s.teamB === 'Atlético Bucaramanga')!.winnerTeam, 'Deportes Tolima');
+  assert.equal(b2016II[2].ties[0].winnerTeam, 'Independiente Santa Fe');
+
+  // Junior matchArchive: 26 in 2016-I (20 regular + 6 playoffs) + 20 in 2016-II
+  const apArchive = t2016I.matchArchive || [];
+  const finArchive = t2016II.matchArchive || [];
+  assert.equal(apArchive.length, 26);
+  assert.equal(finArchive.length, 20);
+  const canonicalTeams2016 = new Set((t2016I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams2016.has(m.homeTeam), `Non-canonical 2016 homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams2016.has(m.awayTeam), `Non-canonical 2016 awayTeam: ${m.awayTeam}`);
+    assert.ok(/2016$/.test(m.date), `Expected 2016 date: ${m.date}`);
+  }
+  assert.deepEqual(getMatchArchiveLapOptions(apArchive.length, apArchive).map((o) => o.id), ['all', 'apertura', 'cuartos', 'semifinal', 'final']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 10, pe: 7, pp: 3, gf: 28, gc: 20, dg: 8, pts: 37,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'cuartos' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 4, gc: 4, dg: 0, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'semifinal' }), 3), {
+    pj: 2, pg: 0, pe: 2, pp: 0, gf: 1, gc: 1, dg: 0, pts: 2,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'final' }), 3), {
+    pj: 2, pg: 0, pe: 1, pp: 1, gf: 1, gc: 3, dg: -2, pts: 1,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 26, pg: 11, pe: 10, pp: 5, gf: 34, gc: 28, dg: 6, pts: 43,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 20, pg: 7, pe: 7, pp: 6, gf: 25, gc: 27, dg: -2, pts: 28,
+  });
+
+  // Reclasificación Anual 2016 dynamic verification
+  const rec2016 = getAnnualReclassificationByYear('2016-I');
+  assert.ok(rec2016 && rec2016.id === 'reclasificacion-2016');
+  assert.equal(getAnnualReclassificationByYear('2016-II')?.id, 'reclasificacion-2016');
+  assert.equal(rec2016.rows.length, 20);
+
+  const computed2016 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2016 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2016.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2016.set(team, cur);
+  };
+  for (const r of [...(t2016I.regularRows || []), ...(t2016II.regularRows || [])]) {
+    add2016(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  }
+  for (const m of [...(t2016I.playoffMatches || []), ...(t2016II.playoffMatches || [])]) {
+    const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    add2016(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+    add2016(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+  }
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2016.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2016.get(row.team),
+      `Reclasificación 2016 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2016.rows[0].team, 'Independiente Santa Fe');
+  assert.equal(rec2016.rows[0].pts, 85);
+  assert.equal(rec2016.rows[1].team, 'Atlético Nacional');
+  assert.equal(rec2016.rows[1].pts, 84);
+  assert.equal(rec2016.rows[2].team, 'Independiente Medellín');
+  assert.equal(rec2016.rows[2].pts, 83);
+  assert.equal(rec2016.rows[4].team, 'Junior de Barranquilla');
+  assert.equal(rec2016.rows[4].pts, 71);
+  assert.equal(rec2016.rows[4].pj, 46);
+  assert.equal(rec2016.rows[19].team, 'Boyacá Chicó');
+  assert.equal(rec2016.rows[19].pts, 31);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2016' && i.standingsTableId === 'reclasificacion-2016'));
+});
+
+// ── 96. 2017 Full Audit: 2017-I, 2017-II (Súper Líder ChaTeo), 42 Junior Matches & Reclasificación 2017 ──
+test('96. 2017 full audit: 20-club zero-sum regular tables, clean 14+14 knockout brackets (24 garbage matches removed, 2 penalty shootouts), 20+22 Junior archive, search index, and Reclasificación 2017', () => {
+  const t2017I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2017-I-regular')!;
+  const t2017II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2017-II-playoffs')!;
+  assert.ok(t2017I && t2017II);
+
+  assert.equal(t2017I.championTeam, 'Atlético Nacional');
+  assert.equal(t2017I.runnerUpTeam, 'Deportivo Cali');
+  assert.equal(t2017II.championTeam, 'Millonarios F.C');
+  assert.equal(t2017II.runnerUpTeam, 'Independiente Santa Fe');
+
+  // Zero-sum 20-club regularRows verification
+  for (const tbl of [t2017I, t2017II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 20);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 20);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+  }
+
+  // Exact 14 knockout playoffMatches each, clean dates/names, 8-club playoff rows reconciliation
+  for (const tbl of [t2017I, t2017II]) {
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 14, `Expected exact 14 playoffMatches in ${tbl.id}`);
+    assert.deepEqual([...new Set(playoffs.map((m) => m.stage))].sort(), ['Cuartos de final', 'Gran Final', 'Semifinales']);
+    for (const m of playoffs) {
+      assert.ok(/2017$/.test(m.date || ''), `Expected clean 2017 date in ${tbl.id}: ${m.date}`);
+      assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+    }
+    const tally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+    for (const m of playoffs) {
+      for (const [tm, gf, gc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+        const cur = tally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+        cur.pj++; cur.gf += gf; cur.gc += gc;
+        if (gf > gc) { cur.pg++; cur.pts += 3; } else if (gf < gc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+        tally.set(tm, cur);
+      }
+    }
+    assert.equal((tbl.rows || []).length, 8);
+    for (const r of tbl.rows || []) {
+      assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      assert.equal(r.gf - r.gc, r.dg);
+    }
+  }
+
+  // Final 2017-I Vuelta 5th scorer Rodin Quiñones (77') restored
+  const final2017IVuelta = (t2017I.playoffMatches || [])[13];
+  assert.ok(final2017IVuelta.scorers?.includes("Quiñones (77')"));
+
+  // Bracket & penalty shootout resolution checks
+  const b2017I = buildPlayoffKnockoutBrackets(t2017I.playoffMatches || [], t2017I.championTeam);
+  assert.equal(b2017I.length, 3);
+  assert.equal(b2017I[2].ties[0].winnerTeam, 'Atlético Nacional');
+
+  const b2017II = buildPlayoffKnockoutBrackets(t2017II.playoffMatches || [], t2017II.championTeam);
+  assert.equal(b2017II.length, 3);
+  assert.equal(b2017II[0].ties.find((s) => s.teamA === 'Junior de Barranquilla' || s.teamB === 'Junior de Barranquilla')!.winnerTeam, 'América de Cali');
+  assert.equal(b2017II[0].ties.find((s) => s.teamA === 'Atlético Nacional' || s.teamB === 'Atlético Nacional')!.winnerTeam, 'Deportes Tolima');
+  assert.equal(b2017II[2].ties[0].winnerTeam, 'Millonarios F.C');
+
+  // Junior matchArchive: 20 in 2017-I + 22 in 2017-II (20 regular + 2 Cuartos)
+  const apArchive = t2017I.matchArchive || [];
+  const finArchive = t2017II.matchArchive || [];
+  assert.equal(apArchive.length, 20);
+  assert.equal(finArchive.length, 22);
+  const canonicalTeams2017 = new Set((t2017I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams2017.has(m.homeTeam), `Non-canonical 2017 homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams2017.has(m.awayTeam), `Non-canonical 2017 awayTeam: ${m.awayTeam}`);
+    assert.ok(/2017$/.test(m.date), `Expected 2017 date: ${m.date}`);
+  }
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 20, pg: 6, pe: 5, pp: 9, gf: 25, gc: 26, dg: -1, pts: 23,
+  });
+  assert.deepEqual(getMatchArchiveLapOptions(finArchive.length, finArchive).map((o) => o.id), ['all', 'apertura', 'cuartos']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 12, pe: 3, pp: 5, gf: 32, gc: 15, dg: 17, pts: 39,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'cuartos' }), 3), {
+    pj: 2, pg: 0, pe: 2, pp: 0, gf: 2, gc: 2, dg: 0, pts: 2,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 22, pg: 12, pe: 5, pp: 5, gf: 34, gc: 17, dg: 17, pts: 41,
+  });
+
+  // Reclasificación Anual 2017 dynamic verification
+  const rec2017 = getAnnualReclassificationByYear('2017-I');
+  assert.ok(rec2017 && rec2017.id === 'reclasificacion-2017');
+  assert.equal(getAnnualReclassificationByYear('2017-II')?.id, 'reclasificacion-2017');
+  assert.equal(rec2017.rows.length, 20);
+
+  const computed2017 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2017 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2017.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2017.set(team, cur);
+  };
+  for (const r of [...(t2017I.regularRows || []), ...(t2017II.regularRows || [])]) {
+    add2017(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  }
+  for (const m of [...(t2017I.playoffMatches || []), ...(t2017II.playoffMatches || [])]) {
+    const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    add2017(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+    add2017(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+  }
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2017.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2017.get(row.team),
+      `Reclasificación 2017 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2017.rows[0].team, 'Atlético Nacional');
+  assert.equal(rec2017.rows[0].pts, 103);
+  assert.equal(rec2017.rows[5].team, 'Junior de Barranquilla');
+  assert.equal(rec2017.rows[5].pts, 64);
+  assert.equal(rec2017.rows[5].pj, 42);
+  assert.equal(rec2017.rows[19].team, 'Águilas Doradas');
+  assert.equal(rec2017.rows[19].pts, 39);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2017' && i.standingsTableId === 'reclasificacion-2017'));
+});
+
+// ── 97. 2018 Full Audit: 2018-I, 2018-II (8ª Estrella ★), 46 Junior Matches & Reclasificación 2018 ──
+test('97. 2018 full audit: 19-fecha zero-sum regular tables, 14+14 knockout brackets with all 5 penalty shootouts, 21+25 Junior archive with 19-fecha filters, search index, and Reclasificación 2018', () => {
+  const t2018I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2018-I-playoffs')!;
+  const t2018II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2018-II-playoffs')!;
+  assert.ok(t2018I && t2018II);
+
+  assert.equal(t2018I.championTeam, 'Deportes Tolima');
+  assert.equal(t2018I.runnerUpTeam, 'Atlético Nacional');
+  assert.equal(t2018II.championTeam, 'Junior de Barranquilla');
+  assert.equal(t2018II.runnerUpTeam, 'Independiente Medellín');
+  assert.equal(t2018II.isJuniorChampion, true);
+
+  // Zero-sum 20-club 19-fecha regularRows verification
+  for (const tbl of [t2018I, t2018II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 20);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 19);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+  }
+
+  // Exact 14 knockout playoffMatches each, clean dates/names, 8-club playoff rows reconciliation
+  for (const tbl of [t2018I, t2018II]) {
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 14);
+    assert.deepEqual([...new Set(playoffs.map((m) => m.stage))].sort(), ['Cuartos de final', 'Gran Final', 'Semifinales']);
+    for (const m of playoffs) {
+      assert.ok(/2018$/.test(m.date || ''), `Expected clean 2018 date in ${tbl.id}: ${m.date}`);
+      assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+    }
+    const tally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+    for (const m of playoffs) {
+      for (const [tm, gf, gc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+        const cur = tally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+        cur.pj++; cur.gf += gf; cur.gc += gc;
+        if (gf > gc) { cur.pg++; cur.pts += 3; } else if (gf < gc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+        tally.set(tm, cur);
+      }
+    }
+    assert.equal((tbl.rows || []).length, 8);
+    for (const r of tbl.rows || []) {
+      assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      assert.equal(r.gf - r.gc, r.dg);
+    }
+  }
+
+  // Verify ALL 5 penalty shootouts in 2018-I (4) and 2018-II (1) resolve to the exact winners
+  const b2018I = buildPlayoffKnockoutBrackets(t2018I.playoffMatches || [], t2018I.championTeam);
+  assert.equal(b2018I[0].ties.find((s) => s.teamA === 'Patriotas Boyacá' || s.teamB === 'Patriotas Boyacá')!.winnerTeam, 'Atlético Huila');
+  assert.equal(b2018I[1].ties.find((s) => s.teamA === 'Atlético Huila' || s.teamB === 'Atlético Huila')!.winnerTeam, 'Atlético Nacional');
+  assert.equal(b2018I[1].ties.find((s) => s.teamA === 'Independiente Medellín' || s.teamB === 'Independiente Medellín')!.winnerTeam, 'Deportes Tolima');
+  assert.equal(b2018I[2].ties[0].winnerTeam, 'Deportes Tolima');
+
+  const b2018II = buildPlayoffKnockoutBrackets(t2018II.playoffMatches || [], t2018II.championTeam);
+  assert.equal(b2018II[0].ties.find((s) => s.teamA === 'Independiente Santa Fe' || s.teamB === 'Independiente Santa Fe')!.winnerTeam, 'Deportes Tolima');
+  assert.equal(b2018II[2].ties[0].winnerTeam, 'Junior de Barranquilla');
+  assert.ok((t2018II.playoffMatches || [])[5].scorers?.includes("Velázquez (44')"));
+
+  // Junior matchArchive: 21 in 2018-I (19 regular + 2 Cuartos) + 25 in 2018-II (19 regular + 6 playoffs -> 8ª Estrella ★)
+  const apArchive = t2018I.matchArchive || [];
+  const finArchive = t2018II.matchArchive || [];
+  assert.equal(apArchive.length, 21);
+  assert.equal(finArchive.length, 25);
+  const canonicalTeams2018 = new Set((t2018I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams2018.has(m.homeTeam), `Non-canonical 2018 homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams2018.has(m.awayTeam), `Non-canonical 2018 awayTeam: ${m.awayTeam}`);
+    assert.ok(/2018$/.test(m.date), `Expected 2018 date: ${m.date}`);
+  }
+  assert.deepEqual(getMatchArchiveLapOptions(apArchive.length, apArchive).map((o) => o.id), ['all', 'apertura', 'cuartos']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'apertura' }), 3), {
+    pj: 19, pg: 8, pe: 6, pp: 5, gf: 19, gc: 16, dg: 3, pts: 30,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'cuartos' }), 3), {
+    pj: 2, pg: 0, pe: 1, pp: 1, gf: 2, gc: 3, dg: -1, pts: 1,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 21, pg: 8, pe: 7, pp: 6, gf: 21, gc: 19, dg: 2, pts: 31,
+  });
+
+  assert.deepEqual(getMatchArchiveLapOptions(finArchive.length, finArchive).map((o) => o.id), ['all', 'apertura', 'cuartos', 'semifinal', 'final']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'apertura' }), 3), {
+    pj: 19, pg: 9, pe: 5, pp: 5, gf: 32, gc: 17, dg: 15, pts: 32,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'cuartos' }), 3), {
+    pj: 2, pg: 1, pe: 1, pp: 0, gf: 1, gc: 0, dg: 1, pts: 4,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'semifinal' }), 3), {
+    pj: 2, pg: 1, pe: 1, pp: 0, gf: 4, gc: 3, dg: 1, pts: 4,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'final' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 5, gc: 4, dg: 1, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 25, pg: 12, pe: 7, pp: 6, gf: 42, gc: 24, dg: 18, pts: 43,
+  });
+
+  // Reclasificación Anual 2018 dynamic verification
+  const rec2018 = getAnnualReclassificationByYear('2018-I');
+  assert.ok(rec2018 && rec2018.id === 'reclasificacion-2018');
+  assert.equal(getAnnualReclassificationByYear('2018-II')?.id, 'reclasificacion-2018');
+  assert.equal(rec2018.rows.length, 20);
+
+  const computed2018 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2018 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2018.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2018.set(team, cur);
+  };
+  for (const r of [...(t2018I.regularRows || []), ...(t2018II.regularRows || [])]) {
+    add2018(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  }
+  for (const m of [...(t2018I.playoffMatches || []), ...(t2018II.playoffMatches || [])]) {
+    const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    add2018(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+    add2018(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+  }
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2018.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2018.get(row.team),
+      `Reclasificación 2018 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2018.rows[0].team, 'Independiente Medellín');
+  assert.equal(rec2018.rows[0].pts, 86);
+  assert.equal(rec2018.rows[1].team, 'Deportes Tolima');
+  assert.equal(rec2018.rows[1].pts, 85);
+  assert.equal(rec2018.rows[3].team, 'Junior de Barranquilla');
+  assert.equal(rec2018.rows[3].pts, 74);
+  assert.equal(rec2018.rows[3].pj, 46);
+  assert.equal(rec2018.rows[19].team, 'Itagüí Leones');
+  assert.equal(rec2018.rows[19].pts, 22);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2018' && i.standingsTableId === 'reclasificacion-2018'));
+});
+
+// ── 98. 2019 Full Audit: 2019-I (9ª Estrella ★ Bicampeón), 2019-II (Subcampeón 🥈), 56 Junior Matches & Reclasificación 2019 ──
+test('98. 2019 full audit: zero-sum regular & cuadrangular tables, 26+26 playoff matches with 4-5 shootout, 28+28 Junior archive with 28-match phase filters, search index, and Reclasificación 2019', () => {
+  const t2019I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2019-I-cuadrangular')!;
+  const t2019II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2019-II-cuadrangular')!;
+  assert.ok(t2019I && t2019II);
+
+  assert.equal(t2019I.championTeam, 'Junior de Barranquilla');
+  assert.equal(t2019I.runnerUpTeam, 'Deportivo Pasto');
+  assert.equal(t2019I.isJuniorChampion, true);
+  assert.equal(t2019II.championTeam, 'América de Cali');
+  assert.equal(t2019II.runnerUpTeam, 'Junior de Barranquilla');
+  assert.equal(t2019II.isJuniorRunnerUp, true);
+
+  // Zero-sum 20-club regularRows + cuadrangular group reconciliation
+  for (const tbl of [t2019I, t2019II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 20);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 20);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+    for (const m of playoffs) {
+      assert.ok(/2019$/.test(m.date || ''), `Expected clean 2019 date in ${tbl.id}: ${m.date}`);
+      assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+    }
+
+    // Reconcile 24 group matches against finalGroups
+    const groupMatches = playoffs.filter((m) => /grupo [ab]/i.test(m.stage));
+    assert.equal(groupMatches.length, 24);
+    const tally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+    for (const m of groupMatches) {
+      for (const [tm, mgf, mgc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+        const cur = tally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+        cur.pj++; cur.gf += mgf; cur.gc += mgc;
+        if (mgf > mgc) { cur.pg++; cur.pts += 3; } else if (mgf < mgc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+        tally.set(tm, cur);
+      }
+    }
+    assert.equal((tbl.finalGroups || []).length, 2);
+    for (const g of tbl.finalGroups || []) {
+      assert.equal(g.rows.length, 4);
+      for (const r of g.rows) {
+        assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+        assert.equal(r.gf - r.gc, r.dg);
+      }
+    }
+  }
+
+  // Final bracket checks (including 2019-I Pasto vs Junior 4-5 penalty shootout)
+  const b2019I = buildPlayoffKnockoutBrackets(t2019I.playoffMatches || [], t2019I.championTeam);
+  assert.equal(b2019I.length, 1);
+  assert.equal(b2019I[0].ties[0].winnerTeam, 'Junior de Barranquilla');
+  assert.ok(b2019I[0].ties[0].penaltiesLabel?.includes('4-5') || b2019I[0].ties[0].penaltiesLabel?.includes('5-4'));
+
+  const b2019II = buildPlayoffKnockoutBrackets(t2019II.playoffMatches || [], t2019II.championTeam);
+  assert.equal(b2019II.length, 1);
+  assert.equal(b2019II[0].ties[0].winnerTeam, 'América de Cali');
+
+  // Junior matchArchive: 28 in 2019-I + 28 in 2019-II (56 total)
+  const apArchive = t2019I.matchArchive || [];
+  const finArchive = t2019II.matchArchive || [];
+  assert.equal(apArchive.length, 28);
+  assert.equal(finArchive.length, 28);
+  const canonicalTeams2019 = new Set((t2019I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArchive, ...finArchive]) {
+    assert.ok(canonicalTeams2019.has(m.homeTeam), `Non-canonical 2019 homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams2019.has(m.awayTeam), `Non-canonical 2019 awayTeam: ${m.awayTeam}`);
+    assert.ok(/2019$/.test(m.date), `Expected 2019 date: ${m.date}`);
+  }
+
+  assert.deepEqual(getMatchArchiveLapOptions(apArchive.length, apArchive).map((o) => o.id), ['all', 'apertura', 'semifinal', 'final']);
+  assert.equal(getMatchArchiveLapOptions(apArchive.length, apArchive)[2].label, 'Cuadrangular B (6)');
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 6, pe: 12, pp: 2, gf: 24, gc: 18, dg: 6, pts: 30,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 3, pe: 3, pp: 0, gf: 9, gc: 5, dg: 4, pts: 12,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArchive, { lap: 'final' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 1, gc: 1, dg: 0, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArchive, 3), {
+    pj: 28, pg: 10, pe: 15, pp: 3, gf: 34, gc: 24, dg: 10, pts: 45,
+  });
+
+  assert.deepEqual(getMatchArchiveLapOptions(finArchive.length, finArchive).map((o) => o.id), ['all', 'apertura', 'semifinal', 'final']);
+  assert.equal(getMatchArchiveLapOptions(finArchive.length, finArchive)[2].label, 'Cuadrangular A (6)');
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 9, pe: 6, pp: 5, gf: 16, gc: 9, dg: 7, pts: 33,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 3, pe: 2, pp: 1, gf: 11, gc: 8, dg: 3, pts: 11,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArchive, { lap: 'final' }), 3), {
+    pj: 2, pg: 0, pe: 1, pp: 1, gf: 0, gc: 2, dg: -2, pts: 1,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArchive, 3), {
+    pj: 28, pg: 12, pe: 9, pp: 7, gf: 27, gc: 19, dg: 8, pts: 45,
+  });
+
+  // Reclasificación Anual 2019 dynamic verification
+  const rec2019 = getAnnualReclassificationByYear('2019-I');
+  assert.ok(rec2019 && rec2019.id === 'reclasificacion-2019');
+  assert.equal(getAnnualReclassificationByYear('2019-II')?.id, 'reclasificacion-2019');
+  assert.equal(rec2019.rows.length, 20);
+
+  const computed2019 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2019 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2019.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2019.set(team, cur);
+  };
+  for (const r of [...(t2019I.regularRows || []), ...(t2019II.regularRows || [])]) {
+    add2019(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  }
+  for (const m of [...(t2019I.playoffMatches || []), ...(t2019II.playoffMatches || [])]) {
+    const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    add2019(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+    add2019(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+  }
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2019.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2019.get(row.team),
+      `Reclasificación 2019 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2019.rows[0].team, 'América de Cali');
+  assert.equal(rec2019.rows[0].pts, 92);
+  assert.equal(rec2019.rows[1].team, 'Junior de Barranquilla');
+  assert.equal(rec2019.rows[1].pts, 90);
+  assert.equal(rec2019.rows[1].pj, 56);
+  assert.equal(rec2019.rows[19].team, 'Atlético Huila');
+  assert.equal(rec2019.rows[19].pts, 35);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2019' && i.standingsTableId === 'reclasificacion-2019'));
+});
+
+// ── 99. 2020 Full Audit: Torneo Único de Pandemia, Pasto GC=19 Zero-Sum Fix, Clean 14 Play-offs, 24 Junior Matches & Reclasificación 2020 ──
+test('99. 2020 full audit: Pasto zero-sum regular table fix, clean 8-club playoff rows & 14 knockout brackets (no Liguilla pollution), 24 Junior archive with 20+2+2 filters, search index, and Reclasificación 2020', () => {
+  const t2020 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2020-playoffs')!;
+  assert.ok(t2020);
+  assert.equal(t2020.championTeam, 'América de Cali');
+  assert.equal(t2020.runnerUpTeam, 'Independiente Santa Fe');
+  assert.equal(t2020.finalGroups, undefined, '2020-playoffs should not carry Liguilla de Eliminados tables in finalGroups');
+
+  // Zero-sum 20-club regularRows (verifying Pasto gc=19, dg=8 repair)
+  const rows = t2020.regularRows || [];
+  assert.equal(rows.length, 20);
+  const pasto = rows.find((r) => r.team === 'Deportivo Pasto')!;
+  assert.equal(pasto.gc, 19);
+  assert.equal(pasto.dg, 8);
+  let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+  for (const r of rows) {
+    assert.equal(r.pj, 20);
+    assert.equal(r.pg + r.pe + r.pp, r.pj);
+    assert.equal(r.gf - r.gc, r.dg);
+    assert.equal(r.pg * 3 + r.pe, r.pts);
+    pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+  }
+  assert.equal(pg, pp);
+  assert.equal(gf, gc);
+  assert.equal(gf, 490);
+  assert.equal(pe % 2, 0);
+
+  // Clean 14 Play-offs knockout matches (Cuartos + Semifinales + Gran Final only) & 8-club zero-sum rows
+  const playoffs = t2020.playoffMatches || [];
+  assert.equal(playoffs.length, 14);
+  assert.deepEqual([...new Set(playoffs.map((m) => m.stage))].sort(), ['Cuartos de final', 'Gran Final', 'Semifinales']);
+  for (const m of playoffs) {
+    assert.ok(/2020$/.test(m.date || ''), `Expected clean 2020 date: ${m.date}`);
+  }
+  const tally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  for (const m of playoffs) {
+    for (const [tm, mgf, mgc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+      const cur = tally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+      cur.pj++; cur.gf += mgf; cur.gc += mgc;
+      if (mgf > mgc) { cur.pg++; cur.pts += 3; } else if (mgf < mgc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+      tally.set(tm, cur);
+    }
+  }
+  assert.equal((t2020.rows || []).length, 8);
+  for (const r of t2020.rows || []) {
+    assert.deepEqual(tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+    assert.equal(r.gf - r.gc, r.dg);
+  }
+
+  // Knockout bracket verification (3 clean rounds: 4 QF, 2 SF, 1 Final — zero phantom 3rd-place or Liguilla ties)
+  const b2020 = buildPlayoffKnockoutBrackets(playoffs, t2020.championTeam);
+  assert.deepEqual(b2020.map((r) => r.key), ['cuartos', 'semifinales', 'final']);
+  assert.equal(b2020[0].ties.length, 4);
+  assert.equal(b2020[1].ties.length, 2);
+  assert.equal(b2020[2].ties.length, 1);
+  assert.equal(b2020[0].ties.find((s) => s.teamA === 'Junior de Barranquilla')!.winnerTeam, 'Junior de Barranquilla');
+  assert.equal(b2020[1].ties.find((s) => s.teamB === 'Junior de Barranquilla')!.winnerTeam, 'América de Cali');
+  assert.equal(b2020[2].ties[0].winnerTeam, 'América de Cali');
+
+  // Junior matchArchive: 24 matches (20 regular + 2 Cuartos + 2 Semifinal)
+  const archive = t2020.matchArchive || [];
+  assert.equal(archive.length, 24);
+  const canonicalTeams2020 = new Set(rows.map((r) => r.team));
+  for (const m of archive) {
+    assert.ok(canonicalTeams2020.has(m.homeTeam), `Non-canonical 2020 homeTeam: ${m.homeTeam}`);
+    assert.ok(canonicalTeams2020.has(m.awayTeam), `Non-canonical 2020 awayTeam: ${m.awayTeam}`);
+    assert.ok(/2020$/.test(m.date), `Expected 2020 date: ${m.date}`);
+  }
+  assert.deepEqual(getMatchArchiveLapOptions(archive.length, archive).map((o) => o.id), ['all', 'apertura', 'cuartos', 'semifinal']);
+  assert.equal(getMatchArchiveLapOptions(archive.length, archive)[1].label, 'Todos contra Todos (20)');
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(archive, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 8, pe: 9, pp: 3, gf: 27, gc: 17, dg: 10, pts: 33,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(archive, { lap: 'cuartos' }), 3), {
+    pj: 2, pg: 2, pe: 0, pp: 0, gf: 2, gc: 0, dg: 2, pts: 6,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(archive, { lap: 'semifinal' }), 3), {
+    pj: 2, pg: 0, pe: 1, pp: 1, gf: 1, gc: 2, dg: -1, pts: 1,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(archive, 3), {
+    pj: 24, pg: 10, pe: 10, pp: 4, gf: 30, gc: 19, dg: 11, pts: 40,
+  });
+
+  // Reclasificación Anual 2020 dynamic verification
+  const rec2020 = getAnnualReclassificationByYear('2020');
+  assert.ok(rec2020 && rec2020.id === 'reclasificacion-2020');
+  assert.equal(rec2020.rows.length, 20);
+
+  const computed2020 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2020 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2020.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2020.set(team, cur);
+  };
+  for (const r of rows) {
+    add2020(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+  }
+  for (const m of playoffs) {
+    const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+    add2020(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+    add2020(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+  }
+  let recPg = 0, recPp = 0, recGf = 0, recGc = 0;
+  for (const row of rec2020.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2020.get(row.team),
+      `Reclasificación 2020 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    recPg += row.pg; recPp += row.pp; recGf += row.gf; recGc += row.gc;
+  }
+  assert.equal(recPg, recPp);
+  assert.equal(recGf, recGc);
+  assert.equal(rec2020.rows[0].team, 'Independiente Santa Fe');
+  assert.equal(rec2020.rows[0].pts, 50);
+  assert.equal(rec2020.rows[1].team, 'América de Cali');
+  assert.equal(rec2020.rows[1].pts, 43);
+  assert.equal(rec2020.rows[2].team, 'Junior de Barranquilla');
+  assert.equal(rec2020.rows[2].pts, 40);
+  assert.equal(rec2020.rows[2].pj, 24);
+  assert.equal(rec2020.rows[19].team, 'Cúcuta Deportivo');
+  assert.equal(rec2020.rows[19].pts, 14);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2020' && i.standingsTableId === 'reclasificacion-2020'));
+});
+
+// ── 100. 2021 Full Audit: 2021-I (19 Clubs + 8-Club Play-offs), 2021-II (Cuadrangulares Clean 26 Matches), 48 Junior Matches & Reclasificación 2021 ──
+test('100. 2021 full audit: zero-sum 19+20 regular tables, 2021-I 8-club playoffs & brackets, 2021-II clean 26 matches (no Estadísticas dump, Gran Final bracket), 22+26 Junior archive, search index, and Reclasificación 2021 (21 clubs)', () => {
+  const t2021I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2021-I-playoffs')!;
+  const t2021II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2021-II-cuadrangular')!;
+  assert.ok(t2021I && t2021II);
+
+  assert.equal(t2021I.championTeam, 'Deportes Tolima');
+  assert.equal(t2021I.runnerUpTeam, 'Millonarios F.C');
+  assert.equal(t2021II.championTeam, 'Deportivo Cali');
+  assert.equal(t2021II.runnerUpTeam, 'Deportes Tolima');
+
+  // Zero-sum regularRows (19 clubs x 18 PJ in 2021-I; 20 clubs x 20 PJ in 2021-II)
+  for (const [tbl, expClubs, expPj] of [[t2021I, 19, 18], [t2021II, 20, 20]] as const) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, expClubs);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, expPj);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+  }
+
+  // 2021-I Play-offs: 14 matches, 3 knockout rounds (4 QF, 2 SF, 1 Final), 8-club zero-sum rows
+  const pm2021I = t2021I.playoffMatches || [];
+  assert.equal(pm2021I.length, 14);
+  for (const m of pm2021I) {
+    assert.ok(/2021$/.test(m.date || ''), `Expected clean 2021 date in 2021-I: ${m.date}`);
+    assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+  }
+  const b2021I = buildPlayoffKnockoutBrackets(pm2021I, t2021I.championTeam);
+  assert.equal(b2021I.length, 3);
+  assert.deepEqual(b2021I.map((r) => r.ties.length), [4, 2, 1]);
+  assert.equal(b2021I[2].ties[0].winnerTeam, 'Deportes Tolima');
+
+  assert.equal((t2021I.rows || []).length, 8);
+  const pTally2021I = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  for (const m of pm2021I) {
+    for (const [tm, mgf, mgc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+      const cur = pTally2021I.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+      cur.pj++; cur.gf += mgf; cur.gc += mgc;
+      if (mgf > mgc) { cur.pg++; cur.pts += 3; } else if (mgf < mgc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+      pTally2021I.set(tm, cur);
+    }
+  }
+  for (const r of t2021I.rows || []) {
+    assert.deepEqual(pTally2021I.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+    assert.equal(r.gf - r.gc, r.dg);
+  }
+
+  // 2021-II Cuadrangulares: 26 clean matches (no Estadísticas dump, no <br/>), 24 group reconcile, 1 Final bracket
+  const pm2021II = t2021II.playoffMatches || [];
+  assert.equal(pm2021II.length, 26);
+  for (const m of pm2021II) {
+    assert.ok(/2021$/.test(m.date || ''), `Expected clean 2021 date in 2021-II: ${m.date}`);
+    assert.ok(!/estad[ií]stica/i.test(m.stage));
+    assert.ok(!(m.scorers || '').includes('<br'));
+    assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+  }
+  const b2021II = buildPlayoffKnockoutBrackets(pm2021II, t2021II.championTeam);
+  assert.equal(b2021II.length, 1);
+  assert.equal(b2021II[0].ties[0].winnerTeam, 'Deportivo Cali');
+
+  const gTally2021II = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  for (const m of pm2021II.filter((x) => /grupo [ab]/i.test(x.stage))) {
+    for (const [tm, mgf, mgc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+      const cur = gTally2021II.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+      cur.pj++; cur.gf += mgf; cur.gc += mgc;
+      if (mgf > mgc) { cur.pg++; cur.pts += 3; } else if (mgf < mgc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+      gTally2021II.set(tm, cur);
+    }
+  }
+  for (const g of t2021II.finalGroups || []) {
+    for (const r of g.rows) {
+      assert.deepEqual(gTally2021II.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+    }
+  }
+
+  // Junior matchArchive: 22 in 2021-I + 26 in 2021-II (48 total)
+  const apArch = t2021I.matchArchive || [];
+  const finArch = t2021II.matchArchive || [];
+  assert.equal(apArch.length, 22);
+  assert.equal(finArch.length, 26);
+  const canon2021I = new Set((t2021I.regularRows || []).map((r) => r.team));
+  const canon2021II = new Set((t2021II.regularRows || []).map((r) => r.team));
+  for (const m of apArch) {
+    assert.ok(canon2021I.has(m.homeTeam) && canon2021I.has(m.awayTeam), `Non-canonical 2021-I team: ${m.homeTeam} vs ${m.awayTeam}`);
+    assert.ok(/2021$/.test(m.date));
+  }
+  for (const m of finArch) {
+    assert.ok(canon2021II.has(m.homeTeam) && canon2021II.has(m.awayTeam), `Non-canonical 2021-II team: ${m.homeTeam} vs ${m.awayTeam}`);
+    assert.ok(/2021$/.test(m.date));
+  }
+
+  assert.deepEqual(getMatchArchiveLapOptions(apArch.length, apArch).map((o) => o.id), ['all', 'apertura', 'cuartos', 'semifinal']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'apertura' }), 3), {
+    pj: 18, pg: 8, pe: 5, pp: 5, gf: 21, gc: 13, dg: 8, pts: 29,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'cuartos' }), 3), {
+    pj: 2, pg: 1, pe: 1, pp: 0, gf: 3, gc: 1, dg: 2, pts: 4,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'semifinal' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 3, gc: 4, dg: -1, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArch, 3), {
+    pj: 22, pg: 10, pe: 6, pp: 6, gf: 27, gc: 18, dg: 9, pts: 36,
+  });
+
+  assert.deepEqual(getMatchArchiveLapOptions(finArch.length, finArch).map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.equal(getMatchArchiveLapOptions(finArch.length, finArch)[2].label, 'Cuadrangular A (6)');
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 8, pe: 9, pp: 3, gf: 25, gc: 21, dg: 4, pts: 33,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 1, pe: 4, pp: 1, gf: 9, gc: 8, dg: 1, pts: 7,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArch, 3), {
+    pj: 26, pg: 9, pe: 13, pp: 4, gf: 34, gc: 29, dg: 5, pts: 40,
+  });
+
+  // Reclasificación Anual 2021 dynamic 21-club zero-sum reconciliation
+  const rec2021 = getAnnualReclassificationByYear('2021-I');
+  assert.ok(rec2021 && rec2021.id === 'reclasificacion-2021');
+  assert.equal(getAnnualReclassificationByYear('2021-II')?.id, 'reclasificacion-2021');
+  assert.equal(rec2021.rows.length, 21);
+
+  const computed2021 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2021 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2021.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2021.set(team, cur);
+  };
+  for (const tbl of [t2021I, t2021II]) {
+    for (const r of tbl.regularRows || []) add2021(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of tbl.playoffMatches || []) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      add2021(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      add2021(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+  let r21Pg = 0, r21Pp = 0, r21Gf = 0, r21Gc = 0;
+  for (const row of rec2021.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2021.get(row.team),
+      `Reclasificación 2021 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    r21Pg += row.pg; r21Pp += row.pp; r21Gf += row.gf; r21Gc += row.gc;
+  }
+  assert.equal(r21Pg, r21Pp);
+  assert.equal(r21Gf, r21Gc);
+  assert.equal(rec2021.rows[0].team, 'Deportes Tolima');
+  assert.equal(rec2021.rows[0].pts, 90);
+  assert.equal(rec2021.rows[4].team, 'Junior de Barranquilla');
+  assert.equal(rec2021.rows[4].pts, 76);
+  assert.equal(rec2021.rows[4].pj, 48);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2021' && i.standingsTableId === 'reclasificacion-2021'));
+});
+
+// ── 101. 2022 Full Audit: 2022-I & 2022-II Cuadrangulares, Pereira 4-3 Shootout, 52 Junior Matches & Reclasificación 2022 ──
+test('101. 2022 full audit: zero-sum regular & cuadrangular tables, 26+26 clean playoffs with Pereira 4-3 shootout, 26+26 Junior archive, search index, and Reclasificación 2022', () => {
+  const t2022I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2022-I-cuadrangular')!;
+  const t2022II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2022-II-cuadrangular')!;
+  assert.ok(t2022I && t2022II);
+
+  assert.equal(t2022I.championTeam, 'Atlético Nacional');
+  assert.equal(t2022I.runnerUpTeam, 'Deportes Tolima');
+  assert.equal(t2022II.championTeam, 'Deportivo Pereira');
+  assert.equal(t2022II.runnerUpTeam, 'Independiente Medellín');
+
+  for (const tbl of [t2022I, t2022II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 20);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 20);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+    for (const m of playoffs) {
+      assert.ok(/2022$/.test(m.date || ''), `Expected clean 2022 date in ${tbl.id}: ${m.date}`);
+      assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+      assert.ok(!m.homeTeam.includes('Envigado F.C.') && !m.awayTeam.includes('Envigado F.C.'));
+    }
+
+    const gTally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+    for (const m of playoffs.filter((x) => /grupo [ab]/i.test(x.stage))) {
+      for (const [tm, mgf, mgc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+        const cur = gTally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+        cur.pj++; cur.gf += mgf; cur.gc += mgc;
+        if (mgf > mgc) { cur.pg++; cur.pts += 3; } else if (mgf < mgc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+        gTally.set(tm, cur);
+      }
+    }
+    for (const g of tbl.finalGroups || []) {
+      for (const r of g.rows) {
+        assert.deepEqual(gTally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+  }
+
+  // Final bracket checks (including 2022-II Pereira 4-3 shootout over DIM)
+  const b2022I = buildPlayoffKnockoutBrackets(t2022I.playoffMatches || [], t2022I.championTeam);
+  assert.equal(b2022I.length, 1);
+  assert.equal(b2022I[0].ties[0].winnerTeam, 'Atlético Nacional');
+
+  const b2022II = buildPlayoffKnockoutBrackets(t2022II.playoffMatches || [], t2022II.championTeam);
+  assert.equal(b2022II.length, 1);
+  assert.equal(b2022II[0].ties[0].winnerTeam, 'Deportivo Pereira');
+  assert.ok(b2022II[0].ties[0].penaltiesLabel?.includes('4-3'));
+
+  // Junior matchArchive: 26 in 2022-I + 26 in 2022-II (52 total)
+  const apArch = t2022I.matchArchive || [];
+  const finArch = t2022II.matchArchive || [];
+  assert.equal(apArch.length, 26);
+  assert.equal(finArch.length, 26);
+  const canon2022 = new Set((t2022I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArch, ...finArch]) {
+    assert.ok(canon2022.has(m.homeTeam) && canon2022.has(m.awayTeam), `Non-canonical 2022 team: ${m.homeTeam} vs ${m.awayTeam}`);
+    assert.ok(/2022$/.test(m.date));
+  }
+
+  assert.deepEqual(getMatchArchiveLapOptions(apArch.length, apArch).map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.equal(getMatchArchiveLapOptions(apArch.length, apArch)[2].label, 'Cuadrangular A (6)');
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 10, pe: 2, pp: 8, gf: 30, gc: 21, dg: 9, pts: 32,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 2, pe: 2, pp: 2, gf: 5, gc: 6, dg: -1, pts: 8,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArch, 3), {
+    pj: 26, pg: 12, pe: 4, pp: 10, gf: 35, gc: 27, dg: 8, pts: 40,
+  });
+
+  assert.deepEqual(getMatchArchiveLapOptions(finArch.length, finArch).map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 9, pe: 4, pp: 7, gf: 24, gc: 19, dg: 5, pts: 31,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 0, pe: 1, pp: 5, gf: 5, gc: 11, dg: -6, pts: 1,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArch, 3), {
+    pj: 26, pg: 9, pe: 5, pp: 12, gf: 29, gc: 30, dg: -1, pts: 32,
+  });
+
+  // Reclasificación Anual 2022 dynamic 20-club zero-sum reconciliation
+  const rec2022 = getAnnualReclassificationByYear('2022-I');
+  assert.ok(rec2022 && rec2022.id === 'reclasificacion-2022');
+  assert.equal(getAnnualReclassificationByYear('2022-II')?.id, 'reclasificacion-2022');
+  assert.equal(rec2022.rows.length, 20);
+
+  const computed2022 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2022 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2022.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2022.set(team, cur);
+  };
+  for (const tbl of [t2022I, t2022II]) {
+    for (const r of tbl.regularRows || []) add2022(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of tbl.playoffMatches || []) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      add2022(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      add2022(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+  let r22Pg = 0, r22Pp = 0, r22Gf = 0, r22Gc = 0;
+  for (const row of rec2022.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2022.get(row.team),
+      `Reclasificación 2022 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    r22Pg += row.pg; r22Pp += row.pp; r22Gf += row.gf; r22Gc += row.gc;
+  }
+  assert.equal(r22Pg, r22Pp);
+  assert.equal(r22Gf, r22Gc);
+  assert.equal(rec2022.rows[0].team, 'Millonarios F.C');
+  assert.equal(rec2022.rows[0].pts, 91);
+  assert.equal(rec2022.rows[1].team, 'Independiente Medellín');
+  assert.equal(rec2022.rows[1].pts, 91);
+  assert.equal(rec2022.rows[4].team, 'Junior de Barranquilla');
+  assert.equal(rec2022.rows[4].pts, 72);
+  assert.equal(rec2022.rows[4].pj, 52);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2022' && i.standingsTableId === 'reclasificacion-2022'));
+});
+
+// ── 102. 2023 Full Audit: 2023-I (Millonarios 3-2) & 2023-II (Junior 10ª Estrella 3-5), 48 Junior Matches & Reclasificación 2023 ──
+test('102. 2023 full audit: zero-sum regular & cuadrangular tables, 26+26 clean playoffs with 3-2 & 3-5 shootouts, 20+28 Junior archive, search index, and Reclasificación 2023', () => {
+  const t2023I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2023-I-regular')!;
+  const t2023II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2023-II-cuadrangular')!;
+  assert.ok(t2023I && t2023II);
+
+  assert.equal(t2023I.championTeam, 'Millonarios F.C');
+  assert.equal(t2023I.runnerUpTeam, 'Atlético Nacional');
+  assert.equal(t2023II.championTeam, 'Junior de Barranquilla');
+  assert.equal(t2023II.runnerUpTeam, 'Independiente Medellín');
+  assert.equal(t2023II.isJuniorChampion, true);
+
+  for (const tbl of [t2023I, t2023II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 20);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 20);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+    for (const m of playoffs) {
+      assert.ok(/2023$/.test(m.date || ''), `Expected clean 2023 date in ${tbl.id}: ${m.date}`);
+      assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+      assert.ok(!m.note?.endsWith('del clu') && !m.note?.endsWith('la Co'), `Truncated note found in ${tbl.id}: ${m.note}`);
+    }
+
+    const gTally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+    for (const m of playoffs.filter((x) => /grupo [ab]/i.test(x.stage))) {
+      for (const [tm, mgf, mgc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+        const cur = gTally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+        cur.pj++; cur.gf += mgf; cur.gc += mgc;
+        if (mgf > mgc) { cur.pg++; cur.pts += 3; } else if (mgf < mgc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+        gTally.set(tm, cur);
+      }
+    }
+    for (const g of tbl.finalGroups || []) {
+      for (const r of g.rows) {
+        assert.deepEqual(gTally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+  }
+
+  // Final knockout brackets & shootout resolution
+  const b2023I = buildPlayoffKnockoutBrackets(t2023I.playoffMatches || [], t2023I.championTeam);
+  assert.equal(b2023I.length, 1);
+  assert.equal(b2023I[0].ties[0].winnerTeam, 'Millonarios F.C');
+  assert.ok(b2023I[0].ties[0].penaltiesLabel?.includes('3-2'));
+
+  const b2023II = buildPlayoffKnockoutBrackets(t2023II.playoffMatches || [], t2023II.championTeam);
+  assert.equal(b2023II.length, 1);
+  assert.equal(b2023II[0].ties[0].winnerTeam, 'Junior de Barranquilla');
+  assert.ok(b2023II[0].ties[0].penaltiesLabel?.includes('3-5'));
+
+  // Junior matchArchive: 20 in 2023-I + 28 in 2023-II (48 total)
+  const apArch = t2023I.matchArchive || [];
+  const finArch = t2023II.matchArchive || [];
+  assert.equal(apArch.length, 20);
+  assert.equal(finArch.length, 28);
+  const canon2023 = new Set((t2023I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArch, ...finArch]) {
+    assert.ok(canon2023.has(m.homeTeam) && canon2023.has(m.awayTeam), `Non-canonical 2023 team: ${m.homeTeam} vs ${m.awayTeam}`);
+    assert.ok(/2023$/.test(m.date));
+  }
+
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArch, 3), {
+    pj: 20, pg: 7, pe: 7, pp: 6, gf: 17, gc: 17, dg: 0, pts: 28,
+  });
+
+  assert.deepEqual(getMatchArchiveLapOptions(finArch.length, finArch).map((o) => o.id), ['all', 'apertura', 'semifinal', 'final']);
+  assert.equal(getMatchArchiveLapOptions(finArch.length, finArch)[2].label, 'Cuadrangular A (6)');
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 8, pe: 6, pp: 6, gf: 29, gc: 17, dg: 12, pts: 30,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 4, pe: 1, pp: 1, gf: 15, gc: 7, dg: 8, pts: 13,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'final' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 4, gc: 4, dg: 0, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArch, 3), {
+    pj: 28, pg: 13, pe: 7, pp: 8, gf: 48, gc: 28, dg: 20, pts: 46,
+  });
+
+  // Reclasificación Anual 2023 dynamic 20-club zero-sum reconciliation
+  const rec2023 = getAnnualReclassificationByYear('2023-I');
+  assert.ok(rec2023 && rec2023.id === 'reclasificacion-2023');
+  assert.equal(getAnnualReclassificationByYear('2023-II')?.id, 'reclasificacion-2023');
+  assert.equal(rec2023.rows.length, 20);
+
+  const computed2023 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2023 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2023.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2023.set(team, cur);
+  };
+  for (const tbl of [t2023I, t2023II]) {
+    for (const r of tbl.regularRows || []) add2023(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of tbl.playoffMatches || []) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      add2023(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      add2023(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+  let r23Pg = 0, r23Pp = 0, r23Gf = 0, r23Gc = 0;
+  for (const row of rec2023.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2023.get(row.team),
+      `Reclasificación 2023 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    r23Pg += row.pg; r23Pp += row.pp; r23Gf += row.gf; r23Gc += row.gc;
+  }
+  assert.equal(r23Pg, r23Pp);
+  assert.equal(r23Gf, r23Gc);
+  assert.equal(rec2023.rows[0].team, 'Águilas Doradas');
+  assert.equal(rec2023.rows[0].pts, 93);
+  assert.equal(rec2023.rows[5].team, 'Junior de Barranquilla');
+  assert.equal(rec2023.rows[5].pts, 74);
+  assert.equal(rec2023.rows[5].pj, 48);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2023' && i.standingsTableId === 'reclasificacion-2023'));
+});
+
+// ── 103. 2024 Full Audit: 19-Fecha Regular Tables, Bucaramanga 5-6 Shootout, 2024-II Grupo B Fix, 50 Junior Matches & Reclasificación 2024 ──
+test('103. 2024 full audit: 19-fecha zero-sum regular & cuadrangular tables, Grupo B rows fix, 26+26 playoffs with 5-6 shootout, 25+25 Junior archive, search index, and Reclasificación 2024', () => {
+  const t2024I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2024-I-cuadrangular')!;
+  const t2024II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2024-II-cuadrangular')!;
+  assert.ok(t2024I && t2024II);
+
+  assert.equal(t2024I.championTeam, 'Atlético Bucaramanga');
+  assert.equal(t2024I.runnerUpTeam, 'Independiente Santa Fe');
+  assert.equal(t2024II.championTeam, 'Atlético Nacional');
+  assert.equal(t2024II.runnerUpTeam, 'Deportes Tolima');
+
+  // Verify 2024-II summary rows display Junior's Grupo B (not Grupo A)
+  assert.equal(t2024II.rows[0].team, 'Deportes Tolima');
+  assert.equal(t2024II.rows[3].team, 'Junior de Barranquilla');
+  assert.equal(t2024II.rows[3].isJunior, true);
+
+  for (const tbl of [t2024I, t2024II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 20);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 19);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      assert.ok(r.team !== 'Alianza F. C', `Unnormalized Alianza F. C in ${tbl.id}`);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+    for (const m of playoffs) {
+      assert.ok(/2024$/.test(m.date || ''), `Expected clean 2024 date in ${tbl.id}: ${m.date}`);
+      assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+    }
+
+    const gTally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+    for (const m of playoffs.filter((x) => /grupo [ab]/i.test(x.stage))) {
+      for (const [tm, mgf, mgc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+        const cur = gTally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+        cur.pj++; cur.gf += mgf; cur.gc += mgc;
+        if (mgf > mgc) { cur.pg++; cur.pts += 3; } else if (mgf < mgc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+        gTally.set(tm, cur);
+      }
+    }
+    for (const g of tbl.finalGroups || []) {
+      for (const r of g.rows) {
+        assert.deepEqual(gTally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+  }
+
+  // Final brackets (Bucaramanga 5-6 shootout over Santa Fe & Atlético Nacional 3-1 over Tolima)
+  const b2024I = buildPlayoffKnockoutBrackets(t2024I.playoffMatches || [], t2024I.championTeam);
+  assert.equal(b2024I.length, 1);
+  assert.equal(b2024I[0].ties[0].winnerTeam, 'Atlético Bucaramanga');
+  assert.ok(b2024I[0].ties[0].penaltiesLabel?.includes('5-6'));
+
+  const b2024II = buildPlayoffKnockoutBrackets(t2024II.playoffMatches || [], t2024II.championTeam);
+  assert.equal(b2024II.length, 1);
+  assert.equal(b2024II[0].ties[0].winnerTeam, 'Atlético Nacional');
+
+  // Junior matchArchive: 25 in 2024-I + 25 in 2024-II (50 total)
+  const apArch = t2024I.matchArchive || [];
+  const finArch = t2024II.matchArchive || [];
+  assert.equal(apArch.length, 25);
+  assert.equal(finArch.length, 25);
+  const canon2024 = new Set((t2024I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArch, ...finArch]) {
+    assert.ok(canon2024.has(m.homeTeam) && canon2024.has(m.awayTeam), `Non-canonical 2024 team: ${m.homeTeam} vs ${m.awayTeam}`);
+    assert.ok(/2024$/.test(m.date));
+  }
+
+  assert.deepEqual(getMatchArchiveLapOptions(apArch.length, apArch).map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.equal(getMatchArchiveLapOptions(apArch.length, apArch)[1].label, 'Todos contra Todos (19)');
+  assert.equal(getMatchArchiveLapOptions(apArch.length, apArch)[2].label, 'Cuadrangular A (6)');
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'apertura' }), 3), {
+    pj: 19, pg: 8, pe: 5, pp: 6, gf: 24, gc: 21, dg: 3, pts: 29,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 2, pe: 2, pp: 2, gf: 5, gc: 6, dg: -1, pts: 8,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArch, 3), {
+    pj: 25, pg: 10, pe: 7, pp: 8, gf: 29, gc: 27, dg: 2, pts: 37,
+  });
+
+  assert.deepEqual(getMatchArchiveLapOptions(finArch.length, finArch).map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.equal(getMatchArchiveLapOptions(finArch.length, finArch)[1].label, 'Todos contra Todos (19)');
+  assert.equal(getMatchArchiveLapOptions(finArch.length, finArch)[2].label, 'Cuadrangular B (6)');
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'apertura' }), 3), {
+    pj: 19, pg: 8, pe: 7, pp: 4, gf: 26, gc: 16, dg: 10, pts: 31,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 2, pe: 1, pp: 3, gf: 7, gc: 8, dg: -1, pts: 7,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArch, 3), {
+    pj: 25, pg: 10, pe: 8, pp: 7, gf: 33, gc: 24, dg: 9, pts: 38,
+  });
+
+  // Reclasificación Anual 2024 dynamic 20-club zero-sum reconciliation
+  const rec2024 = getAnnualReclassificationByYear('2024-I');
+  assert.ok(rec2024 && rec2024.id === 'reclasificacion-2024');
+  assert.equal(getAnnualReclassificationByYear('2024-II')?.id, 'reclasificacion-2024');
+  assert.equal(rec2024.rows.length, 20);
+
+  const computed2024 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2024 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2024.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2024.set(team, cur);
+  };
+  for (const tbl of [t2024I, t2024II]) {
+    for (const r of tbl.regularRows || []) add2024(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of tbl.playoffMatches || []) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      add2024(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      add2024(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+  let r24Pg = 0, r24Pp = 0, r24Gf = 0, r24Gc = 0;
+  for (const row of rec2024.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2024.get(row.team),
+      `Reclasificación 2024 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    r24Pg += row.pg; r24Pp += row.pp; r24Gf += row.gf; r24Gc += row.gc;
+  }
+  assert.equal(r24Pg, r24Pp);
+  assert.equal(r24Gf, r24Gc);
+  assert.equal(rec2024.rows[0].team, 'Deportes Tolima');
+  assert.equal(rec2024.rows[0].pts, 93);
+  assert.equal(rec2024.rows[1].team, 'Independiente Santa Fe');
+  assert.equal(rec2024.rows[1].pts, 91);
+  assert.equal(rec2024.rows[5].team, 'Junior de Barranquilla');
+  assert.equal(rec2024.rows[5].pts, 75);
+  assert.equal(rec2024.rows[5].pj, 50);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2024' && i.standingsTableId === 'reclasificacion-2024'));
+});
+
+// ── 104. 2025 Full Audit: Centenaria 2025-I & 11ª Estrella 2025-II, 54 Junior Matches & Reclasificación 2025 ──
+test('104. 2025 full audit: 20-fecha zero-sum regular & cuadrangular tables, 26+26 normalized playoffs, 26+28 Junior archive (11ª Estrella), search index, and Reclasificación 2025', () => {
+  const t2025I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2025-I-cuadrangular')!;
+  const t2025II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2025-II-cuadrangular')!;
+  assert.ok(t2025I && t2025II);
+
+  assert.equal(t2025I.championTeam, 'Independiente Santa Fe');
+  assert.equal(t2025I.runnerUpTeam, 'Independiente Medellín');
+  assert.equal(t2025II.championTeam, 'Junior de Barranquilla');
+  assert.equal(t2025II.runnerUpTeam, 'Deportes Tolima');
+  assert.equal(t2025II.isJuniorChampion, true);
+
+  for (const tbl of [t2025I, t2025II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 20);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 20);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+
+    const playoffs = tbl.playoffMatches || [];
+    assert.equal(playoffs.length, 26);
+    for (const m of playoffs) {
+      assert.ok(/2025$/.test(m.date || ''), `Expected clean 2025 date in ${tbl.id}: ${m.date}`);
+      assert.ok(!m.homeTeam.includes('Millonarios F.C.') && !m.awayTeam.includes('Millonarios F.C.'));
+      assert.ok(!(m.scorers || '').includes("pen.'") && !(m.scorers || '').includes("a.g.'"), `Malformed scorer punctuation in ${tbl.id}: ${m.scorers}`);
+      assert.ok((m.venue || '').startsWith('Estadio '), `Expected full Estadio venue in ${tbl.id}: ${m.venue}`);
+    }
+
+    const gTally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+    for (const m of playoffs.filter((x) => /grupo [ab]/i.test(x.stage))) {
+      for (const [tm, mgf, mgc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+        const cur = gTally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+        cur.pj++; cur.gf += mgf; cur.gc += mgc;
+        if (mgf > mgc) { cur.pg++; cur.pts += 3; } else if (mgf < mgc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+        gTally.set(tm, cur);
+      }
+    }
+    for (const g of tbl.finalGroups || []) {
+      for (const r of g.rows) {
+        assert.deepEqual(gTally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+      }
+    }
+  }
+
+  // Final knockout brackets (Santa Fe 2-1 DIM in 2025-I; Junior 4-0 Tolima in 2025-II)
+  const b2025I = buildPlayoffKnockoutBrackets(t2025I.playoffMatches || [], t2025I.championTeam);
+  assert.equal(b2025I.length, 1);
+  assert.equal(b2025I[0].ties[0].winnerTeam, 'Independiente Santa Fe');
+
+  const b2025II = buildPlayoffKnockoutBrackets(t2025II.playoffMatches || [], t2025II.championTeam);
+  assert.equal(b2025II.length, 1);
+  assert.equal(b2025II[0].ties[0].winnerTeam, 'Junior de Barranquilla');
+  assert.equal(b2025II[0].ties[0].teamAGoals, 4);
+  assert.equal(b2025II[0].ties[0].teamBGoals, 0);
+
+  // Junior matchArchive: 26 in 2025-I + 28 in 2025-II (54 total)
+  const apArch = t2025I.matchArchive || [];
+  const finArch = t2025II.matchArchive || [];
+  assert.equal(apArch.length, 26);
+  assert.equal(finArch.length, 28);
+  const canon2025 = new Set((t2025I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArch, ...finArch]) {
+    assert.ok(canon2025.has(m.homeTeam) && canon2025.has(m.awayTeam), `Non-canonical 2025 team: ${m.homeTeam} vs ${m.awayTeam}`);
+    assert.ok(/2025$/.test(m.date), `Expected 2025 date: ${m.date}`);
+    assert.ok((m.venue || '').startsWith('Estadio '), `Expected full venue: ${m.venue}`);
+  }
+
+  assert.deepEqual(getMatchArchiveLapOptions(apArch.length, apArch).map((o) => o.id), ['all', 'apertura', 'semifinal']);
+  assert.equal(getMatchArchiveLapOptions(apArch.length, apArch)[1].label, 'Todos contra Todos (20)');
+  assert.equal(getMatchArchiveLapOptions(apArch.length, apArch)[2].label, 'Cuadrangular A (6)');
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 10, pe: 7, pp: 3, gf: 26, gc: 16, dg: 10, pts: 37,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 0, pe: 1, pp: 5, gf: 2, gc: 8, dg: -6, pts: 1,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArch, 3), {
+    pj: 26, pg: 10, pe: 8, pp: 8, gf: 28, gc: 24, dg: 4, pts: 38,
+  });
+
+  assert.deepEqual(getMatchArchiveLapOptions(finArch.length, finArch).map((o) => o.id), ['all', 'apertura', 'semifinal', 'final']);
+  assert.equal(getMatchArchiveLapOptions(finArch.length, finArch)[1].label, 'Todos contra Todos (20)');
+  assert.equal(getMatchArchiveLapOptions(finArch.length, finArch)[2].label, 'Cuadrangular A (6)');
+  assert.equal(getMatchArchiveLapOptions(finArch.length, finArch)[3].label, 'Gran Final (2)');
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'apertura' }), 3), {
+    pj: 20, pg: 10, pe: 5, pp: 5, gf: 35, gc: 25, dg: 10, pts: 35,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'semifinal' }), 3), {
+    pj: 6, pg: 3, pe: 2, pp: 1, gf: 8, gc: 6, dg: 2, pts: 11,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(finArch, { lap: 'final' }), 3), {
+    pj: 2, pg: 2, pe: 0, pp: 0, gf: 4, gc: 0, dg: 4, pts: 6,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArch, 3), {
+    pj: 28, pg: 15, pe: 7, pp: 6, gf: 47, gc: 31, dg: 16, pts: 52,
+  });
+
+  // Reclasificación Anual 2025 dynamic 20-club zero-sum reconciliation
+  const rec2025 = getAnnualReclassificationByYear('2025-I');
+  assert.ok(rec2025 && rec2025.id === 'reclasificacion-2025');
+  assert.equal(getAnnualReclassificationByYear('2025-II')?.id, 'reclasificacion-2025');
+  assert.equal(rec2025.rows.length, 20);
+
+  const computed2025 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2025 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2025.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2025.set(team, cur);
+  };
+  for (const tbl of [t2025I, t2025II]) {
+    for (const r of tbl.regularRows || []) add2025(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of tbl.playoffMatches || []) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      add2025(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      add2025(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+  let r25Pj = 0, r25Pg = 0, r25Pp = 0, r25Gf = 0, r25Gc = 0;
+  for (const row of rec2025.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2025.get(row.team),
+      `Reclasificación 2025 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    r25Pj += row.pj; r25Pg += row.pg; r25Pp += row.pp; r25Gf += row.gf; r25Gc += row.gc;
+  }
+  assert.equal(r25Pj, 904);
+  assert.equal(r25Pg, r25Pp);
+  assert.equal(r25Gf, r25Gc);
+  assert.equal(rec2025.rows[0].team, 'Deportes Tolima');
+  assert.equal(rec2025.rows[0].pts, 96);
+  assert.equal(rec2025.rows[1].team, 'Independiente Medellín');
+  assert.equal(rec2025.rows[1].pts, 92);
+  assert.equal(rec2025.rows[2].team, 'Junior de Barranquilla');
+  assert.equal(rec2025.rows[2].pts, 90);
+  assert.equal(rec2025.rows[2].pj, 54);
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2025' && i.standingsTableId === 'reclasificacion-2025'));
+});
+
+// ── 105. 2026 Full Audit: 12ª Estrella Bicampeón 2026-I Play-offs, Live 2026-II Cuadrangulares (Nov 25), 44 Junior Matches & Reclasificación 2026 ──
+test('105. 2026 full audit: 19-fecha zero-sum tables, 2026-I knockout brackets (5-4 shootout & 7-1 scorers), live 2026-II Cuadrangulares (Nov 25), 25+19 Junior archive, timeline fix, and Reclasificación 2026', () => {
+  const t2026I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2026-I-playoffs')!;
+  const t2026II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2026-II-finalizacion')!;
+  assert.ok(t2026I && t2026II);
+
+  assert.equal(t2026I.championTeam, 'Junior de Barranquilla');
+  assert.equal(t2026I.runnerUpTeam, 'Atlético Nacional');
+  assert.equal(t2026I.isJuniorChampion, true);
+  assert.ok(t2026II.championTeam.includes('En disputa'));
+
+  for (const tbl of [t2026I, t2026II]) {
+    const rows = tbl.regularRows || [];
+    assert.equal(rows.length, 20);
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rows) {
+      assert.equal(r.pj, 19);
+      assert.equal(r.pg + r.pe + r.pp, r.pj);
+      assert.equal(r.gf - r.gc, r.dg);
+      assert.equal(r.pg * 3 + r.pe, r.pts);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `PG !== PP in ${tbl.id}`);
+    assert.equal(gf, gc, `GF !== GC in ${tbl.id}`);
+    assert.equal(pe % 2, 0, `Odd PE in ${tbl.id}`);
+  }
+
+  // 2026-I Play-offs: 14 matches reconciling 100% with summary rows, 7-1 scorers fixed, full knockout bracket
+  const p2026I = t2026I.playoffMatches || [];
+  assert.equal(p2026I.length, 14);
+  const koTally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  for (const m of p2026I) {
+    assert.ok(/2026$/.test(m.date || ''), `Expected clean 2026 date: ${m.date}`);
+    assert.ok((m.venue || '').startsWith('Estadio '), `Expected full Estadio venue: ${m.venue}`);
+    assert.ok(!(m.scorers || '').includes("pen.'") && !(m.scorers || '').includes("a.g.'"), `Malformed scorer punctuation: ${m.scorers}`);
+    for (const [tm, mgf, mgc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+      const cur = koTally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+      cur.pj++; cur.gf += mgf; cur.gc += mgc;
+      if (mgf > mgc) { cur.pg++; cur.pts += 3; } else if (mgf < mgc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+      koTally.set(tm, cur);
+    }
+  }
+  for (const r of t2026I.rows) {
+    assert.deepEqual(koTally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+  }
+  const nac71 = p2026I.find((m) => m.homeTeam === 'Atlético Nacional' && m.awayTeam === 'Internacional de Bogotá' && m.homeScore === 7);
+  assert.ok(nac71 && nac71.scorers?.includes("Cardona (78')") && nac71.scorers?.includes("Sarmiento (81')"));
+
+  const b2026I = buildPlayoffKnockoutBrackets(p2026I, t2026I.championTeam);
+  assert.equal(b2026I.length, 3);
+  const sfJunior = b2026I[1].ties.find((tie) => tie.teamA === 'Junior de Barranquilla' || tie.teamB === 'Junior de Barranquilla');
+  assert.ok(sfJunior && sfJunior.winnerTeam === 'Junior de Barranquilla' && sfJunior.penaltiesLabel?.includes('5-4'));
+  assert.equal(b2026I[2].ties[0].winnerTeam, 'Junior de Barranquilla');
+  assert.equal(b2026I[2].ties[0].teamAGoals, 3);
+  assert.equal(b2026I[2].ties[0].teamBGoals, 1);
+
+  // 2026-II Live Cuadrangulares (Corte 25 Nov 2026): 6 matches reconciling Grupo A (F1) & Grupo B (F1+F2)
+  const p2026II = t2026II.playoffMatches || [];
+  assert.equal(p2026II.length, 6);
+  const c26Tally = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  for (const m of p2026II) {
+    assert.ok(/2026$/.test(m.date || ''));
+    assert.ok((m.venue || '').startsWith('Estadio '));
+    for (const [tm, mgf, mgc] of [[m.homeTeam, m.homeScore, m.awayScore], [m.awayTeam, m.awayScore, m.homeScore]] as const) {
+      const cur = c26Tally.get(tm) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+      cur.pj++; cur.gf += mgf; cur.gc += mgc;
+      if (mgf > mgc) { cur.pg++; cur.pts += 3; } else if (mgf < mgc) { cur.pp++; } else { cur.pe++; cur.pts += 1; }
+      c26Tally.set(tm, cur);
+    }
+  }
+  for (const g of t2026II.finalGroups || []) {
+    for (const r of g.rows) {
+      assert.deepEqual(c26Tally.get(r.team), { pj: r.pj, pg: r.pg, pe: r.pe, pp: r.pp, gf: r.gf, gc: r.gc, pts: r.pts });
+    }
+  }
+  assert.equal(t2026II.rows[0].team, 'Independiente Medellín');
+  assert.equal(t2026II.rows[0].pts, 3);
+  assert.equal(t2026II.finalGroups?.[1].rows[0].team, 'América de Cali');
+  assert.equal(t2026II.finalGroups?.[1].rows[0].pts, 4);
+  assert.equal(t2026II.finalGroups?.[1].rows[1].team, 'Millonarios F.C');
+  assert.equal(t2026II.finalGroups?.[1].rows[1].pts, 4);
+
+  // Junior matchArchive: 25 in 2026-I + 19 normalized in 2026-II (44 total)
+  const apArch = t2026I.matchArchive || [];
+  const finArch = t2026II.matchArchive || [];
+  assert.equal(apArch.length, 25);
+  assert.equal(finArch.length, 19);
+  const canon2026 = new Set((t2026I.regularRows || []).map((r) => r.team));
+  for (const m of [...apArch, ...finArch]) {
+    assert.ok(canon2026.has(m.homeTeam) && canon2026.has(m.awayTeam), `Non-canonical 2026 team: ${m.homeTeam} vs ${m.awayTeam}`);
+    assert.ok(/2026$/.test(m.date), `Expected 2026 date: ${m.date}`);
+    assert.ok((m.venue || '').startsWith('Estadio '), `Expected full venue: ${m.venue}`);
+    assert.ok(!(m.note || '').includes("pen.'") && !(m.note || '').includes("a.g.'"), `Malformed note punctuation: ${m.note}`);
+  }
+
+  assert.deepEqual(getMatchArchiveLapOptions(apArch.length, apArch).map((o) => o.id), ['all', 'apertura', 'cuartos', 'semifinal', 'final']);
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'apertura' }), 3), {
+    pj: 19, pg: 11, pe: 2, pp: 6, gf: 31, gc: 24, dg: 7, pts: 35,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'cuartos' }), 3), {
+    pj: 2, pg: 1, pe: 1, pp: 0, gf: 3, gc: 2, dg: 1, pts: 4,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'semifinal' }), 3), {
+    pj: 2, pg: 0, pe: 2, pp: 0, gf: 1, gc: 1, dg: 0, pts: 2,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(filterMatchArchiveFixtures(apArch, { lap: 'final' }), 3), {
+    pj: 2, pg: 1, pe: 0, pp: 1, gf: 3, gc: 1, dg: 2, pts: 3,
+  });
+  assert.deepEqual(computeJuniorMatchArchiveSummary(apArch, 3), {
+    pj: 25, pg: 13, pe: 5, pp: 7, gf: 38, gc: 28, dg: 10, pts: 44,
+  });
+
+  assert.deepEqual(computeJuniorMatchArchiveSummary(finArch, 3), {
+    pj: 19, pg: 5, pe: 7, pp: 7, gf: 26, gc: 27, dg: -1, pts: 22,
+  });
+
+  // Reclasificación Anual 2026 (Corte 25 Nov 2026) dynamic 20-club zero-sum reconciliation
+  const rec2026 = getAnnualReclassificationByYear('2026-I');
+  assert.ok(rec2026 && rec2026.id === 'reclasificacion-2026');
+  assert.equal(getAnnualReclassificationByYear('2026-II')?.id, 'reclasificacion-2026');
+  assert.equal(rec2026.rows.length, 20);
+
+  const computed2026 = new Map<string, { pj: number; pg: number; pe: number; pp: number; gf: number; gc: number; pts: number }>();
+  const add2026 = (team: string, pj: number, pg: number, pe: number, pp: number, gf: number, gc: number, pts: number) => {
+    const cur = computed2026.get(team) || { pj: 0, pg: 0, pe: 0, pp: 0, gf: 0, gc: 0, pts: 0 };
+    cur.pj += pj; cur.pg += pg; cur.pe += pe; cur.pp += pp; cur.gf += gf; cur.gc += gc; cur.pts += pts;
+    computed2026.set(team, cur);
+  };
+  for (const tbl of [t2026I, t2026II]) {
+    for (const r of tbl.regularRows || []) add2026(r.team, r.pj, r.pg, r.pe, r.pp, r.gf, r.gc, r.pts);
+    for (const m of tbl.playoffMatches || []) {
+      const hRes = m.homeScore > m.awayScore ? [1, 0, 0, 3] : m.homeScore < m.awayScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      const aRes = m.awayScore > m.homeScore ? [1, 0, 0, 3] : m.awayScore < m.homeScore ? [0, 0, 1, 0] : [0, 1, 0, 1];
+      add2026(m.homeTeam, 1, hRes[0], hRes[1], hRes[2], m.homeScore, m.awayScore, hRes[3]);
+      add2026(m.awayTeam, 1, aRes[0], aRes[1], aRes[2], m.awayScore, m.homeScore, aRes[3]);
+    }
+  }
+  let r26Pj = 0, r26Pg = 0, r26Pp = 0, r26Gf = 0, r26Gc = 0;
+  for (const row of rec2026.rows) {
+    assert.deepEqual(
+      { pj: row.pj, pg: row.pg, pe: row.pe, pp: row.pp, gf: row.gf, gc: row.gc, pts: row.pts },
+      computed2026.get(row.team),
+      `Reclasificación 2026 mismatch for ${row.team}`
+    );
+    assert.equal(row.gf - row.gc, row.dg);
+    assert.equal(row.pg * 3 + row.pe, row.pts);
+    r26Pj += row.pj; r26Pg += row.pg; r26Pp += row.pp; r26Gf += row.gf; r26Gc += row.gc;
+  }
+  assert.equal(r26Pj, 800);
+  assert.equal(r26Pg, r26Pp);
+  assert.equal(r26Gf, r26Gc);
+  assert.equal(rec2026.rows[0].team, 'Atlético Nacional');
+  assert.equal(rec2026.rows[0].pts, 96);
+  assert.equal(rec2026.rows[1].team, 'América de Cali');
+  assert.equal(rec2026.rows[1].pts, 74);
+  assert.equal(rec2026.rows[2].team, 'Independiente Santa Fe');
+  assert.equal(rec2026.rows[2].pts, 69);
+  assert.equal(rec2026.rows[3].team, 'Junior de Barranquilla');
+  assert.equal(rec2026.rows[3].pts, 66);
+  assert.equal(rec2026.rows[3].pj, 44);
+
+  // Timeline 2026-II closing-streak accuracy & search index verification
+  const m2026II = JUNIOR_TIMELINE_MILESTONES.find((m) => m.id === '2026-II-finalizacion');
+  assert.ok(m2026II);
+  assert.ok(m2026II.details.some((d) => d.includes('2-0 ante Cúcuta Deportivo') && d.includes('0-1 frente a Deportivo Pasto')));
+  assert.ok(!m2026II.details.some((d) => d.includes('triunfos seguidos sobre Águilas')));
+
+  assert.ok(ENCYCLOPEDIA_SEARCH_ITEMS.some((i) => i.id === 'reclasificacion-anual-2026' && i.standingsTableId === 'reclasificacion-2026'));
+});
+
+// ── 106. Global 1948–2026 Integral Audit & Regression Shield ──
+test('106. Global 1948–2026 integrity shield: all 91 tournaments, 25 annual reclassifications, zero-sum tables, clean brackets, canonical names, venues, dates, and cross-module consistency', () => {
+  assert.equal(CHRONOLOGICAL_STANDINGS_TABLES.length, 91);
+  assert.equal(ANNUAL_RECLASSIFICATION_TABLES.length, 25);
+
+  const validTableIds = new Set(CHRONOLOGICAL_STANDINGS_TABLES.map((t) => t.id));
+  const validReclassIds = new Set(ANNUAL_RECLASSIFICATION_TABLES.map((r) => r.id));
+  const documentedRsssfVariances = new Set([
+    '1981-cuadrangular',
+    '1987-octogonal',
+    '1988-octogonal',
+    '1993-cuadrangular',
+  ]);
+  const nonCanonicalClubPattern = /(?:Millonarios F\.C\.|Llaneros F\.C\.|Itagüí F\. C|Fortaleza F\. C|Tigres F\. C|Atlético Municipal \(Nacional\)|3\.º Puesto)/;
+  const malformedScorerPattern = /(?:pen|a\.g|p)\.'/;
+
+  for (const t of CHRONOLOGICAL_STANDINGS_TABLES) {
+    // 1. Metadata & runnerUpTeam completeness across all completed tournaments (1948–2026-I)
+    assert.ok(t.championTeam && t.championTeam.trim().length > 0, `Missing championTeam in ${t.id}`);
+    if (t.id !== '1989-desierto' && t.id !== '2026-II-finalizacion') {
+      assert.ok(t.runnerUpTeam && t.runnerUpTeam.trim().length > 0, `Missing runnerUpTeam in ${t.id}`);
+      assert.ok(!nonCanonicalClubPattern.test(t.championTeam), `Non-canonical championTeam in ${t.id}: ${t.championTeam}`);
+      assert.ok(!nonCanonicalClubPattern.test(t.runnerUpTeam), `Non-canonical runnerUpTeam in ${t.id}: ${t.runnerUpTeam}`);
+    }
+
+    // 2. Regular rows arithmetic & zero-sum verification (strict on 87/91; documented RSSSF note on 4 pre-1994)
+    if (t.regularRows && t.regularRows.length > 0) {
+      let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+      for (const r of t.regularRows) {
+        assert.ok(!nonCanonicalClubPattern.test(r.team), `Non-canonical regularRows team in ${t.id}: ${r.team}`);
+        assert.equal(r.pg + r.pe + r.pp, r.pj, `PJ mismatch for ${r.team} in ${t.id}`);
+        assert.equal(r.gf - r.gc, r.dg, `DG mismatch for ${r.team} in ${t.id}`);
+        pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+      }
+      if (documentedRsssfVariances.has(t.id)) {
+        assert.ok(
+          t.regularPhaseDescription?.includes('desfase administrativo original'),
+          `Missing archival RSSSF variance note on ${t.id}`
+        );
+      } else {
+        assert.equal(pg, pp, `Regular PG !== PP in ${t.id} (${pg} vs ${pp})`);
+        assert.equal(gf, gc, `Regular GF !== GC in ${t.id} (${gf} vs ${gc})`);
+        assert.equal(pe % 2, 0, `Odd regular PE in ${t.id} (${pe})`);
+      }
+    }
+
+    // 3. Final groups arithmetic & zero-sum verification (100% of all cuadrangulares/hexagonales/octogonales/triangulares)
+    for (const fg of t.finalGroups || []) {
+      let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+      for (const r of fg.rows) {
+        assert.ok(!nonCanonicalClubPattern.test(r.team), `Non-canonical finalGroup team in ${t.id}: ${r.team}`);
+        assert.equal(r.pg + r.pe + r.pp, r.pj, `FinalGroup PJ mismatch for ${r.team} in ${t.id}`);
+        assert.equal(r.gf - r.gc, r.dg, `FinalGroup DG mismatch for ${r.team} in ${t.id}`);
+        pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+      }
+      assert.equal(pg, pp, `FinalGroup PG !== PP in ${t.id} (${fg.groupName})`);
+      assert.equal(gf, gc, `FinalGroup GF !== GC in ${t.id} (${fg.groupName})`);
+      assert.equal(pe % 2, 0, `FinalGroup odd PE in ${t.id} (${fg.groupName})`);
+    }
+
+    // 4. Modern 8-club knockout playoff rows zero-sum verification (2011, 2014-I, 2015–2018, 2020, 2021-I, 2026-I)
+    if (
+      t.rows &&
+      t.rows.length > 0 &&
+      ['2011-I-regular', '2011-II-playoffs', '2014-I-playoffs', '2015-I-playoffs', '2015-II-playoffs', '2016-I-playoffs', '2016-II-playoffs', '2017-I-regular', '2017-II-playoffs', '2018-I-playoffs', '2018-II-playoffs', '2020-playoffs', '2021-I-playoffs', '2026-I-playoffs'].includes(t.id)
+    ) {
+      assert.equal(t.rows.length, 8, `Expected 8 playoff rows in ${t.id}`);
+      let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+      for (const r of t.rows) {
+        assert.ok(!nonCanonicalClubPattern.test(r.team), `Non-canonical playoff row team in ${t.id}: ${r.team}`);
+        assert.equal(r.pg + r.pe + r.pp, r.pj);
+        assert.equal(r.gf - r.gc, r.dg);
+        pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+      }
+      assert.equal(pg, pp, `Playoff rows PG !== PP in ${t.id}`);
+      assert.equal(gf, gc, `Playoff rows GF !== GC in ${t.id}`);
+      assert.equal(pe % 2, 0, `Playoff rows odd PE in ${t.id}`);
+    }
+
+    // 5. Knockout brackets integrity: ZERO unresolved ties and ZERO false Octogonal/Cuad. Final brackets
+    const brackets = buildPlayoffKnockoutBrackets(t.playoffMatches, t.championTeam);
+    if (['1982-octogonal', '1983-octogonal', '1984-octogonal', '1985-octogonal', '1986-octogonal', '1990-reclasificacion', '1996-97-cuadrangular'].includes(t.id)) {
+      assert.equal(brackets.length, 0, `Unexpected spurious knockout bracket in round-robin tournament ${t.id}`);
+    }
+    for (const round of brackets) {
+      for (const tie of round.ties) {
+        assert.ok(tie.winnerTeam, `Unresolved knockout tie in ${t.id} (${round.label}): ${tie.teamA} vs ${tie.teamB}`);
+      }
+    }
+
+    // 6. All fixtures (matchArchive + playoffMatches): canonical names, clean scorers, year-stamped dates, and Estadio venues
+    for (const m of [...(t.matchArchive || []), ...(t.playoffMatches || [])]) {
+      assert.ok(!nonCanonicalClubPattern.test(m.homeTeam), `Non-canonical homeTeam in ${t.id}: ${m.homeTeam}`);
+      assert.ok(!nonCanonicalClubPattern.test(m.awayTeam), `Non-canonical awayTeam in ${t.id}: ${m.awayTeam}`);
+      assert.ok(m.date && /(19|20)\d\d/.test(m.date) && !/\d{1,2}\/\d{1,2}\/\d{2,4}/.test(m.date), `Invalid date in ${t.id}: ${m.date}`);
+      assert.ok(m.venue && m.venue.startsWith('Estadio '), `Invalid or missing venue in ${t.id}: ${m.venue} (${m.homeTeam})`);
+      if ('scorers' in m && m.scorers) {
+        assert.ok(!malformedScorerPattern.test(m.scorers), `Malformed scorer punctuation in ${t.id}: ${m.scorers}`);
+      }
+      if (m.note) {
+        assert.ok(!malformedScorerPattern.test(m.note), `Malformed note punctuation in ${t.id}: ${m.note}`);
+      }
+    }
+  }
+
+  // 7. Historical 1986 stadium transition verification for Junior (Romelio Martínez pre-11 May -> Metropolitano post-11 May)
+  const t1986 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1986-octogonal')!;
+  const j86Home = (t1986.matchArchive || []).filter((m) => m.homeTeam === 'Junior de Barranquilla');
+  assert.ok(j86Home.some((m) => m.date.includes('febrero') && m.venue === 'Estadio Municipal Romelio Martínez, Barranquilla'));
+  assert.ok(j86Home.some((m) => m.date.includes('5 de mayo') && m.venue === 'Estadio Municipal Romelio Martínez, Barranquilla'));
+  assert.ok(j86Home.some((m) => m.date.includes('18 de mayo') && m.venue === 'Estadio Metropolitano Roberto Meléndez, Barranquilla'));
+
+  // 8. All 25 Annual Reclassification tables (2002–2026): zero-sum, arithmetic, canonical club names, and valid semester references
+  for (const rec of ANNUAL_RECLASSIFICATION_TABLES) {
+    assert.ok(validTableIds.has(rec.aperturaTableId), `Broken aperturaTableId in ${rec.id}: ${rec.aperturaTableId}`);
+    if (rec.finalizacionTableId) {
+      assert.ok(validTableIds.has(rec.finalizacionTableId), `Broken finalizacionTableId in ${rec.id}: ${rec.finalizacionTableId}`);
+    }
+    let pg = 0, pe = 0, pp = 0, gf = 0, gc = 0;
+    for (const r of rec.rows) {
+      assert.ok(!nonCanonicalClubPattern.test(r.team), `Non-canonical reclassification team in ${rec.id}: ${r.team}`);
+      assert.equal(r.pg + r.pe + r.pp, r.pj, `Reclass PJ mismatch for ${r.team} in ${rec.id}`);
+      assert.equal(r.gf - r.gc, r.dg, `Reclass DG mismatch for ${r.team} in ${rec.id}`);
+      pg += r.pg; pe += r.pe; pp += r.pp; gf += r.gf; gc += r.gc;
+    }
+    assert.equal(pg, pp, `Reclass PG !== PP in ${rec.id}`);
+    assert.equal(gf, gc, `Reclass GF !== GC in ${rec.id}`);
+    assert.equal(pe % 2, 0, `Reclass odd PE in ${rec.id}`);
+  }
+
+  // 9. Cross-module integrity: JUNIOR_YEARLY_STANDINGS, STANDINGS_2026_II_DATA, ALL_TIME_DIMAYOR_TABLE, DERBIES_DATA, Timeline, Search
+  const jyByYear = new Map(JUNIOR_YEARLY_STANDINGS.map((y) => [y.year, y]));
+  assert.equal(jyByYear.get('1980')?.gamesPlayed, 61);
+  assert.equal(jyByYear.get('1980')?.points, 66);
+  assert.equal(jyByYear.get('1983')?.gamesPlayed, 56);
+  assert.equal(jyByYear.get('1983')?.points, 73);
+  assert.equal(jyByYear.get('1989')?.gamesPlayed, 34);
+  assert.equal(jyByYear.get('1989')?.points, 40);
+  assert.equal(jyByYear.get('1996/97')?.gamesPlayed, 46);
+  assert.equal(jyByYear.get('1996/97')?.points, 65);
+
+  for (const jy of JUNIOR_YEARLY_STANDINGS) {
+    if (jy.standingsTableId) {
+      assert.ok(validTableIds.has(jy.standingsTableId), `Broken JUNIOR_YEARLY_STANDINGS ref: ${jy.year} -> ${jy.standingsTableId}`);
+    }
+  }
+  for (const row of STANDINGS_2026_II_DATA) {
+    assert.ok(!nonCanonicalClubPattern.test(row.team), `Non-canonical team in STANDINGS_2026_II_DATA: ${row.team}`);
+  }
+  for (const row of ALL_TIME_DIMAYOR_TABLE) {
+    assert.ok(!nonCanonicalClubPattern.test(row.team), `Non-canonical team in ALL_TIME_DIMAYOR_TABLE: ${row.team}`);
+  }
+  for (const d of HISTORIC_DERBIES) {
+    assert.ok(!nonCanonicalClubPattern.test(d.opponent), `Non-canonical opponent in HISTORIC_DERBIES: ${d.opponent}`);
+  }
+  const searchIds = new Set<string>();
+  for (const item of ENCYCLOPEDIA_SEARCH_ITEMS) {
+    assert.ok(!searchIds.has(item.id), `Duplicate search index ID: ${item.id}`);
+    searchIds.add(item.id);
+    assert.ok(!nonCanonicalClubPattern.test(item.title), `Non-canonical title in search index: ${item.title}`);
+    if (item.standingsTableId) {
+      assert.ok(
+        validTableIds.has(item.standingsTableId) || validReclassIds.has(item.standingsTableId),
+        `Broken search standingsTableId: ${item.id} -> ${item.standingsTableId}`
+      );
+    }
+  }
+  for (const m of JUNIOR_TIMELINE_MILESTONES) {
+    if (m.standingsTableId) {
+      assert.ok(validTableIds.has(m.standingsTableId), `Broken timeline standingsTableId: ${m.id} -> ${m.standingsTableId}`);
+    }
+  }
+});
+
+test('Test #107: Head-to-Head module covers all 40 unified Primera A franchises (48 historical names, 1948-2026) with exact splits, eras, crests and search resolution', () => {
+  const summaries = buildAllHeadToHeadFranchises(CHRONOLOGICAL_STANDINGS_TABLES);
+  assert.equal(summaries.length, 40, 'Expected exactly 40 unified Primera A franchises');
+  assert.equal(RIVAL_FRANCHISES_CATALOG.length, 40);
+
+  const byId = new Map(summaries.map((s) => [s.franchise.id, s]));
+
+  // Verify category counts (19 Primera A, 9 Primera B, 12 Desaparecidos, 6 multi-name rebrands)
+  assert.equal(summaries.filter((s) => s.franchise.status === 'primera-a').length, 19);
+  assert.equal(summaries.filter((s) => s.franchise.status === 'primera-b').length, 9);
+  assert.equal(summaries.filter((s) => s.franchise.status === 'desaparecido').length, 12);
+  assert.equal(summaries.filter((s) => s.franchise.hasIdentityChange).length, 6);
+
+  // Verify 100% of all 48 distinct opponent strings across all 91 tournaments map cleanly
+  const distinctOpponents = new Set<string>();
+  for (const table of CHRONOLOGICAL_STANDINGS_TABLES) {
+    for (const m of [...(table.matchArchive || []), ...(table.playoffMatches || [])]) {
+      if (m.homeTeam === 'Junior de Barranquilla') distinctOpponents.add(m.awayTeam);
+      if (m.awayTeam === 'Junior de Barranquilla') distinctOpponents.add(m.homeTeam);
+    }
+  }
+  assert.equal(distinctOpponents.size, 48, 'Expected 48 distinct historical Primera A opponent strings');
+  for (const opp of distinctOpponents) {
+    assert.ok(resolveClubFranchiseId(opp), `Unmapped opponent string: ${opp}`);
+  }
+
+  // Verify mathematical invariants across ALL 40 franchises
+  for (const s of summaries) {
+    assert.ok(s.overall.pj > 0, `Franchise ${s.franchise.id} has 0 matches`);
+    assert.equal(s.home.pj + s.away.pj, s.overall.pj, `Home + Away PJ mismatch for ${s.franchise.id}`);
+    assert.equal(s.home.pg + s.away.pg, s.overall.pg, `Home + Away PG mismatch for ${s.franchise.id}`);
+    assert.equal(s.home.pe + s.away.pe, s.overall.pe, `Home + Away PE mismatch for ${s.franchise.id}`);
+    assert.equal(s.home.pp + s.away.pp, s.overall.pp, `Home + Away PP mismatch for ${s.franchise.id}`);
+    assert.equal(s.home.gf + s.away.gf, s.overall.gf, `Home + Away GF mismatch for ${s.franchise.id}`);
+    assert.equal(s.home.gc + s.away.gc, s.overall.gc, `Home + Away GC mismatch for ${s.franchise.id}`);
+
+    for (const split of [s.overall, s.home, s.away]) {
+      assert.equal(split.pg + split.pe + split.pp, split.pj, `W+D+L !== PJ in ${s.franchise.id}`);
+      assert.equal(split.gf - split.gc, split.dg, `GF-GC !== DG in ${s.franchise.id}`);
+    }
+
+    const eraSum = s.eraBreakdowns.reduce((acc, e) => acc + e.pj, 0);
+    assert.equal(eraSum, s.overall.pj, `Era breakdown PJ sum mismatch for ${s.franchise.id}`);
+
+    for (const relId of s.franchise.relatedFranchiseIds || []) {
+      assert.ok(byId.has(relId), `Broken relatedFranchiseId ${relId} on ${s.franchise.id}`);
+    }
+  }
+
+  // Verify 1968 Tercer Lugar matches vs Millonarios are captured without duplicating other playoffs
+  const millos = byId.get('millonarios')!;
+  assert.equal(millos.overall.pj, 216, 'Millonarios should include the 2 verified 1968 Tercer Lugar matches (214 + 2)');
+  assert.ok(
+    millos.matches.some((m) => m.tournamentId === '1968-campeonato' && m.round.toLowerCase().includes('tercer')),
+    'Expected 1968 Tercer Lugar matches vs Millonarios'
+  );
+  assert.ok(millos.crestGallery.length >= 10, 'Millonarios should expose full historical crest gallery');
+
+  // Verify all 6 multi-name rebrand lineages + Sporting de Barranquilla 2-era lineage
+  const nacional = byId.get('atletico-nacional')!;
+  assert.equal(nacional.overall.pj, 230, 'Atlético Nacional should unify Atlético Municipal (4) + Atlético Nacional (226)');
+  assert.equal(nacional.eraBreakdowns.length, 2);
+  assert.equal(nacional.eraBreakdowns[0].eraName, 'Atlético Municipal');
+  assert.equal(nacional.eraBreakdowns[0].pj, 4);
+  assert.equal(nacional.crestGallery.length, 7);
+
+  const interBogota = byId.get('internacional-de-bogota')!;
+  assert.equal(interBogota.overall.pj, 43, 'Internacional de Bogotá should unify La Equidad (41) + Internacional de Bogotá (2)');
+  assert.equal(interBogota.eraBreakdowns.length, 2);
+
+  const boyacaChico = byId.get('boyaca-chico')!;
+  assert.equal(boyacaChico.overall.pj, 40, 'Boyacá Chicó should unify Chicó F.C (2) + Boyacá Chicó (38)');
+  assert.equal(boyacaChico.eraBreakdowns.length, 2);
+
+  const aguilas = byId.get('aguilas-doradas')!;
+  assert.equal(aguilas.overall.pj, 39, 'Águilas Doradas should unify Itagüí F.C + Águilas Pereira + Águilas Doradas');
+  assert.equal(aguilas.eraBreakdowns.length, 3);
+
+  const alianza = byId.get('alianza-valledupar')!;
+  assert.equal(alianza.overall.pj, 27, 'Alianza Valledupar should unify Alianza Petrolera + Alianza F.C + Alianza Valledupar');
+  assert.equal(alianza.eraBreakdowns.length, 3);
+
+  const fortaleza = byId.get('fortaleza-ceif')!;
+  assert.equal(fortaleza.overall.pj, 10, 'Fortaleza CEIF should unify Fortaleza F.C (2) + Fortaleza CEIF (8)');
+  assert.equal(fortaleza.eraBreakdowns.length, 2);
+
+  const sporting = byId.get('sporting-de-barranquilla')!;
+  assert.equal(sporting.overall.pj, 17, 'Sporting de Barranquilla should have 17 total matches across 2 eras');
+  assert.equal(sporting.eraBreakdowns.length, 2);
+  const sportingEra1 = filterHeadToHeadMatches(sporting.matches, {
+    venue: 'todos',
+    outcome: 'todos',
+    phase: 'todas',
+    eraName: 'Sporting de Barranquilla (Primera Era)',
+    sortOrder: 'asc',
+  });
+  const sportingEra2 = filterHeadToHeadMatches(sporting.matches, {
+    venue: 'todos',
+    outcome: 'todos',
+    phase: 'todas',
+    eraName: 'Sporting de Barranquilla (Segunda Era)',
+    sortOrder: 'asc',
+  });
+  assert.equal(sportingEra1.length + sportingEra2.length, 17);
+  assert.ok(sportingEra1.length > 0 && sportingEra2.length > 0);
+
+  // Verify filterHeadToHeadMatches venue + outcome + era filters on Atlético Nacional
+  const municipalMatches = filterHeadToHeadMatches(nacional.matches, {
+    venue: 'todos',
+    outcome: 'todos',
+    phase: 'todas',
+    eraName: 'Atlético Municipal',
+    sortOrder: 'asc',
+  });
+  assert.equal(municipalMatches.length, 4);
+  assert.equal(municipalMatches[0].year, '1948');
+
+  const nacionalHomeWins = filterHeadToHeadMatches(nacional.matches, {
+    venue: 'local',
+    outcome: 'W',
+    phase: 'todas',
+    eraName: 'todos',
+    sortOrder: 'desc',
+  });
+  assert.equal(nacionalHomeWins.length, nacional.home.pg);
+
+  // Verify encyclopedia search resolves former aliases and extinct clubs directly to rivalFranchiseId
+  const searchExpectations: Array<[string, string]> = [
+    ['la equidad', 'internacional-de-bogota'],
+    ['alianza petrolera', 'alianza-valledupar'],
+    ['itagui', 'aguilas-doradas'],
+    ['atletico municipal', 'atletico-nacional'],
+    ['sporting de barranquilla', 'sporting-de-barranquilla'],
+    ['oro negro', 'oro-negro'],
+    ['uniautonoma', 'uniautonoma'],
+    ['centauros', 'centauros-villavicencio'],
+    ['deportivo samarios', 'deportivo-samarios'],
+    ['boca juniors de cali', 'boca-juniors-de-cali'],
+  ];
+  for (const [query, expectedFranchiseId] of searchExpectations) {
+    const hits = searchEncyclopedia(query);
+    assert.ok(
+      hits.some((h) => h.moduleId === 'resultados-vs-equipos' && h.rivalFranchiseId === expectedFranchiseId),
+      `Expected searchEncyclopedia("${query}") to return rivalFranchiseId "${expectedFranchiseId}"`
+    );
+  }
+});
+
+test('108. Historia module (1924-2026) data integrity, filtering, cross-links, and search indexing', () => {
+  assert.equal(WIKIPEDIA_SOURCE_URL, 'https://es.wikipedia.org/wiki/Junior_de_Barranquilla');
+  assert.equal(CLUB_HISTORY_INTRO.founders.length, 20, 'Should document all 20 founders of 1924');
+  assert.ok(CLUB_INSTITUTIONAL_FACTS.length >= 10, 'Should contain institutional facts table');
+
+  // 23 chronological chapters from 1924 to 2026
+  assert.equal(CLUB_HISTORY_CHAPTERS.length, 23, 'Should contain all 23 historical chapters from 1924 to 2026');
+  assert.equal(CLUB_HISTORY_CHAPTERS[0].id, 'cap-1924-fundacion');
+  assert.equal(CLUB_HISTORY_CHAPTERS[CLUB_HISTORY_CHAPTERS.length - 1].id, 'cap-2026-estrella-12');
+
+  const uniqueChapterIds = new Set(CLUB_HISTORY_CHAPTERS.map((c) => c.id));
+  assert.equal(uniqueChapterIds.size, 23, 'All chapter IDs must be unique');
+
+  const validTableIds = new Set(CHRONOLOGICAL_STANDINGS_TABLES.map((t) => t.id));
+  const validFranchiseIds = new Set(RIVAL_FRANCHISES_CATALOG.map((f) => f.id));
+
+  for (const chapter of CLUB_HISTORY_CHAPTERS) {
+    assert.ok(chapter.paragraphs.length > 0, `Chapter ${chapter.id} must have paragraphs`);
+    assert.ok(chapter.title.trim().length > 0, `Chapter ${chapter.id} must have a title`);
+    if (chapter.standingsTableId) {
+      assert.ok(
+        validTableIds.has(chapter.standingsTableId),
+        `Chapter ${chapter.id} references unknown standingsTableId "${chapter.standingsTableId}"`
+      );
+    }
+    if (chapter.rivalFranchiseId) {
+      assert.ok(
+        validFranchiseIds.has(chapter.rivalFranchiseId),
+        `Chapter ${chapter.id} references unknown rivalFranchiseId "${chapter.rivalFranchiseId}"`
+      );
+    }
+  }
+
+  // Era counts sum to 23
+  const eraCounts = getHistoryEraCounts(CLUB_HISTORY_CHAPTERS);
+  assert.equal(eraCounts.todos, 23);
+  const sumOfEras =
+    eraCounts['fundacion-dorado'] +
+    eraCounts['regreso-primeras-estrellas'] +
+    eraCounts['decada-90-2000'] +
+    eraCounts['era-dorada-2010'] +
+    eraCounts['centenario-actual'];
+  assert.equal(sumOfEras, 23, 'Sum of era group counts must equal total chapters');
+  assert.equal(eraCounts['centenario-actual'], 3, 'Centenario y Actualidad should contain 2024, 2025, and 2026');
+
+  // Filtering logic
+  const titlesOnly = filterHistoryChapters(CLUB_HISTORY_CHAPTERS, {
+    eraGroup: 'todos',
+    category: 'titulo',
+    query: '',
+  });
+  assert.ok(titlesOnly.length >= 14, `Expected at least 14 title-tagged chapters, got ${titlesOnly.length}`);
+
+  const micaelaHits = filterHistoryChapters(CLUB_HISTORY_CHAPTERS, {
+    eraGroup: 'todos',
+    category: 'todas',
+    query: 'Micaela',
+  });
+  assert.equal(micaelaHits.length, 1);
+  assert.equal(micaelaHits[0].id, 'cap-1924-fundacion');
+
+  const garrinchaHits = filterHistoryChapters(CLUB_HISTORY_CHAPTERS, {
+    eraGroup: 'todos',
+    category: 'todas',
+    query: 'Garrincha',
+  });
+  assert.equal(garrinchaHits.length, 1);
+  assert.equal(garrinchaHits[0].id, 'cap-1966-regreso');
+
+  const valderramaHits = filterHistoryChapters(CLUB_HISTORY_CHAPTERS, {
+    eraGroup: 'todos',
+    category: 'todas',
+    query: 'Valderrama',
+  });
+  assert.ok(valderramaHits.some((c) => c.id === 'cap-1993-estrella-3'));
+
+  const duodecimaHits = filterHistoryChapters(CLUB_HISTORY_CHAPTERS, {
+    eraGroup: 'todos',
+    category: 'todas',
+    query: 'duodecima',
+  });
+  assert.equal(duodecimaHits.length, 1);
+  assert.equal(duodecimaHits[0].id, 'cap-2026-estrella-12');
+
+  // Symbols, stadiums, stats, records, cultural sections completeness
+  const shieldEntry = CLUB_SYMBOLS_DATA.find((s) => s.id === 'sym-escudos');
+  assert.ok(shieldEntry && shieldEntry.crestImages && shieldEntry.crestImages.length === 7, 'Escudos section should list all 7 historical crests');
+  assert.ok(CLUB_STADIUMS_AND_FACILITIES.length >= 6, 'Should cover all stadiums and training facilities');
+  assert.ok(CLUB_GENERAL_STATS.length >= 8, 'Should include institutional stats');
+  assert.ok(CLUB_BIGGEST_SCORES.nationalWins.length >= 6, 'Should include biggest national wins');
+  assert.ok(CLUB_BIGGEST_SCORES.internationalWins.length >= 4, 'Should include biggest international wins');
+  assert.ok(CLUB_BIGGEST_SCORES.defeats.length >= 4, 'Should include heaviest historical defeats');
+  assert.ok(CLUB_LANDMARK_RECORDS.length >= 7, 'Should include landmark records 1975-2017');
+  assert.ok(CLUB_CULTURAL_TOPICS.length >= 7, 'Should include cultural, youth, women, monument, rivalry, and homonymous clubs topics');
+
+  // Encyclopedia search resolution for Historia module
+  const historySearchQueries = ['historia', 'ventana de campeones', 'adelita de char', 'junior de managua', 'willy'];
+  for (const query of historySearchQueries) {
+    const hits = searchEncyclopedia(query);
+    assert.ok(
+      hits.some((h) => h.moduleId === 'historia'),
+      `Expected searchEncyclopedia("${query}") to return a hit in module "historia"`
+    );
+  }
+});
+
+test('109. Top 50 Goalscorers dataset, competition breakdowns, portrait assets, filtering, sorting, and search indexing', () => {
+  assert.equal(
+    TOP_50_SCORERS_SOURCE_URL,
+    'https://es.wikipedia.org/wiki/Anexo:M%C3%A1ximos_goleadores_de_Junior_de_Barranquilla'
+  );
+  assert.equal(TOP_50_SCORERS_DATA.length, 50, 'Must contain exactly 50 top goalscorers');
+  assert.equal(SCORER_ERA_FILTERS.length, 5, 'Should expose 5 era filter options (todos + 4 eras)');
+
+  const uniqueIds = new Set<string>();
+  const validLegendIds = new Set(LEGENDS_DATA.map((l) => l.id));
+  let verifiedPhotoCount = 0;
+
+  for (let i = 0; i < TOP_50_SCORERS_DATA.length; i++) {
+    const scorer = TOP_50_SCORERS_DATA[i];
+    assert.equal(scorer.rank, i + 1, `Expected strict rank ${i + 1} for ${scorer.name}`);
+    assert.ok(!uniqueIds.has(scorer.id), `Duplicate scorer id "${scorer.id}"`);
+    uniqueIds.add(scorer.id);
+
+    // Non-increasing totalGoals ordering (166 down to 20)
+    if (i > 0) {
+      assert.ok(
+        scorer.totalGoals <= TOP_50_SCORERS_DATA[i - 1].totalGoals,
+        `Scorer #${scorer.rank} (${scorer.totalGoals}) exceeds #${i} (${TOP_50_SCORERS_DATA[i - 1].totalGoals})`
+      );
+    }
+
+    // Exact competition breakdown sum equals totalGoals
+    const sum = getBreakdownSum(scorer);
+    assert.equal(
+      sum,
+      scorer.totalGoals,
+      `Breakdown sum (${sum}) !== totalGoals (${scorer.totalGoals}) for #${scorer.rank} ${scorer.name}`
+    );
+
+    // Non-empty initials
+    const initials = getScorerInitials(scorer.name);
+    assert.ok(initials.length >= 1 && initials.length <= 2, `Invalid initials "${initials}" for ${scorer.name}`);
+
+    // Legend cross-link integrity
+    if (scorer.legendId) {
+      assert.ok(
+        validLegendIds.has(scorer.legendId),
+        `Unknown legendId "${scorer.legendId}" on scorer ${scorer.name}`
+      );
+    }
+
+    // Every local photoUrl must physically exist under public/
+    if (scorer.photoUrl) {
+      verifiedPhotoCount++;
+      assert.ok(scorer.photoUrl.startsWith('/assets/scorers/'), `Unexpected photoUrl path ${scorer.photoUrl}`);
+      const diskPath = path.join(process.cwd(), 'public', scorer.photoUrl.replace(/^\//, ''));
+      assert.ok(
+        fs.existsSync(diskPath),
+        `Missing portrait asset on disk: ${diskPath} for #${scorer.rank} ${scorer.name}`
+      );
+      assert.ok(fs.statSync(diskPath).size > 2000, `Portrait file too small/corrupt: ${diskPath}`);
+    }
+  }
+
+  // Spot-check podium and boundaries
+  assert.equal(TOP_50_SCORERS_DATA[0].name, 'Iván René Valenciano');
+  assert.equal(TOP_50_SCORERS_DATA[0].totalGoals, 166);
+  assert.equal(TOP_50_SCORERS_DATA[1].name, 'Carlos Bacca');
+  assert.equal(TOP_50_SCORERS_DATA[1].totalGoals, 135);
+  assert.equal(TOP_50_SCORERS_DATA[2].name, 'Teófilo Gutiérrez');
+  assert.equal(TOP_50_SCORERS_DATA[2].totalGoals, 107);
+  assert.equal(TOP_50_SCORERS_DATA[49].rank, 50);
+  assert.equal(TOP_50_SCORERS_DATA[49].totalGoals, 20);
+  assert.equal(verifiedPhotoCount, 18, 'Expected 18 verified archival player portraits on disk');
+
+  // Era bucket counts must sum to 50
+  const eraCounts = getScorerEraCounts(TOP_50_SCORERS_DATA);
+  assert.equal(eraCounts.todos, 50);
+  assert.equal(
+    eraCounts['1948-1979'] +
+      eraCounts['1980-1999'] +
+      eraCounts['2000-2014'] +
+      eraCounts['2015-2026'],
+    50
+  );
+
+  // Special filters
+  const withPhoto = filterTopScorers(TOP_50_SCORERS_DATA, {
+    query: '',
+    era: 'todos',
+    special: 'foto-archivo',
+    sortBy: 'rank',
+  });
+  assert.equal(withPhoto.length, 18);
+
+  const goldenBootScorers = filterTopScorers(TOP_50_SCORERS_DATA, {
+    query: '',
+    era: 'todos',
+    special: 'botin-oro',
+    sortBy: 'rank',
+  });
+  assert.ok(goldenBootScorers.length >= 10, `Expected at least 10 Botín de Oro winners in Top 50, got ${goldenBootScorers.length}`);
+
+  const foreignScorers = filterTopScorers(TOP_50_SCORERS_DATA, {
+    query: '',
+    era: 'todos',
+    special: 'extranjeros',
+    sortBy: 'rank',
+  });
+  assert.ok(foreignScorers.length >= 15, `Expected at least 15 foreign scorers in Top 50, got ${foreignScorers.length}`);
+  assert.equal(foreignScorers[0].id, 'ephanor');
+
+  const activeScorers = filterTopScorers(TOP_50_SCORERS_DATA, {
+    query: '',
+    era: 'todos',
+    special: 'activos',
+    sortBy: 'rank',
+  });
+  assert.ok(activeScorers.some((s) => s.id === 'teofilo'));
+  assert.ok(activeScorers.some((s) => s.id === 'luis-muriel'));
+
+  // Accent-insensitive search across name, nickname, country
+  const borjaHits = filterTopScorers(TOP_50_SCORERS_DATA, {
+    query: 'Miguel Angel Borja',
+    era: 'todos',
+    special: 'todos',
+    sortBy: 'rank',
+  });
+  assert.equal(borjaHits.length, 1);
+  assert.equal(borjaHits[0].rank, 14);
+  assert.equal(getInternationalGoals(borjaHits[0]), 16);
+
+  const brasilHits = filterTopScorers(TOP_50_SCORERS_DATA, {
+    query: 'Brasil',
+    era: 'todos',
+    special: 'todos',
+    sortBy: 'rank',
+  });
+  assert.equal(brasilHits.length, 4);
+
+  // Sort by international goals puts Borja (16) ahead of Valenciano (9)
+  const sortedIntl = filterTopScorers(TOP_50_SCORERS_DATA, {
+    query: '',
+    era: 'todos',
+    special: 'todos',
+    sortBy: 'internacional',
+  });
+  assert.equal(sortedIntl[0].id, 'miguel-borja');
+  assert.equal(getInternationalGoals(sortedIntl[0]), 16);
+
+  // Adjacent navigation helper
+  const adjFirst = getAdjacentScorers(TOP_50_SCORERS_DATA, 'valenciano');
+  assert.equal(adjFirst.prev, null);
+  assert.equal(adjFirst.next?.id, 'bacca');
+
+  const adjLast = getAdjacentScorers(TOP_50_SCORERS_DATA, 'eudalio-arriaga');
+  assert.equal(adjLast.prev?.id, 'luis-diaz');
+  assert.equal(adjLast.next, null);
+
+  // Encyclopedia search resolves all 50 players to goleadores-historicos with topScorerId
+  for (const scorer of TOP_50_SCORERS_DATA) {
+    const hits = searchEncyclopedia(scorer.name);
+    assert.ok(
+      hits.some(
+        (h) => h.moduleId === 'goleadores-historicos' && h.topScorerId === scorer.id
+      ),
+      `Expected searchEncyclopedia("${scorer.name}") to resolve topScorerId "${scorer.id}"`
+    );
+  }
+});
 
 
 

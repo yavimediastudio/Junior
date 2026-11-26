@@ -17,6 +17,7 @@ import {
   History,
   Trash2,
   Clock,
+  BookOpen,
 } from 'lucide-react';
 import { AppModuleId } from '../types/football';
 import { ShareButton } from './ShareButton';
@@ -61,12 +62,12 @@ export const MODULE_ITEMS: ModuleItemConfig[] = [
     number: '02',
     label: 'Resultados vs Equipos',
     shortLabel: 'vs Equipos',
-    badge: 'Cara a Cara',
-    tagline: 'Historial vs 10 Rivales',
+    badge: '1948 - 2026',
+    tagline: 'Historial vs 40 Franquicias',
     icon: Swords,
-    description: 'Balance oficial contra Nacional, América, Millonarios, Santa Fe, Medellín, Unión y más.',
-    statValue: '10 Clásicos',
-    statLabel: 'Finales & Goleadas',
+    description: 'Historial verificado contra los 40 rivales de Primera A (activos, en B y desaparecidos), evolución de nombres, escudos y lista de partidos.',
+    statValue: '40 Equipos',
+    statLabel: '48 Nombres Históricos',
     accentColor: 'from-amber-600/20 to-slate-900',
     borderHover: 'hover:border-amber-500/50',
   },
@@ -75,12 +76,12 @@ export const MODULE_ITEMS: ModuleItemConfig[] = [
     number: '03',
     label: 'Goleadores Históricos',
     shortLabel: 'Goleadores',
-    badge: '15 Botines de Oro',
-    tagline: 'Cañoneros Rojiblancos',
+    badge: 'Top 50 · 15 Botines',
+    tagline: 'Top 50 Cañoneros con Retrato',
     icon: Target,
-    description: 'Valenciano (166), Bacca (134), Teo (107), Luis Muriel (2026-I) y el archivo oficial de los 15 Botines de Oro de la liga.',
-    statValue: '166 Goles',
-    statLabel: 'Iván René Valenciano #1',
+    description: 'Listado oficial de los 50 máximos goleadores históricos de Junior (Valenciano 166, Bacca 135, Teo 107) con retrato, desglose por torneo y 15 Botines de Oro.',
+    statValue: 'Top 50',
+    statLabel: 'Valenciano #1 (166 Goles)',
     accentColor: 'from-rose-600/20 to-slate-900',
     borderHover: 'hover:border-rose-500/50',
   },
@@ -126,6 +127,20 @@ export const MODULE_ITEMS: ModuleItemConfig[] = [
     accentColor: 'from-emerald-600/20 to-slate-900',
     borderHover: 'hover:border-emerald-500/50',
   },
+  {
+    id: 'historia',
+    number: '07',
+    label: 'Historia',
+    shortLabel: 'Historia',
+    badge: '1924 - 2026',
+    tagline: 'Crónica, Símbolos, Sedes y Récords',
+    icon: BookOpen,
+    description: 'Historia completa del Junior de Barranquilla (1924–2026) con 23 capítulos cronológicos, símbolos, estadios, sedes, récords, filiales y cultura rojiblanca.',
+    statValue: '23 Capítulos',
+    statLabel: '102 Años de Historia Oficial',
+    accentColor: 'from-red-700/20 to-slate-900',
+    borderHover: 'hover:border-red-500/50',
+  },
 ];
 
 interface WindowHeaderProps {
@@ -135,6 +150,8 @@ interface WindowHeaderProps {
 }
 
 const QUICK_SUGGESTIONS = [
+  'Historia 1924-2026',
+  'Ventana de Campeones',
   'Insignias 1924-2026',
   '12ª Estrella 2026',
   'Sebastián Viera',
@@ -143,8 +160,6 @@ const QUICK_SUGGESTIONS = [
   'Alfredo Arias',
   'Carlos Bacca',
   'Teófilo Gutiérrez',
-  'Iván René Valenciano',
-  'Cuadrangulares',
 ];
 
 export const WindowHeader: React.FC<WindowHeaderProps> = ({
@@ -282,9 +297,39 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
     }
 
     if (item.standingsTableId) {
+      sessionStorage.setItem('junior-pending-standings-table', item.standingsTableId);
       window.dispatchEvent(
         new CustomEvent('junior-select-standings-table', {
           detail: { tableId: item.standingsTableId },
+        })
+      );
+    }
+    if (item.rivalFranchiseId) {
+      sessionStorage.setItem('junior-pending-rival-franchise', item.rivalFranchiseId);
+      window.dispatchEvent(
+        new CustomEvent('junior-select-rival-franchise', {
+          detail: { franchiseId: item.rivalFranchiseId },
+        })
+      );
+    }
+    if (item.historyTab || item.historyChapterId) {
+      if (item.historyTab) {
+        sessionStorage.setItem('junior-pending-history-tab', item.historyTab);
+      }
+      if (item.historyChapterId) {
+        sessionStorage.setItem('junior-pending-history-chapter', item.historyChapterId);
+      }
+      window.dispatchEvent(
+        new CustomEvent('junior-select-history-section', {
+          detail: { tab: item.historyTab, chapterId: item.historyChapterId },
+        })
+      );
+    }
+    if (item.topScorerId) {
+      sessionStorage.setItem('junior-pending-top-scorer', item.topScorerId);
+      window.dispatchEvent(
+        new CustomEvent('junior-select-top-scorer', {
+          detail: { scorerId: item.topScorerId },
         })
       );
     }

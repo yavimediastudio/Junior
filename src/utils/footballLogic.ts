@@ -377,29 +377,31 @@ export function extractTournamentStartYear(year?: string): number | null {
  * - Junior: uses 1946-1950 JCD crest in 1946-1949 tables (1948), 1950-1951 crest in 1950, 1951-1966 crest in 1951-1966 tables, 1977-1980 single-star crest in 1977-1979 tables, 1980-1993 two-star JUNIOR banner crest in 1980-1993 tables, 1994 three-star JUNIOR F.B.C. crest in 1994 tables, and official Junior crest in 1967-1976 and 1995+.
  * - Santa Fe: uses 1948-1950 CISF historical crest for 1948-1949 tables, 1950-1952 crest for 1950-1951 tables, 1952-1956 crest strictly for 1952-1956 tables, 1966-1967 Campeón 66 crest for 1966 tables, and 1967-2012 classic crest strictly for 1967-2012 tables.
  * - Deportes Caldas / Deportivo Manizales: uses 1947-1950 historical crest for 1947-1949 tables, and 1950-1961 crest strictly for 1950-1961 tables.
- * - Once Caldas: uses 1961-1967 tricolor-and-C historical crest for 1961-1966 tables, 1967-1971 C-rings crest strictly for 1967-1971 tables, 1972-1976 Cristal Caldas oval crest for 1972-1975 tables, 1976-1979 Cristal Caldas scalloped flower crest strictly for 1976-1979 tables, 1980 Cristal Caldas red wordmark crest strictly for 1980 tables, 1981-1983 Varta F.B.C. crest strictly for 1981-1983 tables, 1984-1986 tricolor double-C star shield crest strictly for 1984-1986 tables, 1987-1990 squared tricolor double-C star shield crest strictly for 1987-1990 tables, 1991-1993 Philips tricolor double-C star shield crest strictly for 1991-1993 tables, and 1994 Philips Colombiana tricolor double-C star shield crest strictly for 1994 tables.
- * - Millonarios: uses 1947-1955 historical crest for 1947-1955 tables, 1956-1974 crest for 1956-1973 tables, 1974-1975 circular 10-star crest for 1974 tables, 1975-1976 shield 10-star crest for 1975-1976 tables, 1977-1985 classic shield crest strictly for 1977-1985 tables, 1986-1990 double-ring M shield crest strictly for 1986-1990 tables, 1991-1993 navy-and-white double-ring M shield crest strictly for 1991-1993 tables, and 1994-1996 diagonal blue-and-white double-ring M shield crest strictly for 1994-1996 tables.
- * - Atlético Municipal / Nacional: uses 1947-1950 historical crest for 1947-1949 tables, 1950-1953 crest for 1950-1953 tables, 1954-1988 crowned shield crest strictly for 1954-1988 tables, 1989-1993 five-star castle shield crest strictly for 1989-1993 tables, and 1994-1995 green-and-white castle diagonal A/N shield crest strictly for 1994-1995 tables.
- * - América de Cali: uses 1940-1961 historical crest strictly for 1940-1961 tables, 1964-1976 devil-and-ball crest for 1964-1975 tables, 1976-1977 white-shield devil crest for 1976-1977 tables, 1978-1982 crowned-stars crest for 1978-1981 tables, 1982-1983 single-star shield crest for 1982-1983 tables, 1984 two-star shield crest strictly for 1984 tables, 1985 three-star shield crest strictly for 1985 tables, 1986 four-star (3+1) shield crest strictly for 1986 tables, 1987 six-star shield crest strictly for 1987 tables, 1988 circular ADC monogram crest strictly for 1988 tables, 1989-1990 red six-star shield crest strictly for 1989-1990 tables, 1991-1992 white seven-star shield crest strictly for 1991-1992 tables, and 1993-1997 eight-star devil shield crest strictly for 1993-1997 tables.
- * - Independiente Medellín: uses 1913-1951 FBC historical crest strictly for 1913-1951 tables, and 1966-1997 DIM diagonal crest strictly for 1966-1997 tables.
+ * - Once Caldas: uses 1961-1967 tricolor-and-C historical crest for 1961-1966 tables, 1967-1971 C-rings crest strictly for 1967-1971 tables, 1972-1976 Cristal Caldas oval crest for 1972-1975 tables, 1976-1979 Cristal Caldas scalloped flower crest strictly for 1976-1979 tables, 1980 Cristal Caldas red wordmark crest strictly for 1980 tables, 1981-1983 Varta F.B.C. crest strictly for 1981-1983 tables, 1984-1986 tricolor double-C star shield crest strictly for 1984-1986 tables, 1987-1990 squared tricolor double-C star shield crest strictly for 1987-1990 tables, 1991-1993 Philips tricolor double-C star shield crest strictly for 1991-1993 tables, 1994 Philips Colombiana tricolor double-C star shield crest strictly for 1994 tables, 1995 Colombiana tricolor double-C star shield crest strictly for 1995 tables (including 1995/96), 1996 Leona Cerveza tricolor double-C star shield crest strictly for 1996 tables (including 1996/97), 1997-1999 tricolor double-C star shield crest strictly for 1997-1999 tables, and 2000-2003 tricolor interlocking-OC star shield crest strictly for 2000-2003 tables.
+ * - Millonarios: uses 1947-1955 historical crest for 1947-1955 tables, 1956-1974 crest for 1956-1973 tables, 1974-1975 circular 10-star crest for 1974 tables, 1975-1976 shield 10-star crest for 1975-1976 tables, 1977-1985 classic shield crest strictly for 1977-1985 tables, 1986-1990 double-ring M shield crest strictly for 1986-1990 tables, 1991-1993 navy-and-white double-ring M shield crest strictly for 1991-1993 tables, 1994-1996 diagonal blue-and-white double-ring M shield crest strictly for 1994-1996 tables, 1997-1999 triple-bordered blue-and-white double-ring M shield crest strictly for 1997-1999 tables, and 2000-2002 gold-bordered blue-and-white double-ring M shield crest strictly for 2000-2002 tables.
+ * - Atlético Municipal / Nacional: uses 1947-1950 historical crest for 1947-1949 tables, 1950-1953 crest for 1950-1953 tables, 1954-1988 crowned shield crest strictly for 1954-1988 tables, 1989-1993 five-star castle shield crest strictly for 1989-1993 tables, 1994-1995 green-and-white castle diagonal A/N shield crest strictly for 1994-1995 tables, 1996-1999 classic white-bordered castle diagonal A/N shield crest strictly for 1996-1999 tables, and 2000-present official castle diagonal A/N shield crest strictly for 2000+ tables.
+ * - América de Cali: uses 1940-1961 historical crest strictly for 1940-1961 tables, 1964-1976 devil-and-ball crest for 1964-1975 tables, 1976-1977 white-shield devil crest for 1976-1977 tables, 1978-1982 crowned-stars crest for 1978-1981 tables, 1982-1983 single-star shield crest for 1982-1983 tables, 1984 two-star shield crest strictly for 1984 tables, 1985 three-star shield crest strictly for 1985 tables, 1986 four-star (3+1) shield crest strictly for 1986 tables, 1987 six-star shield crest strictly for 1987 tables, 1988 circular ADC monogram crest strictly for 1988 tables, 1989-1990 red six-star shield crest strictly for 1989-1990 tables, 1991-1992 white seven-star shield crest strictly for 1991-1992 tables, 1993-1997 eight-star devil shield crest strictly for 1993-1997 tables, 1998-2000 red-and-white devil shield crest strictly for 1998-2000 tables, and 2001-2004 white-shield arched-AMERICA devil crest strictly for 2001-2004 tables.
+ * - Independiente Medellín: uses 1913-1951 FBC historical crest strictly for 1913-1951 tables, and 1966-2006 DIM diagonal crest strictly for 1966-2006 tables.
  * - Deportivo Cali: uses 1948-2012 historical crest strictly for 1948-2012 tables.
  * - Once Deportivo: uses historical D emblem in 1948-1951 tables.
  * - Universidad Nacional: uses historical crest in 1948-1952 tables.
  * - Boca Juniors de Cali: uses CABJ Cali crest across historical tables and matches.
  * - Cúcuta Deportivo: uses 1950-1971 historical CD yin-yang crest for 1950-1971 tables, and 1972-2005 red-and-black CD circle crest strictly for 1972-2005 tables.
- * - Atlético Bucaramanga: uses 1950-1957 historical AB pennant crest for 1950-1956 tables, 1957-1985 leopard crest strictly for 1957-1985 tables, and 1986-1996 yellow-green A.B. leopard crest strictly for 1986-1996 tables.
+ * - Atlético Bucaramanga: uses 1950-1957 historical AB pennant crest for 1950-1956 tables, 1957-1985 leopard crest strictly for 1957-1985 tables, 1986-1996 yellow-green A.B. leopard crest strictly for 1986-1996 tables, 1997-2000 white-and-yellow A.B. leopard crest for 1997-1999 tables, and 2000-2009 yellow-and-green black-lettered A.B. leopard crest strictly for 2000-2009 tables.
  * - Sporting de Barranquilla: uses 1950-1953 historical black-and-gold crest strictly for 1950-1953 tables, 1988-1990 tiger-and-stripes crest strictly for 1988-1990 tables, and 1991 jaguar-and-tricolor-band crest strictly for 1991 tables.
- * - Deportivo Pereira: uses 1949-1952 historical DP golden-ball crest for 1949-1951 tables, 1952-1956 yellow-chevron D.P. crest for 1952-1955 tables, 1956-1989 DP diagonal red-yellow crest strictly for 1956-1989 tables, 1990 CP ball-top diagonal crest strictly for 1990 tables, 1991-1993 black-and-yellow DP ball-top diagonal crest strictly for 1991-1993 tables, and 1994-1997 Ferro Club Pereira circular crest strictly for 1994-1997 tables.
+ * - Deportivo Pereira: uses 1949-1952 historical DP golden-ball crest for 1949-1951 tables, 1952-1956 yellow-chevron D.P. crest for 1952-1955 tables, 1956-1989 DP diagonal red-yellow crest strictly for 1956-1989 tables, 1990 CP ball-top diagonal crest strictly for 1990 tables, 1991-1993 black-and-yellow DP ball-top diagonal crest strictly for 1991-1993 tables, 1994-1997 Ferro Club Pereira circular crest strictly for 1994-1997 tables, and 2001-2005 La Furia Matecaña DP crest strictly for 2001-2005 tables.
  * - Huracán de Medellín: uses hot-air balloon crest across 1950-1951 tables without colliding with Independiente Medellín.
- * - Deportes Quindío: uses 1951-1967 historical DQ pennant crest for 1951-1966 tables, 1967-1986 star-and-tricolor crest strictly for 1967-1986 tables, 1987-1990 tricolor-ball DQ shield crest strictly for 1987-1990 tables, and 1991-1996 Corporación Deportes Quindío crest strictly for 1991-1996 tables.
- * - Deportes Tolima: uses 1966-1997 yellow-and-black DT crest strictly for 1966-1997 tables.
+ * - Deportes Quindío: uses 1951-1967 historical DQ pennant crest for 1951-1966 tables, 1967-1986 star-and-tricolor crest strictly for 1967-1986 tables, 1987-1990 tricolor-ball DQ shield crest strictly for 1987-1990 tables, 1991-1996 Corporación Deportes Quindío crest strictly for 1991-1996 tables, and 1997-2017 red-star Corporación Deportes Quindío crest strictly for 1997-2017 tables.
+ * - Deportes Tolima: uses 1966-1997 yellow-and-black DT crest strictly for 1966-1997 tables, and 1998-2003 vinotinto-and-gold DT trapezoid crest strictly for 1998-2003 tables.
  * - Deportivo Samarios: uses historical Santa Marta Samarios crest across its El Dorado tables and matches.
  * - Unión Magdalena: uses official Unión Magdalena crest across its historical and modern tables and matches.
  * - Real Cartagena: uses 1971-2013 antique shield crest strictly for 1971-2013 tables and matches.
  * - Oro Negro: uses Club Deportivo Oro Negro (Barrancabermeja) crest across its 1971 tables and matches.
  * - Envigado F.C.: uses official Envigado F.C. green-and-orange shield crest across its historical and modern tables and matches.
  * - Atlético Huila: uses official Atlético Huila yellow-and-green AH shield crest across its historical and modern tables and matches.
- * - Cortuluá: uses 1967-1999 circular Cortuluá crest strictly for tables up through 1999.
+ * - Cortuluá: uses 1967-1999 circular Cortuluá crest strictly for tables from 1967 through 1999, and 2000-2021 glossy circular Cortuluá crest strictly for 2000-2021 tables.
+ * - Deportivo Unicosta: uses 1995-1999 Corporación Costa Atlántica crest strictly for tables from 1995 through 1999.
+ * - Deportivo Pasto: uses 1999 Asociación Deportivo Pasto circular crest strictly for 1999 tables, and 2000-2006 blue-bordered Asociación Deportivo Pasto circular crest strictly for 2000-2006 tables.
  */
 export function getTournamentTeamCrest(
   t: { id?: string; year?: string },
@@ -591,6 +593,40 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Once Caldas 1994',
     };
   }
+  if (isOnceCaldas && startYear === 1995) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_95_d4ccc7af.png',
+      alt: 'Escudo Histórico Once Caldas 1995',
+    };
+  }
+  if (isOnceCaldas && startYear === 1996) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_96_deca2e30.png',
+      alt: 'Escudo Histórico Once Caldas 1996',
+    };
+  }
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 1997 &&
+    startYear <= 1999
+  ) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_97-99_c3f980e2.png',
+      alt: 'Escudo Histórico Once Caldas 1997-1999',
+    };
+  }
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 2000 &&
+    startYear <= 2003
+  ) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_2000-2003_f59a376e.png',
+      alt: 'Escudo Histórico Once Caldas 2000-2003',
+    };
+  }
 
   const isMillonarios = lower.includes('millonarios');
   if (
@@ -676,6 +712,28 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Millonarios 1994-1996',
     };
   }
+  if (
+    isMillonarios &&
+    startYear !== null &&
+    startYear >= 1997 &&
+    startYear <= 1999
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_1997-1999_224dd26f.png',
+      alt: 'Escudo Histórico Millonarios 1997-1999',
+    };
+  }
+  if (
+    isMillonarios &&
+    startYear !== null &&
+    startYear >= 2000 &&
+    startYear <= 2002
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_2000-2002_cda26f62.png',
+      alt: 'Escudo Histórico Millonarios 2000-2002',
+    };
+  }
 
   const isAtleticoNacionalClub =
     lower.includes('atlético municipal') ||
@@ -735,6 +793,27 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/nacional_94-95_6d46dd78.png',
       alt: 'Escudo Histórico Atlético Nacional 1994-1995',
+    };
+  }
+  if (
+    isAtleticoNacionalClub &&
+    startYear !== null &&
+    startYear >= 1996 &&
+    startYear <= 1999
+  ) {
+    return {
+      src: '/assets/aistudio/nacional_96-99_1bdc5b71.png',
+      alt: 'Escudo Histórico Atlético Nacional 1996-1999',
+    };
+  }
+  if (
+    isAtleticoNacionalClub &&
+    startYear !== null &&
+    startYear >= 2000
+  ) {
+    return {
+      src: '/assets/aistudio/escudo_nacional_2000-actualidad_79016b5a.png',
+      alt: 'Escudo Oficial Atlético Nacional 2000-Actualidad',
     };
   }
 
@@ -859,6 +938,28 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico América de Cali 1993-1997',
     };
   }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 1998 &&
+    startYear <= 2000
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_1998-2000_c41f8c6c.png',
+      alt: 'Escudo Histórico América de Cali 1998-2000',
+    };
+  }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 2001 &&
+    startYear <= 2004
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_2001-2004_669b33f5.png',
+      alt: 'Escudo Histórico América de Cali 2001-2004',
+    };
+  }
 
   const isIndependienteMedellin =
     (lower.includes('independiente medellín') ||
@@ -887,11 +988,11 @@ export function getTournamentTeamCrest(
     isIndependienteMedellin &&
     startYear !== null &&
     startYear >= 1966 &&
-    startYear <= 1997
+    startYear <= 2006
   ) {
     return {
       src: '/assets/aistudio/MEDELLIN_1966-1997_7d6775c6.png',
-      alt: 'Escudo Histórico Independiente Medellín 1966-1997',
+      alt: 'Escudo Histórico Independiente Medellín 1966-2006',
     };
   }
 
@@ -982,6 +1083,28 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/bucaramanga_1986-1996_91b42c33.png',
       alt: 'Escudo Histórico Atlético Bucaramanga 1986-1996',
+    };
+  }
+  if (
+    isAtleticoBucaramanga &&
+    startYear !== null &&
+    startYear >= 1997 &&
+    startYear <= 1999
+  ) {
+    return {
+      src: '/assets/aistudio/bucaramanga_1997-2000_0f96a4fa.png',
+      alt: 'Escudo Histórico Atlético Bucaramanga 1997-2000',
+    };
+  }
+  if (
+    isAtleticoBucaramanga &&
+    startYear !== null &&
+    startYear >= 2000 &&
+    startYear <= 2009
+  ) {
+    return {
+      src: '/assets/aistudio/bucaramanga_2000-2009_d6d21063.png',
+      alt: 'Escudo Histórico Atlético Bucaramanga 2000-2009',
     };
   }
 
@@ -1081,6 +1204,17 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Deportivo Pereira 1994-1997',
     };
   }
+  if (
+    isDeportivoPereira &&
+    startYear !== null &&
+    startYear >= 2001 &&
+    startYear <= 2005
+  ) {
+    return {
+      src: '/assets/aistudio/PEREIRA_DEL_2001-2005_2a6a9e8e.png',
+      alt: 'Escudo Histórico Deportivo Pereira 2001-2005',
+    };
+  }
 
   const isHuracanDeMedellin =
     (lower.includes('huracán') || lower.includes('huracan')) &&
@@ -1137,6 +1271,17 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Deportes Quindío 1991-1996',
     };
   }
+  if (
+    isDeportesQuindio &&
+    startYear !== null &&
+    startYear >= 1997 &&
+    startYear <= 2017
+  ) {
+    return {
+      src: '/assets/aistudio/quindio_del_97_al_2017_a0600b91.png',
+      alt: 'Escudo Histórico Deportes Quindío 1997-2017',
+    };
+  }
 
   const isDeportesTolima = lower.includes('tolima');
   if (
@@ -1148,6 +1293,17 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/tolima_del_66_al_97_98e00cd9.png',
       alt: 'Escudo Histórico Deportes Tolima 1966-1997',
+    };
+  }
+  if (
+    isDeportesTolima &&
+    startYear !== null &&
+    startYear >= 1998 &&
+    startYear <= 2003
+  ) {
+    return {
+      src: '/assets/aistudio/tolima_del_98_al_2003_60f7af16.png',
+      alt: 'Escudo Histórico Deportes Tolima 1998-2003',
     };
   }
 
@@ -1214,6 +1370,47 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/cortulua-_1967-1999-m7VqpkMKwLIXBo5b_e6ef3247.webp',
       alt: 'Escudo Histórico Cortuluá 1967-1999',
+    };
+  }
+  if (
+    isCortulua &&
+    startYear !== null &&
+    startYear >= 2000 &&
+    startYear <= 2021
+  ) {
+    return {
+      src: '/assets/aistudio/cortulua-2000-m7VqpkMKwLIXBo5b_09dbf112.webp',
+      alt: 'Escudo Histórico Cortuluá 2000-2021',
+    };
+  }
+
+  if (
+    lower.includes('unicosta') &&
+    startYear !== null &&
+    startYear >= 1995 &&
+    startYear <= 1999
+  ) {
+    return {
+      src: '/assets/aistudio/cd_unicosta_barranquilla_1995_1999-L9OGcEHewWNAN9yR_c7fc6da3.webp',
+      alt: 'Escudo Histórico Deportivo Unicosta 1995-1999',
+    };
+  }
+
+  if (lower.includes('pasto') && startYear === 1999) {
+    return {
+      src: '/assets/aistudio/deportivo_pasto_1999-2006-Aq2eW8GGN2FWMLkr_a9eeaa6f.webp',
+      alt: 'Escudo Histórico Deportivo Pasto 1999',
+    };
+  }
+  if (
+    lower.includes('pasto') &&
+    startYear !== null &&
+    startYear >= 2000 &&
+    startYear <= 2006
+  ) {
+    return {
+      src: '/assets/aistudio/deportivo_pasto_2000-2006-Aq2eW8GGN2FWMLkr_9ef8c98d.webp',
+      alt: 'Escudo Histórico Deportivo Pasto 2000-2006',
     };
   }
 
@@ -1642,11 +1839,13 @@ export type MatchArchiveLapFilter =
   | 'apertura'
   | 'finalizacion'
   | 'cuadrangular'
+  | 'cuartos'
   | 'semifinal'
   | 'triangular'
   | 'hexagonal'
   | 'octogonal'
-  | 'desempate';
+  | 'desempate'
+  | 'final';
 export type MatchArchiveVenueFilter = 'all' | 'home' | 'away';
 export type MatchArchiveOutcomeFilter = 'all' | 'win' | 'draw' | 'loss';
 
@@ -1928,6 +2127,44 @@ export function getMatchLapNumber(
     if (/^primera\s+fase/i.test(trimmed)) return 1;
     if (/^regional\s+d\b/i.test(trimmed)) return 3;
     if (/^semif(?:inal|\.)\s*b\b/i.test(trimmed)) return 7;
+    if (/^(?:apertura|finalizaci[oó]n|todos\s+contra\s+todos)\s*·/i.test(trimmed)) return 1;
+    if (/^cuad(?:rangular|\.)\s*[ab]\b/i.test(trimmed)) return 7;
+    if (/^gran\s+final\b/i.test(trimmed)) return 8;
+  }
+
+  if (totalMatches === 26) {
+    const trimmed = (round || '').trim();
+    if (/^(?:apertura|finalizaci[oó]n|todos\s+contra\s+todos)\s*·/i.test(trimmed)) return 1;
+    if (/^cuad(?:rangular|\.)\s*[ab]\b/i.test(trimmed)) return 7;
+    if (/^cuartos\b/i.test(trimmed)) return 9;
+    if (/^semif(?:inal|\.)\b/i.test(trimmed)) return 7;
+    if (/^gran\s+final\b/i.test(trimmed)) return 8;
+  }
+
+  if (totalMatches === 25) {
+    const trimmed = (round || '').trim();
+    if (/^(?:apertura|finalizaci[oó]n|todos\s+contra\s+todos)\s*·/i.test(trimmed)) return 1;
+    if (/^cuad(?:rangular|\.)\s*[ab]\b/i.test(trimmed)) return 7;
+    if (/^cuartos\b/i.test(trimmed)) return 9;
+    if (/^semif(?:inal|\.)\b/i.test(trimmed)) return 7;
+    if (/^gran\s+final\b/i.test(trimmed)) return 8;
+  }
+
+  if (totalMatches === 24) {
+    const trimmed = (round || '').trim();
+    if (/^(?:apertura|finalizaci[oó]n|todos\s+contra\s+todos)\s*·/i.test(trimmed)) return 1;
+    if (/^cuad(?:rangular|\.)\s*[ab]\b/i.test(trimmed)) return 7;
+    if (/^cuartos\b/i.test(trimmed)) return 9;
+    if (/^semif(?:inal|\.)\b/i.test(trimmed)) return 7;
+    if (/^gran\s+final\b/i.test(trimmed)) return 8;
+  }
+
+  if (totalMatches === 22 || totalMatches === 21) {
+    const trimmed = (round || '').trim();
+    if (/^(?:apertura|finalizaci[oó]n|todos\s+contra\s+todos)\s*·/i.test(trimmed)) return 1;
+    if (/^cuartos\b/i.test(trimmed)) return 9;
+    if (/^semif(?:inal|\.)\b/i.test(trimmed)) return 7;
+    if (/^gran\s+final\b/i.test(trimmed)) return 8;
   }
 
   if (totalMatches === 34) {
@@ -2420,6 +2657,171 @@ export function getMatchArchiveLapOptions(
         { id: 'semifinal', label: 'Cuad. Semifinal B (6)' },
       ];
     }
+    if (Array.isArray(matches)) {
+      const hasRegular = matches.some((m) =>
+        /^(?:apertura|finalizaci[oó]n|todos\s+contra\s+todos)\s*·/i.test((m.round || '').trim())
+      );
+      const cuadEntry = matches.find((m) => /^cuad(?:rangular|\.)\s*([ab])\b/i.test((m.round || '').trim()));
+      const hasGranFinal = matches.some((m) => /^gran\s+final\b/i.test((m.round || '').trim()));
+      if (hasRegular && cuadEntry && hasGranFinal) {
+        const grpMatch = /^cuad(?:rangular|\.)\s*([ab])\b/i.exec((cuadEntry.round || '').trim());
+        const grpLetter = grpMatch ? grpMatch[1].toUpperCase() : 'B';
+        return [
+          { id: 'all', label: 'Todas (28)' },
+          { id: 'apertura', label: 'Todos contra Todos (20)' },
+          { id: 'semifinal', label: `Cuadrangular ${grpLetter} (6)` },
+          { id: 'final', label: 'Gran Final (2)' },
+        ];
+      }
+    }
+  }
+
+  if (totalMatches === 26 && Array.isArray(matches)) {
+    const hasRegular = matches.some((m) =>
+      /^(?:apertura|finalizaci[oó]n|todos\s+contra\s+todos)\s*·/i.test((m.round || '').trim())
+    );
+    const cuadEntry = matches.find((m) => /^cuad(?:rangular|\.)\s*([ab])\b/i.test((m.round || '').trim()));
+    const hasGranFinal = matches.some((m) => /^gran\s+final\b/i.test((m.round || '').trim()));
+    if (hasRegular && cuadEntry && hasGranFinal) {
+      const grpMatch = /^cuad(?:rangular|\.)\s*([ab])\b/i.exec((cuadEntry.round || '').trim());
+      const grpLetter = grpMatch ? grpMatch[1].toUpperCase() : 'B';
+      return [
+        { id: 'all', label: 'Todas (26)' },
+        { id: 'apertura', label: 'Todos contra Todos (18)' },
+        { id: 'semifinal', label: `Cuadrangular ${grpLetter} (6)` },
+        { id: 'final', label: 'Gran Final (2)' },
+      ];
+    }
+    if (hasRegular && cuadEntry && !hasGranFinal) {
+      const grpMatch = /^cuad(?:rangular|\.)\s*([ab])\b/i.exec((cuadEntry.round || '').trim());
+      const grpLetter = grpMatch ? grpMatch[1].toUpperCase() : 'A';
+      return [
+        { id: 'all', label: 'Todas (26)' },
+        { id: 'apertura', label: 'Todos contra Todos (20)' },
+        { id: 'semifinal', label: `Cuadrangular ${grpLetter} (6)` },
+      ];
+    }
+    const hasCuartos = matches.some((m) => /^cuartos\b/i.test((m.round || '').trim()));
+    const hasSemi = matches.some((m) => /^semif(?:inal|\.)\b/i.test((m.round || '').trim()));
+    if (hasRegular && hasCuartos && hasSemi && hasGranFinal) {
+      return [
+        { id: 'all', label: 'Todas (26)' },
+        { id: 'apertura', label: 'Todos contra Todos (20)' },
+        { id: 'cuartos', label: 'Cuartos (2)' },
+        { id: 'semifinal', label: 'Semifinal (2)' },
+        { id: 'final', label: 'Gran Final (2)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 25 && Array.isArray(matches)) {
+    const hasRegular = matches.some((m) =>
+      /^(?:apertura|finalizaci[oó]n|todos\s+contra\s+todos)\s*·/i.test((m.round || '').trim())
+    );
+    const cuadEntry = matches.find((m) => /^cuad(?:rangular|\.)\s*([ab])\b/i.test((m.round || '').trim()));
+    const hasCuartos = matches.some((m) => /^cuartos\b/i.test((m.round || '').trim()));
+    const hasSemi = matches.some((m) => /^semif(?:inal|\.)\b/i.test((m.round || '').trim()));
+    const hasGranFinal = matches.some((m) => /^gran\s+final\b/i.test((m.round || '').trim()));
+    if (hasRegular && cuadEntry && !hasGranFinal) {
+      const grpMatch = /^cuad(?:rangular|\.)\s*([ab])\b/i.exec((cuadEntry.round || '').trim());
+      const grpLetter = grpMatch ? grpMatch[1].toUpperCase() : 'A';
+      return [
+        { id: 'all', label: 'Todas (25)' },
+        { id: 'apertura', label: 'Todos contra Todos (19)' },
+        { id: 'semifinal', label: `Cuadrangular ${grpLetter} (6)` },
+      ];
+    }
+    if (hasRegular && hasCuartos && hasSemi && hasGranFinal) {
+      return [
+        { id: 'all', label: 'Todas (25)' },
+        { id: 'apertura', label: 'Todos contra Todos (19)' },
+        { id: 'cuartos', label: 'Cuartos (2)' },
+        { id: 'semifinal', label: 'Semifinal (2)' },
+        { id: 'final', label: 'Gran Final (2)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 24 && Array.isArray(matches)) {
+    const hasRegular = matches.some((m) =>
+      /^(?:apertura|finalizaci[oó]n|todos\s+contra\s+todos)\s*·/i.test((m.round || '').trim())
+    );
+    const cuadEntry = matches.find((m) => /^cuad(?:rangular|\.)\s*([ab])\b/i.test((m.round || '').trim()));
+    if (hasRegular && cuadEntry) {
+      const grpMatch = /^cuad(?:rangular|\.)\s*([ab])\b/i.exec((cuadEntry.round || '').trim());
+      const grpLetter = grpMatch ? grpMatch[1].toUpperCase() : 'B';
+      return [
+        { id: 'all', label: 'Todas (24)' },
+        { id: 'apertura', label: 'Todos contra Todos (18)' },
+        { id: 'semifinal', label: `Cuadrangular ${grpLetter} (6)` },
+      ];
+    }
+    const hasCuartos = matches.some((m) => /^cuartos\b/i.test((m.round || '').trim()));
+    const hasSemi = matches.some((m) => /^semif(?:inal|\.)\b/i.test((m.round || '').trim()));
+    const hasGranFinal = matches.some((m) => /^gran\s+final\b/i.test((m.round || '').trim()));
+    if (hasRegular && hasCuartos && hasSemi && hasGranFinal) {
+      return [
+        { id: 'all', label: 'Todas (24)' },
+        { id: 'apertura', label: 'Todos contra Todos (18)' },
+        { id: 'cuartos', label: 'Cuartos (2)' },
+        { id: 'semifinal', label: 'Semifinal (2)' },
+        { id: 'final', label: 'Gran Final (2)' },
+      ];
+    }
+    if (hasRegular && hasCuartos && hasSemi && !hasGranFinal) {
+      return [
+        { id: 'all', label: 'Todas (24)' },
+        { id: 'apertura', label: 'Todos contra Todos (20)' },
+        { id: 'cuartos', label: 'Cuartos (2)' },
+        { id: 'semifinal', label: 'Semifinal (2)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 22 && Array.isArray(matches)) {
+    const hasRegular = matches.some((m) =>
+      /^(?:apertura|finalizaci[oó]n|todos\s+contra\s+todos)\s*·/i.test((m.round || '').trim())
+    );
+    const hasCuartos = matches.some((m) => /^cuartos\b/i.test((m.round || '').trim()));
+    const hasSemi = matches.some((m) => /^semif(?:inal|\.)\b/i.test((m.round || '').trim()));
+    const hasGranFinal = matches.some((m) => /^gran\s+final\b/i.test((m.round || '').trim()));
+    if (hasRegular && hasSemi && hasGranFinal) {
+      return [
+        { id: 'all', label: 'Todas (22)' },
+        { id: 'apertura', label: 'Todos contra Todos (18)' },
+        { id: 'semifinal', label: 'Semifinal (2)' },
+        { id: 'final', label: 'Gran Final (2)' },
+      ];
+    }
+    if (hasRegular && hasCuartos && hasSemi && !hasGranFinal) {
+      return [
+        { id: 'all', label: 'Todas (22)' },
+        { id: 'apertura', label: 'Todos contra Todos (18)' },
+        { id: 'cuartos', label: 'Cuartos (2)' },
+        { id: 'semifinal', label: 'Semifinal (2)' },
+      ];
+    }
+    if (hasRegular && hasCuartos && !hasSemi && !hasGranFinal) {
+      return [
+        { id: 'all', label: 'Todas (22)' },
+        { id: 'apertura', label: 'Todos contra Todos (20)' },
+        { id: 'cuartos', label: 'Cuartos (2)' },
+      ];
+    }
+  }
+
+  if (totalMatches === 21 && Array.isArray(matches)) {
+    const hasRegular = matches.some((m) =>
+      /^(?:apertura|finalizaci[oó]n|todos\s+contra\s+todos)\s*·/i.test((m.round || '').trim())
+    );
+    const hasCuartos = matches.some((m) => /^cuartos\b/i.test((m.round || '').trim()));
+    if (hasRegular && hasCuartos) {
+      return [
+        { id: 'all', label: 'Todas (21)' },
+        { id: 'apertura', label: 'Todos contra Todos (19)' },
+        { id: 'cuartos', label: 'Cuartos (2)' },
+      ];
+    }
   }
 
   if (totalMatches === 36) {
@@ -2660,8 +3062,12 @@ export function filterMatchArchiveFixtures(
         if (matchLap !== 3 && matchLap !== 4) return false;
       } else if (lap === 'desempate') {
         if (matchLap !== 6) return false;
+      } else if (lap === 'cuartos') {
+        if (matchLap !== 9) return false;
       } else if (lap === 'semifinal') {
         if (matchLap !== 7) return false;
+      } else if (lap === 'final') {
+        if (matchLap !== 8) return false;
       } else if (
         lap === 'cuadrangular' ||
         lap === 'triangular' ||
@@ -2759,7 +3165,17 @@ function classifyKnockoutStage(rawStage: string): {
     s.includes('resultado') ||
     s.includes('estadística') ||
     s.includes('estadistica') ||
-    s.includes('enfrentamientos previos')
+    s.includes('enfrentamientos previos') ||
+    s.includes('cuadrangular') ||
+    s.includes('cuad.') ||
+    s.includes('fecha ') ||
+    s.includes('grupo ') ||
+    s.includes('hexagonal') ||
+    s.includes('octagonal') ||
+    s.includes('octogonal') ||
+    s.includes('pentagonal') ||
+    s.includes('triangular') ||
+    s.includes('liguilla')
   ) {
     return null;
   }
@@ -3000,12 +3416,18 @@ export function buildPlayoffKnockoutBrackets(
       const keyB = normalizeClubKey(tie.teamB);
       const aAdv = advancingSet.has(keyA);
       const bAdv = advancingSet.has(keyB);
+      const hasResolutionNote = tie.legs.some((leg) =>
+        /resoluci[oó]n\s*\d*|dimayor/i.test(leg.note || '')
+      );
+      const fallbackAdvanceLabel = hasResolutionNote
+        ? 'Clasificó por Resolución Dimayor'
+        : 'Avanzó por penales';
       if (aAdv && !bAdv) {
         tie.winnerTeam = tie.teamA;
-        if (!tie.penaltiesLabel) tie.penaltiesLabel = 'Avanzó por penales';
+        if (!tie.penaltiesLabel) tie.penaltiesLabel = fallbackAdvanceLabel;
       } else if (bAdv && !aAdv) {
         tie.winnerTeam = tie.teamB;
-        if (!tie.penaltiesLabel) tie.penaltiesLabel = 'Avanzó por penales';
+        if (!tie.penaltiesLabel) tie.penaltiesLabel = fallbackAdvanceLabel;
       }
     }
   }

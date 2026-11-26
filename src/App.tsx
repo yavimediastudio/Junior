@@ -15,6 +15,7 @@ import { TopScorersModule } from './components/modules/TopScorersModule';
 import { JerseysModule } from './components/modules/JerseysModule';
 import { TitlesModule } from './components/modules/TitlesModule';
 import { CurrentSeasonModule } from './components/modules/CurrentSeasonModule';
+import { HistoryModule } from './components/modules/HistoryModule';
 import { LineupBuilder } from './components/LineupBuilder';
 import { StadiumSection } from './components/StadiumSection';
 import { ChantsAndCulture } from './components/ChantsAndCulture';
@@ -50,6 +51,42 @@ function AppContent() {
               })
             );
           }
+          const rivalId = params.get('rival');
+          if (rivalId) {
+            sessionStorage.setItem('junior-pending-rival-franchise', rivalId);
+            window.dispatchEvent(
+              new CustomEvent('junior-select-rival-franchise', {
+                detail: { franchiseId: rivalId },
+              })
+            );
+          }
+          const historyTab = params.get('seccion');
+          const historyChapter = params.get('capitulo');
+          if (historyTab || historyChapter) {
+            if (historyTab) {
+              sessionStorage.setItem('junior-pending-history-tab', historyTab);
+            }
+            if (historyChapter) {
+              sessionStorage.setItem('junior-pending-history-chapter', historyChapter);
+            }
+            window.dispatchEvent(
+              new CustomEvent('junior-select-history-section', {
+                detail: {
+                  tab: historyTab || undefined,
+                  chapterId: historyChapter || undefined,
+                },
+              })
+            );
+          }
+          const scorerId = params.get('goleador');
+          if (scorerId) {
+            sessionStorage.setItem('junior-pending-top-scorer', scorerId);
+            window.dispatchEvent(
+              new CustomEvent('junior-select-top-scorer', {
+                detail: { scorerId },
+              })
+            );
+          }
         } catch (e) {
           console.warn('Error parsing hash query:', e);
         }
@@ -62,6 +99,7 @@ function AppContent() {
         'uniformes',
         'titulos',
         'actualidad',
+        'historia',
       ];
 
       if (validModules.includes(moduleHash as AppModuleId)) {
@@ -83,6 +121,7 @@ function AppContent() {
     if (id === 'uniformes' || id === 'camisetas') return 'uniformes';
     if (id === 'titulos' || id === 'estrellas') return 'titulos';
     if (id === 'actualidad') return 'actualidad';
+    if (id === 'historia') return 'historia';
     return null;
   };
 
@@ -216,6 +255,9 @@ function AppContent() {
             {currentWindow === 'uniformes' && <JerseysModule />}
             {currentWindow === 'titulos' && <TitlesModule />}
             {currentWindow === 'actualidad' && <CurrentSeasonModule />}
+            {currentWindow === 'historia' && (
+              <HistoryModule onNavigateToModule={openWindow} />
+            )}
           </div>
 
           {/* Bottom Window Footer (Previous / Home / Next) */}
