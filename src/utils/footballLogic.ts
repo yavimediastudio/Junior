@@ -375,33 +375,44 @@ export function extractTournamentStartYear(year?: string): number | null {
 /**
  * Returns the team crest asset to display inside a specific tournament table/match card.
  * - Junior: uses 1946-1950 JCD crest in 1946-1949 tables (1948), 1950-1951 crest in 1950, 1951-1966 crest in 1951-1966 tables, 1977-1980 single-star crest in 1977-1979 tables, 1980-1993 two-star JUNIOR banner crest in 1980-1993 tables, 1994 three-star JUNIOR F.B.C. crest in 1994 tables, and official Junior crest in 1967-1976 and 1995+.
- * - Santa Fe: uses 1948-1950 CISF historical crest for 1948-1949 tables, 1950-1952 crest for 1950-1951 tables, 1952-1956 crest strictly for 1952-1956 tables, 1966-1967 Campeón 66 crest for 1966 tables, and 1967-2012 classic crest strictly for 1967-2012 tables.
+ * - Santa Fe: uses 1948-1950 CISF historical crest for 1948-1949 tables, 1950-1952 crest for 1950-1951 tables, 1952-1956 crest strictly for 1952-1956 tables, 1966-1967 Campeón 66 crest for 1966 tables, 1967-2012 classic crest strictly for 1967-2012 tables, 2013-2016 seven-star crest strictly for 2013-2016 tables, and 2017-present official SANTA FE red-and-white crest strictly for 2017+ tables.
  * - Deportes Caldas / Deportivo Manizales: uses 1947-1950 historical crest for 1947-1949 tables, and 1950-1961 crest strictly for 1950-1961 tables.
- * - Once Caldas: uses 1961-1967 tricolor-and-C historical crest for 1961-1966 tables, 1967-1971 C-rings crest strictly for 1967-1971 tables, 1972-1976 Cristal Caldas oval crest for 1972-1975 tables, 1976-1979 Cristal Caldas scalloped flower crest strictly for 1976-1979 tables, 1980 Cristal Caldas red wordmark crest strictly for 1980 tables, 1981-1983 Varta F.B.C. crest strictly for 1981-1983 tables, 1984-1986 tricolor double-C star shield crest strictly for 1984-1986 tables, 1987-1990 squared tricolor double-C star shield crest strictly for 1987-1990 tables, 1991-1993 Philips tricolor double-C star shield crest strictly for 1991-1993 tables, 1994 Philips Colombiana tricolor double-C star shield crest strictly for 1994 tables, 1995 Colombiana tricolor double-C star shield crest strictly for 1995 tables (including 1995/96), 1996 Leona Cerveza tricolor double-C star shield crest strictly for 1996 tables (including 1996/97), 1997-1999 tricolor double-C star shield crest strictly for 1997-1999 tables, and 2000-2003 tricolor interlocking-OC star shield crest strictly for 2000-2003 tables.
- * - Millonarios: uses 1947-1955 historical crest for 1947-1955 tables, 1956-1974 crest for 1956-1973 tables, 1974-1975 circular 10-star crest for 1974 tables, 1975-1976 shield 10-star crest for 1975-1976 tables, 1977-1985 classic shield crest strictly for 1977-1985 tables, 1986-1990 double-ring M shield crest strictly for 1986-1990 tables, 1991-1993 navy-and-white double-ring M shield crest strictly for 1991-1993 tables, 1994-1996 diagonal blue-and-white double-ring M shield crest strictly for 1994-1996 tables, 1997-1999 triple-bordered blue-and-white double-ring M shield crest strictly for 1997-1999 tables, and 2000-2002 gold-bordered blue-and-white double-ring M shield crest strictly for 2000-2002 tables.
+ * - Once Caldas: uses 1961-1967 tricolor-and-C historical crest for 1961-1966 tables, 1967-1971 C-rings crest strictly for 1967-1971 tables, 1972-1976 Cristal Caldas oval crest for 1972-1975 tables, 1976-1979 Cristal Caldas scalloped flower crest strictly for 1976-1979 tables, 1980 Cristal Caldas red wordmark crest strictly for 1980 tables, 1981-1983 Varta F.B.C. crest strictly for 1981-1983 tables, 1984-1986 tricolor double-C star shield crest strictly for 1984-1986 tables, 1987-1990 squared tricolor double-C star shield crest strictly for 1987-1990 tables, 1991-1993 Philips tricolor double-C star shield crest strictly for 1991-1993 tables, 1994 Philips Colombiana tricolor double-C star shield crest strictly for 1994 tables, 1995 Colombiana tricolor double-C star shield crest strictly for 1995 tables (including 1995/96), 1996 Leona Cerveza tricolor double-C star shield crest strictly for 1996 tables (including 1996/97), 1997-1999 tricolor double-C star shield crest strictly for 1997-1999 tables, 2000-2003 tricolor interlocking-OC star shield crest strictly for 2000-2003 tables, 2004 two-star tricolor interlocking-OC shield crest strictly for 2004 tables, 2005-2009 golden-Libertadores-star two-star tricolor interlocking-OC shield crest strictly for 2005-2009 tables, 2010 golden-Libertadores-star three-star tricolor interlocking-OC shield crest strictly for 2010 tables, 2010-2018 golden-Libertadores-star four-star tricolor interlocking-OC shield crest strictly for 2011-2018 tables, and 2019-present official black-bordered four-star Libertadores-star tricolor interlocking-OC shield crest strictly for 2019+ tables.
+ * - Millonarios: uses 1947-1955 historical crest for 1947-1955 tables, 1956-1974 crest for 1956-1973 tables, 1974-1975 circular 10-star crest for 1974 tables, 1975-1976 shield 10-star crest for 1975-1976 tables, 1977-1985 classic shield crest strictly for 1977-1985 tables, 1986-1990 double-ring M shield crest strictly for 1986-1990 tables, 1991-1993 navy-and-white double-ring M shield crest strictly for 1991-1993 tables, 1994-1996 diagonal blue-and-white double-ring M shield crest strictly for 1994-1996 tables, 1997-1999 triple-bordered blue-and-white double-ring M shield crest strictly for 1997-1999 tables, 2000-2002 gold-bordered blue-and-white double-ring M shield crest strictly for 2000-2002 tables, 2003-2006 blue-and-white double-ring M shield crest strictly for 2003-2006 tables, 2007-2010 diagonal blue-and-white double-ring M shield crest strictly for 2007-2010 tables, 2011 blue-and-gold diagonal double-ring M shield crest strictly for 2011 tables, 2012-2014 gold-and-black-bordered blue-and-white double-ring M shield crest strictly for 2012-2014 tables, and 2015-present official navy-and-white double-ring M shield crest strictly for 2015+ tables.
  * - Atlético Municipal / Nacional: uses 1947-1950 historical crest for 1947-1949 tables, 1950-1953 crest for 1950-1953 tables, 1954-1988 crowned shield crest strictly for 1954-1988 tables, 1989-1993 five-star castle shield crest strictly for 1989-1993 tables, 1994-1995 green-and-white castle diagonal A/N shield crest strictly for 1994-1995 tables, 1996-1999 classic white-bordered castle diagonal A/N shield crest strictly for 1996-1999 tables, and 2000-present official castle diagonal A/N shield crest strictly for 2000+ tables.
- * - América de Cali: uses 1940-1961 historical crest strictly for 1940-1961 tables, 1964-1976 devil-and-ball crest for 1964-1975 tables, 1976-1977 white-shield devil crest for 1976-1977 tables, 1978-1982 crowned-stars crest for 1978-1981 tables, 1982-1983 single-star shield crest for 1982-1983 tables, 1984 two-star shield crest strictly for 1984 tables, 1985 three-star shield crest strictly for 1985 tables, 1986 four-star (3+1) shield crest strictly for 1986 tables, 1987 six-star shield crest strictly for 1987 tables, 1988 circular ADC monogram crest strictly for 1988 tables, 1989-1990 red six-star shield crest strictly for 1989-1990 tables, 1991-1992 white seven-star shield crest strictly for 1991-1992 tables, 1993-1997 eight-star devil shield crest strictly for 1993-1997 tables, 1998-2000 red-and-white devil shield crest strictly for 1998-2000 tables, and 2001-2004 white-shield arched-AMERICA devil crest strictly for 2001-2004 tables.
- * - Independiente Medellín: uses 1913-1951 FBC historical crest strictly for 1913-1951 tables, and 1966-2006 DIM diagonal crest strictly for 1966-2006 tables.
- * - Deportivo Cali: uses 1948-2012 historical crest strictly for 1948-2012 tables.
+ * - América de Cali: uses 1940-1961 historical crest strictly for 1940-1961 tables, 1964-1976 devil-and-ball crest for 1964-1975 tables, 1976-1977 white-shield devil crest for 1976-1977 tables, 1978-1982 crowned-stars crest for 1978-1981 tables, 1982-1983 single-star shield crest for 1982-1983 tables, 1984 two-star shield crest strictly for 1984 tables, 1985 three-star shield crest strictly for 1985 tables, 1986 four-star (3+1) shield crest strictly for 1986 tables, 1987 six-star shield crest strictly for 1987 tables, 1988 circular ADC monogram crest strictly for 1988 tables, 1989-1990 red six-star shield crest strictly for 1989-1990 tables, 1991-1992 white seven-star shield crest strictly for 1991-1992 tables, 1993-1997 eight-star devil shield crest strictly for 1993-1997 tables, 1998-2000 red-and-white devil shield crest strictly for 1998-2000 tables, 2001-2004 white-shield arched-AMERICA devil crest strictly for 2001-2004 tables, 2005-2008 white-shield arched-AMERICA devil-and-ball crest strictly for 2005-2008 tables, 2009-2011 13-star AMERICA 1927 white shield crest strictly for 2009-2011 tables, 2012-2019 clean red-bordered AMERICA devil-and-ball shield crest strictly for 2012-2019 tables, 2020-2022 classic América A 1927 white shield crest strictly for 2020-2022 tables, and 2023-present official América devil-and-ball shield crest strictly for 2023+ tables.
+ * - Independiente Medellín: uses 1913-1951 FBC historical crest strictly for 1913-1951 tables, 1966-2006 DIM diagonal crest strictly for 1966-2006 tables, 2007-2009 red-and-blue DIM diagonal shield crest strictly for 2007-2009 tables, 2010 five-star red-and-blue DIM diagonal shield crest strictly for 2010 tables, 2011-2019 blue-bordered red-and-blue DIM diagonal shield crest strictly for 2011-2019 tables, and 2020-2025 modern navy-bordered red-and-blue DIM diagonal shield crest strictly for 2020-2025 tables.
+ * - Deportivo Cali: uses 1948-2011 historical crest strictly for 1948-2011 tables, and 2012-present official green-and-white shield crest strictly for 2012+ tables.
  * - Once Deportivo: uses historical D emblem in 1948-1951 tables.
  * - Universidad Nacional: uses historical crest in 1948-1952 tables.
  * - Boca Juniors de Cali: uses CABJ Cali crest across historical tables and matches.
- * - Cúcuta Deportivo: uses 1950-1971 historical CD yin-yang crest for 1950-1971 tables, and 1972-2005 red-and-black CD circle crest strictly for 1972-2005 tables.
- * - Atlético Bucaramanga: uses 1950-1957 historical AB pennant crest for 1950-1956 tables, 1957-1985 leopard crest strictly for 1957-1985 tables, 1986-1996 yellow-green A.B. leopard crest strictly for 1986-1996 tables, 1997-2000 white-and-yellow A.B. leopard crest for 1997-1999 tables, and 2000-2009 yellow-and-green black-lettered A.B. leopard crest strictly for 2000-2009 tables.
+ * - Cúcuta Deportivo: uses 1950-1971 historical CD yin-yang crest for 1950-1971 tables, 1972-2005 red-and-black CD circle crest strictly for 1972-2005 tables, 2006-2008 single-star Cúcuta Deportivo crest strictly for 2006-2008 tables, 2009-2014 golden-star yin-yang Cúcuta Deportivo crest strictly for 2009-2014 tables, and 2015-present official circular single-star Cúcuta Deportivo crest strictly for 2015+ tables.
+ * - Atlético Bucaramanga: uses 1950-1957 historical AB pennant crest for 1950-1956 tables, 1957-1985 leopard crest strictly for 1957-1985 tables, 1986-1996 yellow-green A.B. leopard crest strictly for 1986-1996 tables, 1997-2000 white-and-yellow A.B. leopard crest for 1997-1999 tables, 2000-2008 yellow-and-green black-lettered A.B. leopard crest for 2000-2008 tables, and 2009-present official white-leopard A.B. shield crest strictly for 2009+ tables.
  * - Sporting de Barranquilla: uses 1950-1953 historical black-and-gold crest strictly for 1950-1953 tables, 1988-1990 tiger-and-stripes crest strictly for 1988-1990 tables, and 1991 jaguar-and-tricolor-band crest strictly for 1991 tables.
- * - Deportivo Pereira: uses 1949-1952 historical DP golden-ball crest for 1949-1951 tables, 1952-1956 yellow-chevron D.P. crest for 1952-1955 tables, 1956-1989 DP diagonal red-yellow crest strictly for 1956-1989 tables, 1990 CP ball-top diagonal crest strictly for 1990 tables, 1991-1993 black-and-yellow DP ball-top diagonal crest strictly for 1991-1993 tables, 1994-1997 Ferro Club Pereira circular crest strictly for 1994-1997 tables, and 2001-2005 La Furia Matecaña DP crest strictly for 2001-2005 tables.
+ * - Deportivo Pereira: uses 1949-1952 historical DP golden-ball crest for 1949-1951 tables, 1952-1956 yellow-chevron D.P. crest for 1952-1955 tables, 1956-1989 DP diagonal red-yellow crest strictly for 1956-1989 tables, 1990 CP ball-top diagonal crest strictly for 1990 tables, 1991-1993 black-and-yellow DP ball-top diagonal crest strictly for 1991-1993 tables, 1994-1997 Ferro Club Pereira circular crest strictly for 1994-1997 tables, 2001-2005 La Furia Matecaña DP crest strictly for 2001-2005 tables, 2006-2013 ribbon-and-ball DP crest strictly for 2006-2013 tables, 2018-2022 classic red-and-yellow diagonal DP ball-top crest strictly for 2018-2022 tables, and 2023-present official single-star DP crest strictly for 2023+ tables.
  * - Huracán de Medellín: uses hot-air balloon crest across 1950-1951 tables without colliding with Independiente Medellín.
- * - Deportes Quindío: uses 1951-1967 historical DQ pennant crest for 1951-1966 tables, 1967-1986 star-and-tricolor crest strictly for 1967-1986 tables, 1987-1990 tricolor-ball DQ shield crest strictly for 1987-1990 tables, 1991-1996 Corporación Deportes Quindío crest strictly for 1991-1996 tables, and 1997-2017 red-star Corporación Deportes Quindío crest strictly for 1997-2017 tables.
- * - Deportes Tolima: uses 1966-1997 yellow-and-black DT crest strictly for 1966-1997 tables, and 1998-2003 vinotinto-and-gold DT trapezoid crest strictly for 1998-2003 tables.
+ * - Deportes Quindío: uses 1951-1967 historical DQ pennant crest for 1951-1966 tables, 1967-1986 star-and-tricolor crest strictly for 1967-1986 tables, 1987-1990 tricolor-ball DQ shield crest strictly for 1987-1990 tables, 1991-1996 Corporación Deportes Quindío crest strictly for 1991-1996 tables, 1997-2016 red-star Corporación Deportes Quindío crest strictly for 1997-2016 tables, and 2017-present official Deportes Quindío S.A. red-star crest strictly for 2017+ tables.
+ * - Deportes Tolima: uses 1966-1997 yellow-and-black DT crest strictly for 1966-1997 tables, 1998-2003 vinotinto-and-gold DT trapezoid crest strictly for 1998-2003 tables, 2004-2018 one-star vinotinto-and-gold DT trapezoid crest strictly for 2004-2018 tables, 2019-2021 two-star vinotinto-and-gold DT trapezoid crest strictly for 2019-2021 tables, and 2022-present official three-star vinotinto-and-gold DT trapezoid crest strictly for 2022+ tables.
  * - Deportivo Samarios: uses historical Santa Marta Samarios crest across its El Dorado tables and matches.
  * - Unión Magdalena: uses official Unión Magdalena crest across its historical and modern tables and matches.
  * - Real Cartagena: uses 1971-2013 antique shield crest strictly for 1971-2013 tables and matches.
  * - Oro Negro: uses Club Deportivo Oro Negro (Barrancabermeja) crest across its 1971 tables and matches.
  * - Envigado F.C.: uses official Envigado F.C. green-and-orange shield crest across its historical and modern tables and matches.
  * - Atlético Huila: uses official Atlético Huila yellow-and-green AH shield crest across its historical and modern tables and matches.
- * - Cortuluá: uses 1967-1999 circular Cortuluá crest strictly for tables from 1967 through 1999, and 2000-2021 glossy circular Cortuluá crest strictly for 2000-2021 tables.
+ * - Cortuluá: uses 1967-1999 circular Cortuluá crest strictly for tables from 1967 through 1999, 2000-2021 glossy circular Cortuluá crest strictly for 2000-2021 tables, and 2022-present official heart-in-circle Cortuluá F.C. Est. 1967 crest strictly for 2022+ tables.
  * - Deportivo Unicosta: uses 1995-1999 Corporación Costa Atlántica crest strictly for tables from 1995 through 1999.
- * - Deportivo Pasto: uses 1999 Asociación Deportivo Pasto circular crest strictly for 1999 tables, and 2000-2006 blue-bordered Asociación Deportivo Pasto circular crest strictly for 2000-2006 tables.
+ * - Deportivo Pasto: uses 1999 Asociación Deportivo Pasto circular crest strictly for 1999 tables, 2000-2006 blue-bordered Asociación Deportivo Pasto circular crest strictly for 2000-2006 tables, and 2007-present one-star Asociación Deportivo Pasto circular crest strictly for 2007+ tables.
+ * - Centauros Villavicencio: uses Corporación Deportiva Centauros Villavicencio crest across its historical tables, matches, and head-to-head archive.
+ * - Boyacá Chicó / Chicó F.C.: uses 2002-2007 B. Chicó F.C. crest strictly for tables and matches up to 2007, and 2008-present single-star B. Chicó F.C. crest strictly for 2008+ tables and matches.
+ * - La Equidad: uses official La Equidad Seguros crest across all La Equidad tables, matches, and head-to-head archive (2007-2025).
+ * - Águilas Doradas / Itagüí Ditaires: uses 2011 black-and-gold Itagüí Ditaires winged shield crest strictly for 2011 tables and matches, 2012-2013 black-and-gold Águilas Doradas winged shield crest strictly for 2012-2013 tables and matches, 2014-2015 red-and-gold Águilas Pereira shield crest strictly for 2014-2015 tables and matches, and 2016-present official golden-wing Águilas Doradas shield crest strictly for 2016+ tables and matches (excluding Itagüí Leones).
+ * - Patriotas Boyacá: uses 2010-2014 red-bordered Boyacá Patriotas F.C. equestrian crest strictly for 2010-2014 tables and matches, and 2015-present official Pantano de Vargas diamond shield crest strictly for 2015+ tables and matches.
+ * - Alianza Petrolera: uses yellow-and-black oil-derrick AP crest strictly for Alianza Petrolera tables and matches through 2023 (excluding Alianza F.C / Alianza Valledupar in 2024+).
+ * - Fortaleza F.C. / Fortaleza CEIF: uses 2010-2014 black-and-silver F.F.C. column shield crest strictly through 2014, and 2015-2025 Fortaleza C.E.I.F. navy-and-red shield crest strictly for 2015-2025 (excluding 2026+).
+ * - Uniautónoma F.C.: uses 2010-2015 Universidad Autónoma del Caribe F.C. oval crest strictly through 2015.
+ * - Jaguares de Córdoba: uses official Jaguares Fútbol Club S.A. crest across all Jaguares tables, matches, and head-to-head archive.
+ * - Tigres F.C.: uses official Tigres F.C. Bogotá crest across all Tigres tables, matches, and head-to-head archive.
+ * - Itagüí Leones: uses official Leones F.C. yellow-and-green lion crest across all Itagüí Leones tables, matches, and head-to-head archive.
  */
 export function getTournamentTeamCrest(
   t: { id?: string; year?: string },
@@ -459,6 +470,18 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/SANTA_FE_1967-2012_2ab6a468.png',
       alt: 'Escudo Histórico Santa Fe 1967-2012',
+    };
+  }
+  if (isSantaFe && startYear !== null && startYear >= 2013 && startYear <= 2016) {
+    return {
+      src: '/assets/aistudio/SANTA_FE_2013-2016_26e4f7e3.png',
+      alt: 'Escudo Histórico Santa Fe 2013-2016',
+    };
+  }
+  if (isSantaFe && startYear !== null && startYear >= 2017) {
+    return {
+      src: '/assets/aistudio/SANTA_FE_2017_en_adelante_cc4f4a7c.png',
+      alt: 'Escudo Oficial Santa Fe 2017-Actualidad',
     };
   }
 
@@ -627,6 +650,46 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Once Caldas 2000-2003',
     };
   }
+  if (isOnceCaldas && startYear === 2004) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_2003-2004_99540100.png',
+      alt: 'Escudo Histórico Once Caldas 2004',
+    };
+  }
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 2005 &&
+    startYear <= 2009
+  ) {
+    return {
+      src: '/assets/aistudio/once_caldas_2005-2009_4722779a.png',
+      alt: 'Escudo Histórico Once Caldas 2005-2009',
+    };
+  }
+  if (isOnceCaldas && startYear === 2010) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_2010_a0f5c76f.png',
+      alt: 'Escudo Histórico Once Caldas 2010',
+    };
+  }
+  if (
+    isOnceCaldas &&
+    startYear !== null &&
+    startYear >= 2011 &&
+    startYear <= 2018
+  ) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_2010-2018_d05d4ed7.png',
+      alt: 'Escudo Histórico Once Caldas 2010-2018',
+    };
+  }
+  if (isOnceCaldas && startYear !== null && startYear >= 2019) {
+    return {
+      src: '/assets/aistudio/once_caldas_del_2019-actualidad_f4d4e1e9.png',
+      alt: 'Escudo Oficial Once Caldas 2019-Actualidad',
+    };
+  }
 
   const isMillonarios = lower.includes('millonarios');
   if (
@@ -732,6 +795,51 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/MILLONARIOS_2000-2002_cda26f62.png',
       alt: 'Escudo Histórico Millonarios 2000-2002',
+    };
+  }
+  if (
+    isMillonarios &&
+    startYear !== null &&
+    startYear >= 2003 &&
+    startYear <= 2006
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_2003-2006_67afa5b8.png',
+      alt: 'Escudo Histórico Millonarios 2003-2006',
+    };
+  }
+  if (
+    isMillonarios &&
+    startYear !== null &&
+    startYear >= 2007 &&
+    startYear <= 2010
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_2007-2010_1ed3e19b.png',
+      alt: 'Escudo Histórico Millonarios 2007-2010',
+    };
+  }
+  if (isMillonarios && startYear === 2011) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_2011_e6634bf9.png',
+      alt: 'Escudo Histórico Millonarios 2011',
+    };
+  }
+  if (
+    isMillonarios &&
+    startYear !== null &&
+    startYear >= 2012 &&
+    startYear <= 2014
+  ) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_2012-2014_0c884f38.png',
+      alt: 'Escudo Histórico Millonarios 2012-2014',
+    };
+  }
+  if (isMillonarios && startYear !== null && startYear >= 2015) {
+    return {
+      src: '/assets/aistudio/MILLONARIOS_2015_hasta_hoy_8e029042.png',
+      alt: 'Escudo Oficial Millonarios 2015-Actualidad',
     };
   }
 
@@ -960,6 +1068,56 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico América de Cali 2001-2004',
     };
   }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 2005 &&
+    startYear <= 2008
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_2005-2008_6f584edc.png',
+      alt: 'Escudo Histórico América de Cali 2005-2008',
+    };
+  }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 2009 &&
+    startYear <= 2011
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_2009-2012_44002d9e.png',
+      alt: 'Escudo Histórico América de Cali 2009-2012',
+    };
+  }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 2012 &&
+    startYear <= 2019
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_2012-2020_6cd4b171.png',
+      alt: 'Escudo Histórico América de Cali 2012-2020',
+    };
+  }
+  if (
+    isAmericaDeCali &&
+    startYear !== null &&
+    startYear >= 2020 &&
+    startYear <= 2022
+  ) {
+    return {
+      src: '/assets/aistudio/AMERICA_2020-2022_2bd9bfcd.png',
+      alt: 'Escudo Histórico América de Cali 2020-2022',
+    };
+  }
+  if (isAmericaDeCali && startYear !== null && startYear >= 2023) {
+    return {
+      src: '/assets/aistudio/escudo_america_2023_en_adel_ante_1884f5e3.webp',
+      alt: 'Escudo Oficial América de Cali 2023-Actualidad',
+    };
+  }
 
   const isIndependienteMedellin =
     (lower.includes('independiente medellín') ||
@@ -995,6 +1153,45 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Independiente Medellín 1966-2006',
     };
   }
+  if (
+    isIndependienteMedellin &&
+    startYear !== null &&
+    startYear >= 2007 &&
+    startYear <= 2009
+  ) {
+    return {
+      src: '/assets/aistudio/MEDELLIN_2007-2009_631a4ab0.png',
+      alt: 'Escudo Histórico Independiente Medellín 2007-2009',
+    };
+  }
+  if (isIndependienteMedellin && startYear === 2010) {
+    return {
+      src: '/assets/aistudio/MEDELLIN_2010_a68a7a10.png',
+      alt: 'Escudo Histórico Independiente Medellín 2010',
+    };
+  }
+  if (
+    isIndependienteMedellin &&
+    startYear !== null &&
+    startYear >= 2011 &&
+    startYear <= 2019
+  ) {
+    return {
+      src: '/assets/aistudio/MEDELLIN_2011-2019_fcd3602a.png',
+      alt: 'Escudo Histórico Independiente Medellín 2011-2019',
+    };
+  }
+  if (
+    isIndependienteMedellin &&
+    startYear !== null &&
+    startYear >= 2020 &&
+    startYear <= 2025
+  ) {
+    return {
+      src: '/assets/aistudio/MEDELLIN_2020-2025_644e57ef.png',
+      alt: 'Escudo Histórico Independiente Medellín 2020-2025',
+    };
+  }
 
   const isDeportivoCali =
     (lower.includes('deportivo cali') || lower.includes('dep. cali')) &&
@@ -1005,11 +1202,17 @@ export function getTournamentTeamCrest(
     isDeportivoCali &&
     startYear !== null &&
     startYear >= 1948 &&
-    startYear <= 2012
+    startYear <= 2011
   ) {
     return {
       src: '/assets/aistudio/deportivo_cali_1948-2012_35d865b2.png',
       alt: 'Escudo Histórico Deportivo Cali 1948-2012',
+    };
+  }
+  if (isDeportivoCali && startYear !== null && startYear >= 2012) {
+    return {
+      src: '/assets/aistudio/deportivo_cali_2012-en_adelante_fe6382ad.png',
+      alt: 'Escudo Oficial Deportivo Cali 2012-Actualidad',
     };
   }
 
@@ -1048,6 +1251,34 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/cucuta_deportivo_1972-2005_570a5c06.png',
       alt: 'Escudo Histórico Cúcuta Deportivo 1972-2005',
+    };
+  }
+  if (
+    isCucutaDeportivo &&
+    startYear !== null &&
+    startYear >= 2006 &&
+    startYear <= 2008
+  ) {
+    return {
+      src: '/assets/aistudio/cucuta_deportivo_2006-2008_b56c9c96.png',
+      alt: 'Escudo Histórico Cúcuta Deportivo 2006-2008',
+    };
+  }
+  if (
+    isCucutaDeportivo &&
+    startYear !== null &&
+    startYear >= 2009 &&
+    startYear <= 2014
+  ) {
+    return {
+      src: '/assets/aistudio/cucuta_deportivo_2009-2014_38fe25fc.png',
+      alt: 'Escudo Histórico Cúcuta Deportivo 2009-2014',
+    };
+  }
+  if (isCucutaDeportivo && startYear !== null && startYear >= 2015) {
+    return {
+      src: '/assets/aistudio/cucuta_deportivo_2015-actualidad_f02aa3c3.png',
+      alt: 'Escudo Oficial Cúcuta Deportivo 2015-Actualidad',
     };
   }
 
@@ -1100,11 +1331,17 @@ export function getTournamentTeamCrest(
     isAtleticoBucaramanga &&
     startYear !== null &&
     startYear >= 2000 &&
-    startYear <= 2009
+    startYear <= 2008
   ) {
     return {
       src: '/assets/aistudio/bucaramanga_2000-2009_d6d21063.png',
       alt: 'Escudo Histórico Atlético Bucaramanga 2000-2009',
+    };
+  }
+  if (isAtleticoBucaramanga && startYear !== null && startYear >= 2009) {
+    return {
+      src: '/assets/aistudio/bucaramanga_2009-em_adelante_62fa2b37.png',
+      alt: 'Escudo Oficial Atlético Bucaramanga 2009-Actualidad',
     };
   }
 
@@ -1215,6 +1452,34 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Deportivo Pereira 2001-2005',
     };
   }
+  if (
+    isDeportivoPereira &&
+    startYear !== null &&
+    startYear >= 2006 &&
+    startYear <= 2013
+  ) {
+    return {
+      src: '/assets/aistudio/PEREIRA_DEL_2006-2013_10428c9e.png',
+      alt: 'Escudo Histórico Deportivo Pereira 2006-2013',
+    };
+  }
+  if (
+    isDeportivoPereira &&
+    startYear !== null &&
+    startYear >= 2018 &&
+    startYear <= 2022
+  ) {
+    return {
+      src: '/assets/aistudio/PEREIRA_DEL_2018-2022_ffe8075e.png',
+      alt: 'Escudo Histórico Deportivo Pereira 2018-2022',
+    };
+  }
+  if (isDeportivoPereira && startYear !== null && startYear >= 2023) {
+    return {
+      src: '/assets/aistudio/PEREIRA_DEL_2023_en_adelante_82d25c28.png',
+      alt: 'Escudo Oficial Deportivo Pereira 2023-Actualidad',
+    };
+  }
 
   const isHuracanDeMedellin =
     (lower.includes('huracán') || lower.includes('huracan')) &&
@@ -1275,11 +1540,17 @@ export function getTournamentTeamCrest(
     isDeportesQuindio &&
     startYear !== null &&
     startYear >= 1997 &&
-    startYear <= 2017
+    startYear <= 2016
   ) {
     return {
       src: '/assets/aistudio/quindio_del_97_al_2017_a0600b91.png',
       alt: 'Escudo Histórico Deportes Quindío 1997-2017',
+    };
+  }
+  if (isDeportesQuindio && startYear !== null && startYear >= 2017) {
+    return {
+      src: '/assets/aistudio/deportes_quindao_s.a.-Aq200r85QbhRaev3_8847a0a1.webp',
+      alt: 'Escudo Oficial Deportes Quindío 2017-Actualidad',
     };
   }
 
@@ -1304,6 +1575,34 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/tolima_del_98_al_2003_60f7af16.png',
       alt: 'Escudo Histórico Deportes Tolima 1998-2003',
+    };
+  }
+  if (
+    isDeportesTolima &&
+    startYear !== null &&
+    startYear >= 2004 &&
+    startYear <= 2018
+  ) {
+    return {
+      src: '/assets/aistudio/tolima_del_2004_al_2018_75092ea1.png',
+      alt: 'Escudo Histórico Deportes Tolima 2004-2018',
+    };
+  }
+  if (
+    isDeportesTolima &&
+    startYear !== null &&
+    startYear >= 2019 &&
+    startYear <= 2021
+  ) {
+    return {
+      src: '/assets/aistudio/tolima_del_2019_al_2021_8e1bbb2b.png',
+      alt: 'Escudo Histórico Deportes Tolima 2019-2021',
+    };
+  }
+  if (isDeportesTolima && startYear !== null && startYear >= 2022) {
+    return {
+      src: '/assets/aistudio/tolima_del_2022en_adelante_7da7eadc.png',
+      alt: 'Escudo Oficial Deportes Tolima 2022-Actualidad',
     };
   }
 
@@ -1383,6 +1682,12 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Cortuluá 2000-2021',
     };
   }
+  if (isCortulua && startYear !== null && startYear >= 2022) {
+    return {
+      src: '/assets/aistudio/cortulua-2022-m7VqpkMKwLIXBo5b_4a5cea20.webp',
+      alt: 'Escudo Oficial Cortuluá 2022-Actualidad',
+    };
+  }
 
   if (
     lower.includes('unicosta') &&
@@ -1411,6 +1716,161 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/deportivo_pasto_2000-2006-Aq2eW8GGN2FWMLkr_9ef8c98d.webp',
       alt: 'Escudo Histórico Deportivo Pasto 2000-2006',
+    };
+  }
+  if (lower.includes('pasto') && startYear !== null && startYear >= 2007) {
+    return {
+      src: '/assets/aistudio/deportivo_pasto_2007_en_adelante_664c78b7.webp',
+      alt: 'Escudo Oficial Deportivo Pasto 2007-Actualidad',
+    };
+  }
+
+  if (lower.includes('centauros')) {
+    return {
+      src: '/assets/aistudio/escudo_centauros_7278fc5e.png',
+      alt: 'Escudo Oficial Centauros Villavicencio',
+    };
+  }
+
+  const isBoyacaChico = lower.includes('chicó') || lower.includes('chico');
+  if (isBoyacaChico && startYear !== null && startYear <= 2007) {
+    return {
+      src: '/assets/aistudio/boyaca_chico_fc_2002-2004-mv0xzGVJnPSDk7QB_26acf480.webp',
+      alt: 'Escudo Histórico Boyacá Chicó 2002-2007',
+    };
+  }
+  if (isBoyacaChico && startYear !== null && startYear >= 2008) {
+    return {
+      src: '/assets/aistudio/boyaca_chico_fc_2008_en_adelante_0f60033d.webp',
+      alt: 'Escudo Oficial Boyacá Chicó 2008-Actualidad',
+    };
+  }
+
+  if (lower.includes('equidad')) {
+    return {
+      src: '/assets/aistudio/La_Equidad_Seguros_logo.svg_cbed76e9.webp',
+      alt: 'Escudo Oficial La Equidad',
+    };
+  }
+
+  const isAguilasDoradas =
+    (lower.includes('águilas') ||
+      lower.includes('aguilas') ||
+      lower.includes('ditaires') ||
+      lower.includes('itagüí') ||
+      lower.includes('itagui')) &&
+    !lower.includes('leones');
+  if (isAguilasDoradas && startYear === 2011) {
+    return {
+      src: '/assets/aistudio/aguilas_dordas_2011_2133b75d.webp',
+      alt: 'Escudo Histórico Itagüí Ditaires (Águilas Doradas) 2011',
+    };
+  }
+  if (
+    isAguilasDoradas &&
+    startYear !== null &&
+    startYear >= 2012 &&
+    startYear <= 2013
+  ) {
+    return {
+      src: '/assets/aistudio/aguilas_dordas_2012-2013_35eb5333.webp',
+      alt: 'Escudo Histórico Águilas Doradas 2012-2013',
+    };
+  }
+  if (
+    isAguilasDoradas &&
+    startYear !== null &&
+    startYear >= 2014 &&
+    startYear <= 2015
+  ) {
+    return {
+      src: '/assets/aistudio/aguilas_dordas_2014-2015_1cc4f92e.webp',
+      alt: 'Escudo Histórico Águilas Pereira / Águilas Doradas 2014-2015',
+    };
+  }
+  if (isAguilasDoradas && startYear !== null && startYear >= 2016) {
+    return {
+      src: '/assets/aistudio/aguilas_dordas_2016-en_adelante_a149315f.webp',
+      alt: 'Escudo Oficial Águilas Doradas 2016-Actualidad',
+    };
+  }
+
+  if (
+    lower.includes('patriotas') &&
+    startYear !== null &&
+    startYear >= 2010 &&
+    startYear <= 2014
+  ) {
+    return {
+      src: '/assets/aistudio/patriotas_boyaca-_fc_2010-2014-d95EEkep0qSOnwvl_054d5f08.webp',
+      alt: 'Escudo Histórico Patriotas Boyacá 2010-2014',
+    };
+  }
+  if (lower.includes('patriotas') && startYear !== null && startYear >= 2015) {
+    return {
+      src: '/assets/aistudio/patriotas_boyaca-_fc_2015-presente-dOqXXBQWrqCD2ran_f6b4bade.webp',
+      alt: 'Escudo Oficial Patriotas Boyacá 2015-Actualidad',
+    };
+  }
+
+  if (
+    lower.includes('alianza petrolera') &&
+    startYear !== null &&
+    startYear <= 2023
+  ) {
+    return {
+      src: '/assets/aistudio/EscudoAlianzaPetrolera._hasta_2023_a876b379.png',
+      alt: 'Escudo Histórico Alianza Petrolera (hasta 2023)',
+    };
+  }
+
+  if (lower.includes('fortaleza') && startYear !== null && startYear <= 2014) {
+    return {
+      src: '/assets/aistudio/fortaleza_fc_2010-2014-dJoGO5JaQZfV9aka_e79387fb.webp',
+      alt: 'Escudo Histórico Fortaleza F.C. (hasta 2014)',
+    };
+  }
+  if (
+    lower.includes('fortaleza') &&
+    startYear !== null &&
+    startYear >= 2015 &&
+    startYear <= 2025
+  ) {
+    return {
+      src: '/assets/aistudio/fortaleza_ceif_bogota-_2015-2025-Yyvk5ZoplbHRr8V5_e2d1629f.webp',
+      alt: 'Escudo Histórico Fortaleza CEIF 2015-2025',
+    };
+  }
+
+  if (
+    (lower.includes('uniautónoma') || lower.includes('uniautonoma')) &&
+    startYear !== null &&
+    startYear <= 2015
+  ) {
+    return {
+      src: '/assets/aistudio/uniautonoma_fc_barranquilla_2010-2015-YKbaaLLg2bueg9qo_25547c6c.webp',
+      alt: 'Escudo Histórico Uniautónoma F.C. (hasta 2015)',
+    };
+  }
+
+  if (lower.includes('jaguares')) {
+    return {
+      src: '/assets/aistudio/jaguares-de-cordoba-logo-footylogos-1200_35e582b7.webp',
+      alt: 'Escudo Oficial Jaguares de Córdoba',
+    };
+  }
+
+  if (lower.includes('tigres')) {
+    return {
+      src: '/assets/aistudio/tigres_fc_bogota_presente-YrDLRPlj0Mtr6M3M_e69a883b.webp',
+      alt: 'Escudo Oficial Tigres F.C.',
+    };
+  }
+
+  if (lower.includes('leones')) {
+    return {
+      src: '/assets/aistudio/itagui_leones_a791aa99.png',
+      alt: 'Escudo Oficial Itagüí Leones',
     };
   }
 

@@ -432,7 +432,7 @@ test('1948 tournament single-phase flag and historical crest resolution', () => 
   }
 });
 
-test('Santa Fe 1948-1949, 1950-1951, 1952-1956, 1966, and 1967-2012 historical crests apply strictly to their respective tournaments', () => {
+test('Santa Fe 1948-1949, 1950-1951, 1952-1956, 1966, 1967-2012, and 2013-2016 historical crests apply strictly to their respective tournaments', () => {
   const t1948 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1948-inaugural');
   const t1950 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1950-dorado');
   const t1951 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1951-dorado');
@@ -444,7 +444,8 @@ test('Santa Fe 1948-1949, 1950-1951, 1952-1956, 1966, and 1967-2012 historical c
   const t1977 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1977-hexagonal');
   const t2012II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2012-II-cuadrangular');
   const t2013I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2013-I-regular');
-  assert.ok(t1948 && t1950 && t1951 && t1952 && t1953 && t1966 && t1967 && t1968 && t1977 && t2012II && t2013I);
+  const t2017I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2017-I');
+  assert.ok(t1948 && t1950 && t1951 && t1952 && t1953 && t1966 && t1967 && t1968 && t1977 && t2012II && t2013I && t2017I);
 
   assert.equal(
     getTournamentTeamCrest(t1948, 'Independiente Santa Fe')?.src,
@@ -480,9 +481,51 @@ test('Santa Fe 1948-1949, 1950-1951, 1952-1956, 1966, and 1967-2012 historical c
       `Expected Santa Fe 1967-2012 crest for ${tbl.id}`
     );
   }
+  const santaFe2013To2016 = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) =>
+    /^201[3-6]\b/.test(t.year)
+  );
+  assert.equal(santaFe2013To2016.length, 8, 'Expected 8 tournaments from 2013-I to 2016-II');
+  for (const tbl of santaFe2013To2016) {
+    const crest = getTournamentTeamCrest(tbl, 'Independiente Santa Fe');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/SANTA_FE_2013-2016_26e4f7e3.png',
+      `Expected Santa Fe 2013-2016 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Santa Fe 2013-2016');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2013' }, 'Santa Fe')?.src,
+    '/assets/aistudio/SANTA_FE_2013-2016_26e4f7e3.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2016' }, 'Independiente Santa Fe')?.src,
+    '/assets/aistudio/SANTA_FE_2013-2016_26e4f7e3.png'
+  );
   assert.equal(getTournamentTeamCrest({ id: 'custom-1957', year: '1957' }, 'Independiente Santa Fe'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1965', year: '1965' }, 'Independiente Santa Fe'), null);
-  assert.equal(getTournamentTeamCrest(t2013I, 'Independiente Santa Fe'), null);
+  const santaFe2017Plus = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) => {
+    const yr = Number(/^(\d{4})/.exec(t.year)?.[1] || 0);
+    return yr >= 2017;
+  });
+  assert.ok(santaFe2017Plus.length >= 18, `Expected >=18 tournaments from 2017+, got ${santaFe2017Plus.length}`);
+  for (const tbl of santaFe2017Plus) {
+    const crest = getTournamentTeamCrest(tbl, 'Independiente Santa Fe');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/SANTA_FE_2017_en_adelante_cc4f4a7c.png',
+      `Expected Santa Fe 2017+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Santa Fe 2017-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2017' }, 'Santa Fe')?.src,
+    '/assets/aistudio/SANTA_FE_2017_en_adelante_cc4f4a7c.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Independiente Santa Fe')?.src,
+    '/assets/aistudio/SANTA_FE_2017_en_adelante_cc4f4a7c.png'
+  );
 
 
   // Boca Juniors de Cali must never resolve to Junior's crest
@@ -566,7 +609,7 @@ test('Deportes Caldas 1947-1949 and 1950-1961 historical crests apply strictly t
   assert.equal(getTournamentTeamCrest(t1951, 'Once Caldas'), null);
 });
 
-test('Millonarios 1947-1955, 1956-1973, 1974-1975, 1975-1976, 1977-1985, 1986-1990, 1991-1993, 1994-1996, 1997-1999, and 2000-2002 historical crests apply strictly to their respective ranges and exclude 2003+', () => {
+test('Millonarios 1947-1955, 1956-1973, 1974-1975, 1975-1976, 1977-1985, 1986-1990, 1991-1993, 1994-1996, 1997-1999, 2000-2002, 2003-2006, and 2007-2010 historical crests apply strictly to their respective ranges and exclude 2011+', () => {
   for (const id of ['1948-inaugural', '1950-dorado', '1951-dorado', '1952-dorado', '1953-dorado']) {
     const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
     assert.ok(tbl, `Missing table ${id}`);
@@ -724,14 +767,120 @@ test('Millonarios 1947-1955, 1956-1973, 1974-1975, 1975-1976, 1977-1985, 1986-19
     '/assets/aistudio/MILLONARIOS_2000-2002_cda26f62.png'
   );
 
-  const t2003I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2003-I-cuadrangular');
-  const t2003II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2003-II-cuadrangular');
+  for (const id of [
+    '2003-I-cuadrangular',
+    '2003-II-cuadrangular',
+    '2004-I-cuadrangular',
+    '2004-II-cuadrangular',
+    '2005-I-regular',
+    '2005-II-cuadrangular',
+    '2006-I-regular',
+    '2006-II-regular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Millonarios F.C.');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MILLONARIOS_2003-2006_67afa5b8.png',
+      `Expected Millonarios 2003-2006 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Millonarios 2003-2006');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2003' }, 'Millonarios')?.src,
+    '/assets/aistudio/MILLONARIOS_2003-2006_67afa5b8.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2006' }, 'Millonarios F.C.')?.src,
+    '/assets/aistudio/MILLONARIOS_2003-2006_67afa5b8.png'
+  );
+
+  for (const id of [
+    '2007-I-regular',
+    '2007-II-regular',
+    '2008-I-regular',
+    '2008-II-cuadrangular',
+    '2009-I-cuadrangular',
+    '2009-II-cuadrangular',
+    '2010-I-semifinal',
+    '2010-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Millonarios F.C.');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MILLONARIOS_2007-2010_1ed3e19b.png',
+      `Expected Millonarios 2007-2010 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Millonarios 2007-2010');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2007' }, 'Millonarios')?.src,
+    '/assets/aistudio/MILLONARIOS_2007-2010_1ed3e19b.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2010' }, 'Millonarios F.C.')?.src,
+    '/assets/aistudio/MILLONARIOS_2007-2010_1ed3e19b.png'
+  );
+
+  const t2011I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2011-I-regular');
+  const t2011II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2011-II-playoffs');
+  const t2015I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2015-I');
   const t2023 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2023-II-cuadrangular');
-  assert.ok(t2003I && t2003II && t2023);
-  assert.equal(getTournamentTeamCrest(t2003I, 'Millonarios F.C.'), null);
-  assert.equal(getTournamentTeamCrest(t2003II, 'Millonarios F.C.'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2003' }, 'Millonarios F.C.'), null);
-  assert.equal(getTournamentTeamCrest(t2023, 'Millonarios F.C.'), null);
+  assert.ok(t2011I && t2011II && t2015I && t2023);
+  for (const tbl of [t2011I, t2011II]) {
+    const crest = getTournamentTeamCrest(tbl, 'Millonarios F.C.');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MILLONARIOS_2011_e6634bf9.png',
+      `Expected Millonarios 2011 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Millonarios 2011');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2011' }, 'Millonarios')?.src,
+    '/assets/aistudio/MILLONARIOS_2011_e6634bf9.png'
+  );
+  const millo2012To2014 = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) =>
+    /^201[2-4]\b/.test(t.year)
+  );
+  assert.equal(millo2012To2014.length, 6, 'Expected 6 tournaments from 2012-I to 2014-II');
+  for (const tbl of millo2012To2014) {
+    const crest = getTournamentTeamCrest(tbl, 'Millonarios F.C.');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MILLONARIOS_2012-2014_0c884f38.png',
+      `Expected Millonarios 2012-2014 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Millonarios 2012-2014');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2012' }, 'Millonarios')?.src,
+    '/assets/aistudio/MILLONARIOS_2012-2014_0c884f38.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2014' }, 'Millonarios F.C.')?.src,
+    '/assets/aistudio/MILLONARIOS_2012-2014_0c884f38.png'
+  );
+  for (const tbl of [t2015I, t2023]) {
+    const crest = getTournamentTeamCrest(tbl, 'Millonarios F.C.');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MILLONARIOS_2015_hasta_hoy_8e029042.png',
+      `Expected Millonarios 2015+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Millonarios 2015-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2015' }, 'Millonarios')?.src,
+    '/assets/aistudio/MILLONARIOS_2015_hasta_hoy_8e029042.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Millonarios F.C.')?.src,
+    '/assets/aistudio/MILLONARIOS_2015_hasta_hoy_8e029042.png'
+  );
 });
 
 test('Atlético Municipal / Nacional 1947-1949, 1950-1953, 1954-1988, 1989-1993, 1994-1995, 1996-1999, and 2000-present crests apply strictly and exclude Universidad Nacional', () => {
@@ -1111,9 +1260,149 @@ test('América de Cali 1940-1961, 1964-1975, 1976-1977, 1978-1981, 1982-1983, 19
     '/assets/aistudio/AMERICA_2001-2004_669b33f5.png'
   );
 
-  const t2005I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2005-I-regular');
-  const t2005II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2005-II-cuadrangular');
-  assert.ok(t2005I && t2005II);
+  for (const id of [
+    '2005-I-regular',
+    '2005-II-cuadrangular',
+    '2006-I-regular',
+    '2006-II-regular',
+    '2007-I-regular',
+    '2007-II-regular',
+    '2008-I-regular',
+    '2008-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'América de Cali');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/AMERICA_2005-2008_6f584edc.png',
+      `Expected América 2005-2008 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico América de Cali 2005-2008');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2005' }, 'América de Cali')?.src,
+    '/assets/aistudio/AMERICA_2005-2008_6f584edc.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2008' }, 'América de Cali')?.src,
+    '/assets/aistudio/AMERICA_2005-2008_6f584edc.png'
+  );
+
+  for (const id of [
+    '2009-I-cuadrangular',
+    '2009-II-cuadrangular',
+    '2010-I-semifinal',
+    '2010-II-cuadrangular',
+    '2011-I-regular',
+    '2011-II-playoffs',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'América de Cali');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/AMERICA_2009-2012_44002d9e.png',
+      `Expected América 2009-2011 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico América de Cali 2009-2012');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2009' }, 'América de Cali')?.src,
+    '/assets/aistudio/AMERICA_2009-2012_44002d9e.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2011' }, 'América de Cali')?.src,
+    '/assets/aistudio/AMERICA_2009-2012_44002d9e.png'
+  );
+
+  // 2009-I and 2009-II are now 100% complete with historical crests
+  for (const id of ['2009-I-cuadrangular', '2009-II-cuadrangular']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const rows = tbl.regularRows || tbl.rows || [];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+
+  const america2012To2019 = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) => {
+    const yr = Number(/^(\d{4})/.exec(t.year)?.[1] || 0);
+    return yr >= 2012 && yr <= 2019;
+  });
+  assert.ok(america2012To2019.length >= 16, `Expected >=16 tournaments from 2012-2019, got ${america2012To2019.length}`);
+  for (const tbl of america2012To2019) {
+    const crest = getTournamentTeamCrest(tbl, 'América de Cali');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/AMERICA_2012-2020_6cd4b171.png',
+      `Expected América 2012-2019 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico América de Cali 2012-2020');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2012' }, 'América de Cali')?.src,
+    '/assets/aistudio/AMERICA_2012-2020_6cd4b171.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2019' }, 'América de Cali')?.src,
+    '/assets/aistudio/AMERICA_2012-2020_6cd4b171.png'
+  );
+
+  const america2020To2022 = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) => {
+    const yr = Number(/^(\d{4})/.exec(t.year)?.[1] || 0);
+    return yr >= 2020 && yr <= 2022;
+  });
+  assert.equal(america2020To2022.length, 5, 'Expected 5 tournaments from 2020 through 2022-II');
+  for (const tbl of america2020To2022) {
+    const crest = getTournamentTeamCrest(tbl, 'América de Cali');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/AMERICA_2020-2022_2bd9bfcd.png',
+      `Expected América 2020-2022 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico América de Cali 2020-2022');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2020' }, 'América de Cali')?.src,
+    '/assets/aistudio/AMERICA_2020-2022_2bd9bfcd.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2022' }, 'América de Cali')?.src,
+    '/assets/aistudio/AMERICA_2020-2022_2bd9bfcd.png'
+  );
+
+  // Tigres F.C. official crest and 100% completion of 2017-I & 2017-II
+  const t2017I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2017-I-regular');
+  const t2017II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2017-II-playoffs');
+  assert.ok(t2017I && t2017II);
+  for (const tbl of [t2017I, t2017II]) {
+    const tigresCrest = getTournamentTeamCrest(tbl, 'Tigres F.C');
+    assert.equal(
+      tigresCrest?.src,
+      '/assets/aistudio/tigres_fc_bogota_presente-YrDLRPlj0Mtr6M3M_e69a883b.webp',
+      `Expected Tigres F.C. crest for ${tbl.id}`
+    );
+    assert.equal(tigresCrest?.alt, 'Escudo Oficial Tigres F.C.');
+    const rows = [
+      ...(tbl.regularRows || []),
+      ...(tbl.rows || []),
+      ...(tbl.finalGroups || []).flatMap((g) => g.rows),
+    ];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2017' }, 'Tigres F.C')?.src,
+    '/assets/aistudio/tigres_fc_bogota_presente-YrDLRPlj0Mtr6M3M_e69a883b.webp'
+  );
 
   assert.equal(
     getTournamentTeamCrest({ id: 'custom-1961', year: '1961' }, 'América de Cali')?.src,
@@ -1125,14 +1414,32 @@ test('América de Cali 1940-1961, 1964-1975, 1976-1977, 1978-1981, 1982-1983, 19
   );
   assert.equal(getTournamentTeamCrest({ id: 'custom-1962', year: '1962' }, 'América de Cali'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1963', year: '1963' }, 'América de Cali'), null);
-  assert.equal(getTournamentTeamCrest(t2005I, 'América de Cali'), null);
-  assert.equal(getTournamentTeamCrest(t2005II, 'América de Cali'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2005' }, 'América de Cali'), null);
-  assert.equal(getTournamentTeamCrest(t2023, 'América de Cali'), null);
+  const america2023Plus = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) => {
+    const yr = Number(/^(\d{4})/.exec(t.year)?.[1] || 0);
+    return yr >= 2023;
+  });
+  assert.equal(america2023Plus.length, 8, 'Expected 8 tournaments from 2023-I through 2026-II');
+  for (const tbl of america2023Plus) {
+    const crest = getTournamentTeamCrest(tbl, 'América de Cali');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/escudo_america_2023_en_adel_ante_1884f5e3.webp',
+      `Expected América 2023+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial América de Cali 2023-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2023' }, 'América de Cali')?.src,
+    '/assets/aistudio/escudo_america_2023_en_adel_ante_1884f5e3.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest(t2023, 'América de Cali')?.src,
+    '/assets/aistudio/escudo_america_2023_en_adel_ante_1884f5e3.webp'
+  );
   assert.equal(getTournamentTeamCrest(t1948, 'Nacional, América y Santa Fe'), null);
 });
 
-test('Independiente Medellín 1913-1951 and 1966-2006 historical crests apply strictly to their respective ranges and exclude Huracán de Medellín and 2007+', () => {
+test('Independiente Medellín 1913-1951, 1966-2006, 2007-2009, and 2010 historical crests apply strictly to their respective ranges and exclude Huracán de Medellín and 2011+', () => {
   for (const id of ['1948-inaugural', '1950-dorado', '1951-dorado']) {
     const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
     assert.ok(tbl, `Missing table ${id}`);
@@ -1214,34 +1521,144 @@ test('Independiente Medellín 1913-1951 and 1966-2006 historical crests apply st
     getTournamentTeamCrest({ year: '1967' }, 'Huracán de Medellín')?.src,
     '/assets/aistudio/MEDELLIN_1966-1997_7d6775c6.png'
   );
+  for (const id of [
+    '2007-I-regular',
+    '2007-II-regular',
+    '2008-I-regular',
+    '2008-II-cuadrangular',
+    '2009-I-cuadrangular',
+    '2009-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Independiente Medellín');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MEDELLIN_2007-2009_631a4ab0.png',
+      `Expected Independiente Medellín 2007-2009 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Independiente Medellín 2007-2009');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2007' }, 'DIM')?.src,
+    '/assets/aistudio/MEDELLIN_2007-2009_631a4ab0.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2009' }, 'Independiente Medellín')?.src,
+    '/assets/aistudio/MEDELLIN_2007-2009_631a4ab0.png'
+  );
+
+  const t2010I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2010-I-semifinal');
+  const t2010II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2010-II-cuadrangular');
+  const t2011I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2011-I-regular');
+  const t2011II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2011-II-playoffs');
+  assert.ok(t2010I && t2010II && t2011I && t2011II);
+
+  for (const tbl of [t2010I, t2010II]) {
+    const crest = getTournamentTeamCrest(tbl, 'Independiente Medellín');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MEDELLIN_2010_a68a7a10.png',
+      `Expected Independiente Medellín 2010 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Independiente Medellín 2010');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2010' }, 'DIM')?.src,
+    '/assets/aistudio/MEDELLIN_2010_a68a7a10.png'
+  );
+
+  const dimTables2011To2019 = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) =>
+    /^201[1-9]\b/.test(t.year)
+  );
+  assert.equal(dimTables2011To2019.length, 18, 'Expected 18 tournaments from 2011-I to 2019-II');
+  for (const tbl of dimTables2011To2019) {
+    const crest = getTournamentTeamCrest(tbl, 'Independiente Medellín');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MEDELLIN_2011-2019_fcd3602a.png',
+      `Expected Independiente Medellín 2011-2019 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Independiente Medellín 2011-2019');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2011' }, 'DIM')?.src,
+    '/assets/aistudio/MEDELLIN_2011-2019_fcd3602a.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2019' }, 'Independiente Medellín')?.src,
+    '/assets/aistudio/MEDELLIN_2011-2019_fcd3602a.png'
+  );
+
+  const dimTables2020To2025 = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) => {
+    const yr = Number(/^(\d{4})/.exec(t.year)?.[1] || 0);
+    return yr >= 2020 && yr <= 2025;
+  });
+  assert.equal(dimTables2020To2025.length, 11, 'Expected 11 tournaments from 2020 through 2025-II');
+  for (const tbl of dimTables2020To2025) {
+    const crest = getTournamentTeamCrest(tbl, 'Independiente Medellín');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MEDELLIN_2020-2025_644e57ef.png',
+      `Expected Independiente Medellín 2020-2025 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Independiente Medellín 2020-2025');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2020' }, 'DIM')?.src,
+    '/assets/aistudio/MEDELLIN_2020-2025_644e57ef.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2025' }, 'Independiente Medellín')?.src,
+    '/assets/aistudio/MEDELLIN_2020-2025_644e57ef.png'
+  );
+
   assert.equal(getTournamentTeamCrest(t1952, 'Independiente Medellín'), null);
   assert.equal(getTournamentTeamCrest({ year: '1965' }, 'Independiente Medellín'), null);
-  assert.equal(getTournamentTeamCrest(t2007I, 'Independiente Medellín'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2007' }, 'Independiente Medellín'), null);
-  assert.equal(getTournamentTeamCrest(t2023, 'Independiente Medellín'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2026-I' }, 'Independiente Medellín'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2026' }, 'Independiente Medellín'), null);
 });
 
-test('Deportivo Cali 1948-2012 historical crest applies strictly to 1948-2012 and excludes América/Boca/2013+', () => {
-  for (const id of ['1948-inaugural', '1967-campeonato', '1995-96-cuadrangular', '2004-II-cuadrangular', '2012-II-cuadrangular']) {
+test('Deportivo Cali 1948-2011 and 2012-present crests apply strictly to their respective ranges and exclude América/Boca', () => {
+  for (const id of ['1948-inaugural', '1967-campeonato', '1995-96-cuadrangular', '2004-II-cuadrangular', '2011-II-playoffs']) {
     const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
     assert.ok(tbl, `Missing table ${id}`);
     assert.equal(
       getTournamentTeamCrest(tbl, 'Deportivo Cali')?.src,
       '/assets/aistudio/deportivo_cali_1948-2012_35d865b2.png',
-      `Expected Deportivo Cali 1948-2012 crest for ${id}`
+      `Expected Deportivo Cali 1948-2011 crest for ${id}`
     );
     assert.equal(
       getTournamentTeamCrest(tbl, 'Dep. Cali')?.src,
       '/assets/aistudio/deportivo_cali_1948-2012_35d865b2.png',
-      `Expected Dep. Cali 1948-2012 crest for ${id}`
+      `Expected Dep. Cali 1948-2011 crest for ${id}`
     );
   }
 
+  for (const id of ['2012-I-regular', '2012-II-cuadrangular', '2013-I-regular', '2013-II-cuadrangular', '2023-II-cuadrangular']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Deportivo Cali');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/deportivo_cali_2012-en_adelante_fe6382ad.png',
+      `Expected Deportivo Cali 2012+ crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Deportivo Cali 2012-Actualidad');
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Dep. Cali')?.src,
+      '/assets/aistudio/deportivo_cali_2012-en_adelante_fe6382ad.png',
+      `Expected Dep. Cali 2012+ crest for ${id}`
+    );
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Deportivo Cali')?.src,
+    '/assets/aistudio/deportivo_cali_2012-en_adelante_fe6382ad.png'
+  );
+
   const t1950 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1950-dorado');
   const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
-  const t2013 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2013-I-regular');
-  const t2023 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2023-II-cuadrangular');
-  assert.ok(t1950 && t1966 && t2013 && t2023);
+  assert.ok(t1950 && t1966);
 
   assert.equal(
     getTournamentTeamCrest(t1950, 'Boca Juniors de Cali')?.src,
@@ -1255,8 +1672,10 @@ test('Deportivo Cali 1948-2012 historical crest applies strictly to 1948-2012 an
     getTournamentTeamCrest(t1966, 'América de Cali')?.src,
     '/assets/aistudio/AMERICA_1964-1976_162e4a73.png'
   );
-  assert.equal(getTournamentTeamCrest(t2013, 'Deportivo Cali'), null);
-  assert.equal(getTournamentTeamCrest(t2023, 'Deportivo Cali'), null);
+  assert.notEqual(
+    getTournamentTeamCrest({ year: '2012' }, 'América de Cali')?.src,
+    '/assets/aistudio/deportivo_cali_2012-en_adelante_fe6382ad.png'
+  );
 });
 
 test('getRowStatusBadge derives non-empty Estado / Clasificación across all 91 historical tables', () => {
@@ -1331,7 +1750,7 @@ test('Once Deportivo historical crest applies to Once Deportivo without collidin
   );
 });
 
-test('Once Caldas 1961-1966, 1967-1971, 1972-1975, 1976-1979, 1980, 1981-1983, 1984-1986, 1987-1990, 1991-1993, 1994, 1995, 1996, 1997-1999, and 2000-2003 historical crests apply strictly to their respective ranges and exclude 1960/2004+, Once Deportivo, and Deportes Caldas', () => {
+test('Once Caldas 1961-2018 historical crests apply strictly to their respective ranges and exclude 1960/2019+, Once Deportivo, and Deportes Caldas', () => {
   const t1966 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1966-reingreso');
   assert.ok(t1966);
   assert.equal(
@@ -1625,11 +2044,125 @@ test('Once Caldas 1961-1966, 1967-1971, 1972-1975, 1976-1979, 1980, 1981-1983, 1
 
   const t2004I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2004-I-cuadrangular');
   const t2004II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2004-II-cuadrangular');
-  assert.ok(t2004I && t2004II);
+  const t2005I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2005-I-regular');
+  const t2005II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2005-II-cuadrangular');
+  assert.ok(t2004I && t2004II && t2005I && t2005II);
   assert.equal(getTournamentTeamCrest({ year: '1960' }, 'Once Caldas'), null);
-  assert.equal(getTournamentTeamCrest(t2004I, 'Once Caldas'), null);
-  assert.equal(getTournamentTeamCrest(t2004II, 'Once Caldas'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2004' }, 'Once Caldas'), null);
+  for (const tbl of [t2004I, t2004II]) {
+    const crest = getTournamentTeamCrest(tbl, 'Once Caldas');
+    assert.equal(crest?.src, '/assets/aistudio/once_caldas_del_2003-2004_99540100.png');
+    assert.equal(crest?.alt, 'Escudo Histórico Once Caldas 2004');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2004' }, 'Once Caldas')?.src,
+    '/assets/aistudio/once_caldas_del_2003-2004_99540100.png'
+  );
+  for (const id of [
+    '2005-I-regular',
+    '2005-II-cuadrangular',
+    '2006-I-regular',
+    '2006-II-regular',
+    '2007-I-regular',
+    '2007-II-regular',
+    '2008-I-regular',
+    '2008-II-cuadrangular',
+    '2009-I-cuadrangular',
+    '2009-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Once Caldas');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/once_caldas_2005-2009_4722779a.png',
+      `Expected Once Caldas 2005-2009 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Once Caldas 2005-2009');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2005' }, 'Once Caldas')?.src,
+    '/assets/aistudio/once_caldas_2005-2009_4722779a.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2009' }, 'Once Caldas')?.src,
+    '/assets/aistudio/once_caldas_2005-2009_4722779a.png'
+  );
+  // 2005-I and 2005-II are now 100% complete with historical crests
+  for (const tbl of [t2005I, t2005II]) {
+    const rows = tbl.regularRows || tbl.rows || [];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+  const t2010I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2010-I-semifinal');
+  const t2010II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2010-II-cuadrangular');
+  const t2011I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2011-I-regular');
+  const t2011II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2011-II-playoffs');
+  assert.ok(t2010I && t2010II && t2011I && t2011II);
+  for (const tbl of [t2010I, t2010II]) {
+    const crest = getTournamentTeamCrest(tbl, 'Once Caldas');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/once_caldas_del_2010_a0f5c76f.png',
+      `Expected Once Caldas 2010 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Once Caldas 2010');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2010' }, 'Once Caldas')?.src,
+    '/assets/aistudio/once_caldas_del_2010_a0f5c76f.png'
+  );
+  // 2010-I and 2010-II are now 100% complete with historical crests
+  for (const tbl of [t2010I, t2010II]) {
+    const rows = tbl.regularRows || tbl.rows || [];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+  const tables2011To2018 = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) =>
+    /^201[1-8]\b/.test(t.year)
+  );
+  assert.equal(tables2011To2018.length, 16, 'Expected 16 tournaments from 2011-I to 2018-II');
+  for (const tbl of tables2011To2018) {
+    const crest = getTournamentTeamCrest(tbl, 'Once Caldas');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/once_caldas_del_2010-2018_d05d4ed7.png',
+      `Expected Once Caldas 2010-2018 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Once Caldas 2010-2018');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2011' }, 'Once Caldas')?.src,
+    '/assets/aistudio/once_caldas_del_2010-2018_d05d4ed7.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2018' }, 'Once Caldas')?.src,
+    '/assets/aistudio/once_caldas_del_2010-2018_d05d4ed7.png'
+  );
+  const t2019I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2019-I');
+  const t2019II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2019-II-cuadrangular');
+  const t2026I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2026-I');
+  assert.ok(t2019I && t2019II && t2026I);
+  for (const tbl of [t2019I, t2019II, t2026I]) {
+    const crest = getTournamentTeamCrest(tbl, 'Once Caldas');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/once_caldas_del_2019-actualidad_f4d4e1e9.png',
+      `Expected Once Caldas 2019+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Once Caldas 2019-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2019' }, 'Once Caldas')?.src,
+    '/assets/aistudio/once_caldas_del_2019-actualidad_f4d4e1e9.png'
+  );
   assert.notEqual(
     getTournamentTeamCrest(t1950, 'Once Deportivo')?.src,
     '/assets/aistudio/41396e6d-3efd-4d4c-97b6-ed027c1bfbc7_e6495777.png'
@@ -1778,7 +2311,7 @@ test('Boca Juniors de Cali crest applies across 1950-1953 tables without collidi
   assert.equal(getTournamentTeamCrest({ id: 'lib-2001', year: '2001' }, 'Boca Juniors'), null);
 });
 
-test('Cúcuta Deportivo 1950-1971 and 1972-2005 historical crests apply strictly to their respective ranges and exclude 1949/2006+', () => {
+test('Cúcuta Deportivo 1950-1971, 1972-2005, 2006-2008, and 2009-2014 historical crests apply strictly to their respective ranges and exclude 1949/2015+', () => {
   for (const id of [
     '1950-dorado',
     '1951-dorado',
@@ -1818,14 +2351,92 @@ test('Cúcuta Deportivo 1950-1971 and 1972-2005 historical crests apply strictly
     );
   }
 
+  for (const id of [
+    '2006-I-regular',
+    '2006-II-regular',
+    '2007-I-regular',
+    '2007-II-regular',
+    '2008-I-regular',
+    '2008-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Cúcuta Deportivo');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/cucuta_deportivo_2006-2008_b56c9c96.png',
+      `Expected Cúcuta Deportivo 2006-2008 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Cúcuta Deportivo 2006-2008');
+  }
+
+  for (const id of [
+    '2009-I-cuadrangular',
+    '2009-II-cuadrangular',
+    '2010-I-semifinal',
+    '2010-II-cuadrangular',
+    '2011-I-regular',
+    '2011-II-playoffs',
+    '2012-I-regular',
+    '2012-II-cuadrangular',
+    '2013-I-regular',
+    '2013-II-cuadrangular',
+    '2014-I-playoffs',
+    '2014-II-regular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Cúcuta Deportivo');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/cucuta_deportivo_2009-2014_38fe25fc.png',
+      `Expected Cúcuta Deportivo 2009-2014 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Cúcuta Deportivo 2009-2014');
+  }
+
   assert.equal(
     getTournamentTeamCrest({ id: 'custom-2005', year: '2005' }, 'Cúcuta Deportivo')?.src,
     '/assets/aistudio/cucuta_deportivo_1972-2005_570a5c06.png'
   );
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2006', year: '2006' }, 'Cúcuta Deportivo')?.src,
+    '/assets/aistudio/cucuta_deportivo_2006-2008_b56c9c96.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2008', year: '2008' }, 'Cúcuta Deportivo')?.src,
+    '/assets/aistudio/cucuta_deportivo_2006-2008_b56c9c96.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2009', year: '2009' }, 'Cúcuta Deportivo')?.src,
+    '/assets/aistudio/cucuta_deportivo_2009-2014_38fe25fc.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2014', year: '2014' }, 'Cúcuta Deportivo')?.src,
+    '/assets/aistudio/cucuta_deportivo_2009-2014_38fe25fc.png'
+  );
   assert.equal(getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Cúcuta Deportivo'), null);
-  const t2006 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2006-II-regular');
-  assert.ok(t2006);
-  assert.equal(getTournamentTeamCrest(t2006, 'Cúcuta Deportivo'), null);
+  const t2015I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2015-I-playoffs');
+  const t2015II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2015-II-playoffs');
+  const t2020 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2020-playoffs');
+  assert.ok(t2015I && t2015II && t2020);
+  for (const tbl of [t2015I, t2015II, t2020]) {
+    const crest = getTournamentTeamCrest(tbl, 'Cúcuta Deportivo');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/cucuta_deportivo_2015-actualidad_f02aa3c3.png',
+      `Expected Cúcuta Deportivo 2015+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Cúcuta Deportivo 2015-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2015', year: '2015' }, 'Cúcuta Deportivo')?.src,
+    '/assets/aistudio/cucuta_deportivo_2015-actualidad_f02aa3c3.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2026', year: '2026-I' }, 'Cúcuta Deportivo')?.src,
+    '/assets/aistudio/cucuta_deportivo_2015-actualidad_f02aa3c3.png'
+  );
 });
 
 test('Atlético Bucaramanga 1950-1956, 1957-1985, 1986-1996, 1997-1999, and 2000-2009 historical crests apply strictly to their respective ranges and exclude 1949/2010+', () => {
@@ -1923,7 +2534,6 @@ test('Atlético Bucaramanga 1950-1956, 1957-1985, 1986-1996, 1997-1999, and 2000
     '2002-I-regular',
     '2005-I-regular',
     '2008-II-cuadrangular',
-    '2009-II-cuadrangular',
   ]) {
     const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
     assert.ok(tbl, `Missing table ${id}`);
@@ -1931,7 +2541,7 @@ test('Atlético Bucaramanga 1950-1956, 1957-1985, 1986-1996, 1997-1999, and 2000
     assert.equal(
       crest?.src,
       '/assets/aistudio/bucaramanga_2000-2009_d6d21063.png',
-      `Expected Atlético Bucaramanga 2000-2009 crest for ${id}`
+      `Expected Atlético Bucaramanga 2000-2008 crest for ${id}`
     );
     assert.equal(crest?.alt, 'Escudo Histórico Atlético Bucaramanga 2000-2009');
   }
@@ -1939,16 +2549,35 @@ test('Atlético Bucaramanga 1950-1956, 1957-1985, 1986-1996, 1997-1999, and 2000
     getTournamentTeamCrest({ year: '2000' }, 'Bucaramanga')?.src,
     '/assets/aistudio/bucaramanga_2000-2009_d6d21063.png'
   );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2008' }, 'Bucaramanga')?.src,
+    '/assets/aistudio/bucaramanga_2000-2009_d6d21063.png'
+  );
 
   assert.equal(getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Atlético Bucaramanga'), null);
+  const t2009II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2009-II-cuadrangular');
   const t2010I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2010-I-semifinal');
-  const t2010II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2010-II-cuadrangular');
+  const t2016I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2016-I-playoffs');
+  const t2016II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2016-II-regular');
   const t2024 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2024-I-cuadrangular');
-  assert.ok(t2010I && t2010II && t2024);
-  assert.equal(getTournamentTeamCrest(t2010I, 'Atlético Bucaramanga'), null);
-  assert.equal(getTournamentTeamCrest(t2010II, 'Atlético Bucaramanga'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2010' }, 'Atlético Bucaramanga'), null);
-  assert.equal(getTournamentTeamCrest(t2024, 'Atlético Bucaramanga'), null);
+  assert.ok(t2009II && t2010I && t2016I && t2016II && t2024);
+  for (const tbl of [t2009II, t2010I, t2016I, t2016II, t2024]) {
+    const crest = getTournamentTeamCrest(tbl, 'Atlético Bucaramanga');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/bucaramanga_2009-em_adelante_62fa2b37.png',
+      `Expected Atlético Bucaramanga 2009+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Atlético Bucaramanga 2009-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2009' }, 'Atlético Bucaramanga')?.src,
+    '/assets/aistudio/bucaramanga_2009-em_adelante_62fa2b37.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Atlético Bucaramanga')?.src,
+    '/assets/aistudio/bucaramanga_2009-em_adelante_62fa2b37.png'
+  );
 });
 
 test('Sporting de Barranquilla 1950-1953, 1988-1990, and 1991 historical crests apply strictly to their respective ranges and exclude 1954-1987, 1992+, and Sporting Cristal', () => {
@@ -2012,7 +2641,7 @@ test('Sporting de Barranquilla 1950-1953, 1988-1990, and 1991 historical crests 
   assert.equal(getTournamentTeamCrest({ id: 'lib-1991', year: '1991' }, 'Sporting Cristal'), null);
 });
 
-test('Deportivo Pereira 1949-1951, 1952-1955, 1956-1989, 1990, 1991-1993, 1994-1997, and 2001-2005 historical crests apply strictly to their respective ranges and exclude 1948, 1998-2000, 2006+, and Águilas Pereira', () => {
+test('Deportivo Pereira 1949-1951, 1952-1955, 1956-1989, 1990, 1991-1993, 1994-1997, 2001-2005, and 2006-2013 historical crests apply strictly to their respective ranges and exclude 1948, 1998-2000, 2014+, and Águilas Pereira', () => {
   assert.equal(
     getTournamentTeamCrest({ id: 'custom-1949', year: '1949' }, 'Deportivo Pereira')?.src,
     '/assets/aistudio/PEREIRA_DEL_49_al_52_17730967.png'
@@ -2151,24 +2780,154 @@ test('Deportivo Pereira 1949-1951, 1952-1955, 1956-1989, 1990, 1991-1993, 1994-1
     );
   }
 
-  const t2006I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2006-I-regular');
-  const t2006II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2006-II-regular');
-  assert.ok(t2006I && t2006II);
+  for (const id of [
+    '2006-I-regular',
+    '2006-II-regular',
+    '2007-I-regular',
+    '2007-II-regular',
+    '2008-I-regular',
+    '2008-II-cuadrangular',
+    '2009-I-cuadrangular',
+    '2009-II-cuadrangular',
+    '2010-I-semifinal',
+    '2010-II-cuadrangular',
+    '2011-I-regular',
+    '2011-II-playoffs',
+    '2012-I-regular',
+    '2012-II-cuadrangular',
+    '2013-I-regular',
+    '2013-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Deportivo Pereira');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/PEREIRA_DEL_2006-2013_10428c9e.png',
+      `Expected Deportivo Pereira 2006-2013 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Deportivo Pereira 2006-2013');
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Pereira')?.src,
+      '/assets/aistudio/PEREIRA_DEL_2006-2013_10428c9e.png'
+    );
+  }
+
+  for (const id of ['2006-I-regular', '2006-II-regular']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const missing = (tbl.regularRows || []).filter(
+      (r) => !getTournamentTeamCrest(tbl, r.team, r.isJunior)
+    );
+    assert.deepEqual(missing, [], `Expected 100% crests in ${id}`);
+  }
+
+  assert.equal(
+    getTournamentTeamCrest({ year: '2006' }, 'Deportivo Pereira')?.src,
+    '/assets/aistudio/PEREIRA_DEL_2006-2013_10428c9e.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2013' }, 'Deportivo Pereira')?.src,
+    '/assets/aistudio/PEREIRA_DEL_2006-2013_10428c9e.png'
+  );
+
+  const pereira2018To2022 = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) => {
+    const yr = Number(/^(\d{4})/.exec(t.year)?.[1] || 0);
+    return yr >= 2018 && yr <= 2022;
+  });
+  assert.equal(pereira2018To2022.length, 9, 'Expected 9 tournaments from 2018-I through 2022-II');
+  for (const tbl of pereira2018To2022) {
+    const crest = getTournamentTeamCrest(tbl, 'Deportivo Pereira');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/PEREIRA_DEL_2018-2022_ffe8075e.png',
+      `Expected Deportivo Pereira 2018-2022 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Deportivo Pereira 2018-2022');
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Pereira')?.src,
+      '/assets/aistudio/PEREIRA_DEL_2018-2022_ffe8075e.png'
+    );
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2018' }, 'Deportivo Pereira')?.src,
+    '/assets/aistudio/PEREIRA_DEL_2018-2022_ffe8075e.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2022' }, 'Deportivo Pereira')?.src,
+    '/assets/aistudio/PEREIRA_DEL_2018-2022_ffe8075e.png'
+  );
+
+  const pereira2023Plus = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) => {
+    const yr = Number(/^(\d{4})/.exec(t.year)?.[1] || 0);
+    return yr >= 2023;
+  });
+  assert.equal(pereira2023Plus.length, 8, 'Expected 8 tournaments from 2023-I through 2026-II');
+  for (const tbl of pereira2023Plus) {
+    const crest = getTournamentTeamCrest(tbl, 'Deportivo Pereira');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/PEREIRA_DEL_2023_en_adelante_82d25c28.png',
+      `Expected Deportivo Pereira 2023+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Deportivo Pereira 2023-Actualidad');
+    assert.equal(
+      getTournamentTeamCrest(tbl, 'Pereira')?.src,
+      '/assets/aistudio/PEREIRA_DEL_2023_en_adelante_82d25c28.png'
+    );
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2023' }, 'Deportivo Pereira')?.src,
+    '/assets/aistudio/PEREIRA_DEL_2023_en_adelante_82d25c28.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-II' }, 'Deportivo Pereira')?.src,
+    '/assets/aistudio/PEREIRA_DEL_2023_en_adelante_82d25c28.png'
+  );
+
+  // 2020 through 2023-II are now 100% complete with historical crests
+  for (const id of [
+    '2020-playoffs',
+    '2021-I-playoffs',
+    '2021-II-cuadrangular',
+    '2022-I-cuadrangular',
+    '2022-II-cuadrangular',
+    '2023-I-regular',
+    '2023-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const rows = [
+      ...(tbl.regularRows || []),
+      ...(tbl.rows || []),
+      ...(tbl.finalGroups || []).flatMap((g) => g.rows),
+    ];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+
+  const t2014I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2014-I-playoffs');
+  const t2014II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2014-II-regular');
+  assert.ok(t2014I && t2014II);
 
   assert.equal(getTournamentTeamCrest(t1948, 'Deportivo Pereira'), null);
   assert.equal(getTournamentTeamCrest(t1998, 'Deportivo Pereira'), null);
   assert.equal(getTournamentTeamCrest({ year: '1998' }, 'Deportivo Pereira'), null);
   assert.equal(getTournamentTeamCrest({ year: '2000' }, 'Deportivo Pereira'), null);
-  assert.equal(getTournamentTeamCrest(t2006I, 'Deportivo Pereira'), null);
-  assert.equal(getTournamentTeamCrest(t2006II, 'Deportivo Pereira'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2006' }, 'Deportivo Pereira'), null);
-  assert.equal(getTournamentTeamCrest(t2022, 'Deportivo Pereira'), null);
+  assert.equal(getTournamentTeamCrest(t2014I, 'Deportivo Pereira'), null);
+  assert.equal(getTournamentTeamCrest(t2014II, 'Deportivo Pereira'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2017' }, 'Deportivo Pereira'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1953', year: '1953' }, 'Águilas Pereira'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1970', year: '1970' }, 'Águilas Pereira'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1990', year: '1990' }, 'Águilas Pereira'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1992', year: '1992' }, 'Águilas Pereira'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-1995', year: '1995' }, 'Águilas Pereira'), null);
   assert.equal(getTournamentTeamCrest({ id: 'custom-2003', year: '2003' }, 'Águilas Pereira'), null);
+  assert.equal(getTournamentTeamCrest({ id: 'custom-2008', year: '2008' }, 'Águilas Pereira'), null);
 });
 
 test('Huracán de Medellín crest applies across 1950-1951 tables and excludes non-Medellín Huracán', () => {
@@ -2302,17 +3061,33 @@ test('Deportes Quindío 1951-1966, 1967-1986, 1987-1990, 1991-1996, and 1997-201
     '/assets/aistudio/quindio_del_97_al_2017_a0600b91.png'
   );
   assert.equal(
-    getTournamentTeamCrest({ year: '2017-II' }, 'Deportes Quindío')?.src,
+    getTournamentTeamCrest({ year: '2016-II' }, 'Deportes Quindío')?.src,
     '/assets/aistudio/quindio_del_97_al_2017_a0600b91.png'
   );
 
-  assert.equal(getTournamentTeamCrest({ id: '1950-dorado', year: '1950' }, 'Deportes Quindío'), null);
-  assert.equal(getTournamentTeamCrest({ id: 'custom-2018', year: '2018' }, 'Deportes Quindío'), null);
+  const t2017I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2017-I');
   const t2018I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2018-I');
   const t2021II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2021-II');
-  assert.ok(t2018I && t2021II);
-  assert.equal(getTournamentTeamCrest(t2018I, 'Deportes Quindío'), null);
-  assert.equal(getTournamentTeamCrest(t2021II, 'Deportes Quindío'), null);
+  assert.ok(t2017I && t2018I && t2021II);
+  for (const tbl of [t2017I, t2018I, t2021II]) {
+    const crest = getTournamentTeamCrest(tbl, 'Deportes Quindío');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/deportes_quindao_s.a.-Aq200r85QbhRaev3_8847a0a1.webp',
+      `Expected Deportes Quindío 2017+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Deportes Quindío 2017-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2017' }, 'Quindío')?.src,
+    '/assets/aistudio/deportes_quindao_s.a.-Aq200r85QbhRaev3_8847a0a1.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Deportes Quindío')?.src,
+    '/assets/aistudio/deportes_quindao_s.a.-Aq200r85QbhRaev3_8847a0a1.webp'
+  );
+
+  assert.equal(getTournamentTeamCrest({ id: '1950-dorado', year: '1950' }, 'Deportes Quindío'), null);
 });
 
 test('Deportes Tolima 1966-1997 and 1998-2003 historical crests apply strictly to their ranges and exclude 1965/2004+', () => {
@@ -2359,8 +3134,12 @@ test('Deportes Tolima 1966-1997 and 1998-2003 historical crests apply strictly t
   const t1997 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1997-adecuacion');
   const t2004I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2004-I-cuadrangular');
   const t2004II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2004-II-cuadrangular');
+  const t2018I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2018-I-playoffs');
+  const t2018II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2018-II-playoffs');
+  const t2019I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2019-I-cuadrangular');
+  const t2019II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2019-II-cuadrangular');
   const t2023 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2023-II-cuadrangular');
-  assert.ok(t1966 && t1997 && t2004I && t2004II && t2023);
+  assert.ok(t1966 && t1997 && t2004I && t2004II && t2018I && t2018II && t2019I && t2019II && t2023);
 
   assert.equal(
     getTournamentTeamCrest(t1966, 'Deportes Tolima')?.src,
@@ -2370,11 +3149,92 @@ test('Deportes Tolima 1966-1997 and 1998-2003 historical crests apply strictly t
     getTournamentTeamCrest(t1997, 'Deportes Tolima')?.src,
     '/assets/aistudio/tolima_del_66_al_97_98e00cd9.png'
   );
+  for (const tbl of [t2004I, t2004II, t2018I, t2018II]) {
+    const crest = getTournamentTeamCrest(tbl, 'Deportes Tolima');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/tolima_del_2004_al_2018_75092ea1.png',
+      `Expected Deportes Tolima 2004-2018 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Deportes Tolima 2004-2018');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2004', year: '2004' }, 'Deportes Tolima')?.src,
+    '/assets/aistudio/tolima_del_2004_al_2018_75092ea1.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2018', year: '2018' }, 'Deportes Tolima')?.src,
+    '/assets/aistudio/tolima_del_2004_al_2018_75092ea1.png'
+  );
+  // 2004-I and 2004-II are now 100% complete with historical crests
+  for (const tbl of [t2004I, t2004II]) {
+    const rows = tbl.regularRows || tbl.rows || [];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
   assert.equal(getTournamentTeamCrest({ id: 'custom-1965', year: '1965' }, 'Deportes Tolima'), null);
-  assert.equal(getTournamentTeamCrest(t2004I, 'Deportes Tolima'), null);
-  assert.equal(getTournamentTeamCrest(t2004II, 'Deportes Tolima'), null);
-  assert.equal(getTournamentTeamCrest({ id: 'custom-2004', year: '2004' }, 'Deportes Tolima'), null);
-  assert.equal(getTournamentTeamCrest(t2023, 'Deportes Tolima'), null);
+  const tolima2019To2021 = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) => {
+    const yr = Number(/^(\d{4})/.exec(t.year)?.[1] || 0);
+    return yr >= 2019 && yr <= 2021;
+  });
+  assert.equal(tolima2019To2021.length, 5, 'Expected 5 tournaments from 2019-I to 2021-II');
+  for (const tbl of tolima2019To2021) {
+    const crest = getTournamentTeamCrest(tbl, 'Deportes Tolima');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/tolima_del_2019_al_2021_8e1bbb2b.png',
+      `Expected Deportes Tolima 2019-2021 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Deportes Tolima 2019-2021');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2019', year: '2019' }, 'Deportes Tolima')?.src,
+    '/assets/aistudio/tolima_del_2019_al_2021_8e1bbb2b.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2021', year: '2021' }, 'Deportes Tolima')?.src,
+    '/assets/aistudio/tolima_del_2019_al_2021_8e1bbb2b.png'
+  );
+  // 2019-I and 2019-II are now 100% complete with historical crests
+  for (const tbl of [t2019I, t2019II]) {
+    const rows = [
+      ...(tbl.regularRows || []),
+      ...(tbl.rows || []),
+      ...(tbl.finalGroups || []).flatMap((g) => g.rows),
+    ];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+  const tolima2022Plus = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) => {
+    const yr = Number(/^(\d{4})/.exec(t.year)?.[1] || 0);
+    return yr >= 2022;
+  });
+  assert.equal(tolima2022Plus.length, 10, 'Expected 10 tournaments from 2022-I through 2026-II');
+  for (const tbl of tolima2022Plus) {
+    const crest = getTournamentTeamCrest(tbl, 'Deportes Tolima');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/tolima_del_2022en_adelante_7da7eadc.png',
+      `Expected Deportes Tolima 2022+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Deportes Tolima 2022-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ id: 'custom-2022', year: '2022' }, 'Deportes Tolima')?.src,
+    '/assets/aistudio/tolima_del_2022en_adelante_7da7eadc.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest(t2023, 'Deportes Tolima')?.src,
+    '/assets/aistudio/tolima_del_2022en_adelante_7da7eadc.png'
+  );
 });
 
 test('Deportivo Samarios historical crest applies across 1951-1952 tables without colliding with Unión Magdalena', () => {
@@ -2581,9 +3441,23 @@ test('Cortuluá 1967-1999 and 2000-2021 historical crests apply strictly to thei
   const t2022I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2022-I-cuadrangular');
   const t2022II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2022-II-cuadrangular');
   assert.ok(t2022I && t2022II);
-  assert.equal(getTournamentTeamCrest(t2022I, 'Cortuluá'), null);
-  assert.equal(getTournamentTeamCrest(t2022II, 'Cortuluá'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2022' }, 'Cortuluá'), null);
+  for (const tbl of [t2022I, t2022II]) {
+    const crest = getTournamentTeamCrest(tbl, 'Cortuluá');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/cortulua-2022-m7VqpkMKwLIXBo5b_4a5cea20.webp',
+      `Expected Cortuluá 2022+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Cortuluá 2022-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2022' }, 'Cortuluá')?.src,
+    '/assets/aistudio/cortulua-2022-m7VqpkMKwLIXBo5b_4a5cea20.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Cortulua')?.src,
+    '/assets/aistudio/cortulua-2022-m7VqpkMKwLIXBo5b_4a5cea20.webp'
+  );
 });
 
 test('Deportivo Unicosta 1995-1999 historical crest applies strictly through 1999 and excludes 2000+', () => {
@@ -2610,7 +3484,7 @@ test('Deportivo Unicosta 1995-1999 historical crest applies strictly through 199
   assert.equal(getTournamentTeamCrest({ year: '2000' }, 'Deportivo Unicosta'), null);
 });
 
-test('Deportivo Pasto 1999 and 2000-2006 historical crests apply strictly to their ranges and exclude 1998/2007+', () => {
+test('Deportivo Pasto 1999, 2000-2006, and 2007-present crests apply strictly to their ranges, exclude 1998, and complete 100% of 2007 crests', () => {
   const t1998 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1998-reclasificacion');
   const t1999 = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '1999-cuadrangular');
   const t2007I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2007-I-regular');
@@ -2653,11 +3527,499 @@ test('Deportivo Pasto 1999 and 2000-2006 historical crests apply strictly to the
     '/assets/aistudio/deportivo_pasto_2000-2006-Aq2eW8GGN2FWMLkr_9ef8c98d.webp'
   );
 
+  for (const id of [
+    '2007-I-regular',
+    '2007-II-regular',
+    '2012-II-cuadrangular',
+    '2023-II-cuadrangular',
+    '2026-I-playoffs',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Deportivo Pasto');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/deportivo_pasto_2007_en_adelante_664c78b7.webp',
+      `Expected Deportivo Pasto 2007-Actualidad crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Deportivo Pasto 2007-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2007' }, 'Deportivo Pasto')?.src,
+    '/assets/aistudio/deportivo_pasto_2007_en_adelante_664c78b7.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026' }, 'Pasto')?.src,
+    '/assets/aistudio/deportivo_pasto_2007_en_adelante_664c78b7.webp'
+  );
+
+  for (const tbl of [t2007I, t2007II]) {
+    const missing = (tbl.regularRows || []).filter(
+      (r) => !getTournamentTeamCrest(tbl, r.team, r.isJunior)
+    );
+    assert.deepEqual(missing, [], `Expected 100% crests in ${tbl.id}`);
+  }
+
   assert.equal(getTournamentTeamCrest(t1998, 'Deportivo Pasto'), null);
-  assert.equal(getTournamentTeamCrest(t2007I, 'Deportivo Pasto'), null);
-  assert.equal(getTournamentTeamCrest(t2007II, 'Deportivo Pasto'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2007' }, 'Deportivo Pasto'), null);
-  assert.equal(getTournamentTeamCrest(t2023, 'Deportivo Pasto'), null);
+});
+
+test('Centauros Villavicencio crest applies across 2003-I, 2003-II, Reclasificación 2003, and completes 100% of 2003 crests', () => {
+  const t2003I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2003-I-cuadrangular');
+  const t2003II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2003-II-cuadrangular');
+  assert.ok(t2003I && t2003II);
+
+  for (const tbl of [t2003I, t2003II]) {
+    const crest = getTournamentTeamCrest(tbl, 'Centauros Villavicencio');
+    assert.equal(crest?.src, '/assets/aistudio/escudo_centauros_7278fc5e.png');
+    assert.equal(crest?.alt, 'Escudo Oficial Centauros Villavicencio');
+
+    const rows = tbl.regularRows || tbl.rows || [];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+
+  assert.equal(
+    getTournamentTeamCrest({ year: '2003' }, 'Centauros')?.src,
+    '/assets/aistudio/escudo_centauros_7278fc5e.png'
+  );
+});
+
+test('Boyacá Chicó / Chicó F.C. 2002-2007 and 2008-present crests apply strictly to their ranges and complete 100% of 2008 crests', () => {
+  for (const [id, teamName] of [
+    ['2004-I-cuadrangular', 'Chicó F.C'],
+    ['2004-II-cuadrangular', 'Chicó F.C'],
+    ['2005-I-regular', 'Boyacá Chicó'],
+    ['2005-II-cuadrangular', 'Boyacá Chicó'],
+    ['2006-I-regular', 'Boyacá Chicó'],
+    ['2006-II-regular', 'Boyacá Chicó'],
+    ['2007-I-regular', 'Boyacá Chicó'],
+    ['2007-II-regular', 'Boyacá Chicó'],
+  ] as const) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, teamName);
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/boyaca_chico_fc_2002-2004-mv0xzGVJnPSDk7QB_26acf480.webp',
+      `Expected Boyacá Chicó 2002-2007 crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Boyacá Chicó 2002-2007');
+  }
+
+  assert.equal(
+    getTournamentTeamCrest({ year: '2004' }, 'Chicó F.C')?.src,
+    '/assets/aistudio/boyaca_chico_fc_2002-2004-mv0xzGVJnPSDk7QB_26acf480.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2007' }, 'Boyacá Chicó')?.src,
+    '/assets/aistudio/boyaca_chico_fc_2002-2004-mv0xzGVJnPSDk7QB_26acf480.webp'
+  );
+
+  for (const id of [
+    '2008-I-regular',
+    '2008-II-cuadrangular',
+    '2014-II-regular',
+    '2023-II-cuadrangular',
+    '2026-I-playoffs',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'Boyacá Chicó');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/boyaca_chico_fc_2008_en_adelante_0f60033d.webp',
+      `Expected Boyacá Chicó 2008-Actualidad crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Boyacá Chicó 2008-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2008' }, 'Boyacá Chicó')?.src,
+    '/assets/aistudio/boyaca_chico_fc_2008_en_adelante_0f60033d.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026' }, 'Boyacá Chicó')?.src,
+    '/assets/aistudio/boyaca_chico_fc_2008_en_adelante_0f60033d.webp'
+  );
+
+  for (const id of ['2008-I-regular', '2008-II-cuadrangular']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const missing = (tbl.regularRows || []).filter(
+      (r) => !getTournamentTeamCrest(tbl, r.team, r.isJunior)
+    );
+    assert.deepEqual(missing, [], `Expected 100% crests in ${id}`);
+  }
+});
+
+test('La Equidad official crest applies across all La Equidad tables and matches (2007-2025) and excludes Internacional de Bogotá', () => {
+  for (const id of [
+    '2007-I-regular',
+    '2007-II-regular',
+    '2010-I-semifinal',
+    '2020-playoffs',
+    '2025-II-cuadrangular',
+  ]) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const crest = getTournamentTeamCrest(tbl, 'La Equidad');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/La_Equidad_Seguros_logo.svg_cbed76e9.webp',
+      `Expected La Equidad crest for ${id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial La Equidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2010' }, 'La Equidad')?.src,
+    '/assets/aistudio/La_Equidad_Seguros_logo.svg_cbed76e9.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Internacional de Bogotá'),
+    null
+  );
+});
+
+test('Águilas Doradas / Itagüí Ditaires 2011, 2012-2013, and 2014-2015 crests apply strictly, exclude Itagüí Leones and 2016+, and complete 100% of 2011 crests', () => {
+  const t2011I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2011-I-regular');
+  const t2011II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2011-II-playoffs');
+  const t2012I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2012-I-regular');
+  const t2012II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2012-II-cuadrangular');
+  const t2013I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2013-I-regular');
+  const t2013II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2013-II-cuadrangular');
+  const t2014I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2014-I-playoffs');
+  const t2014II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2014-II-regular');
+  const t2015I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2015-I-playoffs');
+  const t2015II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2015-II-playoffs');
+  const t2016I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2016-I-playoffs');
+  assert.ok(t2011I && t2011II && t2012I && t2012II && t2013I && t2013II && t2014I && t2014II && t2015I && t2015II && t2016I);
+
+  for (const tbl of [t2011I, t2011II]) {
+    for (const alias of ['Águilas Doradas', 'Itagüí Ditaires', 'Itagüí F.C']) {
+      const crest = getTournamentTeamCrest(tbl, alias);
+      assert.equal(
+        crest?.src,
+        '/assets/aistudio/aguilas_dordas_2011_2133b75d.webp',
+        `Expected Itagüí Ditaires 2011 crest for ${alias} in ${tbl.id}`
+      );
+      assert.equal(crest?.alt, 'Escudo Histórico Itagüí Ditaires (Águilas Doradas) 2011');
+    }
+    // 2011-I and 2011-II are 100% complete with historical crests
+    const rows = tbl.regularRows || tbl.rows || [];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+  for (const tbl of [t2012I, t2012II, t2013I, t2013II]) {
+    for (const alias of ['Águilas Doradas', 'Itagüí Ditaires', 'Itagüí F.C']) {
+      const crest = getTournamentTeamCrest(tbl, alias);
+      assert.equal(
+        crest?.src,
+        '/assets/aistudio/aguilas_dordas_2012-2013_35eb5333.webp',
+        `Expected Águilas Doradas 2012-2013 crest for ${alias} in ${tbl.id}`
+      );
+      assert.equal(crest?.alt, 'Escudo Histórico Águilas Doradas 2012-2013');
+    }
+  }
+  for (const tbl of [t2014I, t2014II, t2015I, t2015II]) {
+    for (const alias of ['Itagüí F.C', 'Águilas Pereira', 'Águilas Doradas']) {
+      const crest = getTournamentTeamCrest(tbl, alias);
+      assert.equal(
+        crest?.src,
+        '/assets/aistudio/aguilas_dordas_2014-2015_1cc4f92e.webp',
+        `Expected Águilas 2014-2015 crest for ${alias} in ${tbl.id}`
+      );
+      assert.equal(crest?.alt, 'Escudo Histórico Águilas Pereira / Águilas Doradas 2014-2015');
+    }
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2011' }, 'Águilas Doradas')?.src,
+    '/assets/aistudio/aguilas_dordas_2011_2133b75d.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2012' }, 'Itagüí Ditaires')?.src,
+    '/assets/aistudio/aguilas_dordas_2012-2013_35eb5333.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2013' }, 'Itagüí F.C')?.src,
+    '/assets/aistudio/aguilas_dordas_2012-2013_35eb5333.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2014' }, 'Águilas Pereira')?.src,
+    '/assets/aistudio/aguilas_dordas_2014-2015_1cc4f92e.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2015' }, 'Águilas Doradas')?.src,
+    '/assets/aistudio/aguilas_dordas_2014-2015_1cc4f92e.webp'
+  );
+  // Itagüí Leones resolves to its own official crest (never Águilas Doradas) and completes 100% of 2018-I & 2018-II
+  for (const yr of ['2011', '2014', '2018']) {
+    const leonesCrest = getTournamentTeamCrest({ year: yr }, 'Itagüí Leones');
+    assert.equal(leonesCrest?.src, '/assets/aistudio/itagui_leones_a791aa99.png');
+    assert.equal(leonesCrest?.alt, 'Escudo Oficial Itagüí Leones');
+  }
+  for (const id of ['2018-I-playoffs', '2018-II-playoffs']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const rows = [
+      ...(tbl.regularRows || []),
+      ...(tbl.rows || []),
+      ...(tbl.finalGroups || []).flatMap((g) => g.rows),
+    ];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+  assert.equal(getTournamentTeamCrest({ year: '2010' }, 'Águilas Doradas'), null);
+
+  const t2016II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2016-II-regular');
+  const t2023II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2023-II-cuadrangular');
+  assert.ok(t2016II && t2023II);
+  for (const tbl of [t2016I, t2016II, t2023II]) {
+    for (const alias of ['Águilas Doradas', 'Rionegro Águilas']) {
+      const crest = getTournamentTeamCrest(tbl, alias);
+      assert.equal(
+        crest?.src,
+        '/assets/aistudio/aguilas_dordas_2016-en_adelante_a149315f.webp',
+        `Expected Águilas Doradas 2016+ crest for ${alias} in ${tbl.id}`
+      );
+      assert.equal(crest?.alt, 'Escudo Oficial Águilas Doradas 2016-Actualidad');
+    }
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2016' }, 'Águilas Doradas')?.src,
+    '/assets/aistudio/aguilas_dordas_2016-en_adelante_a149315f.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Águilas Doradas')?.src,
+    '/assets/aistudio/aguilas_dordas_2016-en_adelante_a149315f.webp'
+  );
+});
+
+test('Patriotas Boyacá 2010-2014 historical crest applies strictly to 2010-2014, excludes Boyacá Chicó and 2015+, and completes 100% of 2012 crests', () => {
+  const tables2012To2014 = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) =>
+    /^201[2-4]\b/.test(t.year)
+  );
+  assert.equal(tables2012To2014.length, 6, 'Expected 6 tournaments from 2012-I to 2014-II');
+  for (const tbl of tables2012To2014) {
+    const crest = getTournamentTeamCrest(tbl, 'Patriotas Boyacá');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/patriotas_boyaca-_fc_2010-2014-d95EEkep0qSOnwvl_054d5f08.webp',
+      `Expected Patriotas Boyacá 2010-2014 crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Patriotas Boyacá 2010-2014');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2010' }, 'Patriotas Boyacá')?.src,
+    '/assets/aistudio/patriotas_boyaca-_fc_2010-2014-d95EEkep0qSOnwvl_054d5f08.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2014' }, 'Patriotas')?.src,
+    '/assets/aistudio/patriotas_boyaca-_fc_2010-2014-d95EEkep0qSOnwvl_054d5f08.webp'
+  );
+  assert.equal(getTournamentTeamCrest({ year: '2009' }, 'Patriotas Boyacá'), null);
+  const t2015I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2015-I-playoffs');
+  const t2015II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2015-II-playoffs');
+  const t2024I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2024-I-cuadrangular');
+  assert.ok(t2015I && t2015II && t2024I);
+  for (const tbl of [t2015I, t2015II, t2024I]) {
+    const crest = getTournamentTeamCrest(tbl, 'Patriotas Boyacá');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/patriotas_boyaca-_fc_2015-presente-dOqXXBQWrqCD2ran_f6b4bade.webp',
+      `Expected Patriotas Boyacá 2015+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Patriotas Boyacá 2015-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2015' }, 'Patriotas Boyacá')?.src,
+    '/assets/aistudio/patriotas_boyaca-_fc_2015-presente-dOqXXBQWrqCD2ran_f6b4bade.webp'
+  );
+  assert.notEqual(
+    getTournamentTeamCrest({ year: '2012' }, 'Boyacá Chicó')?.src,
+    '/assets/aistudio/patriotas_boyaca-_fc_2010-2014-d95EEkep0qSOnwvl_054d5f08.webp'
+  );
+  assert.notEqual(
+    getTournamentTeamCrest({ year: '2015' }, 'Boyacá Chicó')?.src,
+    '/assets/aistudio/patriotas_boyaca-_fc_2015-presente-dOqXXBQWrqCD2ran_f6b4bade.webp'
+  );
+
+  // Jaguares de Córdoba official crest across 2015+ and 100% completion of 2015-I & 2015-II
+  for (const tbl of [t2015I, t2015II, t2024I]) {
+    const jCrest = getTournamentTeamCrest(tbl, 'Jaguares de Córdoba');
+    assert.equal(
+      jCrest?.src,
+      '/assets/aistudio/jaguares-de-cordoba-logo-footylogos-1200_35e582b7.webp',
+      `Expected Jaguares de Córdoba crest for ${tbl.id}`
+    );
+    assert.equal(jCrest?.alt, 'Escudo Oficial Jaguares de Córdoba');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Jaguares de Córdoba')?.src,
+    '/assets/aistudio/jaguares-de-cordoba-logo-footylogos-1200_35e582b7.webp'
+  );
+  for (const tbl of [t2015I, t2015II]) {
+    const rows = [
+      ...(tbl.regularRows || []),
+      ...(tbl.rows || []),
+      ...(tbl.finalGroups || []).flatMap((g) => g.rows),
+    ];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+
+  // 2012-I and 2012-II are now 100% complete with historical crests
+  for (const id of ['2012-I-regular', '2012-II-cuadrangular']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const rows = tbl.regularRows || tbl.rows || [];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+});
+
+test('Alianza Petrolera (<=2023) historical crest applies strictly through 2023, excludes Alianza F.C / Valledupar (2024+), and completes 100% of 2013 crests', () => {
+  const tables2013To2023 = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) => {
+    const yr = Number(/^(\d{4})/.exec(t.year)?.[1] || 0);
+    return yr >= 2013 && yr <= 2023;
+  });
+  assert.ok(tables2013To2023.length >= 20, `Expected >=20 tournaments from 2013-2023, got ${tables2013To2023.length}`);
+  for (const tbl of tables2013To2023) {
+    const crest = getTournamentTeamCrest(tbl, 'Alianza Petrolera');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/EscudoAlianzaPetrolera._hasta_2023_a876b379.png',
+      `Expected Alianza Petrolera crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Histórico Alianza Petrolera (hasta 2023)');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2013' }, 'Alianza Petrolera')?.src,
+    '/assets/aistudio/EscudoAlianzaPetrolera._hasta_2023_a876b379.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2023' }, 'Alianza Petrolera')?.src,
+    '/assets/aistudio/EscudoAlianzaPetrolera._hasta_2023_a876b379.png'
+  );
+  const t2024I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2024-I-cuadrangular');
+  assert.ok(t2024I);
+  assert.equal(getTournamentTeamCrest(t2024I, 'Alianza Petrolera'), null);
+  assert.equal(getTournamentTeamCrest(t2024I, 'Alianza F.C'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2024' }, 'Alianza F.C'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2025' }, 'Alianza Valledupar'), null);
+
+  // 2013-I and 2013-II are now 100% complete with historical crests
+  for (const id of ['2013-I-regular', '2013-II-cuadrangular']) {
+    const tbl = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === id);
+    assert.ok(tbl, `Missing table ${id}`);
+    const rows = [
+      ...(tbl.regularRows || []),
+      ...(tbl.rows || []),
+      ...(tbl.finalGroups || []).flatMap((g) => g.rows),
+    ];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
+});
+
+test('Fortaleza F.C. (<=2014) and Uniautónoma F.C. (<=2015) historical crests apply strictly, exclude 2015+/2016+, and complete 100% of 2014 crests', () => {
+  const t2014I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2014-I-playoffs');
+  const t2014II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2014-II-regular');
+  const t2015I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2015-I-playoffs');
+  const t2015II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2015-II-playoffs');
+  const t2016I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2016-I-playoffs');
+  assert.ok(t2014I && t2014II && t2015I && t2015II && t2016I);
+
+  for (const tbl of [t2014I, t2014II]) {
+    const fCrest = getTournamentTeamCrest(tbl, 'Fortaleza F.C');
+    assert.equal(
+      fCrest?.src,
+      '/assets/aistudio/fortaleza_fc_2010-2014-dJoGO5JaQZfV9aka_e79387fb.webp',
+      `Expected Fortaleza F.C. <=2014 crest for ${tbl.id}`
+    );
+    assert.equal(fCrest?.alt, 'Escudo Histórico Fortaleza F.C. (hasta 2014)');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2014' }, 'Fortaleza F.C')?.src,
+    '/assets/aistudio/fortaleza_fc_2010-2014-dJoGO5JaQZfV9aka_e79387fb.webp'
+  );
+  const t2016II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2016-II-regular');
+  const t2024I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2024-I-cuadrangular');
+  const t2025II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2025-II');
+  const t2026I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2026-I');
+  assert.ok(t2016II && t2024I && t2025II && t2026I);
+  for (const tbl of [t2015I, t2016I, t2016II, t2024I, t2025II]) {
+    const fCrest = getTournamentTeamCrest(tbl, 'Fortaleza CEIF');
+    assert.equal(
+      fCrest?.src,
+      '/assets/aistudio/fortaleza_ceif_bogota-_2015-2025-Yyvk5ZoplbHRr8V5_e2d1629f.webp',
+      `Expected Fortaleza CEIF 2015-2025 crest for ${tbl.id}`
+    );
+    assert.equal(fCrest?.alt, 'Escudo Histórico Fortaleza CEIF 2015-2025');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2015' }, 'Fortaleza F.C')?.src,
+    '/assets/aistudio/fortaleza_ceif_bogota-_2015-2025-Yyvk5ZoplbHRr8V5_e2d1629f.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2025' }, 'Fortaleza CEIF')?.src,
+    '/assets/aistudio/fortaleza_ceif_bogota-_2015-2025-Yyvk5ZoplbHRr8V5_e2d1629f.webp'
+  );
+  assert.equal(getTournamentTeamCrest(t2026I, 'Fortaleza CEIF'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2026' }, 'Fortaleza CEIF'), null);
+
+  for (const tbl of [t2014I, t2014II, t2015I, t2015II]) {
+    const uCrest = getTournamentTeamCrest(tbl, 'Uniautónoma F.C');
+    assert.equal(
+      uCrest?.src,
+      '/assets/aistudio/uniautonoma_fc_barranquilla_2010-2015-YKbaaLLg2bueg9qo_25547c6c.webp',
+      `Expected Uniautónoma F.C. <=2015 crest for ${tbl.id}`
+    );
+    assert.equal(uCrest?.alt, 'Escudo Histórico Uniautónoma F.C. (hasta 2015)');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2015' }, 'Uniautonoma')?.src,
+    '/assets/aistudio/uniautonoma_fc_barranquilla_2010-2015-YKbaaLLg2bueg9qo_25547c6c.webp'
+  );
+  assert.equal(getTournamentTeamCrest(t2016I, 'Uniautónoma F.C'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2016' }, 'Uniautónoma F.C'), null);
+
+  // 2014-I, 2014-II, 2016-I, and 2016-II are now 100% complete with historical crests
+  for (const tbl of [t2014I, t2014II, t2016I, t2016II]) {
+    const rows = [
+      ...(tbl.regularRows || []),
+      ...(tbl.rows || []),
+      ...(tbl.finalGroups || []).flatMap((g) => g.rows),
+    ];
+    for (const row of rows) {
+      assert.ok(
+        getTournamentTeamCrest(tbl, row.team, row.isJunior),
+        `Expected crest for ${row.team} in ${tbl.id}`
+      );
+    }
+  }
 });
 
 test('1966 Campeonato Colombiano matchArchive contains all 52 Junior matches and reconciles strictly with official standings', () => {
