@@ -36,6 +36,7 @@ import {
   getScorerEraCounts,
 } from '../../utils/topScorersLogic';
 import { ScorerPortrait } from '../ScorerPortrait';
+import { NationalityFlag } from '../NationalityFlag';
 
 const SPECIAL_FILTER_OPTIONS: Array<{ id: ScorerSpecialFilter; label: string }> = [
   { id: 'todos', label: 'Filtro: Todos (50)' },
@@ -216,7 +217,13 @@ export const TopScorersModule: React.FC = () => {
             </div>
 
             <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-white tracking-tight leading-[1.06]">
-              {scorer.name}
+              <span>{scorer.name}</span>
+              <NationalityFlag
+                countryCode={scorer.countryCode}
+                nationality={scorer.nationality}
+                size="md"
+                className="ml-2 align-middle -mt-1"
+              />
             </h3>
 
             {scorer.nickname && (
@@ -511,9 +518,16 @@ export const TopScorersModule: React.FC = () => {
                         </span>
                       </div>
 
-                      <h2 className="font-display text-xl font-black uppercase text-white tracking-tight leading-tight truncate">
-                        {scorer.name}
-                      </h2>
+                      <div className="flex items-center gap-2 min-w-0">
+                        <h2 className="font-display text-xl font-black uppercase text-white tracking-tight leading-tight truncate">
+                          {scorer.name}
+                        </h2>
+                        <NationalityFlag
+                          countryCode={scorer.countryCode}
+                          nationality={scorer.nationality}
+                          size="sm"
+                        />
+                      </div>
 
                       <div className="flex items-baseline gap-2 pt-0.5 tabular-nums">
                         <span className="font-display text-2xl font-black text-amber-400">
@@ -712,7 +726,7 @@ export const TopScorersModule: React.FC = () => {
 
                             {/* Name & Clean Unboxed Metadata */}
                             <div className="min-w-0 flex-1">
-                              <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
                                 <span
                                   className={`text-sm sm:text-[15px] font-bold leading-snug truncate ${
                                     isSelected ? 'text-amber-300' : 'text-white'
@@ -720,6 +734,11 @@ export const TopScorersModule: React.FC = () => {
                                 >
                                   {scorer.name}
                                 </span>
+                                <NationalityFlag
+                                  countryCode={scorer.countryCode}
+                                  nationality={scorer.nationality}
+                                  size="sm"
+                                />
                                 {scorer.nickname && (
                                   <span className="text-[11px] text-slate-400 truncate hidden sm:inline">
                                     «{scorer.nickname}»
@@ -807,8 +826,15 @@ export const TopScorersModule: React.FC = () => {
                             <span aria-hidden="true" className="text-slate-600">·</span>
                             <span className="text-white font-semibold">{gb.goals} goles</span>
                           </div>
-                          <h3 className="font-display text-lg font-extrabold text-white uppercase tracking-tight leading-snug mt-0.5">
-                            {gb.player}
+                          <h3 className="font-display text-lg font-extrabold text-white uppercase tracking-tight leading-snug mt-0.5 flex items-center gap-2 flex-wrap">
+                            <span>{gb.player}</span>
+                            {matchedScorer && (
+                              <NationalityFlag
+                                countryCode={matchedScorer.countryCode}
+                                nationality={matchedScorer.nationality}
+                                size="sm"
+                              />
+                            )}
                           </h3>
                           <div className="text-xs text-slate-400">{gb.tournament}</div>
                         </div>
@@ -881,7 +907,15 @@ export const TopScorersModule: React.FC = () => {
                           {selectedLegend.nickname} · {selectedLegend.era}
                         </div>
                         <h2 className="font-display text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
-                          {selectedLegend.name}
+                          <span>{selectedLegend.name}</span>
+                          {matchedTopScorer && (
+                            <NationalityFlag
+                              countryCode={matchedTopScorer.countryCode}
+                              nationality={matchedTopScorer.nationality}
+                              size="md"
+                              className="ml-2.5 align-middle -mt-1"
+                            />
+                          )}
                         </h2>
                         <div className="text-xs text-slate-400">{selectedLegend.position}</div>
                       </div>

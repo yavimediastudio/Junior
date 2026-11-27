@@ -26,6 +26,7 @@ import {
   buildPlayoffKnockoutBrackets,
 } from './footballLogic';
 import { LeagueStanding, MatchFixture } from '../types/football';
+import { SUPPORTED_FLAG_COUNTRY_CODES } from '../components/NationalityFlag';
 import { RIVAL_FRANCHISES_CATALOG } from '../data/rivalFranchisesData';
 import {
   buildAllHeadToHeadFranchises,
@@ -1613,10 +1614,27 @@ test('Independiente Medellín 1913-1951, 1966-2006, 2007-2009, and 2010 historic
     '/assets/aistudio/MEDELLIN_2020-2025_644e57ef.png'
   );
 
+  const dimTables2026Plus = CHRONOLOGICAL_STANDINGS_TABLES.filter((t) => {
+    const yr = Number(/^(\d{4})/.exec(t.year)?.[1] || 0);
+    return yr >= 2026;
+  });
+  assert.ok(dimTables2026Plus.length >= 2, 'Expected 2026-I and 2026-II tournaments');
+  for (const tbl of dimTables2026Plus) {
+    const crest = getTournamentTeamCrest(tbl, 'Independiente Medellín');
+    assert.equal(
+      crest?.src,
+      '/assets/aistudio/MEDELLIN_2026_1abd4262.png',
+      `Expected Independiente Medellín 2026+ crest for ${tbl.id}`
+    );
+    assert.equal(crest?.alt, 'Escudo Oficial Independiente Medellín 2026-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026' }, 'DIM')?.src,
+    '/assets/aistudio/MEDELLIN_2026_1abd4262.png'
+  );
+
   assert.equal(getTournamentTeamCrest(t1952, 'Independiente Medellín'), null);
   assert.equal(getTournamentTeamCrest({ year: '1965' }, 'Independiente Medellín'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2026-I' }, 'Independiente Medellín'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2026' }, 'Independiente Medellín'), null);
 });
 
 test('Deportivo Cali 1948-2011 and 2012-present crests apply strictly to their respective ranges and exclude América/Boca', () => {
@@ -3678,8 +3696,8 @@ test('La Equidad official crest applies across all La Equidad tables and matches
     '/assets/aistudio/La_Equidad_Seguros_logo.svg_cbed76e9.webp'
   );
   assert.equal(
-    getTournamentTeamCrest({ year: '2026-I' }, 'Internacional de Bogotá'),
-    null
+    getTournamentTeamCrest({ year: '2026-I' }, 'Internacional de Bogotá')?.src,
+    '/assets/aistudio/Logo_oficial_Internacional_de_Bogot__4eedeaba.png'
   );
 });
 
@@ -3922,9 +3940,20 @@ test('Alianza Petrolera (<=2023) historical crest applies strictly through 2023,
   const t2024I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.id === '2024-I-cuadrangular');
   assert.ok(t2024I);
   assert.equal(getTournamentTeamCrest(t2024I, 'Alianza Petrolera'), null);
-  assert.equal(getTournamentTeamCrest(t2024I, 'Alianza F.C'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2024' }, 'Alianza F.C'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2025' }, 'Alianza Valledupar'), null);
+  assert.equal(
+    getTournamentTeamCrest(t2024I, 'Alianza F.C')?.src,
+    '/assets/aistudio/ALIANZA_FC_d94fbbaf.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2024' }, 'Alianza F.C')?.src,
+    '/assets/aistudio/ALIANZA_FC_d94fbbaf.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2025' }, 'Alianza Valledupar')?.src,
+    '/assets/aistudio/ALIANZA_FC_d94fbbaf.png'
+  );
+  assert.equal(getTournamentTeamCrest({ year: '2024' }, 'Alianza Lima'), null);
+  assert.equal(getTournamentTeamCrest({ year: '2023' }, 'Alianza F.C'), null);
 
   // 2013-I and 2013-II are now 100% complete with historical crests
   for (const id of ['2013-I-regular', '2013-II-cuadrangular']) {
@@ -3970,25 +3999,40 @@ test('Fortaleza F.C. (<=2014) and Uniautónoma F.C. (<=2015) historical crests a
   const t2025II = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2025-II');
   const t2026I = CHRONOLOGICAL_STANDINGS_TABLES.find((t) => t.year === '2026-I');
   assert.ok(t2016II && t2024I && t2025II && t2026I);
-  for (const tbl of [t2015I, t2016I, t2016II, t2024I, t2025II]) {
+  for (const tbl of [t2015I, t2016I, t2016II, t2024I]) {
     const fCrest = getTournamentTeamCrest(tbl, 'Fortaleza CEIF');
     assert.equal(
       fCrest?.src,
       '/assets/aistudio/fortaleza_ceif_bogota-_2015-2025-Yyvk5ZoplbHRr8V5_e2d1629f.webp',
-      `Expected Fortaleza CEIF 2015-2025 crest for ${tbl.id}`
+      `Expected Fortaleza CEIF 2015-2024 crest for ${tbl.id}`
     );
-    assert.equal(fCrest?.alt, 'Escudo Histórico Fortaleza CEIF 2015-2025');
+    assert.equal(fCrest?.alt, 'Escudo Histórico Fortaleza CEIF 2015-2024');
   }
   assert.equal(
     getTournamentTeamCrest({ year: '2015' }, 'Fortaleza F.C')?.src,
     '/assets/aistudio/fortaleza_ceif_bogota-_2015-2025-Yyvk5ZoplbHRr8V5_e2d1629f.webp'
   );
   assert.equal(
-    getTournamentTeamCrest({ year: '2025' }, 'Fortaleza CEIF')?.src,
+    getTournamentTeamCrest({ year: '2024' }, 'Fortaleza CEIF')?.src,
     '/assets/aistudio/fortaleza_ceif_bogota-_2015-2025-Yyvk5ZoplbHRr8V5_e2d1629f.webp'
   );
-  assert.equal(getTournamentTeamCrest(t2026I, 'Fortaleza CEIF'), null);
-  assert.equal(getTournamentTeamCrest({ year: '2026' }, 'Fortaleza CEIF'), null);
+  for (const tbl of [t2025II, t2026I]) {
+    const fCrest = getTournamentTeamCrest(tbl, 'Fortaleza CEIF');
+    assert.equal(
+      fCrest?.src,
+      '/assets/aistudio/fortaleza_ceif_bogota-_2025-presente_e38b8c6d.webp',
+      `Expected Fortaleza CEIF 2025+ crest for ${tbl.id}`
+    );
+    assert.equal(fCrest?.alt, 'Escudo Oficial Fortaleza CEIF 2025-Actualidad');
+  }
+  assert.equal(
+    getTournamentTeamCrest({ year: '2025' }, 'Fortaleza CEIF')?.src,
+    '/assets/aistudio/fortaleza_ceif_bogota-_2025-presente_e38b8c6d.webp'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026' }, 'Fortaleza CEIF')?.src,
+    '/assets/aistudio/fortaleza_ceif_bogota-_2025-presente_e38b8c6d.webp'
+  );
 
   for (const tbl of [t2014I, t2014II, t2015I, t2015II]) {
     const uCrest = getTournamentTeamCrest(tbl, 'Uniautónoma F.C');
@@ -13923,9 +13967,13 @@ test('109. Top 50 Goalscorers dataset, competition breakdowns, portrait assets, 
       `Breakdown sum (${sum}) !== totalGoals (${scorer.totalGoals}) for #${scorer.rank} ${scorer.name}`
     );
 
-    // Non-empty initials
+    // Non-empty initials & supported nationality flag artwork
     const initials = getScorerInitials(scorer.name);
     assert.ok(initials.length >= 1 && initials.length <= 2, `Invalid initials "${initials}" for ${scorer.name}`);
+    assert.ok(
+      (SUPPORTED_FLAG_COUNTRY_CODES as readonly string[]).includes(scorer.countryCode),
+      `Unsupported nationality flag code "${scorer.countryCode}" for #${scorer.rank} ${scorer.name}`
+    );
 
     // Legend cross-link integrity
     if (scorer.legendId) {
@@ -13938,7 +13986,11 @@ test('109. Top 50 Goalscorers dataset, competition breakdowns, portrait assets, 
     // Every local photoUrl must physically exist under public/
     if (scorer.photoUrl) {
       verifiedPhotoCount++;
-      assert.ok(scorer.photoUrl.startsWith('/assets/scorers/'), `Unexpected photoUrl path ${scorer.photoUrl}`);
+      assert.ok(
+        scorer.photoUrl.startsWith('/assets/scorers/') ||
+          scorer.photoUrl.startsWith('/assets/aistudio/'),
+        `Unexpected photoUrl path ${scorer.photoUrl}`
+      );
       const diskPath = path.join(process.cwd(), 'public', scorer.photoUrl.replace(/^\//, ''));
       assert.ok(
         fs.existsSync(diskPath),
@@ -13948,16 +14000,56 @@ test('109. Top 50 Goalscorers dataset, competition breakdowns, portrait assets, 
     }
   }
 
-  // Spot-check podium and boundaries
+  // Spot-check podium, Top 10 updated portraits, and boundaries
   assert.equal(TOP_50_SCORERS_DATA[0].name, 'Iván René Valenciano');
   assert.equal(TOP_50_SCORERS_DATA[0].totalGoals, 166);
+  assert.equal(TOP_50_SCORERS_DATA[0].photoUrl, '/assets/aistudio/IVAN_RENE_VALENCIANO_59044a60.webp');
   assert.equal(TOP_50_SCORERS_DATA[1].name, 'Carlos Bacca');
   assert.equal(TOP_50_SCORERS_DATA[1].totalGoals, 135);
+  assert.equal(TOP_50_SCORERS_DATA[1].photoUrl, '/assets/aistudio/CARLOS_BACCA_ded9d113.webp');
   assert.equal(TOP_50_SCORERS_DATA[2].name, 'Teófilo Gutiérrez');
   assert.equal(TOP_50_SCORERS_DATA[2].totalGoals, 107);
+  assert.equal(TOP_50_SCORERS_DATA[2].photoUrl, '/assets/aistudio/TEOFILO_GUTIERREZ_c5506ff7.webp');
+  assert.equal(TOP_50_SCORERS_DATA[3].photoUrl, '/assets/aistudio/VICTOR_EPHANOR_243b521d.webp');
+  assert.equal(TOP_50_SCORERS_DATA[4].photoUrl, '/assets/aistudio/NELSON_SILVA_PACHECO_d0362e71.webp');
+  assert.equal(TOP_50_SCORERS_DATA[5].photoUrl, '/assets/aistudio/VICTOR_DANILO_PACHECO_56530fb6.webp');
+  assert.equal(TOP_50_SCORERS_DATA[6].photoUrl, '/assets/aistudio/MARTIN_ARZUAGA_1610b200.webp');
+  assert.equal(TOP_50_SCORERS_DATA[7].photoUrl, '/assets/aistudio/VLADIMIR_HERNANDEZ_5abe080f.webp');
+  assert.equal(TOP_50_SCORERS_DATA[8].photoUrl, '/assets/aistudio/RIGOBERTO_GARCIA_2a1bcd59.webp');
+  assert.equal(TOP_50_SCORERS_DATA[9].photoUrl, '/assets/aistudio/ORLANDO_BALLESTEROS_0b2eade0.webp');
+  assert.equal(TOP_50_SCORERS_DATA[10].photoUrl, '/assets/aistudio/HAYDER_PALACIO_6b226abd.webp');
+  assert.equal(TOP_50_SCORERS_DATA[11].photoUrl, '/assets/aistudio/MARQUINHO_fc62259c.webp');
+  assert.equal(TOP_50_SCORERS_DATA[12].photoUrl, '/assets/aistudio/GIOVANNI_HERNANDEZ_83502f4d.webp');
+  assert.equal(TOP_50_SCORERS_DATA[13].photoUrl, '/assets/aistudio/MIGUEL_ANGEL_BORJA_5a6c5d48.webp');
+  assert.equal(TOP_50_SCORERS_DATA[14].photoUrl, '/assets/aistudio/EDINSON_TOLOZA_eb76e3db.webp');
+  assert.equal(TOP_50_SCORERS_DATA[15].photoUrl, '/assets/aistudio/WILLIAM_KNIGHT_4228f8b2.jpg');
+  assert.equal(TOP_50_SCORERS_DATA[16].photoUrl, '/assets/aistudio/CARLOS_JULIO_ARAUJO_5205c1fe.webp');
+  assert.equal(TOP_50_SCORERS_DATA[17].photoUrl, '/assets/aistudio/MIGUEL_GUERRERO_9d690536.jpg');
+  assert.equal(TOP_50_SCORERS_DATA[18].photoUrl, '/assets/aistudio/OSWALDO_MACKENZIE_7614f7f1.webp');
+  assert.equal(TOP_50_SCORERS_DATA[19].photoUrl, '/assets/aistudio/ALEX_VALDERRAMA_ac1b96b4.webp');
+  assert.equal(TOP_50_SCORERS_DATA[20].photoUrl, '/assets/aistudio/FERNANDO_FIORILLO_ed8e45d3.webp');
+  assert.equal(TOP_50_SCORERS_DATA[21].photoUrl, '/assets/aistudio/JESUS_BARRIOS_b266ca6b.webp');
+  assert.equal(TOP_50_SCORERS_DATA[22].photoUrl, '/assets/aistudio/ROBERTO_OVELAR_f1cf3ca1.webp');
+  assert.equal(TOP_50_SCORERS_DATA[23].photoUrl, '/assets/aistudio/LUIS_CARLOS_RUIZ_8aa05f8b.webp');
+  assert.equal(TOP_50_SCORERS_DATA[24].photoUrl, '/assets/aistudio/ANTONIO_RADA_78f24104.webp');
+  assert.equal(TOP_50_SCORERS_DATA[25].photoUrl, '/assets/aistudio/LUIS_DANIEL_GONZALEZ_d2002477.webp');
+  assert.equal(TOP_50_SCORERS_DATA[26].photoUrl, '/assets/aistudio/ADRIANO_SAMANIEGO_6dda9f7f.webp');
+  assert.equal(TOP_50_SCORERS_DATA[27].photoUrl, '/assets/aistudio/OTHON_DACUNHA_f6cb372f.webp');
+  assert.equal(TOP_50_SCORERS_DATA[28].photoUrl, '/assets/aistudio/JAUN_RAMON_VERON_d36bba1d.webp');
+  assert.equal(TOP_50_SCORERS_DATA[29].photoUrl, '/assets/aistudio/OMAR_ALFREDO_GALVAN_0368441d.webp');
+  assert.equal(TOP_50_SCORERS_DATA[30].photoUrl, '/assets/aistudio/JARLAN_BARRERA_85cee420.webp');
+  assert.equal(TOP_50_SCORERS_DATA[31].photoUrl, '/assets/aistudio/EVALDO_ALVES_DE_SANTAROSA_56abdc6e.webp');
+  assert.equal(TOP_50_SCORERS_DATA[32].photoUrl, '/assets/aistudio/CARLOS_VILARETE_254caf40.webp');
+  assert.equal(TOP_50_SCORERS_DATA[33].photoUrl, '/assets/aistudio/CRISTIAN_MONTECINOS_3dc3bea7.webp');
+  assert.equal(TOP_50_SCORERS_DATA[34].photoUrl, '/assets/aistudio/EMERSON_ACU_A_0c0f25fc.webp');
+  assert.equal(TOP_50_SCORERS_DATA[35].photoUrl, '/assets/aistudio/ROBERTO_GASPARINI_c3b0146b.webp');
+  assert.equal(TOP_50_SCORERS_DATA[36].photoUrl, '/assets/aistudio/YIMMI_CHAR__ebdfbd13.webp');
+  assert.equal(TOP_50_SCORERS_DATA[37].photoUrl, '/assets/aistudio/CARLOS_BABINGTON_61c8117f.webp');
+  assert.equal(TOP_50_SCORERS_DATA[38].photoUrl, '/assets/aistudio/JAVIER_FERREIRA_9a04f803.webp');
+  assert.equal(TOP_50_SCORERS_DATA[39].photoUrl, '/assets/aistudio/JUAN_MIGUEL_TUTINO_e7f8a841.webp');
   assert.equal(TOP_50_SCORERS_DATA[49].rank, 50);
   assert.equal(TOP_50_SCORERS_DATA[49].totalGoals, 20);
-  assert.equal(verifiedPhotoCount, 18, 'Expected 18 verified archival player portraits on disk');
+  assert.equal(verifiedPhotoCount, 45, 'Expected 45 verified archival player portraits on disk');
 
   // Era bucket counts must sum to 50
   const eraCounts = getScorerEraCounts(TOP_50_SCORERS_DATA);
@@ -13977,7 +14069,7 @@ test('109. Top 50 Goalscorers dataset, competition breakdowns, portrait assets, 
     special: 'foto-archivo',
     sortBy: 'rank',
   });
-  assert.equal(withPhoto.length, 18);
+  assert.equal(withPhoto.length, 45);
 
   const goldenBootScorers = filterTopScorers(TOP_50_SCORERS_DATA, {
     query: '',
@@ -14055,7 +14147,46 @@ test('109. Top 50 Goalscorers dataset, competition breakdowns, portrait assets, 
   }
 });
 
+test('Llaneros F.C., Internacional de Bogotá, Alianza F.C./Valledupar, Fortaleza 2025+, and Medellín 2026+ complete 100% historical crest coverage across all 91 tournaments (1948-2026-II)', () => {
+  assert.equal(
+    getTournamentTeamCrest({ year: '2025-I' }, 'Llaneros F.C')?.src,
+    '/assets/aistudio/ESCUDO-LLANEROS_07f49952.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Llaneros F.C')?.alt,
+    'Escudo Oficial Llaneros F.C.'
+  );
 
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-I' }, 'Internacional de Bogotá')?.src,
+    '/assets/aistudio/Logo_oficial_Internacional_de_Bogot__4eedeaba.png'
+  );
+  assert.equal(
+    getTournamentTeamCrest({ year: '2026-II' }, 'Internacional de Bogota')?.alt,
+    'Escudo Oficial Internacional de Bogotá'
+  );
+  // Must not collide with Brazilian Internacional (Copa Libertadores)
+  assert.equal(getTournamentTeamCrest({ year: '2026-I' }, 'Internacional'), null);
 
+  assert.equal(CHRONOLOGICAL_STANDINGS_TABLES.length, 91);
 
-
+  const missing: string[] = [];
+  for (const tbl of CHRONOLOGICAL_STANDINGS_TABLES) {
+    const rows = [
+      ...(tbl.regularRows || []),
+      ...(tbl.rows || []),
+      ...(tbl.finalGroups || []).flatMap((g) => g.rows),
+    ];
+    for (const row of rows) {
+      const crest = getTournamentTeamCrest(tbl, row.team, row.isJunior);
+      if (!crest) {
+        missing.push(`${tbl.id}: ${row.team}`);
+      }
+    }
+  }
+  assert.deepEqual(
+    missing,
+    [],
+    `Expected 100% historical crest coverage across all 91 tournaments (1948-2026-II), missing: ${missing.join(', ')}`
+  );
+});

@@ -41,8 +41,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     goldenBoots: ['1991 (30)', '1995 (24)', '1995/96 (36)'],
     titlesNote: 'Campeón de Liga 1993 (★3) y 1995 (★4)',
     bio: 'Máximo goleador histórico absoluto de Junior de Barranquilla con 166 anotaciones en 212 partidos oficiales (0,78 goles por juego). Ganó tres Botines de Oro del fútbol colombiano y marcó 60 goles en un mismo año calendario en 1995.',
-    photoUrl: '/assets/scorers/01-valenciano.jpg',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/IVAN_RENE_VALENCIANO_59044a60.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
     legendId: 'valenciano',
   },
   {
@@ -61,8 +61,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     goldenBoots: ['2010-I (12)', '2011-II (12)', '2023-II (18)', '2024-I (12)'],
     titlesNote: '4 Ligas (2010-I, 2011-II, 2023-II, 2025-II) · Récord de 21 goles en Copa Colombia',
     bio: 'Segundo artillero histórico del club y máximo goleador rojiblanco en Copa Colombia (21 tantos). Cuatro veces Botín de Oro de Primera A vistiendo la camiseta tiburona y capitán en la conquista de la décima estrella.',
-    photoUrl: '/assets/scorers/02-bacca.jpg',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/CARLOS_BACCA_ded9d113.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
     legendId: 'bacca',
   },
   {
@@ -82,8 +82,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     goldenBoots: ['2009-I (16)'],
     titlesNote: '7 títulos oficiales con Junior (récord compartido con Sebastián Viera)',
     bio: 'Tercer máximo goleador histórico y co-récord de títulos oficiales con Junior (7). Ídolo surgido de La Chinita, pieza angular del bicampeonato 2018–2019, la Copa Colombia 2017, dos Superligas y el bicampeonato 2025–2026.',
-    photoUrl: '/assets/scorers/03-teofilo.jpg',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/TEOFILO_GUTIERREZ_c5506ff7.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
     legendId: 'teofilo',
   },
   {
@@ -102,6 +102,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     goldenBoots: ['1974 (33)'],
     titlesNote: 'Máximo goleador extranjero en la historia de Junior',
     bio: 'Estrella brasileña de zurda elegante e inigualable pegada de media distancia. Con 86 goles en el viejo Romelio Martínez se consagró Botín de Oro en 1974 (33 goles) y sigue siendo el mayor artillero extranjero del club.',
+    photoUrl: '/assets/aistudio/VICTOR_EPHANOR_243b521d.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 5,
@@ -119,8 +121,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     goldenBoots: ['1973 (36)'],
     titlesNote: 'Primer Botín de Oro en la historia de Junior (1973)',
     bio: 'Delantero uruguayo nacionalizado colombiano que le dio al club su primer Botín de Oro en 1973 al marcar 36 goles. Protagonista del temible ataque tiburón de los años setenta junto a Víctor Ephanor.',
-    photoUrl: '/assets/scorers/05-silva-pacheco.jpg',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/NELSON_SILVA_PACHECO_d0362e71.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 6,
@@ -137,6 +139,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 78, copa: 0, superliga: 0, libertadores: 1, sudamericana: 0, conmebol: 1 },
     titlesNote: 'Campeón de Liga 1993 (★3) y 1995 (★4) · 367 partidos oficiales',
     bio: 'Volante creativo formado en la cantera rojiblanca, célebre por su gambeta eléctrica y sociedad con el «Pibe» Valderrama y Valenciano. Anotó 80 goles oficiales y dio inicio a la jugada inmortal del título de 1993.',
+    photoUrl: '/assets/aistudio/VICTOR_DANILO_PACHECO_56530fb6.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
     legendId: 'pacheco',
   },
   {
@@ -154,6 +158,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 65, copa: 0, superliga: 0, libertadores: 5, sudamericana: 1, conmebol: 0 },
     titlesNote: 'Campeón de Liga 2004-II (★5)',
     bio: 'Potente atacante cesarense que brilló en la conquista de la quinta estrella en 2004 y fue referente goleador de Junior en la Copa Libertadores 2005, donde marcó cinco tantos ante rivales continentales.',
+    photoUrl: '/assets/aistudio/MARTIN_ARZUAGA_1610b200.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 8,
@@ -170,6 +176,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 52, copa: 9, superliga: 0, libertadores: 2, sudamericana: 2, conmebol: 0 },
     titlesNote: '3 Ligas (2010-I, 2011-II, 2023-II) y 1 Copa Colombia (2015)',
     bio: 'Extremo hábil y desequilibrante con 360 partidos en el club. Autor de uno de los goles más memorables de la historia rojiblanca: la volea al minuto 89 en Medellín que forzó los penales de la décima estrella en 2023.',
+    photoUrl: '/assets/aistudio/VLADIMIR_HERNANDEZ_5abe080f.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 9,
@@ -185,6 +193,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 61, copa: 0, superliga: 0, libertadores: 0, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Subcampeón inaugural 1948 · Primer goleador profesional del club',
     bio: 'Leyenda fundacional del profesionalismo en Barranquilla y referente de «Los Miuras». Anotó 61 goles en la era de El Dorado y convirtió el primer tiro penal de la historia profesional rojiblanca en 1948.',
+    photoUrl: '/assets/aistudio/RIGOBERTO_GARCIA_2a1bcd59.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 10,
@@ -201,6 +211,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 51, copa: 0, superliga: 0, libertadores: 5, sudamericana: 1, conmebol: 0 },
     titlesNote: 'Campeón de Liga 2004-II (★5)',
     bio: 'Goleador barranquillero de oportunismo letal en el área rival. Integrante clave del plantel campeón de 2004 y autor de cinco anotaciones en Copa Libertadores con la divisa rojiblanca.',
+    photoUrl: '/assets/aistudio/ORLANDO_BALLESTEROS_0b2eade0.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 11,
@@ -217,6 +229,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 49, copa: 0, superliga: 0, libertadores: 2, sudamericana: 2, conmebol: 0 },
     titlesNote: 'Campeón 2004-II y 2010-I · Defensa más goleador en la historia de Junior',
     bio: 'Tercer jugador con más partidos en la historia del club (432) y defensa más goleador de Junior gracias a su remate de pelota quieta y penales. Bicampeón de Liga en 2004 y 2010.',
+    photoUrl: '/assets/aistudio/HAYDER_PALACIO_6b226abd.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 12,
@@ -233,6 +247,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 51, copa: 0, superliga: 0, libertadores: 2, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Subcampeón 2000 y 2003-I · Cuarto goleador extranjero del club',
     bio: 'Talento brasileño de gran técnica y definición en el cambio de milenio. En 208 apariciones oficiales registró 53 goles, formando sociedades memorables junto a Ballesteros y Arzuaga.',
+    photoUrl: '/assets/aistudio/MARQUINHO_fc62259c.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 13,
@@ -249,8 +265,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 48, copa: 3, superliga: 0, libertadores: 1, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Capitán bicampeón de Liga 2010-I (★6) y 2011-II (★7)',
     bio: 'Elegante mediocampista creativo que lideró el renacimiento deportivo de Junior tras 2008. Capitán en las estrellas sexta y séptima, acumuló 52 goles entre tiros libres magistrales y definiciones sutiles.',
-    photoUrl: '/assets/scorers/13-giovanni-hernandez.png',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/GIOVANNI_HERNANDEZ_83502f4d.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
     legendId: 'giovanni',
   },
   {
@@ -269,8 +285,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     goldenBoots: ['2020 (14)'],
     titlesNote: 'Campeón Superliga 2020 · Máximo goleador internacional del club (16)',
     bio: 'Dueño de uno de los mejores promedios goleadores modernos de Junior (51 goles en 85 partidos, 0,60 por encuentro). Botín de Oro de Liga en 2020 y líder histórico del club en torneos CONMEBOL con 16 tantos.',
-    photoUrl: '/assets/scorers/14-miguel-borja.jpg',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/MIGUEL_ANGEL_BORJA_5a6c5d48.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 15,
@@ -287,8 +303,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 40, copa: 7, superliga: 0, libertadores: 0, sudamericana: 2, conmebol: 0 },
     titlesNote: 'Campeón Copa Colombia 2015 · Subcampeón de Liga 2014-I, 2015-II y 2016-I',
     bio: 'Atacante veloz y vertical que marcó 49 goles en 158 encuentros oficiales con Junior, siendo arma desequilibrante en el título de Copa Colombia 2015 y tres finales consecutivas de Liga.',
-    photoUrl: '/assets/scorers/15-edison-toloza.jpg',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/EDINSON_TOLOZA_eb76e3db.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 16,
@@ -305,6 +321,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 47, copa: 0, superliga: 0, libertadores: 1, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Subcampeón de Liga 1983',
     bio: 'Delantero letal de los años ochenta que marcó 48 goles en 193 compromisos oficiales, integrando los vibrantes ataques rojiblancos de la transición del Romelio Martínez al Metropolitano.',
+    photoUrl: '/assets/aistudio/WILLIAM_KNIGHT_4228f8b2.jpg',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 17,
@@ -321,6 +339,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 47, copa: 0, superliga: 0, libertadores: 1, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Campeón de Liga 1993 (★3) y 1995 (★4) · Más de 300 partidos',
     bio: 'Jugador emblema de enorme fidelidad institucional durante casi dos décadas. Superó los 300 partidos oficiales con Junior, aportando 48 goles y participando en las estrellas tercera y cuarta.',
+    photoUrl: '/assets/aistudio/CARLOS_JULIO_ARAUJO_5205c1fe.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 18,
@@ -338,6 +358,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     goldenBoots: ['1993 (34)'],
     titlesNote: 'Campeón de Liga 1993 (★3) y Botín de Oro',
     bio: 'Artillero caleño de impacto fulminante: en 1993 conquistó el Botín de Oro con 34 goles y fue figura de la tercera estrella antes de emigrar al fútbol italiano. Registró 45 goles en solo 92 partidos.',
+    photoUrl: '/assets/aistudio/MIGUEL_GUERRERO_9d690536.jpg',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 19,
@@ -354,6 +376,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 44, copa: 0, superliga: 0, libertadores: 1, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Campeón de Liga 1993 (★3) y 1995 (★4) · Autor del gol inmortal al 89’',
     bio: 'Héroe eterno del 19 de diciembre de 1993 al definir ante Óscar Córdoba en el minuto 89 contra América de Cali para sellar la tercera estrella. Volante de clase barranquillera que sumó 45 tantos.',
+    photoUrl: '/assets/aistudio/OSWALDO_MACKENZIE_7614f7f1.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 20,
@@ -370,6 +394,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 41, copa: 0, superliga: 0, libertadores: 4, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Figura de la Copa Libertadores 1984 (4 goles)',
     bio: 'Atacante samario de desborde, potencia y cuatro goles en Copa Libertadores. En cuatro temporadas consecutivas con la rojiblanca dejó 45 goles en 162 compromisos oficiales.',
+    photoUrl: '/assets/aistudio/ALEX_VALDERRAMA_ac1b96b4.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 21,
@@ -386,6 +412,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 45, copa: 0, superliga: 0, libertadores: 0, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Bicampeón de Liga 1977 (★1) y 1980 (★2)',
     bio: 'Delantero barranquillero que integró los dos primeros planteles campeones de la historia de Junior (1977 y 1980). Disputó 284 partidos oficiales y convirtió 45 goles en Primera División.',
+    photoUrl: '/assets/aistudio/FERNANDO_FIORILLO_ed8e45d3.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 22,
@@ -402,6 +430,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 45, copa: 0, superliga: 0, libertadores: 0, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Campeón de Liga 1980 (★2)',
     bio: 'Atacante criado en la casa rojiblanca que se estrenó campeón en 1980 y defendió el club a lo largo de toda la década del ochenta, regresando en los noventa para completar 45 goles oficiales.',
+    photoUrl: '/assets/aistudio/JESUS_BARRIOS_b266ca6b.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 23,
@@ -418,8 +448,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 30, copa: 8, superliga: 0, libertadores: 1, sudamericana: 5, conmebol: 0 },
     titlesNote: 'Bicampeón de Copa Colombia (2015 y 2017)',
     bio: 'Delantero paraguayo de enorme entrega física y juego aéreo. Conquistó dos Copas Colombia (2015 y 2017), marcó seis tantos en torneos internacionales y dejó 44 goles en 147 apariciones.',
-    photoUrl: '/assets/scorers/23-roberto-ovelar.jpg',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/ROBERTO_OVELAR_f1cf3ca1.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 24,
@@ -437,6 +467,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     goldenBoots: ['2013-II (16)'],
     titlesNote: '3 Ligas (2010-I, 2011-II, 2018-II) y Superliga 2019 · Póker histórico 2013',
     bio: 'Botín de Oro del Finalización 2013 (autor de 4 goles en un mismo partido ante Itagüí) y héroe del gol agónico en Ibagué que forzó los penales para ganar la Superliga 2019.',
+    photoUrl: '/assets/aistudio/LUIS_CARLOS_RUIZ_8aa05f8b.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 25,
@@ -453,6 +485,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 42, copa: 0, superliga: 0, libertadores: 0, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Regreso al profesionalismo 1966 · Mundialista en Chile 1962',
     bio: 'Estrella mundialista de Chile 1962 y líder del regreso de Junior al fútbol profesional en 1966. Anotó 42 goles en apenas 78 partidos oficiales (0,54 de promedio) con su célebre disparo lejano.',
+    photoUrl: '/assets/aistudio/ANTONIO_RADA_78f24104.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 26,
@@ -469,6 +503,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 38, copa: 1, superliga: 0, libertadores: 0, sudamericana: 2, conmebol: 0 },
     titlesNote: 'Campeón Superliga 2020 y Liga 2023-II (★10)',
     bio: 'Volante creativo venezolano que dejó una huella profunda durante seis años en Barranquilla. Referente de pelota parada y gambeta corta, sumó 41 goles oficiales y fue campeón de la décima estrella.',
+    photoUrl: '/assets/aistudio/LUIS_DANIEL_GONZALEZ_d2002477.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 27,
@@ -484,6 +520,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 40, copa: 0, superliga: 0, libertadores: 1, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Campeón de Liga 1993 (★3) · Semifinalista Libertadores 1994',
     bio: 'Experimentado ariete paraguayo que complementó con jerarquía el ataque campeón de 1993 y la campaña semifinalista de Copa Libertadores 1994, anotando 41 tantos con la casaca tiburona.',
+    photoUrl: '/assets/aistudio/ADRIANO_SAMANIEGO_6dda9f7f.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 28,
@@ -499,6 +537,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 40, copa: 0, superliga: 0, libertadores: 0, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Subcampeón 1970 · Pionero de la escuela brasileña en Barranquilla',
     bio: 'Figura brasileña que llegó en el retorno al profesionalismo de 1966 y permaneció nueve temporadas en el club. Integrante del subcampeonato de 1970 y de la primera participación en Copa Libertadores.',
+    photoUrl: '/assets/aistudio/OTHON_DACUNHA_f6cb372f.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 29,
@@ -515,8 +555,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 38, copa: 0, superliga: 0, libertadores: 0, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Jugador y Director Técnico campeón de la Primera Estrella 1977 (★1)',
     bio: 'Símbolo eterno de la primera estrella rojiblanca en 1977, asumiendo el doble rol de futbolista y director técnico. Marcó 38 goles en 123 partidos y transformó para siempre la mentalidad ganadora del club.',
-    photoUrl: '/assets/scorers/29-juan-ramon-veron.jpg',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/JAUN_RAMON_VERON_d36bba1d.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
     legendId: 'veron',
   },
   {
@@ -534,6 +574,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 36, copa: 0, superliga: 0, libertadores: 2, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Campeón de Liga 1980 (★2) · Subcampeón 1983',
     bio: 'Atacante argentino fundamental en la obtención de la segunda estrella de 1980 bajo la dirección de José Varacka. Disputó 225 encuentros oficiales y convirtió 38 tantos, dos de ellos en Libertadores.',
+    photoUrl: '/assets/aistudio/OMAR_ALFREDO_GALVAN_0368441d.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 31,
@@ -550,8 +592,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 23, copa: 10, superliga: 0, libertadores: 0, sudamericana: 2, conmebol: 0 },
     titlesNote: 'Campeón Liga 2018-II (★8) y Bicampeón Copa Colombia (2015 y 2017)',
     bio: 'Zurdo de enorme talento surgido de las divisiones menores que brilló en las Copas Colombia 2015 y 2017 (10 goles en el torneo) y fue protagonista en la octava estrella y la final de Sudamericana 2018.',
-    photoUrl: '/assets/scorers/31-jarlan-barrera.jpg',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/JARLAN_BARRERA_85cee420.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 32,
@@ -568,8 +610,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 33, copa: 0, superliga: 0, libertadores: 0, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Campeón del Mundo con Brasil en Suecia 1958',
     bio: 'Astro brasileño campeón mundial en Suecia 1958 y gran ídolo de Flamengo. En Junior deslumbró entre 1966 y 1968 con 33 goles en solo 67 partidos oficiales (casi medio gol por encuentro).',
-    photoUrl: '/assets/scorers/32-dida.jpg',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons (1961)',
+    photoUrl: '/assets/aistudio/EVALDO_ALVES_DE_SANTAROSA_56abdc6e.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 33,
@@ -585,6 +627,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 32, copa: 0, superliga: 0, libertadores: 0, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Campeón de Liga 1995 (★4)',
     bio: 'Delantero costeño de olfato goleador que integró la nómina campeona de 1995 y sostuvo la cuota ofensiva del club durante la segunda mitad de la década de los noventa con 32 goles de liga.',
+    photoUrl: '/assets/aistudio/CARLOS_VILARETE_254caf40.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 34,
@@ -600,6 +644,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 27, copa: 0, superliga: 0, libertadores: 4, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Campeón de Liga 1995 (★4) · Dupla letal con Valenciano',
     bio: 'Atacante chileno de pegada violenta que conformó junto a Iván René Valenciano y el «Pibe» Valderrama uno de los ataques más recordados del país en el título de 1995 y la Libertadores 1996.',
+    photoUrl: '/assets/aistudio/CRISTIAN_MONTECINOS_3dc3bea7.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 35,
@@ -615,6 +661,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 24, copa: 0, superliga: 0, libertadores: 5, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Campeón de Liga 2004-II (★5) · 5 goles en Copa Libertadores',
     bio: 'Velocista barranquillero que dedicó una década al club, destacando en la conquista de la quinta estrella de 2004 y en las recordadas victorias internacionales de Copa Libertadores.',
+    photoUrl: '/assets/aistudio/EMERSON_ACU_A_0c0f25fc.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 36,
@@ -630,6 +678,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 27, copa: 0, superliga: 0, libertadores: 0, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Récord histórico: hat-trick de tiro libre en un mismo partido (1985)',
     bio: 'En una sola e inolvidable temporada en 1985, el volante argentino marcó 27 goles con Junior y dejó el récord nacional de anotar tres goles de tiro libre directo en un mismo partido ante Millonarios.',
+    photoUrl: '/assets/aistudio/ROBERTO_GASPARINI_c3b0146b.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 37,
@@ -647,8 +697,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     goldenBoots: ['2017-II (11)'],
     titlesNote: 'Botín de Oro 2017-II · Copa Colombia 2017 · Bicampeón ★11 y ★12',
     bio: 'Dinamita ofensiva junto a Teófilo en la recordada era «ChaTeo», Botín de Oro del Finalización 2017 y campeón de la Copa Colombia 2017. Regresó para el centenario y sumó las estrellas 11 y 12.',
-    photoUrl: '/assets/scorers/37-yimmi-chara.png',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/YIMMI_CHAR__ebdfbd13.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 38,
@@ -664,8 +714,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 26, copa: 0, superliga: 0, libertadores: 0, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Subcampeón de Liga 1983 · Mundialista en Alemania 1974',
     bio: 'Mundialista argentino con zurda privilegiada que brilló en la campaña de 1983, conduciendo al equipo hasta el subcampeonato nacional con 26 goles en una sola temporada memorable.',
-    photoUrl: '/assets/scorers/38-carlos-babington.jpg',
-    photoAttribution: 'Archivo fotográfico Wikimedia Commons',
+    photoUrl: '/assets/aistudio/CARLOS_BABINGTON_61c8117f.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 39,
@@ -681,6 +731,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 22, copa: 0, superliga: 0, libertadores: 0, sudamericana: 0, conmebol: 4 },
     titlesNote: 'Máximo goleador de Junior en la Copa Conmebol 1992 (4 goles)',
     bio: 'Atacante paraguayo que destacó a inicios de los años noventa por su media distancia y protagonismo en la Copa Conmebol 1992, donde anotó cuatro goles en la goleada histórica ante Marítimo.',
+    photoUrl: '/assets/aistudio/JAVIER_FERREIRA_9a04f803.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 40,
@@ -696,6 +748,8 @@ export const TOP_50_SCORERS_DATA: TopScorerProfile[] = [
     breakdown: { liga: 25, copa: 0, superliga: 0, libertadores: 1, sudamericana: 0, conmebol: 0 },
     titlesNote: 'Figura de la Segunda Estrella 1980 (★2)',
     bio: 'Cerebro argentino del recordado «equipo de los obreros» campeón en 1980 bajo la tutela de José Varacka. Disputó cuatro campañas en Barranquilla dejando 26 tantos oficiales y fútbol de alto vuelo.',
+    photoUrl: '/assets/aistudio/JUAN_MIGUEL_TUTINO_e7f8a841.webp',
+    photoAttribution: 'Archivo fotográfico oficial del club',
   },
   {
     rank: 41,

@@ -1192,6 +1192,12 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Independiente Medellín 2020-2025',
     };
   }
+  if (isIndependienteMedellin && startYear !== null && startYear >= 2026) {
+    return {
+      src: '/assets/aistudio/MEDELLIN_2026_1abd4262.png',
+      alt: 'Escudo Oficial Independiente Medellín 2026-Actualidad',
+    };
+  }
 
   const isDeportivoCali =
     (lower.includes('deportivo cali') || lower.includes('dep. cali')) &&
@@ -1823,6 +1829,19 @@ export function getTournamentTeamCrest(
       alt: 'Escudo Histórico Alianza Petrolera (hasta 2023)',
     };
   }
+  const isAlianzaValledupar =
+    lower.includes('alianza f.c') ||
+    lower.includes('alianza fc') ||
+    lower.includes('alianza valledupar') ||
+    (lower.includes('alianza') &&
+      !lower.includes('petrolera') &&
+      !lower.includes('lima'));
+  if (isAlianzaValledupar && startYear !== null && startYear >= 2024) {
+    return {
+      src: '/assets/aistudio/ALIANZA_FC_d94fbbaf.png',
+      alt: 'Escudo Oficial Alianza F.C. / Valledupar',
+    };
+  }
 
   if (lower.includes('fortaleza') && startYear !== null && startYear <= 2014) {
     return {
@@ -1834,11 +1853,17 @@ export function getTournamentTeamCrest(
     lower.includes('fortaleza') &&
     startYear !== null &&
     startYear >= 2015 &&
-    startYear <= 2025
+    startYear <= 2024
   ) {
     return {
       src: '/assets/aistudio/fortaleza_ceif_bogota-_2015-2025-Yyvk5ZoplbHRr8V5_e2d1629f.webp',
-      alt: 'Escudo Histórico Fortaleza CEIF 2015-2025',
+      alt: 'Escudo Histórico Fortaleza CEIF 2015-2024',
+    };
+  }
+  if (lower.includes('fortaleza') && startYear !== null && startYear >= 2025) {
+    return {
+      src: '/assets/aistudio/fortaleza_ceif_bogota-_2025-presente_e38b8c6d.webp',
+      alt: 'Escudo Oficial Fortaleza CEIF 2025-Actualidad',
     };
   }
 
@@ -1871,6 +1896,25 @@ export function getTournamentTeamCrest(
     return {
       src: '/assets/aistudio/itagui_leones_a791aa99.png',
       alt: 'Escudo Oficial Itagüí Leones',
+    };
+  }
+
+  if (lower.includes('llaneros')) {
+    return {
+      src: '/assets/aistudio/ESCUDO-LLANEROS_07f49952.png',
+      alt: 'Escudo Oficial Llaneros F.C.',
+    };
+  }
+
+  if (
+    lower.includes('internacional de bogotá') ||
+    lower.includes('internacional de bogota') ||
+    lower.includes('inter de bogotá') ||
+    lower.includes('inter de bogota')
+  ) {
+    return {
+      src: '/assets/aistudio/Logo_oficial_Internacional_de_Bogot__4eedeaba.png',
+      alt: 'Escudo Oficial Internacional de Bogotá',
     };
   }
 
