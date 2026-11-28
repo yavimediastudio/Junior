@@ -14481,6 +14481,63 @@ test('Titles Museum (Sala de Trofeos): 16 official titles integrity, era crests,
   assert.equal(title1993?.championPhotoUrl, '/assets/aistudio/image_ee29fca5.png');
   assert.equal(title1993?.championPhotoOrientation, 'landscape');
   assert.equal(title1993?.standingsTableId, '1993-cuadrangular');
+  const title1995 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-1995');
+  assert.equal(title1995?.championPhotoUrl, '/assets/aistudio/image_f3561993.png');
+  assert.equal(title1995?.championPhotoOrientation, 'landscape');
+  assert.equal(title1995?.standingsTableId, '1995-nivelacion');
+  const title2004 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-2004-II');
+  assert.equal(title2004?.championPhotoUrl, '/assets/aistudio/image_dc1e0c2f.png');
+  assert.equal(title2004?.championPhotoOrientation, 'landscape');
+  assert.equal(title2004?.standingsTableId, '2004-II-cuadrangular');
+  const title2010 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-2010-I');
+  assert.equal(title2010?.championPhotoUrl, '/assets/aistudio/image_97155611.png');
+  assert.equal(title2010?.championPhotoOrientation, 'landscape');
+  assert.equal(title2010?.standingsTableId, '2010-I-semifinal');
+  const title2011 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-2011-II');
+  assert.equal(title2011?.championPhotoUrl, '/assets/aistudio/image_9c411e13.png');
+  assert.equal(title2011?.championPhotoOrientation, 'landscape');
+  assert.equal(title2011?.standingsTableId, '2011-II-playoffs');
+  const titleCopa2015 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'copa-2015');
+  assert.equal(titleCopa2015?.championPhotoUrl, '/assets/aistudio/image_4be7bfe7.png');
+  assert.equal(titleCopa2015?.championPhotoOrientation, 'landscape');
+  assert.equal(titleCopa2015?.standingsTableId, undefined);
+  const titleCopa2017 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'copa-2017');
+  assert.equal(titleCopa2017?.championPhotoUrl, '/assets/aistudio/image_9b5baf10.png');
+  assert.equal(titleCopa2017?.championPhotoOrientation, 'landscape');
+  assert.equal(titleCopa2017?.standingsTableId, undefined);
+  const title2018 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-2018-II');
+  assert.equal(title2018?.championPhotoUrl, '/assets/aistudio/image_9d0934b7.png');
+  assert.equal(title2018?.championPhotoOrientation, 'landscape');
+  assert.equal(title2018?.standingsTableId, '2018-II-playoffs');
+  const titleSuperliga2019 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'superliga-2019');
+  assert.equal(titleSuperliga2019?.championPhotoUrl, '/assets/aistudio/image_3d33e4e3.png');
+  assert.equal(titleSuperliga2019?.championPhotoOrientation, 'landscape');
+  assert.equal(titleSuperliga2019?.standingsTableId, undefined);
+  const title2019 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-2019-I');
+  assert.equal(title2019?.championPhotoUrl, '/assets/aistudio/image_cb1cf6a4.png');
+  assert.equal(title2019?.championPhotoOrientation, 'landscape');
+  assert.equal(title2019?.standingsTableId, '2019-I-cuadrangular');
+  const titleSuperliga2020 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'superliga-2020');
+  assert.equal(titleSuperliga2020?.championPhotoUrl, '/assets/aistudio/image_2754f763.png');
+  assert.equal(titleSuperliga2020?.championPhotoOrientation, 'landscape');
+  assert.equal(titleSuperliga2020?.standingsTableId, undefined);
+  const title2023 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-2023-II');
+  assert.equal(title2023?.championPhotoUrl, '/assets/aistudio/image_49b6ffc7.png');
+  assert.equal(title2023?.championPhotoOrientation, 'landscape');
+  assert.equal(title2023?.standingsTableId, '2023-II-cuadrangular');
+  const title2025 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-2025-II');
+  assert.equal(title2025?.championPhotoUrl, '/assets/aistudio/image_6ac94f04.png');
+  assert.equal(title2025?.championPhotoOrientation, 'landscape');
+  assert.equal(title2025?.standingsTableId, '2025-II-cuadrangular');
+  const title2026 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-2026-I');
+  assert.equal(title2026?.championPhotoUrl, '/assets/aistudio/image_09f17c4e.png');
+  assert.equal(title2026?.championPhotoOrientation, 'landscape');
+  assert.equal(title2026?.standingsTableId, '2026-I-playoffs');
+  assert.equal(
+    ENRICHED_OFFICIAL_TITLES.filter((t) => Boolean(t.championPhotoUrl)).length,
+    16,
+    'All 16 official titles must have a bound championship photograph'
+  );
 
   // 3. Every title has valid cross-links (tables, rival franchise, Top 50 scorers), final match legs, and era crests
   const tableIds = new Set(CHRONOLOGICAL_STANDINGS_TABLES.map((t) => t.id));

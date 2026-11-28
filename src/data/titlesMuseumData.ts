@@ -190,6 +190,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       '1.º en Tabla Única (30 PJ · 18 PG · 8 PE · 4 PP · 66 GF · 37 GC · 62 pts). Valenciano conquistó su 2.º Botín de Oro (24 goles).',
     featuredScorerIds: ['valenciano', 'cristian-montecinos', 'victor-pacheco', 'oswaldo-mackenzie'],
+    championPhotoUrl: '/assets/aistudio/image_f3561993.png',
+    championPhotoCaption:
+      'Formación titular de Junior Campeón del Torneo Nivelación 1995 en el Estadio Metropolitano (4.ª Estrella).',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Fecha 30 · Cierre del Torneo Nivelación',
@@ -231,6 +235,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       '8.º en el Todos contra Todos (28 pts), líder del Cuadrangular B (13 pts) sobre Cali, Medellín y Bucaramanga, y campeón en la tanda de penales ante Nacional.',
     featuredScorerIds: ['arzuaga', 'ballesteros', 'hayder-palacio', 'leonardo-rojano'],
+    championPhotoUrl: '/assets/aistudio/image_dc1e0c2f.png',
+    championPhotoCaption:
+      'Formación titular de Junior Campeón 2004-II en el Estadio Atanasio Girardot de Medellín (5.ª Estrella).',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
@@ -290,6 +298,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       '3.º en el Todos contra Todos (32 pts), superó en semifinales a Independiente Medellín (3-2 global) y remontó la final frente a La Equidad.',
     featuredScorerIds: ['bacca', 'giovanni-hernandez', 'victor-cortes', 'vladimir-hernandez', 'hayder-palacio'],
+    championPhotoUrl: '/assets/aistudio/image_97155611.png',
+    championPhotoCaption:
+      'Formación titular de Junior Campeón de la Liga Postobón 2010-I en el Estadio Metropolitano (6.ª Estrella).',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
@@ -342,6 +354,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       '1.º en el Todos contra Todos (31 pts); eliminó a Boyacá Chicó en cuartos y a Millonarios en épica semifinal por penales (5-4 tras remontar 0-3).',
     featuredScorerIds: ['bacca', 'vladimir-hernandez', 'giovanni-hernandez', 'luis-carlos-ruiz'],
+    championPhotoUrl: '/assets/aistudio/image_9c411e13.png',
+    championPhotoCaption:
+      'Giovanni Hernández, Sebastián Viera y el plantel de Junior Campeón 2011-II levantando el trofeo en el Estadio Palogrande de Manizales (7.ª Estrella).',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
@@ -399,6 +415,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       'Eliminó sucesivamente a Atlético Nacional (octavos), Deportes Tolima (cuartos) e Independiente Medellín (semifinal por penales) antes de derrotar a Santa Fe en la final.',
     featuredScorerIds: ['jorge-aguirre', 'vladimir-hernandez', 'roberto-ovelar', 'edison-toloza'],
+    championPhotoUrl: '/assets/aistudio/image_4be7bfe7.png',
+    championPhotoCaption:
+      'Sebastián Viera y el plantel de Junior levantando el trofeo de la Copa Colombia 2015 en el Estadio El Campín de Bogotá.',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
@@ -449,6 +469,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       'Campeón invicto de las fases eliminatorias: dejó en el camino a Once Caldas, Millonarios y Patriotas antes de imponerse 3-1 global al Medellín.',
     featuredScorerIds: ['teofilo', 'jarlan-barrera', 'yimmi-chara', 'luis-diaz'],
+    championPhotoUrl: '/assets/aistudio/image_9b5baf10.png',
+    championPhotoCaption:
+      'Sebastián Viera y el plantel de Junior celebrando el título de la Copa Colombia 2017 en el Estadio Metropolitano Roberto Meléndez de Barranquilla.',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
@@ -501,6 +525,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       '6.º regular (32 pts); eliminó a La Equidad en cuartos (1-0) y a Rionegro Águilas en semifinales (4-3) antes de ganar la final 5-4 al Medellín.',
     featuredScorerIds: ['teofilo', 'luis-diaz', 'jarlan-barrera'],
+    championPhotoUrl: '/assets/aistudio/image_9d0934b7.png',
+    championPhotoCaption:
+      'Plantel y cuerpo técnico de Junior celebrando la Octava Estrella (Liga Águila 2018-II) en el Estadio Atanasio Girardot de Medellín.',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
@@ -551,6 +579,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       'Enfrentó a los dos campeones de Liga 2018 (Tolima 2018-I vs Junior 2018-II); remontada en tiempo de reposición y título desde los doce pasos.',
     featuredScorerIds: ['luis-diaz', 'luis-carlos-ruiz', 'teofilo'],
+    championPhotoUrl: '/assets/aistudio/image_3d33e4e3.png',
+    championPhotoCaption:
+      'Sebastián Viera, Luis Fernando Suárez y el plantel de Junior celebrando la Superliga de Colombia 2019 en el Estadio Manuel Murillo Toro de Ibagué.',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
@@ -610,6 +642,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       '7.º regular (30 pts); ganó el Cuadrangular B invicto (12 pts) sobre Tolima, Cali y Nacional, y conquistó el bicampeonato 2018-II / 2019-I.',
     featuredScorerIds: ['teofilo', 'luis-diaz'],
+    championPhotoUrl: '/assets/aistudio/image_cb1cf6a4.png',
+    championPhotoCaption:
+      'Plantel de Junior celebrando la Novena Estrella y el primer bicampeonato de Liga (2019-I) en el Estadio El Campín de Bogotá.',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
@@ -667,6 +703,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       'Serie entre campeones de Liga 2019 (Junior 2019-I vs América 2019-II); triunfo categórico como visitante para conquistar el título oficial #13.',
     featuredScorerIds: ['miguel-borja', 'carmelo-valencia', 'teofilo'],
+    championPhotoUrl: '/assets/aistudio/image_2754f763.png',
+    championPhotoCaption:
+      'Sebastián Viera, Julio Comesaña y el plantel de Junior celebrando el bicampeonato de Superliga (2020) en el Estadio Pascual Guerrero de Cali.',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
@@ -719,6 +759,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       '6.º regular (30 pts); ganó el Cuadrangular A (13 pts) venciendo 4-2 al Tolima en la fecha final y coronó la 10.ª Estrella en Medellín.',
     featuredScorerIds: ['bacca', 'vladimir-hernandez', 'luis-gonzalez'],
+    championPhotoUrl: '/assets/aistudio/image_49b6ffc7.png',
+    championPhotoCaption:
+      'Carlos Bacca, Arturo Reyes y el plantel de Junior levantando el trofeo de la Décima Estrella (Liga BetPlay 2023-II) en el Estadio Atanasio Girardot de Medellín.',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
@@ -778,6 +822,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       '5.º regular (35 pts); líder del Cuadrangular A de la muerte (11 pts) ante Nacional, América y DIM; 52 pts totales en 28 PJ y arco en cero en la Gran Final.',
     featuredScorerIds: ['bacca', 'teofilo', 'yimmi-chara'],
+    championPhotoUrl: '/assets/aistudio/image_6ac94f04.png',
+    championPhotoCaption:
+      'Alfredo Arias y el plantel de Junior alzando el trofeo de la Undécima Estrella (Liga BetPlay 2025-II) en el Estadio Manuel Murillo Toro de Ibagué.',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
@@ -830,6 +878,10 @@ export const ENRICHED_OFFICIAL_TITLES: EnrichedOfficialTitle[] = [
     campaignSummary:
       '2.º en el Todos contra Todos (35 pts en 19 PJ); eliminó a Once Caldas en cuartos (3-2) y a Santa Fe en semifinales (1-1, 5-4 p.) antes de vencer 3-1 a Nacional.',
     featuredScorerIds: ['luis-muriel', 'teofilo', 'yimmi-chara'],
+    championPhotoUrl: '/assets/aistudio/image_09f17c4e.png',
+    championPhotoCaption:
+      'Plantel de Junior levantando el trofeo de la Duodécima Estrella y segundo bicampeonato (Liga BetPlay 2026-I) en el Estadio Atanasio Girardot de Medellín.',
+    championPhotoOrientation: 'landscape',
     finalMatches: [
       {
         stage: 'Final Ida',
