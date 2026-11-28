@@ -381,7 +381,7 @@ export const HeadToHeadModule: React.FC<HeadToHeadModuleProps> = ({
         <header className="pb-6 mb-6 border-b border-slate-800">
           <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-2">
             <Swords className="w-4 h-4 shrink-0" />
-            <span>Módulo 02 · Archivo Frente a Frente</span>
+            <span>Archivo Frente a Frente</span>
             <span aria-hidden="true" className="text-slate-600">·</span>
             <span className="text-slate-400">Primera A Dimayor 1948–2026</span>
           </div>

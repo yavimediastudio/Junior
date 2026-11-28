@@ -26,7 +26,6 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   const handleShare = async (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    // Construct target URL
     const hash = customHash || (moduleId ? `#${moduleId}` : window.location.hash || '#inicio');
     const url = `${window.location.origin}${window.location.pathname}${hash}`;
 
@@ -36,8 +35,8 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
       try {
         await navigator.clipboard.writeText(url);
         copySuccess = true;
-      } catch (err) {
-        console.warn('Clipboard API failed, trying fallback:', err);
+      } catch {
+        // fallback below
       }
     }
 
@@ -53,16 +52,16 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
         textArea.select();
         copySuccess = document.execCommand('copy');
         document.body.removeChild(textArea);
-      } catch (err) {
-        console.error('Fallback clipboard copy failed:', err);
+      } catch {
+        // ignore
       }
     }
 
     if (copySuccess) {
       setCopied(true);
       triggerShareToast({
-        title: '¡Enlace copiado al portapapeles!',
-        subtitle: `Enlace directo a "${sectionTitle}" copiado. ¡Listo para compartir con la hinchada tiburona!`,
+        title: 'Enlace copiado',
+        subtitle: `Enlace directo a «${sectionTitle}» listo para compartir.`,
         url,
       });
 
@@ -73,9 +72,9 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   };
 
   const sizeClasses = {
-    sm: 'px-2.5 py-1.5 text-xs',
-    md: 'px-3 py-1.5 text-xs sm:text-sm',
-    lg: 'px-4 py-2 text-sm',
+    sm: 'px-3 py-1.5 text-xs',
+    md: 'px-3.5 py-2 text-xs sm:text-sm',
+    lg: 'px-4 py-2.5 text-sm',
   };
 
   return (
@@ -84,20 +83,20 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
       onClick={handleShare}
       title={`Copiar enlace directo a ${sectionTitle}`}
       aria-label={`Compartir enlace de ${sectionTitle}`}
-      className={`rounded-lg font-semibold transition-all flex items-center justify-center gap-1.5 shrink-0 ${
+      className={`rounded-lg font-medium transition-all flex items-center justify-center gap-1.5 shrink-0 ${
         copied
-          ? 'bg-emerald-950/60 border border-emerald-500/70 text-emerald-400'
-          : 'bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-red-500/50 text-slate-300 hover:text-white'
+          ? 'bg-[#ECFDF5] border border-[#A7F3D0] text-[#047857]'
+          : 'bg-white hover:bg-[#FEF2F2] border border-[#E5E1D8] hover:border-[#FECACA] text-[#081D40] hover:text-[#D62027]'
       } ${sizeClasses[size]} ${className}`}
     >
       {copied ? (
         <>
-          <Check className="w-3.5 h-3.5 text-emerald-400 animate-in zoom-in-50 duration-150" />
-          {!iconOnly && <span className="text-emerald-400 font-bold">¡Copiado!</span>}
+          <Check className="w-3.5 h-3.5 text-[#047857]" />
+          {!iconOnly && <span className="font-semibold">Copiado</span>}
         </>
       ) : (
         <>
-          <Share2 className="w-3.5 h-3.5 text-red-400 group-hover:text-red-300" />
+          <Share2 className="w-3.5 h-3.5 text-[#D62027]" />
           {!iconOnly && <span>{buttonText}</span>}
         </>
       )}

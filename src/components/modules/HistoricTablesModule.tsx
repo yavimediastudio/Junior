@@ -233,7 +233,7 @@ export const HistoricTablesModule: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-1.5">
               <Table className="w-4 h-4 text-red-500 shrink-0" />
-              <span>Módulo 1 · Tablas de Posiciones Oficiales Dimayor · 1948 - 2026</span>
+              <span>Tablas de Posiciones Oficiales Dimayor · 1948 – 2026</span>
             </div>
             <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase text-white tracking-tight text-balance max-w-4xl">
               Tablas de Posiciones: Cuadrangulares, Hexagonales & Año a Año
@@ -358,17 +358,19 @@ export const HistoricTablesModule: React.FC = () => {
                 isJuniorChamp ? 'border-amber-500/35' : 'border-slate-800'
               }`}
             >
-              {isJuniorChamp && (
-                <div
-                  aria-hidden="true"
-                  className="h-[2px] w-full bg-gradient-to-r from-amber-400/80 via-amber-200/40 to-transparent"
-                />
-              )}
               <div
-                className={`p-5 border-b ${
+                aria-hidden="true"
+                className={`h-[3px] w-full ${
                   isJuniorChamp
-                    ? 'bg-gradient-to-r from-amber-950/25 via-slate-900 to-slate-950 border-amber-500/20'
-                    : 'bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-slate-800'
+                    ? 'bg-gradient-to-r from-[#C69214] via-[#D62027] to-[#081D40]'
+                    : 'bg-gradient-to-r from-[#D62027] via-[#081D40] to-[#081D40]'
+                }`}
+              />
+              <div
+                className={`p-5 sm:p-6 border-b ${
+                  isJuniorChamp
+                    ? 'bg-gradient-to-r from-[#FFFBEB] via-white to-[#F7F5F0] border-[#FDE68A]'
+                    : 'bg-white border-[#E5E1D8]'
                 }`}
               >
                 {/* Sequential Prev / Next Navigation Bar beside Header */}
@@ -483,11 +485,7 @@ export const HistoricTablesModule: React.FC = () => {
                       )}
                     </div>
 
-                    <h3
-                      className={`font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-balance flex flex-wrap items-baseline gap-x-2.5 gap-y-1 ${
-                        isJuniorChamp ? 'text-amber-50' : 'text-white'
-                      }`}
-                    >
+                    <h3 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-balance flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-[#081D40]">
                       {isJuniorChamp && (
                         <span
                           aria-hidden="true"
@@ -571,7 +569,7 @@ export const HistoricTablesModule: React.FC = () => {
                             className="w-full h-full object-cover object-top"
                           />
                         </div>
-                        <figcaption className="p-5 flex flex-col justify-between gap-4 bg-gradient-to-br from-slate-950 via-slate-900/60 to-slate-950">
+                        <figcaption className="p-5 flex flex-col justify-between gap-4 bg-[#F7F5F0]">
                           <div className="space-y-2">
                             <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
                               <span className="text-amber-400 font-semibold">
@@ -619,13 +617,13 @@ export const HistoricTablesModule: React.FC = () => {
                           referrerPolicy="no-referrer"
                           className="w-full h-full object-cover object-[center_18%]"
                         />
-                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent pointer-events-none" />
-                        <figcaption className="absolute inset-x-0 bottom-0 px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+                        <div className="editorial-photo-overlay absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#081D40]/92 via-[#081D40]/50 to-transparent pointer-events-none" />
+                        <figcaption className="editorial-photo-overlay absolute inset-x-0 bottom-0 px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs text-white">
                           <span className="font-medium text-white">
                             {linkedChampionTitle.championPhotoCaption ??
                               `Junior Campeón ${activeTournamentTable.year}`}
                           </span>
-                          <span className="text-[11px] font-mono text-amber-300">
+                          <span className="text-[11px] font-mono text-[#FDE047]">
                             Archivo Histórico · {activeTournamentTable.year}
                           </span>
                         </figcaption>
@@ -2048,7 +2046,7 @@ export const HistoricTablesModule: React.FC = () => {
           <div className="space-y-6">
             {/* Year Selector & Editorial Header */}
             <div className="rounded-2xl border border-slate-800 bg-slate-900 overflow-hidden shadow-2xl">
-              <div className="p-5 border-b border-slate-800 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 space-y-4">
+              <div className="p-5 border-b border-[#E5E1D8] bg-white space-y-4">
                 <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-800/80">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
@@ -2335,7 +2333,7 @@ export const HistoricTablesModule: React.FC = () => {
           <div className="space-y-6">
             {/* 5-Metric Quick Proof Ribbon */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-              <div className="p-3.5 rounded-xl bg-gradient-to-b from-amber-950/40 to-slate-900 border border-amber-500/40">
+              <div className="p-3.5 rounded-xl bg-[#FFFBEB] border border-[#FDE68A]">
                 <div className="flex items-center gap-1.5 text-[11px] font-bold text-amber-400 uppercase">
                   <Trophy className="w-3.5 h-3.5" />
                   <span>12 Estrellas</span>

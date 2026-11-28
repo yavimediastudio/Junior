@@ -219,7 +219,7 @@ export const TitlesModule: React.FC<TitlesModuleProps> = ({ onNavigateToModule }
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5">
             <div className="space-y-2 max-w-2xl">
               <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
-                <span className="text-amber-400 font-semibold">Módulo 5 · Sala de Trofeos</span>
+                <span className="text-amber-400 font-semibold">Sala de Trofeos</span>
                 <span aria-hidden="true">·</span>
                 <span>Palmarés Oficial Dimayor (1977–2026)</span>
               </div>

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-export type ThemeMode = 'dark' | 'light';
+export type ThemeMode = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: ThemeMode;
@@ -10,50 +10,25 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const THEME_STORAGE_KEY = 'junior_theme_preference';
-
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<ThemeMode>(() => {
-    try {
-      const saved = localStorage.getItem(THEME_STORAGE_KEY);
-      if (saved === 'light' || saved === 'dark') {
-        return saved;
-      }
-    } catch (e) {
-      console.warn('Error reading theme from localStorage:', e);
-    }
-    return 'dark';
-  });
+  const [theme, setThemeState] = useState<ThemeMode>('light');
 
   useEffect(() => {
     const root = document.documentElement;
     const body = document.body;
 
-    if (theme === 'light') {
-      root.classList.remove('dark');
-      root.classList.add('light');
-      body.classList.remove('bg-slate-950', 'text-slate-100');
-      body.classList.add('bg-slate-50', 'text-slate-900', 'light');
-    } else {
-      root.classList.remove('light');
-      root.classList.add('dark');
-      body.classList.remove('bg-slate-50', 'text-slate-900', 'light');
-      body.classList.add('bg-slate-950', 'text-slate-100');
-    }
-
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, theme);
-    } catch (e) {
-      console.warn('Error saving theme to localStorage:', e);
-    }
+    root.classList.remove('dark');
+    root.classList.add('light');
+    body.classList.remove('bg-slate-950', 'text-slate-100', 'dark');
+    body.classList.add('bg-white', 'text-[#0E172A]');
   }, [theme]);
 
   const toggleTheme = () => {
-    setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    setThemeState('light');
   };
 
-  const setTheme = (mode: ThemeMode) => {
-    setThemeState(mode);
+  const setTheme = (_mode: ThemeMode) => {
+    setThemeState('light');
   };
 
   return (

@@ -21,7 +21,7 @@ export const CurrentSeasonModule: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-2">
               <Activity className="w-4 h-4 text-emerald-400" />
-              <span>Módulo 6 · Plantilla & Actualidad</span>
+              <span>Plantilla & Actualidad</span>
               <span aria-hidden="true">·</span>
               <span>En Competencia Dimayor</span>
             </div>

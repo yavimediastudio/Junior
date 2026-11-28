@@ -3,21 +3,13 @@ import {
   Calendar,
   Trophy,
   Star,
-  Sparkles,
   ChevronLeft,
   ChevronRight,
   Play,
   Pause,
   Award,
-  Users,
-  Shield,
   ArrowRight,
-  ListFilter,
   CheckCircle2,
-  Clock,
-  Layers,
-  Flame,
-  ExternalLink,
 } from 'lucide-react';
 import { AppModuleId } from '../types/football';
 import {
@@ -41,32 +33,28 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
   const [viewMode, setViewMode] = useState<'interactive' | 'list'>('interactive');
 
   const timelineTrackRef = useRef<HTMLDivElement>(null);
-  const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const autoPlayTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Filtered milestones based on category
   const filteredMilestones = useMemo(() => {
     if (categoryFilter === 'todos') return JUNIOR_TIMELINE_MILESTONES;
     return JUNIOR_TIMELINE_MILESTONES.filter((m) => m.category === categoryFilter);
   }, [categoryFilter]);
 
-  // Current active milestone
   const currentMilestone: TimelineMilestone = useMemo(() => {
     const found = filteredMilestones.find((m) => m.id === selectedMilestoneId);
     if (found) return found;
     return filteredMilestones[0] || JUNIOR_TIMELINE_MILESTONES[0];
   }, [filteredMilestones, selectedMilestoneId]);
 
-  // Current index in filtered list
   const currentIndex = useMemo(() => {
     return filteredMilestones.findIndex((m) => m.id === currentMilestone.id);
   }, [filteredMilestones, currentMilestone]);
 
-  // Center the selected year pill in the horizontal track
   useEffect(() => {
     if (!timelineTrackRef.current) return;
     const selectedBtn = timelineTrackRef.current.querySelector(
       `[data-milestone-id="${currentMilestone.id}"]`
-    ) as HTMLElement;
+    ) as HTMLElement | null;
 
     if (selectedBtn) {
       const container = timelineTrackRef.current;
@@ -76,7 +64,6 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
     }
   }, [currentMilestone.id]);
 
-  // Auto-play slideshow tour
   useEffect(() => {
     if (isPlaying) {
       autoPlayTimerRef.current = setInterval(() => {
@@ -86,10 +73,8 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
           return filteredMilestones[nextIdx].id;
         });
       }, 4500);
-    } else {
-      if (autoPlayTimerRef.current) {
-        clearInterval(autoPlayTimerRef.current);
-      }
+    } else if (autoPlayTimerRef.current) {
+      clearInterval(autoPlayTimerRef.current);
     }
 
     return () => {
@@ -124,7 +109,9 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
     if (milestone.standingsTableId) {
       try {
         sessionStorage.setItem('junior-pending-standings-table', milestone.standingsTableId);
-      } catch {}
+      } catch {
+        // ignore
+      }
       window.dispatchEvent(
         new CustomEvent('junior-select-standings-table', {
           detail: { tableId: milestone.standingsTableId },
@@ -137,129 +124,96 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
     }
   };
 
+  const filterButtons: { id: 'todos' | TimelineCategory; label: string }[] = [
+    { id: 'todos', label: `Todos (${JUNIOR_TIMELINE_MILESTONES.length})` },
+    {
+      id: 'estrella',
+      label: `Estrellas (${JUNIOR_TIMELINE_MILESTONES.filter((m) => m.category === 'estrella').length})`,
+    },
+    {
+      id: 'copa',
+      label: `Copas (${JUNIOR_TIMELINE_MILESTONES.filter((m) => m.category === 'copa').length})`,
+    },
+    { id: 'hito', label: 'Hitos' },
+    { id: 'centenario', label: 'Centenario' },
+  ];
+
   return (
-    <section id="linea-tiempo" className={`py-12 bg-slate-950 relative overflow-hidden ${className}`}>
-      {/* Decorative gradient accents */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/70 border border-red-800/80 text-red-300 text-xs font-semibold uppercase tracking-wider mb-3">
-            <img src="/assets/aistudio/image_82370351.png" alt="Escudo Junior" className="w-4 h-4 object-contain shrink-0" />
-            <span>Línea de Tiempo Histórica (1924 - 2026)</span>
+    <section
+      id="linea-tiempo"
+      className={`py-14 sm:py-16 bg-[#F7F5F0] border-b border-[#E5E1D8] ${className}`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Cabecera editorial */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-6 border-b border-[#E5E1D8] mb-8">
+          <div className="max-w-2xl">
+            <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#D62027]">
+              Cronología Oficial · 1924 – 2026
+            </span>
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#081D40] tracking-tight leading-none mt-1.5">
+              Línea de Tiempo del Centenario
+            </h2>
+            <p className="text-sm text-[#526075] mt-2.5 leading-relaxed">
+              Recorre más de un siglo de historia rojiblanca, hito por hito, con sus protagonistas, marcadores y acceso directo al archivo.
+            </p>
           </div>
 
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase tracking-tight">
-            Hitos <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-400 to-amber-400">Inmortales</span> de Junior
-          </h2>
+          {/* Controles de filtro y vista */}
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-1.5">
+              {filterButtons.map((btn) => {
+                const isActive = categoryFilter === btn.id;
+                return (
+                  <button
+                    key={btn.id}
+                    type="button"
+                    onClick={() => setCategoryFilter(btn.id)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap border ${
+                      isActive
+                        ? 'bg-[#081D40] text-white border-[#081D40]'
+                        : 'bg-white text-[#526075] border-[#E5E1D8] hover:text-[#081D40] hover:border-[#081D40]/30'
+                    }`}
+                  >
+                    {btn.label}
+                  </button>
+                );
+              })}
+            </div>
 
-          <p className="mt-3 text-sm sm:text-base text-slate-400">
-            Más de un siglo de gloria, 12 estrellas y hazañas. Haz clic en cualquier año o hito para ver el <strong className="text-slate-200">resumen rápido oficial</strong>, sus protagonistas y acceder a la enciclopedia.
-          </p>
-        </div>
-
-        {/* Filters and View Controls Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 p-3 rounded-2xl mb-8 backdrop-blur-md shadow-xl">
-          {/* Category Filter Chips */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
-            <span className="text-xs font-semibold text-slate-400 mr-1 hidden md:inline">Filtrar:</span>
-            
-            <button
-              onClick={() => setCategoryFilter('todos')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
-                categoryFilter === 'todos'
-                  ? 'bg-red-600 text-white shadow-md shadow-red-950'
-                  : 'bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white'
-              }`}
-            >
-              Todos ({JUNIOR_TIMELINE_MILESTONES.length})
-            </button>
+            <div className="h-4 w-px bg-[#DFDBD0] hidden sm:block mx-1" />
 
             <button
-              onClick={() => setCategoryFilter('estrella')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 ${
-                categoryFilter === 'estrella'
-                  ? 'bg-yellow-500 text-slate-950 font-bold shadow-md shadow-yellow-950'
-                  : 'bg-slate-800/80 text-yellow-400 hover:bg-slate-800'
-              }`}
-            >
-              <Star className="w-3 h-3 fill-current" />
-              <span>Estrellas & Títulos ({JUNIOR_TIMELINE_MILESTONES.filter((m) => m.category === 'estrella').length})</span>
-            </button>
-
-            <button
-              onClick={() => setCategoryFilter('copa')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 ${
-                categoryFilter === 'copa'
-                  ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-amber-950'
-                  : 'bg-slate-800/80 text-amber-300 hover:bg-slate-800'
-              }`}
-            >
-              <Trophy className="w-3 h-3" />
-              <span>Copas ({JUNIOR_TIMELINE_MILESTONES.filter((m) => m.category === 'copa').length})</span>
-            </button>
-
-            <button
-              onClick={() => setCategoryFilter('hito')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 ${
-                categoryFilter === 'hito'
-                  ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-950'
-                  : 'bg-slate-800/80 text-blue-300 hover:bg-slate-800'
-              }`}
-            >
-              <Shield className="w-3 h-3" />
-              <span>Hitos Históricos (1948, 1950...)</span>
-            </button>
-
-            <button
-              onClick={() => setCategoryFilter('centenario')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap flex items-center gap-1.5 ${
-                categoryFilter === 'centenario'
-                  ? 'bg-rose-600 text-white font-bold shadow-md shadow-rose-950'
-                  : 'bg-slate-800/80 text-rose-300 hover:bg-slate-800'
-              }`}
-            >
-              <Sparkles className="w-3 h-3" />
-              <span>Centenario 100</span>
-            </button>
-          </div>
-
-          {/* Action buttons: Auto-tour and View toggle */}
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              onClick={() => setIsPlaying(!isPlaying)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-1.5 border ${
+              type="button"
+              onClick={() => setIsPlaying((p) => !p)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors inline-flex items-center gap-1.5 border ${
                 isPlaying
-                  ? 'bg-red-600 text-white border-red-500 animate-pulse'
-                  : 'bg-slate-800 text-slate-300 border-slate-700 hover:text-white hover:bg-slate-750'
+                  ? 'bg-[#D62027] text-white border-[#D62027]'
+                  : 'bg-white text-[#081D40] border-[#E5E1D8] hover:border-[#D62027]/40'
               }`}
-              title={isPlaying ? 'Pausar recorrido automático' : 'Reproducir recorrido automático hito por hito'}
             >
               {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-              <span>{isPlaying ? 'Pausar Tour' : 'Auto Tour'}</span>
+              <span>{isPlaying ? 'Pausar' : 'Recorrido'}</span>
             </button>
 
-            <div className="h-4 w-px bg-slate-700 hidden sm:block" />
-
-            <div className="bg-slate-800 p-0.5 rounded-xl border border-slate-700 flex items-center">
+            <div className="bg-white p-0.5 rounded-lg border border-[#E5E1D8] inline-flex">
               <button
+                type="button"
                 onClick={() => setViewMode('interactive')}
-                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+                className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors ${
                   viewMode === 'interactive'
-                    ? 'bg-slate-900 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-[#081D40] text-white'
+                    : 'text-[#526075] hover:text-[#081D40]'
                 }`}
               >
                 Línea
               </button>
               <button
+                type="button"
                 onClick={() => setViewMode('list')}
-                className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+                className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-colors ${
                   viewMode === 'list'
-                    ? 'bg-slate-900 text-white shadow-sm'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-[#081D40] text-white'
+                    : 'text-[#526075] hover:text-[#081D40]'
                 }`}
               >
                 Lista
@@ -270,32 +224,31 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
 
         {viewMode === 'interactive' ? (
           <div>
-            {/* HORIZONTAL INTERACTIVE TIMELINE TRACK */}
+            {/* Carril horizontal cronológico */}
             <div className="relative mb-8">
-              {/* Central horizontal line */}
-              <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-red-600/40 via-amber-500/40 to-red-600/40 -translate-y-1/2 z-0 rounded-full" />
+              <div className="absolute top-1/2 left-0 right-0 h-px bg-[#D6D1C6] -translate-y-1/2 z-0" />
 
-              {/* Scroll buttons for the track */}
               <button
+                type="button"
                 onClick={handlePrev}
-                className="absolute -left-3 sm:-left-5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-900/95 border border-slate-700 text-white flex items-center justify-center hover:bg-red-600 hover:border-red-500 transition-all shadow-xl group"
-                title="Hito anterior"
+                aria-label="Hito anterior"
+                className="absolute -left-2 sm:-left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white border border-[#E5E1D8] text-[#081D40] hover:bg-[#D62027] hover:text-white hover:border-[#D62027] flex items-center justify-center shadow-sm transition-colors"
               >
-                <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" />
+                <ChevronLeft className="w-4 h-4" />
               </button>
 
               <button
+                type="button"
                 onClick={handleNext}
-                className="absolute -right-3 sm:-right-5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-900/95 border border-slate-700 text-white flex items-center justify-center hover:bg-red-600 hover:border-red-500 transition-all shadow-xl group"
-                title="Siguiente hito"
+                aria-label="Siguiente hito"
+                className="absolute -right-2 sm:-right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-white border border-[#E5E1D8] text-[#081D40] hover:bg-[#D62027] hover:text-white hover:border-[#D62027] flex items-center justify-center shadow-sm transition-colors"
               >
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+                <ChevronRight className="w-4 h-4" />
               </button>
 
-              {/* Scrollable Years Container */}
               <div
                 ref={timelineTrackRef}
-                className="flex items-center gap-3 sm:gap-4 overflow-x-auto py-6 px-10 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-slate-900/50 relative z-10"
+                className="flex items-center gap-3 overflow-x-auto py-5 px-10 relative z-10"
               >
                 {filteredMilestones.map((milestone) => {
                   const isSelected = milestone.id === currentMilestone.id;
@@ -305,44 +258,54 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                   return (
                     <button
                       key={milestone.id}
+                      type="button"
                       data-milestone-id={milestone.id}
                       onClick={() => handleSelectMilestone(milestone.id)}
-                      className={`group shrink-0 flex flex-col items-center gap-2 transition-all duration-200 outline-none ${
-                        isSelected ? 'scale-110' : 'hover:scale-105 opacity-80 hover:opacity-100'
+                      className={`group shrink-0 flex flex-col items-center gap-2 transition-all outline-none ${
+                        isSelected ? 'scale-105' : 'opacity-80 hover:opacity-100'
                       }`}
                     >
-                      {/* Year Node Badge */}
                       <div
-                        className={`relative px-3 py-1.5 rounded-xl font-display font-bold text-xs sm:text-sm tracking-wide transition-all border shadow-lg flex items-center gap-1.5 ${
+                        className={`px-3 py-1.5 rounded-lg font-display font-bold text-sm tracking-wide transition-colors border flex items-center gap-1.5 ${
                           isSelected
-                            ? 'bg-gradient-to-r from-red-600 to-rose-700 text-white border-red-400 ring-4 ring-red-500/20 shadow-red-950'
+                            ? 'bg-[#D62027] text-white border-[#D62027] shadow-sm'
                             : isStar
-                            ? 'bg-slate-900 text-yellow-400 border-yellow-500/50 hover:border-yellow-400'
-                            : isCup
-                            ? 'bg-slate-900 text-amber-300 border-amber-500/50 hover:border-amber-400'
-                            : 'bg-slate-900 text-slate-300 border-slate-700 hover:border-slate-500'
+                            ? 'bg-white text-[#9A6700] border-[#E8D59B] hover:border-[#C69214]'
+                            : 'bg-white text-[#081D40] border-[#E5E1D8] hover:border-[#081D40]/40'
                         }`}
                       >
-                        {isStar && <Star className="w-3 h-3 fill-current text-yellow-400 shrink-0" />}
-                        {isCup && <Trophy className="w-3 h-3 text-amber-400 shrink-0" />}
+                        {isStar && (
+                          <Star
+                            className={`w-3 h-3 fill-current shrink-0 ${
+                              isSelected ? 'text-[#FDE047]' : 'text-[#C69214]'
+                            }`}
+                          />
+                        )}
+                        {isCup && (
+                          <Trophy
+                            className={`w-3 h-3 shrink-0 ${
+                              isSelected ? 'text-[#FDE047]' : 'text-[#9A6700]'
+                            }`}
+                          />
+                        )}
                         <span>{milestone.yearDisplay}</span>
                       </div>
 
-                      {/* Dot on the central line */}
                       <div
-                        className={`w-3.5 h-3.5 rounded-full border-2 transition-all ${
+                        className={`w-3 h-3 rounded-full border-2 transition-all ${
                           isSelected
-                            ? 'bg-white border-red-500 ring-4 ring-red-500/40 scale-125'
+                            ? 'bg-[#D62027] border-white ring-2 ring-[#D62027]'
                             : isStar
-                            ? 'bg-yellow-400 border-slate-950'
-                            : 'bg-slate-600 border-slate-950 group-hover:bg-slate-400'
+                            ? 'bg-[#C69214] border-[#F7F5F0]'
+                            : 'bg-[#94A3B8] border-[#F7F5F0] group-hover:bg-[#081D40]'
                         }`}
                       />
 
-                      {/* Mini Title Preview */}
-                      <span className={`text-[10px] font-medium tracking-tight max-w-[85px] truncate text-center transition-colors ${
-                        isSelected ? 'text-white font-bold' : 'text-slate-400 group-hover:text-slate-300'
-                      }`}>
+                      <span
+                        className={`text-[11px] max-w-[92px] truncate text-center ${
+                          isSelected ? 'text-[#081D40] font-bold' : 'text-[#64748B]'
+                        }`}
+                      >
                         {milestone.title.replace(/^[⭐🏆🌟💯\s]+/, '')}
                       </span>
                     </button>
@@ -351,70 +314,75 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
               </div>
             </div>
 
-            {/* DETAILED QUICK SUMMARY CARD (ACTIVE MILESTONE) */}
-            <div className="bg-gradient-to-br from-slate-900 via-slate-900/95 to-slate-950 border border-slate-700/80 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl relative overflow-hidden transition-all duration-300">
-              {/* Top Accent Bar */}
-              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-600 via-yellow-500 to-red-600" />
+            {/* Ficha editorial del hito activo */}
+            <div className="bg-white border border-[#E5E1D8] rounded-2xl p-6 sm:p-8 lg:p-10 shadow-sm relative overflow-hidden">
+              <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#D62027] via-[#C69214] to-[#081D40]" />
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                {/* Left Column: Year Hero Badge, Title, Category and Stats */}
+                {/* Izquierda: Año, titular y ficha técnica */}
                 <div className="lg:col-span-5 space-y-4">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-mono text-xs uppercase font-extrabold px-3 py-1 rounded-full border bg-slate-950 text-slate-300 border-slate-700 flex items-center gap-1.5">
-                      <Calendar className="w-3 h-3 text-red-400" />
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-[#526075]">
+                    <span className="inline-flex items-center gap-1.5 font-semibold text-[#081D40]">
+                      <Calendar className="w-3.5 h-3.5 text-[#D62027]" />
                       <span>{currentMilestone.date}</span>
                     </span>
-
-                    <span className={`text-xs font-mono uppercase font-bold px-3 py-1 rounded-full border ${currentMilestone.categoryColor}`}>
+                    <span aria-hidden="true" className="text-[#CBD5E1]">·</span>
+                    <span className="font-bold uppercase tracking-wider text-[#D62027]">
                       {currentMilestone.categoryLabel}
                     </span>
                   </div>
 
                   <div className="flex items-baseline gap-3">
-                    <span className="font-display text-5xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-100 to-slate-400">
+                    <span className="font-display text-6xl sm:text-7xl font-black text-[#081D40] leading-none tabular-nums">
                       {currentMilestone.year}
                     </span>
-                    <span className="font-mono text-xs font-bold text-amber-400 bg-amber-950/60 border border-amber-800/80 px-2.5 py-1 rounded-lg">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#9A6700] bg-[#FFFBEB] border border-[#FDE68A] px-2.5 py-1 rounded-md">
                       {currentMilestone.statBadge}
                     </span>
                   </div>
 
-                  <h3 className="font-display text-xl sm:text-2xl font-black text-white leading-tight">
-                    {currentMilestone.title}
+                  <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-[#081D40] leading-tight">
+                    {currentMilestone.title.replace(/^[⭐🏆🌟💯\s]+/, '')}
                   </h3>
 
-                  {/* Highlight Metrics */}
-                  <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2">
+                  <dl className="divide-y divide-[#EFECE4] border-y border-[#EFECE4] text-xs">
                     {currentMilestone.scoreOrRecord && (
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-400 font-medium">Marcador / Registro:</span>
-                        <span className="font-mono font-bold text-amber-300">{currentMilestone.scoreOrRecord}</span>
+                      <div className="py-2.5 flex items-center justify-between gap-3">
+                        <dt className="text-[#64748B] font-medium">Marcador / Registro</dt>
+                        <dd className="font-semibold text-[#081D40] text-right">
+                          {currentMilestone.scoreOrRecord}
+                        </dd>
                       </div>
                     )}
                     {currentMilestone.manager && (
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-400 font-medium">Director Técnico:</span>
-                        <span className="font-semibold text-white">{currentMilestone.manager}</span>
+                      <div className="py-2.5 flex items-center justify-between gap-3">
+                        <dt className="text-[#64748B] font-medium">Director Técnico</dt>
+                        <dd className="font-semibold text-[#081D40] text-right">
+                          {currentMilestone.manager}
+                        </dd>
                       </div>
                     )}
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-400 font-medium">Hito #{currentIndex + 1} de {filteredMilestones.length}</span>
-                      <span className="text-slate-400 font-mono">1924 - 2026</span>
+                    <div className="py-2.5 flex items-center justify-between gap-3">
+                      <dt className="text-[#64748B] font-medium">Registro cronológico</dt>
+                      <dd className="font-medium text-[#526075] tabular-nums">
+                        Hito {currentIndex + 1} de {filteredMilestones.length}
+                      </dd>
                     </div>
-                  </div>
+                  </dl>
 
-                  {/* Previous / Next buttons */}
-                  <div className="flex items-center gap-2 pt-2">
+                  <div className="flex items-center gap-2 pt-1">
                     <button
+                      type="button"
                       onClick={handlePrev}
-                      className="flex-1 px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-slate-200 hover:text-white transition-all flex items-center justify-center gap-1.5"
+                      className="flex-1 px-3 py-2 rounded-lg bg-[#F7F5F0] hover:bg-[#ECE8DF] border border-[#E5E1D8] text-xs font-semibold text-[#081D40] transition-colors inline-flex items-center justify-center gap-1"
                     >
                       <ChevronLeft className="w-4 h-4" />
                       <span>Anterior</span>
                     </button>
                     <button
+                      type="button"
                       onClick={handleNext}
-                      className="flex-1 px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-xs font-semibold text-slate-200 hover:text-white transition-all flex items-center justify-center gap-1.5"
+                      className="flex-1 px-3 py-2 rounded-lg bg-[#F7F5F0] hover:bg-[#ECE8DF] border border-[#E5E1D8] text-xs font-semibold text-[#081D40] transition-colors inline-flex items-center justify-center gap-1"
                     >
                       <span>Siguiente</span>
                       <ChevronRight className="w-4 h-4" />
@@ -422,64 +390,55 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
                   </div>
                 </div>
 
-                {/* Right Column: Narrative Quick Summary, Key Figures and Direct Module Jump */}
-                <div className="lg:col-span-7 space-y-5">
-                  {/* Summary Card Box */}
-                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
-                    <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider">
-                      <Sparkles className="w-4 h-4 text-amber-400" />
-                      <span>Resumen Rápido Oficial</span>
-                    </div>
-                    <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-normal">
-                      {currentMilestone.summary}
-                    </p>
-                  </div>
+                {/* Derecha: Crónica editorial, hitos y protagonistas */}
+                <div className="lg:col-span-7 space-y-5 lg:border-l lg:border-[#EFECE4] lg:pl-8">
+                  <p className="font-editorial text-base sm:text-lg text-[#1E293B] leading-relaxed">
+                    {currentMilestone.summary}
+                  </p>
 
-                  {/* Detailed Key Bullets */}
-                  <div className="space-y-2.5">
-                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Hechos Clave de la Campaña:</span>
+                  <div className="space-y-2">
+                    <h4 className="text-xs font-bold uppercase tracking-[0.14em] text-[#526075]">
+                      Hechos clave de la campaña
                     </h4>
-                    <div className="space-y-2">
+                    <ul className="space-y-2">
                       {currentMilestone.details.map((detail, idx) => (
-                        <div
+                        <li
                           key={idx}
-                          className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-300 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800/80"
+                          className="flex items-start gap-2.5 text-sm text-[#334155]"
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-[#D62027] mt-0.5 shrink-0" />
                           <span className="leading-snug">{detail}</span>
-                        </div>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
-                  {/* Protagonistas y Leyendas Clave */}
                   <div>
-                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                      <Users className="w-3.5 h-3.5 text-rose-400" />
-                      <span>Protagonistas & Leyendas:</span>
+                    <h4 className="text-xs font-bold uppercase tracking-[0.14em] text-[#526075] mb-2">
+                      Protagonistas
                     </h4>
-                    <div className="flex flex-wrap gap-1.5">
+                    <div className="flex flex-wrap gap-2">
                       {currentMilestone.keyFigures.map((fig, idx) => (
                         <span
                           key={idx}
-                          className="px-2.5 py-1 rounded-lg bg-slate-800 text-xs text-slate-200 font-medium border border-slate-700/80 flex items-center gap-1.5"
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#F7F5F0] border border-[#E5E1D8] text-xs font-medium text-[#081D40]"
                         >
-                          <Award className="w-3 h-3 text-yellow-400" />
+                          <Award className="w-3 h-3 text-[#C69214]" />
                           <span>{fig}</span>
                         </span>
                       ))}
                     </div>
                   </div>
 
-                  {/* Direct Action: Jump to Encyclopedia Module */}
                   <div className="pt-2">
                     <button
+                      type="button"
                       onClick={() => handleNavigateToModule(currentMilestone)}
-                      className="w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white font-bold text-xs sm:text-sm transition-all shadow-lg shadow-red-950/60 flex items-center justify-center gap-2 group"
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[#081D40] hover:bg-[#D62027] text-white text-xs sm:text-sm font-bold uppercase tracking-wider transition-colors group"
                     >
-                      <span>{currentMilestone.relatedModuleLabel}</span>
+                      <span>
+                        {currentMilestone.relatedModuleLabel.replace(/\s*\(Ventana\s+\d+\)/gi, '')}
+                      </span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </div>
@@ -488,77 +447,70 @@ export const InteractiveTimeline: React.FC<InteractiveTimelineProps> = ({
             </div>
           </div>
         ) : (
-          /* LIST VIEW: COMPLETE CHRONOLOGICAL VERTICAL TIMELINE */
-          <div className="relative border-l-2 border-slate-800 ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-8">
+          /* Vista lista cronológica vertical limpia */
+          <div className="relative border-l-2 border-[#DFDBD0] ml-3 sm:ml-6 pl-6 sm:pl-8 space-y-6">
             {filteredMilestones.map((milestone) => {
               const isStar = milestone.category === 'estrella';
               const isCup = milestone.category === 'copa';
 
               return (
-                <div key={milestone.id} className="relative group">
-                  {/* Node icon on line */}
+                <article key={milestone.id} className="relative">
                   <div
-                    className={`absolute -left-[35px] sm:-left-[51px] top-1.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full border-2 flex items-center justify-center shadow-md transition-transform group-hover:scale-125 ${
+                    className={`absolute -left-[35px] sm:-left-[43px] top-2 w-5 h-5 rounded-full border-2 border-[#F7F5F0] flex items-center justify-center ${
                       isStar
-                        ? 'bg-yellow-500 border-slate-950 text-slate-950'
+                        ? 'bg-[#C69214] text-white'
                         : isCup
-                        ? 'bg-amber-400 border-slate-950 text-slate-950'
-                        : 'bg-red-600 border-slate-950 text-white'
+                        ? 'bg-[#081D40] text-white'
+                        : 'bg-[#D62027] text-white'
                     }`}
                   >
-                    {isStar ? (
-                      <Star className="w-3 h-3 fill-current" />
-                    ) : isCup ? (
-                      <Trophy className="w-3 h-3" />
-                    ) : (
-                      <span className="w-2 h-2 rounded-full bg-white" />
-                    )}
+                    {isStar ? <Star className="w-2.5 h-2.5 fill-current" /> : null}
                   </div>
 
-                  {/* Milestone Card */}
-                  <div className="p-5 sm:p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 transition-all shadow-lg space-y-3">
+                  <div className="p-5 sm:p-6 rounded-2xl bg-white border border-[#E5E1D8] space-y-2.5">
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <span className="font-display text-2xl sm:text-3xl font-black text-white">
+                      <div className="flex items-center gap-2.5">
+                        <span className="font-display text-3xl font-black text-[#081D40] tabular-nums leading-none">
                           {milestone.year}
                         </span>
-                        <span className={`text-[10px] font-mono uppercase font-bold px-2 py-0.5 rounded border ${milestone.categoryColor}`}>
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#D62027]">
                           {milestone.categoryLabel}
                         </span>
                       </div>
-
-                      <span className="text-xs font-semibold text-amber-400 bg-amber-950/60 border border-amber-800/80 px-2 py-0.5 rounded">
+                      <span className="text-xs font-semibold text-[#9A6700] bg-[#FFFBEB] border border-[#FDE68A] px-2.5 py-0.5 rounded-md">
                         {milestone.statBadge}
                       </span>
                     </div>
 
-                    <h4 className="text-base sm:text-lg font-bold text-white">
-                      {milestone.title}
+                    <h4 className="font-display text-xl font-extrabold uppercase text-[#081D40]">
+                      {milestone.title.replace(/^[⭐🏆🌟💯\s]+/, '')}
                     </h4>
 
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                      {milestone.summary}
-                    </p>
+                    <p className="text-sm text-[#475569] leading-relaxed">{milestone.summary}</p>
 
-                    <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800">
-                      <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#EFECE4]">
+                      <div className="flex flex-wrap gap-1.5">
                         {milestone.keyFigures.slice(0, 3).map((f, i) => (
-                          <span key={i} className="text-[11px] text-slate-400 bg-slate-950 px-2 py-0.5 rounded">
+                          <span
+                            key={i}
+                            className="text-xs text-[#526075] bg-[#F7F5F0] px-2.5 py-0.5 rounded-md border border-[#EFECE4]"
+                          >
                             {f}
                           </span>
                         ))}
                       </div>
 
                       <button
+                        type="button"
                         onClick={() => handleNavigateToModule(milestone)}
-                        className="text-xs font-bold text-red-400 hover:text-red-300 flex items-center gap-1 transition-colors"
+                        className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#D62027] hover:text-[#081D40] transition-colors"
                       >
-                        <span>Explorar en Enciclopedia</span>
+                        <span>Ver en el archivo</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>

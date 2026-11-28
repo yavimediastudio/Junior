@@ -212,7 +212,7 @@ export const HistoryModule: React.FC<HistoryModuleProps> = ({
         <header className="pb-8 mb-8 border-b border-slate-800">
           <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-3">
             <BookOpen className="w-4 h-4 shrink-0" />
-            <span>Módulo 07 · Historia Institucional</span>
+            <span>Historia Institucional</span>
             <span aria-hidden="true" className="text-slate-600">·</span>
             <span className="text-slate-400">7 de agosto de 1924 – 2026</span>
             <span aria-hidden="true" className="text-slate-600">·</span>

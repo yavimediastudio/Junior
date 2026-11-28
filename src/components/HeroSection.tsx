@@ -1,136 +1,158 @@
 import React from 'react';
-import { Trophy, ChevronRight, Shield, Shirt, Users } from 'lucide-react';
+import { ArrowRight, Star } from 'lucide-react';
 
 interface HeroSectionProps {
   onNavigate: (section: string) => void;
+  onOpenTitle?: (titleId: string) => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate }) => {
-  return (
-    <section className="relative overflow-hidden bg-slate-950 border-b border-slate-800">
-      {/* Background Hero Image with Measured Gradient Scrim */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/src/assets/images/junior_hero_stadium_1794167190681.jpg"
-          alt="Estadio Metropolitano Roberto Meléndez colmado de hinchas de Junior de Barranquilla"
-          className="w-full h-full object-cover object-center opacity-40 scale-105 transition-transform duration-1000 ease-out"
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/40" />
-        {/* Subtle red/navy atmospheric gradient */}
-        <div className="absolute inset-0 bg-radial-at-t from-red-600/10 via-transparent to-transparent pointer-events-none" />
-      </div>
+export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onOpenTitle }) => {
+  const handleOpenStar12 = () => {
+    if (onOpenTitle) {
+      onOpenTitle('liga-2026-i');
+    } else {
+      onNavigate('titulos');
+    }
+  };
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28">
-        <div className="max-w-3xl">
-          {/* Clean Unboxed Metadata with Typographic Separators & Official Shield */}
-          <div className="flex items-center gap-3.5 mb-4">
-            <img
-              src="/assets/aistudio/image_82370351.png"
-              alt="Escudo Oficial Junior de Barranquilla"
-              className="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0 drop-shadow-xl"
-            />
-            <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider uppercase text-red-400">
-              <span>Club Deportivo Popular</span>
-              <span aria-hidden="true">·</span>
-              <span>Fundado el 7 de Agosto de 1924</span>
-              <span aria-hidden="true">·</span>
+  return (
+    <section className="bg-white border-b border-[#E5E1D8]">
+      {/* Cuerpo principal asimétrico: Narrativa Editorial + Fotografía Monumental */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-12 lg:pt-14 lg:pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          {/* Columna izquierda: Identidad, Titular y Acción */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="flex items-center gap-2.5 text-xs font-bold uppercase tracking-[0.18em] text-[#D62027]">
               <span>Barranquilla, Colombia</span>
+              <span aria-hidden="true" className="text-[#CBD5E1]">·</span>
+              <span className="text-[#526075]">Desde 1924</span>
+            </div>
+
+            <h1 className="font-display text-5xl sm:text-6xl xl:text-[72px] font-black uppercase tracking-tight text-[#081D40] leading-[0.92]">
+              El Legado del{' '}
+              <span className="text-[#D62027]">Tiburón</span>
+            </h1>
+
+            <p className="font-editorial text-lg sm:text-xl text-[#334155] leading-relaxed">
+              Más de un siglo de fútbol, carnaval y gloria rojiblanca. Archivo oficial con las doce estrellas de liga, cuatro copas nacionales, 91 tablas históricas y la memoria viva del Metropolitano.
+            </p>
+
+            {/* Acción principal única + enlace editorial secundario */}
+            <div className="flex flex-wrap items-center gap-5 pt-1">
+              <button
+                type="button"
+                onClick={() => onNavigate('titulos')}
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-lg bg-[#D62027] hover:bg-[#A6151B] text-white text-sm font-bold uppercase tracking-wider shadow-sm transition-colors"
+              >
+                <Star className="w-4 h-4 fill-current text-[#FDE047]" />
+                <span>Explorar el Palmarés</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => onNavigate('historia')}
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#081D40] hover:text-[#D62027] border-b border-[#081D40]/25 hover:border-[#D62027] pb-0.5 transition-colors"
+              >
+                <span>Crónica centenaria 1924–2026</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
 
-          {/* Athletic Display Headline */}
-          <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white uppercase leading-[0.95] mb-6">
-            ¡Junior Tu Papá! <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-400 to-amber-300">
-              Orgullo & Pasión Caribe
-            </span>
-          </h1>
-
-          <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl font-normal">
-            Bienvenido a la gran enciclopedia histórica e interactiva de Los Tiburones organizada en <strong>7 ventanas oficiales independientes</strong>:
-            <strong> Tablas Históricas</strong>, <strong>Resultados vs Equipos</strong>, <strong>Goleadores Históricos</strong>,
-            <strong> Uniformes</strong>, <strong>Títulos</strong>, <strong>Actualidad Oficial</strong> e <strong>Historia</strong>. Abre cualquier ventana para explorar su archivo completo sin saturación.
-          </p>
-
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-12">
+          {/* Columna derecha: Fotografía Oficial Estrella 12 (2026-I) */}
+          <div className="lg:col-span-7">
             <button
-              onClick={() => onNavigate('titulos')}
-              className="px-6 py-3.5 text-sm font-bold uppercase tracking-wider text-white bg-[#D62027] hover:bg-red-700 rounded-lg shadow-lg shadow-red-900/40 transition-all flex items-center gap-2"
+              type="button"
+              onClick={handleOpenStar12}
+              className="group block w-full text-left focus:outline-none"
+              aria-label="Abrir ficha de la Estrella 12 Apertura 2026-I en la Sala de Trofeos"
             >
-              <Trophy className="w-4 h-4 text-amber-300" />
-              <span>Ventana 05: Títulos (12★)</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
+              <div className="relative overflow-hidden rounded-2xl border border-[#E5E1D8] bg-[#081D40] shadow-md">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src="/assets/aistudio/image_09f17c4e.png"
+                    alt="Celebración oficial de Junior de Barranquilla campeón de la Liga BetPlay I-2026, Estrella 12"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  />
+                  <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-[#081D40]/90 via-[#081D40]/20 to-transparent" />
+                </div>
 
-            <button
-              onClick={() => onNavigate('historia')}
-              className="px-5 py-3.5 text-sm font-semibold tracking-wide text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-lg transition-colors flex items-center gap-2"
-            >
-              <span>Ventana 07: Historia (1924–2026)</span>
-            </button>
-
-            <button
-              onClick={() => onNavigate('tablas-historicas')}
-              className="px-5 py-3.5 text-sm font-semibold tracking-wide text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-lg transition-colors flex items-center gap-2"
-            >
-              <span>Ventana 01: Tablas Históricas</span>
-            </button>
-
-            <button
-              onClick={() => onNavigate('resultados-vs-equipos')}
-              className="px-5 py-3.5 text-sm font-semibold tracking-wide text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-lg transition-colors flex items-center gap-2"
-            >
-              <span>Ventana 02: vs Equipos</span>
+                <div className="bg-[#081D40] sm:bg-transparent sm:absolute sm:inset-x-0 sm:bottom-0 p-4 sm:p-7 flex flex-col sm:flex-row sm:items-end justify-between gap-2.5 sm:gap-3">
+                  <div>
+                    <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#FDE047] mb-1">
+                      <Star className="w-3 h-3 fill-current" />
+                      <span>Estrella 12 · Bicampeón Vigente</span>
+                    </span>
+                    <h2 className="font-display text-2xl sm:text-3xl font-black uppercase text-white leading-tight">
+                      Campeón Liga BetPlay Apertura 2026-I
+                    </h2>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-white/90 group-hover:text-[#FDE047] shrink-0 transition-colors">
+                    <span>Ver crónica</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  </span>
+                </div>
+              </div>
+              <p className="mt-2.5 text-xs font-editorial italic text-[#64748B]">
+                Vuelta olímpica oficial del plantel rojiblanco tras conquistar la duodécima estrella en el fútbol profesional colombiano.
+              </p>
             </button>
           </div>
         </div>
+      </div>
 
-        {/* 4-Metric Proof Row - Clean unboxed stats with tabular numerals */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 pt-8 border-t border-slate-800/80">
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <div className="flex items-center gap-2 text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">
-              <Trophy className="w-3.5 h-3.5 text-amber-400" />
-              <span>Palmarés Oficial Dimayor</span>
+      {/* Tira editorial de cifras del club (limpia, sin cajas repetitivas) */}
+      <div className="bg-[#F7F5F0] border-t border-[#E5E1D8]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-6 lg:gap-y-0 lg:divide-x divide-[#DFDBD0]">
+            <div className="lg:pr-6">
+              <div className="font-display text-4xl sm:text-5xl font-black text-[#081D40] tabular-nums leading-none">
+                16
+              </div>
+              <div className="text-xs font-bold uppercase tracking-wider text-[#D62027] mt-1.5">
+                Títulos Oficiales
+              </div>
+              <p className="text-xs text-[#526075] mt-0.5">
+                12 Ligas · 2 Copas · 2 Superligas
+              </p>
             </div>
-            <div className="font-display text-3xl sm:text-4xl font-black text-white tabular-nums">
-              16 Títulos
-            </div>
-            <p className="text-xs text-slate-400 mt-1">12 Estrellas de Liga + 4 Copas/Superligas</p>
-          </div>
 
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <div className="flex items-center gap-2 text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">
-              <Shield className="w-3.5 h-3.5 text-red-400" />
-              <span>Goleador Histórico</span>
+            <div className="lg:px-6">
+              <div className="font-display text-4xl sm:text-5xl font-black text-[#081D40] tabular-nums leading-none">
+                166
+              </div>
+              <div className="text-xs font-bold uppercase tracking-wider text-[#081D40] mt-1.5">
+                Goles de Valenciano
+              </div>
+              <p className="text-xs text-[#526075] mt-0.5">
+                Máximo artillero histórico
+              </p>
             </div>
-            <div className="font-display text-3xl sm:text-4xl font-black text-white tabular-nums">
-              166 Goles
-            </div>
-            <p className="text-xs text-slate-400 mt-1">Iván René Valenciano</p>
-          </div>
 
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <div className="flex items-center gap-2 text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">
-              <Users className="w-3.5 h-3.5 text-sky-400" />
-              <span>Capacidad Metro</span>
+            <div className="lg:px-6">
+              <div className="font-display text-4xl sm:text-5xl font-black text-[#081D40] tabular-nums leading-none">
+                102
+              </div>
+              <div className="text-xs font-bold uppercase tracking-wider text-[#081D40] mt-1.5">
+                Años de Historia
+              </div>
+              <p className="text-xs text-[#526075] mt-0.5">
+                Doña Micaela Lavalle · 1924
+              </p>
             </div>
-            <div className="font-display text-3xl sm:text-4xl font-black text-white tabular-nums">
-              46.692
-            </div>
-            <p className="text-xs text-slate-400 mt-1">Roberto Meléndez, La Caldera</p>
-          </div>
 
-          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800">
-            <div className="flex items-center gap-2 text-slate-400 text-xs font-medium uppercase tracking-wider mb-1">
-              <Shirt className="w-3.5 h-3.5 text-amber-300" />
-              <span>Historia Centenaria</span>
+            <div className="lg:pl-6">
+              <div className="font-display text-4xl sm:text-5xl font-black text-[#081D40] tabular-nums leading-none">
+                46.692
+              </div>
+              <div className="text-xs font-bold uppercase tracking-wider text-[#081D40] mt-1.5">
+                Estadio Metropolitano
+              </div>
+              <p className="text-xs text-[#526075] mt-0.5">
+                Roberto Meléndez, La Caldera
+              </p>
             </div>
-            <div className="font-display text-3xl sm:text-4xl font-black text-white tabular-nums">
-              100+ Años
-            </div>
-            <p className="text-xs text-slate-400 mt-1">Doña Micaela Lavalle (1924)</p>
           </div>
         </div>
       </div>

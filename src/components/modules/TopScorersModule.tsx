@@ -416,7 +416,7 @@ export const TopScorersModule: React.FC = () => {
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-400 mb-2.5">
               <Target className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>Módulo 03 · Cañoneros Legendarios</span>
+              <span>Cañoneros Legendarios</span>
               <span aria-hidden="true" className="text-slate-600">·</span>
               <span className="text-slate-400">Top 50 Oficial (1948–2026)</span>
             </div>

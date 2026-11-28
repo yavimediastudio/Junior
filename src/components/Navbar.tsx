@@ -1,32 +1,30 @@
 import React, { useState } from 'react';
-import { Volume2, VolumeX, Menu, X, LayoutGrid, Home, Clock, Sun, Moon } from 'lucide-react';
+import { Search, Menu, X } from 'lucide-react';
 import { playStadiumAudio } from '../utils/footballLogic';
-import { useTheme } from '../context/ThemeContext';
 
 interface NavbarProps {
   activeSection: string;
   onNavigate: (section: string) => void;
-  audioEnabled: boolean;
-  onToggleAudio: () => void;
+  onOpenSearch: () => void;
+  audioEnabled?: boolean;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   activeSection,
   onNavigate,
-  audioEnabled,
-  onToggleAudio,
+  onOpenSearch,
+  audioEnabled = false,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   const navItems = [
-    { id: 'tablas-historicas', label: 'Tablas' },
-    { id: 'resultados-vs-equipos', label: 'vs Equipos' },
-    { id: 'goleadores-historicos', label: 'Goleadores' },
-    { id: 'uniformes', label: 'Uniformes' },
     { id: 'titulos', label: 'Títulos' },
-    { id: 'actualidad', label: 'Actualidad' },
     { id: 'historia', label: 'Historia' },
+    { id: 'tablas-historicas', label: 'Tablas' },
+    { id: 'resultados-vs-equipos', label: 'Clásicos' },
+    { id: 'goleadores-historicos', label: 'Goleadores' },
+    { id: 'uniformes', label: 'Camisetas' },
+    { id: 'actualidad', label: 'Actualidad' },
   ];
 
   const handleNavClick = (id: string) => {
@@ -40,116 +38,75 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isHome = activeSection === 'inicio';
 
   return (
-    <header className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E5E1D8]">
+      {/* Firma Rojiblanca superior del club */}
+      <div className="h-[3px] w-full bg-gradient-to-r from-[#D62027] via-[#D62027] to-[#081D40]" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-2 xl:gap-3 h-16">
-          {/* Brand Wordmark & Shield */}
+        <div className="flex items-center justify-between gap-4 h-[68px]">
+          {/* Marca del club (Escudo + Nombre limpio) */}
           <button
+            type="button"
             onClick={() => handleNavClick('inicio')}
-            className="flex items-center gap-2 text-left focus:outline-none group whitespace-nowrap shrink-0"
-            title="Ir al Portal Principal de Ventanas"
+            className="flex items-center gap-3 text-left focus:outline-none group shrink-0"
+            aria-label="Ir a la portada de Junior de Barranquilla"
           >
-            {/* Junior Official Shield Logo */}
             <img
               src="/assets/aistudio/image_82370351.png"
               alt="Escudo Oficial Junior de Barranquilla"
-              className="w-9 h-9 object-contain shrink-0 group-hover:scale-105 transition-transform drop-shadow"
+              className="w-10 h-10 object-contain shrink-0 transition-transform duration-200 group-hover:scale-105"
             />
-            <div>
-              <span className="font-display text-base sm:text-lg font-black tracking-wide text-white group-hover:text-red-500 transition-colors uppercase block leading-none">
-                Junior de Barranquilla
-              </span>
-              <span className="text-[10px] text-slate-400 font-medium tracking-wider uppercase block mt-0.5">
-                {isHome ? 'Portal de Ventanas' : 'Enciclopedia Oficial'}
-              </span>
-            </div>
+            <span className="font-display text-xl sm:text-2xl font-black tracking-tight text-[#081D40] group-hover:text-[#D62027] transition-colors uppercase leading-none">
+              Junior de Barranquilla
+            </span>
           </button>
 
-          {/* Clean 6-Window Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-1 text-xs font-medium text-slate-300">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleNavClick(item.id)}
-                className={`transition-colors whitespace-nowrap shrink-0 py-1.5 px-2 rounded-md border-b-2 ${
-                  activeSection === item.id
-                    ? 'text-white border-red-500 bg-red-950/40 font-bold'
-                    : 'text-slate-300 border-transparent hover:text-white hover:bg-slate-900'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+          {/* Navegación editorial de una sola fila */}
+          <nav aria-label="Navegación principal" className="hidden lg:flex items-center gap-1">
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => handleNavClick(item.id)}
+                  aria-current={isActive ? 'page' : undefined}
+                  className={`relative px-3.5 py-2 text-sm tracking-tight transition-colors whitespace-nowrap ${
+                    isActive
+                      ? 'text-[#081D40] font-bold'
+                      : 'text-[#526075] font-medium hover:text-[#081D40]'
+                  }`}
+                >
+                  {item.label}
+                  {isActive && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute left-3.5 right-3.5 -bottom-[17px] h-[2.5px] bg-[#D62027]"
+                    />
+                  )}
+                </button>
+              );
+            })}
           </nav>
 
-          {/* Action + Utility Controls */}
-          <div className="flex items-center gap-1.5 shrink-0">
-            {/* Home Portal Button if inside a window */}
-            {!isHome ? (
-              <button
-                onClick={() => handleNavClick('inicio')}
-                className="px-2.5 py-1.5 text-xs font-bold uppercase tracking-wider text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5"
-                title="Volver a la vista principal de las 7 ventanas"
-              >
-                <Home className="w-3.5 h-3.5 text-red-400" />
-                <span className="hidden sm:inline">Portal Principal</span>
-              </button>
-            ) : (
-              <div className="flex items-center gap-1.5">
-                <button
-                  onClick={() => {
-                    const el = document.getElementById('linea-tiempo');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="hidden lg:flex px-2.5 py-1.5 text-xs font-semibold text-amber-300 bg-amber-950/40 hover:bg-amber-900/60 border border-amber-800/80 rounded-lg transition-colors items-center gap-1.5 whitespace-nowrap"
-                >
-                  <Clock className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Línea de Tiempo</span>
-                </button>
-
-                <button
-                  onClick={() => handleNavClick('titulos')}
-                  className="px-2.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm transition-colors whitespace-nowrap flex items-center gap-1.5"
-                >
-                  <LayoutGrid className="w-3.5 h-3.5" />
-                  <span>12★ Títulos</span>
-                </button>
-              </div>
-            )}
-
-            {/* Theme Toggle (Claro / Oscuro) */}
+          {/* Lupa discreta + menú móvil */}
+          <div className="flex items-center gap-2 shrink-0">
             <button
-              onClick={toggleTheme}
-              title={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-              aria-label={theme === 'dark' ? 'Activar modo claro' : 'Activar modo oscuro'}
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-colors"
+              type="button"
+              onClick={onOpenSearch}
+              aria-label="Buscar en el archivo del club"
+              title="Buscar"
+              className="w-10 h-10 rounded-full flex items-center justify-center text-[#081D40] hover:text-[#D62027] hover:bg-[#F7F5F0] transition-colors"
             >
-              {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-amber-400 hover:text-amber-300" />
-              ) : (
-                <Moon className="w-4 h-4 text-indigo-400 hover:text-indigo-300" />
-              )}
+              <Search className="w-[18px] h-[18px]" />
             </button>
 
-            {/* Audio Toggle */}
             <button
-              onClick={onToggleAudio}
-              title={audioEnabled ? 'Efectos sonoros activados' : 'Activar efectos sonoros'}
-              aria-label={audioEnabled ? 'Silenciar efectos sonoros' : 'Activar efectos sonoros'}
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition-colors"
-            >
-              {audioEnabled ? (
-                <Volume2 className="w-4 h-4 text-red-500" />
-              ) : (
-                <VolumeX className="w-4 h-4" />
-              )}
-            </button>
-
-            {/* Mobile menu toggle */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Abrir menú de ventanas"
-              className="xl:hidden p-2 rounded-lg bg-slate-900 text-slate-300 hover:text-white"
+              type="button"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              aria-label={mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú de navegación'}
+              aria-expanded={mobileMenuOpen}
+              className="lg:hidden w-10 h-10 rounded-full flex items-center justify-center text-[#081D40] hover:bg-[#F7F5F0] transition-colors"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -157,52 +114,53 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Menú desplegable móvil limpio */}
       {mobileMenuOpen && (
-        <div className="xl:hidden border-b border-slate-800 bg-slate-950 px-4 py-3 space-y-1">
-          <div className="flex items-center justify-between px-3 py-2 border-b border-slate-800 mb-2">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-              Tema de visualización
-            </span>
+        <div className="lg:hidden bg-white border-t border-[#E5E1D8] shadow-lg">
+          <nav aria-label="Navegación móvil" className="max-w-7xl mx-auto px-4 py-4 space-y-1">
             <button
-              onClick={toggleTheme}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-slate-900 border border-slate-800 text-slate-200"
-            >
-              {theme === 'dark' ? (
-                <>
-                  <Sun className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Modo Claro</span>
-                </>
-              ) : (
-                <>
-                  <Moon className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>Modo Oscuro</span>
-                </>
-              )}
-            </button>
-          </div>
-          <button
-            onClick={() => handleNavClick('inicio')}
-            className={`block w-full text-left px-3 py-2 rounded-md text-sm font-medium ${
-              isHome ? 'bg-red-950/60 text-red-400 font-bold' : 'text-slate-300 hover:bg-slate-900'
-            }`}
-          >
-            🏠 Portal Principal (Inicio)
-          </button>
-          <div className="h-px bg-slate-800 my-1" />
-          {navItems.map((item, idx) => (
-            <button
-              key={item.id}
-              onClick={() => handleNavClick(item.id)}
-              className={`block w-full text-left px-3 py-2 rounded-md text-sm font-medium ${
-                activeSection === item.id
-                  ? 'bg-red-950/60 text-red-400 font-bold'
-                  : 'text-slate-300 hover:bg-slate-900 hover:text-white'
+              type="button"
+              onClick={() => handleNavClick('inicio')}
+              className={`block w-full text-left px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
+                isHome
+                  ? 'bg-[#FEF2F2] text-[#D62027] font-bold'
+                  : 'text-[#0E172A] font-medium hover:bg-[#F7F5F0]'
               }`}
             >
-              Ventana 0{idx + 1}: {item.label}
+              Inicio
             </button>
-          ))}
+            <div className="h-px bg-[#EFECE4] my-1.5" />
+            {navItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => handleNavClick(item.id)}
+                  className={`block w-full text-left px-3.5 py-2.5 rounded-lg text-sm transition-colors ${
+                    isActive
+                      ? 'bg-[#FEF2F2] text-[#D62027] font-bold'
+                      : 'text-[#0E172A] font-medium hover:bg-[#F7F5F0]'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+            <div className="pt-2 mt-2 border-t border-[#EFECE4]">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenSearch();
+                }}
+                className="w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg bg-[#F7F5F0] text-sm font-medium text-[#081D40] hover:text-[#D62027] transition-colors"
+              >
+                <Search className="w-4 h-4 text-[#D62027]" />
+                <span>Buscar en el archivo histórico</span>
+              </button>
+            </div>
+          </nav>
         </div>
       )}
     </header>

@@ -5,6 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
+import { GlobalSearchModal } from './components/GlobalSearchModal';
 import { HeroSection } from './components/HeroSection';
 import { HomeWindowsGrid } from './components/HomeWindowsGrid';
 import { WindowHeader } from './components/ModuleNavigation';
@@ -24,18 +25,17 @@ import { InteractiveTimeline } from './components/InteractiveTimeline';
 import { Footer } from './components/Footer';
 import { DeveloperDataSemaforoPanel } from './components/DeveloperDataSemaforoPanel';
 import { ShareNotificationToast } from './components/ShareNotificationToast';
-import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { AppModuleId, WindowViewMode } from './types/football';
-import { Sparkles, ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 function AppContent() {
   const [currentWindow, setCurrentWindow] = useState<WindowViewMode>('inicio');
-  const [audioEnabled, setAudioEnabled] = useState(true);
   const [showExtras, setShowExtras] = useState(false);
   const [devPanelOpen, setDevPanelOpen] = useState(false);
-  const { theme } = useTheme();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  // Parse initial URL hash or sync on back/forward (supports query parameters like ?tabla=...)
+  // Sincronización con hash de URL y parámetros profundos (?tabla=, ?rival=, ?titulo=, ?goleador=, etc.)
   useEffect(() => {
     const parseHash = () => {
       const rawHash = window.location.hash.replace('#', '');
@@ -127,22 +127,35 @@ function AppContent() {
     return () => window.removeEventListener('hashchange', parseHash);
   }, []);
 
-  // Keyboard shortcut Ctrl+Shift+D / Cmd+Shift+D for internal Developer Panel
+  // Atajos silenciosos de teclado: Ctrl+Shift+D (panel técnico interno) y Ctrl/Cmd+K o "/" (buscador)
   useEffect(() => {
-    const handleDevShortcut = (event: KeyboardEvent) => {
+    const handleShortcuts = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key.toLowerCase() === 'd') {
         event.preventDefault();
         setDevPanelOpen((prev) => !prev);
+      } else if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setIsSearchOpen(true);
+      } else if (
+        event.key === '/' &&
+        document.activeElement?.tagName !== 'INPUT' &&
+        document.activeElement?.tagName !== 'TEXTAREA' &&
+        document.activeElement?.tagName !== 'SELECT'
+      ) {
+        event.preventDefault();
+        setIsSearchOpen(true);
       }
     };
-    window.addEventListener('keydown', handleDevShortcut);
-    return () => window.removeEventListener('keydown', handleDevShortcut);
+    window.addEventListener('keydown', handleShortcuts);
+    return () => window.removeEventListener('keydown', handleShortcuts);
   }, []);
 
   const normalizeModuleId = (id: string): AppModuleId | null => {
     if (id === 'tablas-historicas' || id === 'tablas') return 'tablas-historicas';
-    if (id === 'resultados-vs-equipos' || id === 'resultados') return 'resultados-vs-equipos';
-    if (id === 'goleadores-historicos' || id === 'leyendas' || id === 'goleadores') return 'goleadores-historicos';
+    if (id === 'resultados-vs-equipos' || id === 'resultados' || id === 'clasicos')
+      return 'resultados-vs-equipos';
+    if (id === 'goleadores-historicos' || id === 'leyendas' || id === 'goleadores')
+      return 'goleadores-historicos';
     if (id === 'uniformes' || id === 'camisetas') return 'uniformes';
     if (id === 'titulos' || id === 'estrellas') return 'titulos';
     if (id === 'actualidad') return 'actualidad';
@@ -150,33 +163,40 @@ function AppContent() {
     return null;
   };
 
-  const openWindow = (windowId: WindowViewMode) => {
-    setCurrentWindow(windowId);
-    window.location.hash = windowId === 'inicio' ? '' : windowId;
+  const openSection = (sectionId: WindowViewMode) => {
+    setCurrentWindow(sectionId);
+    window.location.hash = sectionId === 'inicio' ? '' : sectionId;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleOpenTitle = (titleId: string) => {
+    sessionStorage.setItem('junior-pending-official-title', titleId);
+    setCurrentWindow('titulos');
+    window.location.hash = `titulos?titulo=${encodeURIComponent(titleId)}`;
+    window.dispatchEvent(
+      new CustomEvent('junior-select-official-title', {
+        detail: { titleId },
+      })
+    );
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleNavigate = (sectionId: string) => {
     if (sectionId === 'inicio') {
-      openWindow('inicio');
+      openSection('inicio');
       return;
     }
 
     const matched = normalizeModuleId(sectionId);
     if (matched) {
-      openWindow(matched);
+      openSection(matched);
       return;
     }
 
-    // Anchor navigation if target is on current view
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const handleToggleAudio = () => {
-    setAudioEnabled((prev) => !prev);
   };
 
   const handleCloseDevPanel = () => {
@@ -201,129 +221,116 @@ function AppContent() {
   };
 
   return (
-    <div
-      className={`min-h-screen flex flex-col font-sans selection:bg-red-600 selection:text-white transition-colors duration-150 ${
-        theme === 'light'
-          ? 'bg-slate-50 text-slate-900 light'
-          : 'bg-slate-950 text-slate-100 dark'
-      }`}
-    >
-      {/* Top Navbar */}
+    <div className="min-h-screen flex flex-col bg-white text-[#0E172A] font-sans selection:bg-[#D62027] selection:text-white">
+      {/* Barra de navegación única limpia */}
       <Navbar
         activeSection={currentWindow}
         onNavigate={handleNavigate}
-        audioEnabled={audioEnabled}
-        onToggleAudio={handleToggleAudio}
+        onOpenSearch={() => setIsSearchOpen(true)}
       />
 
-      {/* Floating Share Link Confirmation Toast Notification */}
+      {/* Buscador editorial disparado desde la lupa del menú */}
+      <GlobalSearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        onSelectModule={openSection}
+      />
+
+      {/* Notificación de enlace compartido */}
       <ShareNotificationToast />
 
-      {/* RENDER VIEW: HOME PORTAL VS DEDICATED WINDOW */}
       {currentWindow === 'inicio' ? (
-        /* PORTAL PRINCIPAL (HOME VIEW) */
         <main className="flex-1">
-          {/* Hero Section */}
-          <HeroSection onNavigate={handleNavigate} />
+          {/* Hero Editorial con Fotografía Oficial */}
+          <HeroSection onNavigate={handleNavigate} onOpenTitle={handleOpenTitle} />
 
-          {/* 6 Independent Windows Grid */}
-          <HomeWindowsGrid onOpenWindow={openWindow} />
+          {/* Portada Editorial: Vitrina Fotográfica, Historias y Directorio */}
+          <HomeWindowsGrid
+            onOpenWindow={openSection}
+            onOpenTitle={handleOpenTitle}
+          />
 
-          {/* Línea de Tiempo Interactiva del Centenario (1924 - 2024) */}
-          <InteractiveTimeline onSelectModule={openWindow} />
+          {/* Cronología del Centenario */}
+          <InteractiveTimeline onSelectModule={openSection} />
 
-          {/* Collapsible Interactive Extras Zone */}
-          <div className="bg-slate-950 border-b border-slate-800 py-8">
+          {/* Zona Currambera interactiva (desplegable editorial limpia) */}
+          <section className="bg-white py-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <button
-                onClick={() => setShowExtras(!showExtras)}
-                className="w-full p-4 rounded-2xl bg-slate-900 hover:bg-slate-800/80 border border-slate-800 flex items-center justify-between text-left transition-colors group shadow-lg"
+                type="button"
+                onClick={() => setShowExtras((prev) => !prev)}
+                aria-expanded={showExtras}
+                className="w-full px-6 py-5 rounded-2xl bg-[#F7F5F0] hover:bg-[#EFECE4] border border-[#E5E1D8] flex items-center justify-between gap-4 text-left transition-colors group"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                    <Sparkles className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-display text-base sm:text-lg font-bold uppercase text-white tracking-wide group-hover:text-amber-400 transition-colors">
-                      Zona Currambera & Herramientas Interactivas
-                    </h3>
-                    <p className="text-xs text-slate-400">
-                      Pizarra táctica (Arma tu 11), historia de El Metro y el Romelio, cánticos de la barra y trivia rojiblanca.
-                    </p>
-                  </div>
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#D62027] block">
+                    Experiencias para la Hinchada
+                  </span>
+                  <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-[#081D40] group-hover:text-[#D62027] transition-colors leading-tight mt-0.5">
+                    Zona Currambera: Arma tu 11, El Metro, Cánticos y Trivia
+                  </h3>
                 </div>
 
-                <div className="flex items-center gap-2 text-xs font-semibold text-slate-300 shrink-0">
-                  <span>{showExtras ? 'Ocultar zona' : 'Explorar herramientas'}</span>
+                <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#081D40] shrink-0">
+                  <span className="hidden sm:inline">{showExtras ? 'Ocultar' : 'Explorar'}</span>
                   {showExtras ? (
-                    <ChevronUp className="w-4 h-4 text-amber-400" />
+                    <ChevronUp className="w-5 h-5 text-[#D62027]" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-amber-400" />
+                    <ChevronDown className="w-5 h-5 text-[#D62027]" />
                   )}
                 </div>
               </button>
 
               {showExtras && (
-                <div className="pt-8 space-y-12 animate-in fade-in duration-300">
-                  {/* Arma tu Once Ideal */}
+                <div className="editorial-module-surface pt-8 space-y-12">
                   <LineupBuilder />
-
-                  {/* Estadio Metropolitano Roberto Meléndez & Sedes */}
                   <StadiumSection />
-
-                  {/* Cánticos de Tribuna Sur & Fiesta Currambera */}
-                  <ChantsAndCulture audioEnabled={audioEnabled} />
-
-                  {/* Trivia Histórica de Junior */}
-                  <QuizSection audioEnabled={audioEnabled} />
+                  <ChantsAndCulture audioEnabled={true} />
+                  <QuizSection audioEnabled={true} />
                 </div>
               )}
             </div>
-          </div>
+          </section>
         </main>
       ) : (
-        /* DEDICATED INDEPENDENT WINDOW VIEW */
-        <main className="flex-1 animate-in fade-in duration-200">
-          {/* Sticky Window Header with Back to Home & Window Switcher */}
+        <main className="flex-1 bg-white">
+          {/* Migas de pan limpias no fijas */}
           <WindowHeader
             activeModule={currentWindow}
-            onSelectModule={openWindow}
-            onBackToHome={() => openWindow('inicio')}
+            onSelectModule={openSection}
+            onBackToHome={() => openSection('inicio')}
           />
 
-          {/* Render ONLY the selected window */}
-          <div className="min-h-[70vh]">
+          {/* Contenido enciclopédico armonizado en identidad rojiblanca clara */}
+          <div className="editorial-module-surface min-h-[70vh]">
             {currentWindow === 'tablas-historicas' && <HistoricTablesModule />}
             {currentWindow === 'resultados-vs-equipos' && (
-              <HeadToHeadModule audioEnabled={audioEnabled} />
+              <HeadToHeadModule audioEnabled={true} />
             )}
             {currentWindow === 'goleadores-historicos' && <TopScorersModule />}
             {currentWindow === 'uniformes' && <JerseysModule />}
             {currentWindow === 'titulos' && (
-              <TitlesModule onNavigateToModule={openWindow} />
+              <TitlesModule onNavigateToModule={openSection} />
             )}
             {currentWindow === 'actualidad' && <CurrentSeasonModule />}
             {currentWindow === 'historia' && (
-              <HistoryModule onNavigateToModule={openWindow} />
+              <HistoryModule onNavigateToModule={openSection} />
             )}
           </div>
 
-          {/* Bottom Window Footer (Previous / Home / Next) */}
+          {/* Navegación editorial entre secciones */}
           <WindowFooter
             currentModule={currentWindow}
-            onSelectModule={openWindow}
-            onBackToHome={() => openWindow('inicio')}
+            onSelectModule={openSection}
+            onBackToHome={() => openSection('inicio')}
           />
         </main>
       )}
 
-      {/* Global Footer */}
-      <Footer
-        onNavigate={handleNavigate}
-        onOpenDevPanel={() => setDevPanelOpen(true)}
-      />
+      {/* Pie de página institucional azul marino */}
+      <Footer onNavigate={handleNavigate} />
 
-      {/* Internal Developer Panel: Semáforo de Datos (Goleadores Dimayor) */}
+      {/* Panel interno oculto accesible solo vía atajo Ctrl+Shift+D */}
       <DeveloperDataSemaforoPanel
         isOpen={devPanelOpen}
         onClose={handleCloseDevPanel}

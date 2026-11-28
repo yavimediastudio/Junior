@@ -54,7 +54,7 @@ export const JerseysModule: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-red-500 mb-2">
               <Shirt className="w-4 h-4 text-red-500" />
-              <span>Módulo 4 · Indumentaria & Patrimonio</span>
+              <span>Indumentaria & Patrimonio</span>
               <span aria-hidden="true">·</span>
               <span>100 Años de Rojiblanco</span>
             </div>
