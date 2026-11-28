@@ -33,6 +33,7 @@ import {
   ANNUAL_RECLASSIFICATION_TABLES,
   getAnnualReclassificationByYear,
 } from '../../data/annualReclassificationTables';
+import { ENRICHED_OFFICIAL_TITLES } from '../../data/titlesMuseumData';
 import { ShareButton } from '../ShareButton';
 import {
   TournamentNavigatorSidebar,
@@ -189,6 +190,9 @@ export const HistoricTablesModule: React.FC = () => {
   const juniorChampStarLabel = getJuniorChampionshipStarLabel(activeTournamentTable);
   const juniorCrest = getTournamentJuniorCrest(activeTournamentTable);
   const championCrest = getTournamentTeamCrest(activeTournamentTable, activeTournamentTable.championTeam);
+  const linkedChampionTitle = ENRICHED_OFFICIAL_TITLES.find(
+    (t) => t.standingsTableId === activeTournamentTable.id && Boolean(t.championPhotoUrl)
+  );
   const linkedAnnualReclassification = getAnnualReclassificationByYear(activeTournamentTable.year);
   const activeReclassificationTable: AnnualReclassificationTable | undefined =
     ANNUAL_RECLASSIFICATION_TABLES.find((t) => t.year === selectedReclasificacionYear) ||
@@ -550,6 +554,85 @@ export const HistoricTablesModule: React.FC = () => {
                     />
                   </div>
                 </div>
+
+                {/* Fotografía Histórica del Título (cuando el campeonato tiene archivo fotográfico verificado) */}
+                {linkedChampionTitle?.championPhotoUrl && (
+                  <figure className="mt-4 rounded-xl overflow-hidden border border-amber-500/25 bg-slate-950">
+                    {linkedChampionTitle.championPhotoOrientation === 'portrait' ? (
+                      <div className="grid grid-cols-1 sm:grid-cols-[230px_1fr] items-stretch bg-slate-950">
+                        <div className="relative aspect-[3/4] sm:aspect-auto sm:h-[300px] w-full overflow-hidden bg-slate-950 border-b sm:border-b-0 sm:border-r border-slate-800/80">
+                          <img
+                            src={linkedChampionTitle.championPhotoUrl}
+                            alt={
+                              linkedChampionTitle.championPhotoCaption ??
+                              `Junior Campeón ${activeTournamentTable.year}`
+                            }
+                            referrerPolicy="no-referrer"
+                            className="w-full h-full object-cover object-top"
+                          />
+                        </div>
+                        <figcaption className="p-5 flex flex-col justify-between gap-4 bg-gradient-to-br from-slate-950 via-slate-900/60 to-slate-950">
+                          <div className="space-y-2">
+                            <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono">
+                              <span className="text-amber-400 font-semibold">
+                                {linkedChampionTitle.starNumber
+                                  ? `★ ${linkedChampionTitle.starNumber}.ª ESTRELLA`
+                                  : linkedChampionTitle.category.toUpperCase()}
+                              </span>
+                              <span className="text-slate-400">
+                                Archivo Histórico · {activeTournamentTable.year}
+                              </span>
+                            </div>
+                            <p className="text-sm sm:text-base font-semibold text-white leading-snug">
+                              {linkedChampionTitle.championPhotoCaption ??
+                                `Junior Campeón ${activeTournamentTable.year}`}
+                            </p>
+                            <p className="text-xs text-slate-300 leading-relaxed italic border-l-2 border-amber-500/40 pl-3">
+                              “{linkedChampionTitle.keyMoment}”
+                            </p>
+                          </div>
+
+                          <div className="pt-3 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                            <div>
+                              <span className="text-[11px] text-slate-400 block">Director Técnico</span>
+                              <span className="font-semibold text-slate-100">
+                                {linkedChampionTitle.manager}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="text-[11px] text-slate-400 block">Consagración</span>
+                              <span className="font-semibold text-amber-300">
+                                {linkedChampionTitle.date} · {linkedChampionTitle.venue}
+                              </span>
+                            </div>
+                          </div>
+                        </figcaption>
+                      </div>
+                    ) : (
+                      <div className="relative aspect-[16/9] max-h-[420px] w-full overflow-hidden bg-slate-950">
+                        <img
+                          src={linkedChampionTitle.championPhotoUrl}
+                          alt={
+                            linkedChampionTitle.championPhotoCaption ??
+                            `Junior Campeón ${activeTournamentTable.year}`
+                          }
+                          referrerPolicy="no-referrer"
+                          className="w-full h-full object-cover object-[center_18%]"
+                        />
+                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent pointer-events-none" />
+                        <figcaption className="absolute inset-x-0 bottom-0 px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+                          <span className="font-medium text-white">
+                            {linkedChampionTitle.championPhotoCaption ??
+                              `Junior Campeón ${activeTournamentTable.year}`}
+                          </span>
+                          <span className="text-[11px] font-mono text-amber-300">
+                            Archivo Histórico · {activeTournamentTable.year}
+                          </span>
+                        </figcaption>
+                      </div>
+                    )}
+                  </figure>
+                )}
 
                 {/* Phase View Switcher Pills (solo para torneos con más de una fase) */}
                 <div className="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
@@ -2753,7 +2836,7 @@ export const HistoricTablesModule: React.FC = () => {
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
                   <div className="text-[11px] text-slate-400 uppercase">Goleador de Época</div>
                   <div className="text-base font-bold text-white mt-0.5">Carlos Bacca</div>
-                  <div className="text-[10px] text-amber-400">134 goles oficiales (4 botines de oro)</div>
+                  <div className="text-[10px] text-amber-400">135 goles oficiales (4 botines de oro)</div>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
                   <div className="text-[11px] text-slate-400 uppercase">Bicampeonatos</div>

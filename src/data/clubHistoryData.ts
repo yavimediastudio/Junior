@@ -697,9 +697,9 @@ export const CLUB_LANDMARK_RECORDS: ClubRecordItem[] = [
     detail: 'En la última jornada del Cuadrangular Final ante América de Cali, el registro oficial marcó 65 000 espectadores en el Estadio Metropolitano Roberto Meléndez.',
   },
   {
-    year: '1995',
-    title: '60 goles en un mismo año calendario (Iván René Valenciano)',
-    detail: 'En los dos torneos de primera división iniciados en 1995, Valenciano convirtió 60 goles con Junior, una marca sin precedentes en el país.',
+    year: '1995–1996',
+    title: '60 goles en dos torneos consecutivos (Iván René Valenciano)',
+    detail: 'Entre el Torneo Nivelación 1995 (24 goles) y la temporada 1995–1996 (36 goles), Valenciano sumó 60 anotaciones en Primera A con Junior y obtuvo dos Botines de Oro consecutivos.',
   },
   {
     year: '2011',

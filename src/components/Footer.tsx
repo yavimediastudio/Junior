@@ -1,11 +1,12 @@
 import React from 'react';
-import { Heart, MapPin, Trophy, Shield } from 'lucide-react';
+import { Heart, MapPin, ShieldCheck } from 'lucide-react';
 
 interface FooterProps {
   onNavigate: (section: string) => void;
+  onOpenDevPanel?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenDevPanel }) => {
   return (
     <footer className="bg-slate-950 border-t border-slate-900 text-slate-400 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -114,9 +115,22 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div>
             © 1924 - 2026 Junior de Barranquilla. Tributo interactivo para toda la hinchada rojiblanca.
           </div>
-          <div className="flex items-center gap-1 text-slate-400">
-            <span>Hecho con orgullo y pasión por Curramba la Bella</span>
-            <Heart className="w-3.5 h-3.5 text-red-500 fill-current ml-1" />
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-4 text-slate-400">
+            {onOpenDevPanel && (
+              <button
+                type="button"
+                onClick={onOpenDevPanel}
+                className="inline-flex items-center gap-1.5 text-slate-400 hover:text-emerald-400 transition-colors whitespace-nowrap"
+                title="Abrir vista interna de validación de goleadores (Ctrl+Shift+D)"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" aria-hidden="true" />
+                <span>Panel de Desarrollador · Semáforo de Datos</span>
+              </button>
+            )}
+            <div className="flex items-center gap-1 text-slate-400">
+              <span>Hecho con orgullo y pasión por Curramba la Bella</span>
+              <Heart className="w-3.5 h-3.5 text-red-500 fill-current ml-1" />
+            </div>
           </div>
         </div>
       </div>

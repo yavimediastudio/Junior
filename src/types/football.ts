@@ -582,6 +582,73 @@ export interface TopScorerProfile {
   legendId?: string;
 }
 
+export type TitleFormatType = 'final-ida-vuelta' | 'final-penales' | 'tabla-cuadrangular';
+
+export interface TitleFinalMatchLeg {
+  stage: string;
+  date: string;
+  venue: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
+  scorers: string;
+  note?: string;
+}
+
+export interface TitlePenaltyShootout {
+  scoreLabel: string;
+  winner: 'Junior';
+  summary: string;
+  keyKick: string;
+}
+
+export interface EnrichedOfficialTitle extends OfficialTitleItem {
+  id: string;
+  shortYearLabel: string;
+  decade: '1970s' | '1980s' | '1990s' | '2000s' | '2010s' | '2020s';
+  formatType: TitleFormatType;
+  date: string;
+  venue: string;
+  description: string;
+  keyMoment: string;
+  campaignSummary: string;
+  rivalDisplayName: string;
+  rivalFranchiseId: string;
+  standingsTableId?: string;
+  featuredScorerIds: string[];
+  championPhotoUrl?: string;
+  championPhotoCaption?: string;
+  championPhotoOrientation?: 'landscape' | 'portrait';
+  finalMatches: TitleFinalMatchLeg[];
+  penaltyShootout?: TitlePenaltyShootout;
+}
+
+export interface ChampionManagerRecord {
+  name: string;
+  totalTitles: number;
+  ligaTitles: number;
+  copaTitles: number;
+  superligaTitles: number;
+  yearsLabel: string;
+  titleIds: string[];
+  highlight: string;
+}
+
+export interface ChampionPlayerRecord {
+  id: string;
+  name: string;
+  position: string;
+  era: string;
+  totalTitles: number;
+  ligaTitles: number;
+  copaTitles: number;
+  superligaTitles: number;
+  titleIds: string[];
+  scorerId?: string;
+  highlight: string;
+}
+
 
 
 

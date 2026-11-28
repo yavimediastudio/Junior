@@ -22,6 +22,7 @@ import { ChantsAndCulture } from './components/ChantsAndCulture';
 import { QuizSection } from './components/QuizSection';
 import { InteractiveTimeline } from './components/InteractiveTimeline';
 import { Footer } from './components/Footer';
+import { DeveloperDataSemaforoPanel } from './components/DeveloperDataSemaforoPanel';
 import { ShareNotificationToast } from './components/ShareNotificationToast';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { AppModuleId, WindowViewMode } from './types/football';
@@ -31,6 +32,7 @@ function AppContent() {
   const [currentWindow, setCurrentWindow] = useState<WindowViewMode>('inicio');
   const [audioEnabled, setAudioEnabled] = useState(true);
   const [showExtras, setShowExtras] = useState(false);
+  const [devPanelOpen, setDevPanelOpen] = useState(false);
   const { theme } = useTheme();
 
   // Parse initial URL hash or sync on back/forward (supports query parameters like ?tabla=...)
@@ -87,6 +89,15 @@ function AppContent() {
               })
             );
           }
+          const titleId = params.get('titulo');
+          if (titleId) {
+            sessionStorage.setItem('junior-pending-official-title', titleId);
+            window.dispatchEvent(
+              new CustomEvent('junior-select-official-title', {
+                detail: { titleId },
+              })
+            );
+          }
         } catch (e) {
           console.warn('Error parsing hash query:', e);
         }
@@ -102,7 +113,9 @@ function AppContent() {
         'historia',
       ];
 
-      if (validModules.includes(moduleHash as AppModuleId)) {
+      if (moduleHash === 'dev-panel' || moduleHash === 'semaforo-datos') {
+        setDevPanelOpen(true);
+      } else if (validModules.includes(moduleHash as AppModuleId)) {
         setCurrentWindow(moduleHash as AppModuleId);
       } else if (moduleHash === 'inicio' || moduleHash === '') {
         setCurrentWindow('inicio');
@@ -112,6 +125,18 @@ function AppContent() {
     parseHash();
     window.addEventListener('hashchange', parseHash);
     return () => window.removeEventListener('hashchange', parseHash);
+  }, []);
+
+  // Keyboard shortcut Ctrl+Shift+D / Cmd+Shift+D for internal Developer Panel
+  useEffect(() => {
+    const handleDevShortcut = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key.toLowerCase() === 'd') {
+        event.preventDefault();
+        setDevPanelOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleDevShortcut);
+    return () => window.removeEventListener('keydown', handleDevShortcut);
   }, []);
 
   const normalizeModuleId = (id: string): AppModuleId | null => {
@@ -152,6 +177,27 @@ function AppContent() {
 
   const handleToggleAudio = () => {
     setAudioEnabled((prev) => !prev);
+  };
+
+  const handleCloseDevPanel = () => {
+    setDevPanelOpen(false);
+    const cleanHash = window.location.hash.replace('#', '').split('?')[0];
+    if (cleanHash === 'dev-panel' || cleanHash === 'semaforo-datos') {
+      window.location.hash = currentWindow === 'inicio' ? '' : currentWindow;
+    }
+  };
+
+  const handleJumpToScorerFromDevPanel = (scorerId: string) => {
+    setDevPanelOpen(false);
+    sessionStorage.setItem('junior-pending-top-scorer', scorerId);
+    setCurrentWindow('goleadores-historicos');
+    window.location.hash = `goleadores-historicos?goleador=${encodeURIComponent(scorerId)}`;
+    window.dispatchEvent(
+      new CustomEvent('junior-select-top-scorer', {
+        detail: { scorerId },
+      })
+    );
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -253,7 +299,9 @@ function AppContent() {
             )}
             {currentWindow === 'goleadores-historicos' && <TopScorersModule />}
             {currentWindow === 'uniformes' && <JerseysModule />}
-            {currentWindow === 'titulos' && <TitlesModule />}
+            {currentWindow === 'titulos' && (
+              <TitlesModule onNavigateToModule={openWindow} />
+            )}
             {currentWindow === 'actualidad' && <CurrentSeasonModule />}
             {currentWindow === 'historia' && (
               <HistoryModule onNavigateToModule={openWindow} />
@@ -270,7 +318,17 @@ function AppContent() {
       )}
 
       {/* Global Footer */}
-      <Footer onNavigate={handleNavigate} />
+      <Footer
+        onNavigate={handleNavigate}
+        onOpenDevPanel={() => setDevPanelOpen(true)}
+      />
+
+      {/* Internal Developer Panel: Semáforo de Datos (Goleadores Dimayor) */}
+      <DeveloperDataSemaforoPanel
+        isOpen={devPanelOpen}
+        onClose={handleCloseDevPanel}
+        onJumpToScorer={handleJumpToScorerFromDevPanel}
+      />
     </div>
   );
 }

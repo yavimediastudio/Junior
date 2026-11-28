@@ -210,7 +210,7 @@ export const LegendsSection: React.FC = () => {
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   <strong className="text-white">Bombazo 2026:</strong> Llegada de <strong className="text-amber-300">Luis Muriel (#10)</strong>, Botín de Oro del Apertura 2026 (13 goles) y figura en la final ante Nacional.<br />
-                  <strong className="text-white">Liderazgo &amp; Goles:</strong> Capitanía de <strong className="text-amber-300">Teófilo Gutiérrez (#29, 107 goles)</strong>, el legado goleador de Carlos Bacca (134 goles oficiales) y el aporte de Guillermo Paiva, Yimmi Chará, Cristian Barrios y Bryan Castrillón.
+                  <strong className="text-white">Liderazgo &amp; Goles:</strong> Capitanía de <strong className="text-amber-300">Teófilo Gutiérrez (#29, 107 goles)</strong>, el legado goleador de Carlos Bacca (135 goles oficiales) y el aporte de Guillermo Paiva, Yimmi Chará, Cristian Barrios y Bryan Castrillón.
                 </p>
               </div>
             </div>

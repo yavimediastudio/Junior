@@ -27,6 +27,25 @@ import {
 } from './footballLogic';
 import { LeagueStanding, MatchFixture } from '../types/football';
 import { SUPPORTED_FLAG_COUNTRY_CODES } from '../components/NationalityFlag';
+import {
+  RACE_START_YEAR,
+  RACE_END_YEAR,
+  buildScorersRaceTimeline,
+  getRaceFrameAtYear,
+  getRaceAxisTicks,
+} from './scorersRaceLogic';
+import { evaluateScorersDataAudit } from './scorersAuditLogic';
+import {
+  ENRICHED_OFFICIAL_TITLES,
+  CHAMPION_PLAYERS_RANKING,
+  TROPHY_GALLERY_IMAGES,
+} from '../data/titlesMuseumData';
+import {
+  buildChampionManagersRanking,
+  filterOfficialTitles,
+  getAdjacentTitles,
+  getTitleCategoryTotals,
+} from './titlesLogic';
 import { RIVAL_FRANCHISES_CATALOG } from '../data/rivalFranchisesData';
 import {
   buildAllHeadToHeadFranchises,
@@ -64,7 +83,7 @@ import {
   filterTopScorers,
   getAdjacentScorers,
 } from './topScorersLogic';
-import { LEGENDS_DATA } from '../data/juniorData';
+import { CURRENT_ROSTER, LEGENDS_DATA } from '../data/juniorData';
 
 test('sortLeagueStandings sorts by points, then goal difference, then goals for', () => {
   const mockStandings: LeagueStanding[] = [
@@ -14047,9 +14066,19 @@ test('109. Top 50 Goalscorers dataset, competition breakdowns, portrait assets, 
   assert.equal(TOP_50_SCORERS_DATA[37].photoUrl, '/assets/aistudio/CARLOS_BABINGTON_61c8117f.webp');
   assert.equal(TOP_50_SCORERS_DATA[38].photoUrl, '/assets/aistudio/JAVIER_FERREIRA_9a04f803.webp');
   assert.equal(TOP_50_SCORERS_DATA[39].photoUrl, '/assets/aistudio/JUAN_MIGUEL_TUTINO_e7f8a841.webp');
+  assert.equal(TOP_50_SCORERS_DATA[40].photoUrl, '/assets/aistudio/ANDRES_RODRIGUEZ_80a024ba.webp');
+  assert.equal(TOP_50_SCORERS_DATA[41].photoUrl, '/assets/aistudio/JAVIER_AGUIRRE_e77140d2.webp');
+  assert.equal(TOP_50_SCORERS_DATA[42].photoUrl, '/assets/aistudio/LEONARDO_ROJANO_392ce7e4.webp');
+  assert.equal(TOP_50_SCORERS_DATA[43].photoUrl, '/assets/aistudio/VICTOR_CORTES_1969f1f6.png');
+  assert.equal(TOP_50_SCORERS_DATA[44].photoUrl, '/assets/aistudio/ALEXIS_MENDOZA_8780411a.png');
+  assert.equal(TOP_50_SCORERS_DATA[45].photoUrl, '/assets/aistudio/LUIS_MURIEL_b3c55fd8.jpg');
+  assert.equal(TOP_50_SCORERS_DATA[46].photoUrl, '/assets/aistudio/EDWUIN_CETR__476e946a.png');
+  assert.equal(TOP_50_SCORERS_DATA[47].photoUrl, '/assets/aistudio/CARMELO_VALENCIA_bb071c0d.png');
+  assert.equal(TOP_50_SCORERS_DATA[48].photoUrl, '/assets/aistudio/LUIS_DIAZ_7d2db239.png');
+  assert.equal(TOP_50_SCORERS_DATA[49].photoUrl, '/assets/aistudio/EUDALIO_ARRIAGA_67583bf8.png');
   assert.equal(TOP_50_SCORERS_DATA[49].rank, 50);
   assert.equal(TOP_50_SCORERS_DATA[49].totalGoals, 20);
-  assert.equal(verifiedPhotoCount, 45, 'Expected 45 verified archival player portraits on disk');
+  assert.equal(verifiedPhotoCount, 50, 'Expected 50/50 verified archival player portraits on disk');
 
   // Era bucket counts must sum to 50
   const eraCounts = getScorerEraCounts(TOP_50_SCORERS_DATA);
@@ -14069,7 +14098,7 @@ test('109. Top 50 Goalscorers dataset, competition breakdowns, portrait assets, 
     special: 'foto-archivo',
     sortBy: 'rank',
   });
-  assert.equal(withPhoto.length, 45);
+  assert.equal(withPhoto.length, 50);
 
   const goldenBootScorers = filterTopScorers(TOP_50_SCORERS_DATA, {
     query: '',
@@ -14190,3 +14219,351 @@ test('Llaneros F.C., Internacional de Bogotá, Alianza F.C./Valledupar, Fortalez
     `Expected 100% historical crest coverage across all 91 tournaments (1948-2026-II), missing: ${missing.join(', ')}`
   );
 });
+
+test('buildScorersRaceTimeline and getRaceFrameAtYear accurately reproduce all 50 scorers totals, monotonicity, and historical #1 overtakes (1948-2026)', () => {
+  const timeline = buildScorersRaceTimeline(TOP_50_SCORERS_DATA);
+  assert.equal(timeline.length, 50);
+
+  // 1. Exact sum conservation and monotonic non-decreasing cumulative series for all 50 scorers
+  for (const series of timeline) {
+    let prev = 0;
+    for (let y = RACE_START_YEAR; y <= RACE_END_YEAR; y++) {
+      const val = series.cumulativeByYear[y];
+      assert.ok(
+        val >= prev,
+        `Cumulative goals decreased for ${series.scorer.id} in year ${y}: ${val} < ${prev}`
+      );
+      prev = val;
+    }
+    assert.equal(
+      series.cumulativeByYear[RACE_END_YEAR],
+      series.scorer.totalGoals,
+      `Final 2026 cumulative total mismatch for ${series.scorer.id}: got ${series.cumulativeByYear[RACE_END_YEAR]}, expected ${series.scorer.totalGoals}`
+    );
+  }
+
+  // 2. Historical #1 leader transitions
+  const f1952 = getRaceFrameAtYear(timeline, 1952, 10);
+  assert.equal(f1952.leader?.scorer.id, 'rigoberto-garcia');
+  assert.equal(f1952.leader?.displayGoals, 61);
+
+  const f1970 = getRaceFrameAtYear(timeline, 1970, 10);
+  assert.equal(f1970.leader?.scorer.id, 'rigoberto-garcia');
+  assert.equal(f1970.leader?.displayGoals, 61);
+
+  const f1975 = getRaceFrameAtYear(timeline, 1975, 10);
+  assert.equal(f1975.leader?.scorer.id, 'ephanor');
+  assert.equal(f1975.leader?.displayGoals, 74);
+
+  const f1978 = getRaceFrameAtYear(timeline, 1978, 10);
+  assert.equal(f1978.entries[0]?.scorer.id, 'ephanor');
+  assert.equal(f1978.entries[0]?.displayGoals, 86);
+  assert.equal(f1978.entries[1]?.scorer.id, 'silva-pacheco');
+  assert.equal(f1978.entries[1]?.displayGoals, 84);
+
+  const f1994 = getRaceFrameAtYear(timeline, 1994, 10);
+  assert.equal(f1994.entries[0]?.scorer.id, 'ephanor');
+  assert.equal(f1994.entries[0]?.displayGoals, 86);
+  assert.equal(f1994.entries[1]?.scorer.id, 'valenciano');
+  assert.equal(f1994.entries[1]?.displayGoals, 85);
+
+  const f1995 = getRaceFrameAtYear(timeline, 1995, 10);
+  assert.equal(f1995.leader?.scorer.id, 'valenciano');
+  assert.equal(f1995.leader?.displayGoals, 129);
+
+  const f2020 = getRaceFrameAtYear(timeline, 2020, 10);
+  assert.equal(f2020.entries[0]?.scorer.id, 'valenciano');
+  assert.equal(f2020.entries[1]?.scorer.id, 'teofilo');
+  assert.equal(f2020.entries[1]?.displayGoals, 92);
+
+  const f2023 = getRaceFrameAtYear(timeline, 2023, 10);
+  assert.equal(f2023.entries[0]?.scorer.id, 'valenciano');
+  assert.equal(f2023.entries[1]?.scorer.id, 'bacca');
+  assert.equal(f2023.entries[1]?.displayGoals, 103);
+
+  const f2026 = getRaceFrameAtYear(timeline, 2026, 12);
+  assert.equal(f2026.entries.length, 12);
+  assert.equal(f2026.entries[0]?.scorer.id, 'valenciano');
+  assert.equal(f2026.entries[0]?.displayGoals, 166);
+  assert.equal(f2026.entries[1]?.scorer.id, 'bacca');
+  assert.equal(f2026.entries[1]?.displayGoals, 135);
+  assert.equal(f2026.entries[2]?.scorer.id, 'teofilo');
+  assert.equal(f2026.entries[2]?.displayGoals, 107);
+
+  // 3. Smooth fractional interpolation between 1994 (85) and 1995 (129) for Valenciano
+  const f1994Half = getRaceFrameAtYear(timeline, 1994.5, 10);
+  assert.equal(f1994Half.leader?.scorer.id, 'valenciano');
+  assert.equal(f1994Half.leader?.displayGoals, 107);
+  assert.equal(f1994Half.leader?.isScoringNow, true);
+  assert.equal(f1994Half.leader?.goalsThisYear, 44);
+
+  // 4. Axis ticks always start at 0 and remain sorted ascending
+  const ticks = getRaceAxisTicks(f2026.maxGoals);
+  assert.equal(ticks[0], 0);
+  assert.ok(ticks.length >= 5);
+});
+
+test('Top 50 Scorers historical audit: cross-module parity across Legends, Current Roster, Golden Boots, and Race timeline', () => {
+  const byId = new Map(TOP_50_SCORERS_DATA.map((s) => [s.id, s]));
+
+  // 1. Every scorer linked to LEGENDS_DATA must match goals and matches strictly
+  for (const scorer of TOP_50_SCORERS_DATA) {
+    if (!scorer.legendId) continue;
+    const legend = LEGENDS_DATA.find((l) => l.id === scorer.legendId);
+    assert.ok(legend, `Missing LEGENDS_DATA entry for legendId "${scorer.legendId}"`);
+    assert.equal(
+      legend.goals,
+      scorer.totalGoals,
+      `Goal mismatch between Top 50 (${scorer.totalGoals}) and Legends (${legend.goals}) for ${scorer.name}`
+    );
+    if (scorer.matches) {
+      assert.equal(
+        legend.matches,
+        scorer.matches,
+        `Matches mismatch between Top 50 (${scorer.matches}) and Legends (${legend.matches}) for ${scorer.name}`
+      );
+    }
+  }
+
+  // 2. Active Top 50 players must match CURRENT_ROSTER goals strictly, and no non-Top-50 roster player may exceed the #50 cutoff (20)
+  const rosterByName = new Map(CURRENT_ROSTER.map((p) => [p.name, p]));
+  const top50Names = new Set(TOP_50_SCORERS_DATA.map((s) => s.name));
+  const cutoffGoals = TOP_50_SCORERS_DATA[TOP_50_SCORERS_DATA.length - 1].totalGoals;
+
+  for (const scorer of TOP_50_SCORERS_DATA.filter((s) => s.isActiveAtClub)) {
+    const rosterEntry = rosterByName.get(scorer.name);
+    assert.ok(rosterEntry, `Active Top 50 scorer "${scorer.name}" missing from CURRENT_ROSTER`);
+    assert.equal(
+      rosterEntry.goals,
+      scorer.totalGoals,
+      `Goal mismatch between Top 50 (${scorer.totalGoals}) and CURRENT_ROSTER (${rosterEntry.goals}) for ${scorer.name}`
+    );
+  }
+
+  for (const player of CURRENT_ROSTER) {
+    if (!top50Names.has(player.name)) {
+      assert.ok(
+        player.goals < cutoffGoals,
+        `CURRENT_ROSTER player "${player.name}" has ${player.goals} goals (>= Top 50 cutoff ${cutoffGoals}) yet is absent from TOP_50_SCORERS_DATA`
+      );
+    }
+  }
+
+  // 3. Verified historical period and biographical audit fixes
+  assert.equal(byId.get('victor-pacheco')?.periods, '1990–1999 · 2006 · 2009');
+  assert.equal(byId.get('arzuaga')?.periods, '2000–2005 · 2008 · 2010 · 2014');
+  assert.equal(byId.get('valenciano')?.bio.includes('en un mismo año calendario'), false);
+  assert.ok(byId.get('silva-pacheco')?.bio.includes('19 con Cúcuta'));
+  assert.ok(byId.get('silva-pacheco')?.bio.includes('17 con Junior'));
+
+  const veronLegend = LEGENDS_DATA.find((l) => l.id === 'veron');
+  assert.ok(veronLegend?.yearsInClub.includes('1979'));
+  assert.equal(veronLegend?.matches, 123);
+
+  // 4. Golden Boot historical accuracy notes (1973 split, 2010-I & 2017-II shared winners) & 15-to-15 Top 50 parity
+  const gb1973 = GOLDEN_BOOT_WINNERS.find((g) => g.id === 'gb-1973');
+  const gb2010 = GOLDEN_BOOT_WINNERS.find((g) => g.id === 'gb-2010');
+  const gb2017 = GOLDEN_BOOT_WINNERS.find((g) => g.id === 'gb-2017');
+  assert.ok(gb1973?.note.includes('19 con Cúcuta') && gb1973?.note.includes('17 con Junior'));
+  assert.ok(gb2010?.note.includes('Carlos Rentería'));
+  assert.ok(gb2017?.note.includes('Dayro Moreno') && gb2017?.note.includes('Ayron del Valle'));
+
+  const allTop50GoldenBoots = TOP_50_SCORERS_DATA.flatMap((s) => s.goldenBoots ?? []);
+  assert.equal(
+    allTop50GoldenBoots.length,
+    GOLDEN_BOOT_WINNERS.length,
+    `Expected Top 50 goldenBoots count (${allTop50GoldenBoots.length}) to equal GOLDEN_BOOT_WINNERS (${GOLDEN_BOOT_WINNERS.length})`
+  );
+  const sharedInTop50 = allTop50GoldenBoots.filter((b) => b.includes('compartido')).length;
+  const sharedInGoldenBoots = GOLDEN_BOOT_WINNERS.filter((g) => /compartido|igualado/i.test(g.note)).length;
+  assert.equal(sharedInTop50, 5);
+  assert.equal(sharedInGoldenBoots, 5);
+
+  // 5. Race timeline audited chronological invariants
+  const timeline = buildScorersRaceTimeline(TOP_50_SCORERS_DATA);
+  const seriesById = new Map(timeline.map((s) => [s.scorer.id, s]));
+  assert.equal(seriesById.get('silva-pacheco')?.goalsByYear[1973], 17);
+  assert.equal(seriesById.get('valenciano')?.goalsByYear[1988], 1);
+  assert.equal(seriesById.get('valenciano')?.goalsByYear[2006], 1);
+  assert.equal(seriesById.get('victor-pacheco')?.goalsByYear[2002], undefined);
+  assert.equal(seriesById.get('arzuaga')?.goalsByYear[2012], undefined);
+});
+
+test('Developer Semáforo de Datos: live Top 50 audit passes 50/50 green and reacts accurately to synthetic errors/warnings', () => {
+  const liveReport = evaluateScorersDataAudit(
+    TOP_50_SCORERS_DATA,
+    LEGENDS_DATA,
+    CURRENT_ROSTER,
+    GOLDEN_BOOT_WINNERS
+  );
+
+  assert.equal(liveReport.overallStatus, 'verde');
+  assert.equal(liveReport.summary.total, 50);
+  assert.equal(liveReport.summary.verde, 50);
+  assert.equal(liveReport.summary.ambar, 0);
+  assert.equal(liveReport.summary.rojo, 0);
+  assert.equal(liveReport.summary.massCorrected, 10);
+  assert.equal(liveReport.summary.photosVerified, 50);
+  assert.equal(liveReport.summary.goldenBootsCount, 15);
+  assert.ok(
+    liveReport.globalChecks.every((g) => g.status === 'verde'),
+    'All global cross-module checks must be verde'
+  );
+  assert.ok(
+    liveReport.records.every((r) => r.status === 'verde' && r.passedChecks === r.totalApplicableChecks),
+    'All 50 scorers must pass every applicable validation check'
+  );
+
+  // Synthetic fault injection: broken tournament breakdown -> rojo, missing photo -> ambar
+  const brokenScorers = TOP_50_SCORERS_DATA.map((s) => {
+    if (s.id === 'valenciano') {
+      return { ...s, breakdown: { ...s.breakdown, liga: s.breakdown.liga - 1 } };
+    }
+    if (s.id === 'ephanor') {
+      return { ...s, photoUrl: '' };
+    }
+    return s;
+  });
+
+  const faultReport = evaluateScorersDataAudit(
+    brokenScorers,
+    LEGENDS_DATA,
+    CURRENT_ROSTER,
+    GOLDEN_BOOT_WINNERS
+  );
+
+  assert.equal(faultReport.overallStatus, 'rojo');
+  assert.equal(faultReport.summary.rojo, 1);
+  assert.equal(faultReport.summary.ambar, 1);
+  assert.equal(faultReport.summary.verde, 48);
+
+  const valencianoAudit = faultReport.records.find((r) => r.scorer.id === 'valenciano');
+  const ephanorAudit = faultReport.records.find((r) => r.scorer.id === 'ephanor');
+  assert.equal(valencianoAudit?.status, 'rojo');
+  assert.equal(
+    valencianoAudit?.checks.find((c) => c.key === 'breakdown')?.status,
+    'rojo'
+  );
+  assert.equal(ephanorAudit?.status, 'ambar');
+  assert.equal(
+    ephanorAudit?.checks.find((c) => c.key === 'photo')?.status,
+    'ambar'
+  );
+});
+
+test('Titles Museum (Sala de Trofeos): 16 official titles integrity, era crests, cross-module links, and champion rankings', () => {
+  // 1. Exact totals and parity with STARS_DATA & ALL_14_OFFICIAL_TITLES
+  const totals = getTitleCategoryTotals(ENRICHED_OFFICIAL_TITLES);
+  assert.equal(totals.total, 16);
+  assert.equal(totals.liga, 12);
+  assert.equal(totals.copa, 2);
+  assert.equal(totals.superliga, 2);
+  assert.equal(totals.shootouts, 5);
+  assert.equal(ENRICHED_OFFICIAL_TITLES.length, ALL_14_OFFICIAL_TITLES.length);
+  assert.equal(
+    ENRICHED_OFFICIAL_TITLES.filter((t) => t.category === 'Liga (Estrella)').length,
+    STARS_DATA.length
+  );
+
+  // 2. Museum trophy imagery configured for all 3 Dimayor competitions & 1977/1980 archival photos bound
+  assert.ok(TROPHY_GALLERY_IMAGES['Liga (Estrella)'].endsWith('.jpg'));
+  assert.ok(TROPHY_GALLERY_IMAGES['Copa Colombia'].endsWith('.jpg'));
+  assert.ok(TROPHY_GALLERY_IMAGES['Superliga'].endsWith('.jpg'));
+  const title1977 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-1977');
+  assert.equal(title1977?.championPhotoUrl, '/assets/aistudio/image_1eafc3c5.png');
+  assert.equal(title1977?.championPhotoOrientation, 'landscape');
+  assert.equal(title1977?.standingsTableId, '1977-hexagonal');
+  const title1980 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-1980');
+  assert.equal(title1980?.championPhotoUrl, '/assets/aistudio/junior_1980_ec89564d.jpg');
+  assert.equal(title1980?.championPhotoOrientation, 'landscape');
+  assert.equal(title1980?.standingsTableId, '1980-cuadrangular');
+  const title1993 = ENRICHED_OFFICIAL_TITLES.find((t) => t.id === 'liga-1993');
+  assert.equal(title1993?.championPhotoUrl, '/assets/aistudio/image_ee29fca5.png');
+  assert.equal(title1993?.championPhotoOrientation, 'landscape');
+  assert.equal(title1993?.standingsTableId, '1993-cuadrangular');
+
+  // 3. Every title has valid cross-links (tables, rival franchise, Top 50 scorers), final match legs, and era crests
+  const tableIds = new Set(CHRONOLOGICAL_STANDINGS_TABLES.map((t) => t.id));
+  const franchiseIds = new Set(RIVAL_FRANCHISES_CATALOG.map((f) => f.id));
+  const top50Ids = new Set(TOP_50_SCORERS_DATA.map((s) => s.id));
+  const titleIds = new Set(ENRICHED_OFFICIAL_TITLES.map((t) => t.id));
+
+  for (const title of ENRICHED_OFFICIAL_TITLES) {
+    assert.ok(title.finalMatches.length >= 1, `Missing finalMatches for ${title.id}`);
+    assert.ok(
+      franchiseIds.has(title.rivalFranchiseId),
+      `Invalid rivalFranchiseId "${title.rivalFranchiseId}" in ${title.id}`
+    );
+    if (title.category === 'Liga (Estrella)') {
+      assert.ok(
+        title.standingsTableId && tableIds.has(title.standingsTableId),
+        `Invalid or missing standingsTableId for Liga star ${title.id}`
+      );
+    }
+    for (const sId of title.featuredScorerIds) {
+      assert.ok(top50Ids.has(sId), `Invalid featuredScorerId "${sId}" in ${title.id}`);
+    }
+    const yearToken = title.shortYearLabel.replace(/^(Copa|Superliga)\s+/i, '');
+    assert.ok(
+      getTournamentTeamCrest({ year: yearToken }, 'Junior', true)?.src,
+      `Missing Junior era crest for ${title.id}`
+    );
+    assert.ok(
+      getTournamentTeamCrest({ year: yearToken }, title.rivalDisplayName, false)?.src,
+      `Missing rival era crest for ${title.rivalDisplayName} (${yearToken}) in ${title.id}`
+    );
+  }
+
+  // 4. Champion managers ranking dynamically sums to all 16 titles
+  const managers = buildChampionManagersRanking(ENRICHED_OFFICIAL_TITLES);
+  const managerTotalSum = managers.reduce((sum, m) => sum + m.totalTitles, 0);
+  assert.equal(managerTotalSum, 16);
+  assert.equal(managers[0].name, 'Julio Avelino Comesaña');
+  assert.equal(managers[0].totalTitles, 5);
+  assert.equal(managers[1].name, 'Alfredo Arias');
+  assert.equal(managers[1].totalTitles, 2);
+
+  // 5. Champion players ranking has exact counts & valid titleIds
+  assert.equal(CHAMPION_PLAYERS_RANKING[0].name, 'Sebastián Viera');
+  assert.equal(CHAMPION_PLAYERS_RANKING[0].totalTitles, 7);
+  assert.equal(CHAMPION_PLAYERS_RANKING[1].name, 'Teófilo Gutiérrez');
+  assert.equal(CHAMPION_PLAYERS_RANKING[1].totalTitles, 7);
+  for (const player of CHAMPION_PLAYERS_RANKING) {
+    assert.equal(
+      player.ligaTitles + player.copaTitles + player.superligaTitles,
+      player.totalTitles,
+      `Breakdown mismatch for player ${player.name}`
+    );
+    assert.equal(player.titleIds.length, player.totalTitles);
+    for (const tId of player.titleIds) {
+      assert.ok(titleIds.has(tId), `Invalid titleId "${tId}" for player ${player.name}`);
+    }
+    if (player.scorerId) {
+      assert.ok(top50Ids.has(player.scorerId), `Invalid scorerId "${player.scorerId}" for ${player.name}`);
+    }
+  }
+
+  // 6. Filtering and adjacent navigation work accurately
+  const penalesOnly = filterOfficialTitles(ENRICHED_OFFICIAL_TITLES, {
+    category: 'todos',
+    format: 'final-penales',
+    query: '',
+  });
+  assert.equal(penalesOnly.length, 5);
+
+  const bySearch = filterOfficialTitles(ENRICHED_OFFICIAL_TITLES, {
+    category: 'todos',
+    format: 'todos',
+    query: 'Muriel',
+  });
+  assert.equal(bySearch.length, 1);
+  assert.equal(bySearch[0].id, 'liga-2026-I');
+
+  const adjLast = getAdjacentTitles(ENRICHED_OFFICIAL_TITLES, 'liga-2026-I');
+  assert.equal(adjLast.next, null);
+  assert.equal(adjLast.prev?.id, 'liga-2025-II');
+});
+
+
+
+

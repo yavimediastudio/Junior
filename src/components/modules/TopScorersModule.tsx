@@ -13,6 +13,8 @@ import {
   ExternalLink,
   Camera,
   Sparkles,
+  BarChart3,
+  Play,
 } from 'lucide-react';
 import { GOLDEN_BOOT_WINNERS, LEGENDS_DATA } from '../../data/juniorData';
 import {
@@ -32,11 +34,13 @@ import {
 import {
   filterTopScorers,
   getAdjacentScorers,
+  getBreakdownSum,
   getInternationalGoals,
   getScorerEraCounts,
 } from '../../utils/topScorersLogic';
 import { ScorerPortrait } from '../ScorerPortrait';
 import { NationalityFlag } from '../NationalityFlag';
+import { ScorersRaceChart } from '../ScorersRaceChart';
 
 const SPECIAL_FILTER_OPTIONS: Array<{ id: ScorerSpecialFilter; label: string }> = [
   { id: 'todos', label: 'Filtro: Todos (50)' },
@@ -53,7 +57,8 @@ const SORT_OPTIONS: Array<{ id: ScorerSortKey; label: string }> = [
 ];
 
 export const TopScorersModule: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'ranking' | 'botines' | 'detalle'>('ranking');
+  const [activeTab, setActiveTab] = useState<'ranking' | 'carrera' | 'botines' | 'detalle'>('ranking');
+  const [raceAutoPlay, setRaceAutoPlay] = useState<boolean>(true);
   const [selectedScorerId, setSelectedScorerId] = useState<string>(TOP_50_SCORERS_DATA[0].id);
   const [mobileDetailOpen, setMobileDetailOpen] = useState<boolean>(false);
   const [selectedLegendId, setSelectedLegendId] = useState<string>('valenciano');
@@ -81,6 +86,19 @@ export const TopScorersModule: React.FC = () => {
     () => TOP_50_SCORERS_DATA.filter((s) => Boolean(s.photoUrl)).length,
     []
   );
+
+  const goldenBootStats = useMemo(() => {
+    const sharedCount = GOLDEN_BOOT_WINNERS.filter((gb) =>
+      /compartido|igualado/i.test(gb.note)
+    ).length;
+    const uniquePlayers = new Set(GOLDEN_BOOT_WINNERS.map((gb) => gb.player)).size;
+    return {
+      total: GOLDEN_BOOT_WINNERS.length,
+      uniquePlayers,
+      sharedCount,
+      soloCount: GOLDEN_BOOT_WINNERS.length - sharedCount,
+    };
+  }, []);
 
   const selectedScorer: TopScorerProfile = useMemo(() => {
     return (
@@ -283,8 +301,11 @@ export const TopScorersModule: React.FC = () => {
 
         {/* Competition breakdown table */}
         <div className="space-y-2">
-          <div className="text-[11px] uppercase tracking-wider font-semibold text-slate-400">
-            Desglose oficial por competencia
+          <div className="flex items-center justify-between gap-2 text-[11px] uppercase tracking-wider font-semibold text-slate-400">
+            <span>Desglose oficial · Dimayor / CONMEBOL</span>
+            <span className="font-mono text-[10px] text-slate-500 tabular-nums">
+              Total verificado: {getBreakdownSum(scorer)}
+            </span>
           </div>
           <dl className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2 text-xs tabular-nums">
             <div className="flex items-baseline justify-between py-1.5 border-b border-slate-800/80">
@@ -419,7 +440,11 @@ export const TopScorersModule: React.FC = () => {
             <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-400 font-mono tabular-nums">
               <span>50 artilleros verificados</span>
               <span aria-hidden="true" className="text-slate-700">·</span>
-              <span>{verifiedPhotosCount} fotografías reales + {50 - verifiedPhotosCount} retratos editoriales</span>
+              <span>
+                {verifiedPhotosCount === TOP_50_SCORERS_DATA.length
+                  ? `${verifiedPhotosCount}/${TOP_50_SCORERS_DATA.length} fotografías reales de archivo`
+                  : `${verifiedPhotosCount} fotografías reales + ${TOP_50_SCORERS_DATA.length - verifiedPhotosCount} retratos editoriales`}
+              </span>
               <span aria-hidden="true" className="text-slate-700">·</span>
               <span>{TOP_50_SCORERS_LAST_UPDATED}</span>
               <span aria-hidden="true" className="text-slate-700">·</span>
@@ -451,6 +476,21 @@ export const TopScorersModule: React.FC = () => {
             >
               <Trophy className="w-3.5 h-3.5" />
               <span>Top 50 Histórico</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setRaceAutoPlay(true);
+                setActiveTab('carrera');
+              }}
+              className={`px-3.5 py-2 text-xs font-semibold rounded-md transition-colors whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
+                activeTab === 'carrera'
+                  ? 'bg-amber-500 text-slate-950 font-bold'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <BarChart3 className="w-3.5 h-3.5" />
+              <span>Carrera por el #1</span>
             </button>
             <button
               type="button"
@@ -545,6 +585,39 @@ export const TopScorersModule: React.FC = () => {
                   </button>
                 );
               })}
+            </div>
+
+            {/* 1-Click Invitation Strip to Interactive Bar Chart Race */}
+            <div className="rounded-xl bg-slate-900 border border-slate-800 px-4 sm:px-5 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-9 h-9 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center shrink-0 text-amber-400">
+                  <BarChart3 className="w-4 h-4" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-xs sm:text-sm font-bold text-white leading-snug">
+                    Carrera interactiva por el #1 histórico (1948–2026)
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-slate-400 truncate">
+                    Observa año por año cómo Rigoberto García, Ephanor, Valenciano, Bacca y Teófilo se disputan el liderato.
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setRaceAutoPlay(true);
+                  setActiveTab('carrera');
+                  window.setTimeout(() => {
+                    document
+                      .getElementById('scorers-race-console')
+                      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }, 60);
+                }}
+                className="px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-bold inline-flex items-center justify-center gap-1.5 transition-colors whitespace-nowrap shrink-0"
+              >
+                <Play className="w-3.5 h-3.5 fill-current" />
+                <span>Ver carrera animada</span>
+              </button>
             </div>
 
             {/* Filter & Search Toolbar */}
@@ -780,6 +853,10 @@ export const TopScorersModule: React.FC = () => {
                     })}
                   </div>
                 )}
+                <div className="px-4 sm:px-5 py-3 bg-slate-950/60 border-t border-slate-800 text-[11px] text-slate-400 leading-relaxed">
+                  <span className="font-semibold text-slate-300">Nota metodológica de archivo:</span>{' '}
+                  Totales consolidados en competencias oficiales Dimayor y CONMEBOL (Liga, Copa Colombia, Superliga, Libertadores, Sudamericana y Conmebol). Para Iván René Valenciano (166 goles) se adopta la convención Wikipedia/CONMEBOL (157 Liga + 9 Libertadores) frente a la variante histórica 158 + 8; para Nelson Silva Pacheco (84 goles con Junior) se excluyen sus 19 goles del Apertura 1973 con Cúcuta Deportivo.
+                </div>
               </div>
 
               {/* Right Column: Sticky Editorial Player Dossier (Desktop) */}
@@ -794,17 +871,49 @@ export const TopScorersModule: React.FC = () => {
         )}
 
         {/* ================================================================= */}
-        {/* TAB 2: 15 BOTINES DE ORO OFICIALES                                */}
+        {/* TAB 2: CARRERA INTERACTIVA POR EL #1 (1948–2026)                  */}
+        {/* ================================================================= */}
+        {activeTab === 'carrera' && (
+          <ScorersRaceChart
+            scorers={TOP_50_SCORERS_DATA}
+            autoPlayOnMount={raceAutoPlay}
+            onSelectScorer={(scorer) => {
+              setSelectedScorerId(scorer.id);
+              setActiveTab('ranking');
+              if (window.innerWidth < 1024) {
+                setMobileDetailOpen(true);
+              }
+            }}
+          />
+        )}
+
+        {/* ================================================================= */}
+        {/* TAB 3: 15 BOTINES DE ORO OFICIALES                                */}
         {/* ================================================================= */}
         {activeTab === 'botines' && (
           <div className="space-y-6">
-            <div className="pb-4 border-b border-slate-800">
-              <h2 className="font-display text-2xl font-black text-white uppercase tracking-tight">
-                Los 15 Botines de Oro Dimayor con la Camiseta de Junior
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
-                Delanteros que se consagraron máximos artilleros del fútbol profesional colombiano vistiendo la franja rojiblanca, desde Nelson Silva Pacheco (1973) hasta Luis Muriel (2026-I).
-              </p>
+            <div className="pb-4 border-b border-slate-800 space-y-3">
+              <div>
+                <h2 className="font-display text-2xl font-black text-white uppercase tracking-tight">
+                  Los {goldenBootStats.total} Botines de Oro Dimayor con la Camiseta de Junior
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
+                  Delanteros que se consagraron máximos artilleros de Categoría Primera A cerrando temporada con la franja rojiblanca, desde Nelson Silva Pacheco (1973) hasta Luis Muriel (2026-I).
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-mono tabular-nums text-slate-400">
+                <span className="text-amber-400 font-semibold">
+                  {goldenBootStats.total} Primera A
+                </span>
+                <span aria-hidden="true" className="text-slate-700">·</span>
+                <span>{goldenBootStats.uniquePlayers} artilleros distintos</span>
+                <span aria-hidden="true" className="text-slate-700">·</span>
+                <span>{goldenBootStats.soloCount} en solitario</span>
+                <span aria-hidden="true" className="text-slate-700">·</span>
+                <span>{goldenBootStats.sharedCount} compartidos</span>
+                <span aria-hidden="true" className="text-slate-700">·</span>
+                <span className="text-slate-300">+2 Copa Colombia (Bacca 2009 y 2011)</span>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -863,11 +972,16 @@ export const TopScorersModule: React.FC = () => {
                 );
               })}
             </div>
+
+            <div className="rounded-xl bg-slate-900 border border-slate-800 px-4 sm:px-5 py-3.5 text-xs text-slate-300 leading-relaxed">
+              <span className="font-semibold text-amber-400">Nota de archivo Dimayor:</span>{' '}
+              Este cuadro corresponde exclusivamente a los <strong className="text-white">15 Botines de Oro de Categoría Primera A</strong> (incluidos los empates compartidos en 2010-I, 2013-II, 2017-II, 2024-I y 2026-I, y el título de 1973 ganado por Silva Pacheco sumando 19 goles con Cúcuta y 17 con Junior). En <strong className="text-white">Copa Colombia</strong>, Carlos Bacca conquistó además <strong className="text-amber-300">2 Botines de Oro oficiales</strong> vistiendo la rojiblanca: 2009 (11 goles) y 2011 (8 goles, compartido con Óscar Iván Méndez).
+            </div>
           </div>
         )}
 
         {/* ================================================================= */}
-        {/* TAB 3: FICHA TÉCNICA ÍDOLO                                        */}
+        {/* TAB 4: FICHA TÉCNICA ÍDOLO                                        */}
         {/* ================================================================= */}
         {activeTab === 'detalle' && (
           <div className="space-y-6">
@@ -895,6 +1009,11 @@ export const TopScorersModule: React.FC = () => {
               const matchedTopScorer = TOP_50_SCORERS_DATA.find(
                 (s) => s.legendId === selectedLegend.id
               );
+              const syncedGoals = matchedTopScorer
+                ? matchedTopScorer.totalGoals
+                : selectedLegend.goals;
+              const syncedMatches = matchedTopScorer?.matches ?? selectedLegend.matches;
+
               return (
                 <article className="p-6 sm:p-8 rounded-xl bg-slate-900 border border-slate-800 space-y-6 max-w-4xl">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
@@ -904,7 +1023,7 @@ export const TopScorersModule: React.FC = () => {
                       )}
                       <div className="min-w-0">
                         <div className="text-xs font-mono text-amber-400 font-semibold">
-                          {selectedLegend.nickname} · {selectedLegend.era}
+                          {selectedLegend.nickname} · {matchedTopScorer ? matchedTopScorer.periods : selectedLegend.era}
                         </div>
                         <h2 className="font-display text-2xl sm:text-3xl font-black text-white uppercase tracking-tight">
                           <span>{selectedLegend.name}</span>
@@ -917,17 +1036,22 @@ export const TopScorersModule: React.FC = () => {
                             />
                           )}
                         </h2>
-                        <div className="text-xs text-slate-400">{selectedLegend.position}</div>
+                        <div className="text-xs text-slate-400">
+                          {selectedLegend.position}
+                          {matchedTopScorer && (
+                            <span className="font-mono text-slate-500"> · Puesto #{matchedTopScorer.rank} histórico</span>
+                          )}
+                        </div>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-6 shrink-0 tabular-nums">
                       <div>
                         <div className="text-[10px] text-slate-400 uppercase tracking-wider">
-                          Goles
+                          Goles Oficiales
                         </div>
                         <div className="text-3xl font-black text-amber-400 font-display">
-                          {matchedTopScorer ? matchedTopScorer.totalGoals : selectedLegend.goals}
+                          {syncedGoals}
                         </div>
                       </div>
                       <div className="pl-6 border-l border-slate-800">
@@ -935,11 +1059,68 @@ export const TopScorersModule: React.FC = () => {
                           Partidos
                         </div>
                         <div className="text-3xl font-black text-white font-display">
-                          {selectedLegend.matches}
+                          {syncedMatches}
                         </div>
                       </div>
                     </div>
                   </div>
+
+                  {matchedTopScorer && (
+                    <div className="space-y-2.5 pb-4 border-b border-slate-800/80">
+                      <div className="flex items-center justify-between gap-2 text-[11px] uppercase tracking-wider font-semibold text-slate-400">
+                        <span>Desglose oficial auditado · Dimayor / CONMEBOL</span>
+                        <span className="font-mono text-[10px] text-slate-500 tabular-nums">
+                          {getBreakdownSum(matchedTopScorer)} goles verificados
+                        </span>
+                      </div>
+                      <dl className="grid grid-cols-3 sm:grid-cols-6 gap-3 text-xs tabular-nums">
+                        <div className="py-1.5 border-b border-slate-800/80">
+                          <dt className="text-[10px] uppercase text-slate-400">Liga</dt>
+                          <dd className="font-mono font-bold text-white text-sm mt-0.5">
+                            {matchedTopScorer.breakdown.liga}
+                          </dd>
+                        </div>
+                        <div className="py-1.5 border-b border-slate-800/80">
+                          <dt className="text-[10px] uppercase text-slate-400">Copa Col.</dt>
+                          <dd className="font-mono font-bold text-white text-sm mt-0.5">
+                            {matchedTopScorer.breakdown.copa}
+                          </dd>
+                        </div>
+                        <div className="py-1.5 border-b border-slate-800/80">
+                          <dt className="text-[10px] uppercase text-slate-400">Superliga</dt>
+                          <dd className="font-mono font-bold text-white text-sm mt-0.5">
+                            {matchedTopScorer.breakdown.superliga}
+                          </dd>
+                        </div>
+                        <div className="py-1.5 border-b border-slate-800/80">
+                          <dt className="text-[10px] uppercase text-slate-400">Libertadores</dt>
+                          <dd className="font-mono font-bold text-sky-300 text-sm mt-0.5">
+                            {matchedTopScorer.breakdown.libertadores}
+                          </dd>
+                        </div>
+                        <div className="py-1.5 border-b border-slate-800/80">
+                          <dt className="text-[10px] uppercase text-slate-400">Sudamericana</dt>
+                          <dd className="font-mono font-bold text-sky-300 text-sm mt-0.5">
+                            {matchedTopScorer.breakdown.sudamericana}
+                          </dd>
+                        </div>
+                        <div className="py-1.5 border-b border-slate-800/80">
+                          <dt className="text-[10px] uppercase text-slate-400">Conmebol</dt>
+                          <dd className="font-mono font-bold text-sky-300 text-sm mt-0.5">
+                            {matchedTopScorer.breakdown.conmebol}
+                          </dd>
+                        </div>
+                      </dl>
+                      {matchedTopScorer.goldenBoots && matchedTopScorer.goldenBoots.length > 0 && (
+                        <p className="text-xs text-amber-300 pt-1">
+                          <span className="uppercase tracking-wider text-[10px] font-bold text-amber-400 mr-1.5">
+                            Botín de Oro Dimayor:
+                          </span>
+                          {matchedTopScorer.goldenBoots.join(' · ')}
+                        </p>
+                      )}
+                    </div>
+                  )}
 
                   <p className="text-sm sm:text-[15px] text-slate-200 leading-relaxed max-w-prose">
                     {selectedLegend.bio}
